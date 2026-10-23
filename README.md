@@ -4,15 +4,35 @@
 
 ## 本地预览
 
-需要 Node.js 22 或更新版本，无第三方运行依赖。
+使用 Node.js 22，无第三方运行依赖。
 
 ```sh
+npm ci
 npm run build
 npm test
 npm start
 ```
 
 打开终端给出的 http://127.0.0.1:4173 。部署使用 dist/ 静态目录，Sites 项目身份保存在 .openai/hosting.json。
+
+## Vercel 部署
+
+在 Vercel 新建项目，导入本 GitHub 仓库，根目录保留为仓库根目录 `.`，然后部署。
+
+仓库内的 `vercel.json` 已配置：
+
+| 项目 | 设置 |
+| --- | --- |
+| Framework Preset | Other |
+| Node.js | 22.x |
+| Install Command | `npm ci` |
+| Build Command | `npm run build` |
+| Output Directory | `dist` |
+| Environment Variables | 无需配置 |
+
+网页使用 `#/feed` 等哈希路由，无需额外添加路由重写。只发布 `dist/`，研究笔记和本地 PDF 不作为静态资源发布。`.openai/hosting.json` 仅用于原有 Sites 托管，Vercel 不使用该文件。
+
+修改 `content/` 后运行构建与测试，再提交到 GitHub。定时采集尚未实现，部署不会自动产生新情报。Vercel 配置字段见[官方文档](https://vercel.com/docs/project-configuration/vercel-json)。
 
 ## 已实现
 

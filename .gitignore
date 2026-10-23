@@ -5,3 +5,7 @@ node_modules/
 test-results/
 *.tar.gz
 *.tgz
+.vercel/
+.env
+.env.*
+!.env.example

@@ -3,6 +3,9 @@
   "version": "0.2.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "build": "node scripts/build-data.mjs",
     "test": "node --test scripts/*.test.mjs",
