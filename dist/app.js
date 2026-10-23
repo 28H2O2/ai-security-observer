@@ -1,4 +1,6 @@
 import {kindNames,riskNames,topics,itemDate,filterItems} from './model.js';
+import {sourceCatalogView} from './source-model.js';
+import {connectSourceGraph} from './source-graph.js';
 
 const main=document.querySelector('#main-content');
 const iconPaths={search:'<circle cx="9" cy="9" r="6"/><path d="m14 14 4 4"/>',external:'<path d="M7 4h9v9M16 4 4 16"/>',back:'<path d="M16 10H4m5-5-5 5 5 5"/>',down:'<path d="m5 8 5 5 5-5"/>',share:'<path d="M10 13V2m-4 4 4-4 4 4M4 10v7h12v-7"/>'};
@@ -9,8 +11,8 @@ const shortDate=value=>`${Number(value.slice(5,7))}月${Number(value.slice(8,10)
 function safeUrl(value){try{const u=new URL(value);return ['https:','http:'].includes(u.protocol)?esc(u.href):'';}catch{return '';}}
 const sourceNames={anthropic:'Anthropic',openai:'OpenAI',microsoft:'Microsoft Security',trail:'Trail of Bits',unit42:'Unit 42',checkpoint:'Check Point',embrace:'Embrace The Red',pillar:'Pillar Security',zenity:'Zenity Labs',aws:'AWS Security',pdf:'AI事鉴 · PDF',github:'GitHub Advisories',seebug:'Seebug'};
 const sourceLabel=source=>sourceNames[source.id]||source.shortName||source.name;
-const hiddenCatalogSources=new Set(['pdf']);
 let items=[],sources=[],meta={},lastHash=location.hash||'#/feed',returnHash='#/feed',filtersOpen=false,searchTimer,toastTimer;
+let disconnectGraph=()=>{},sourceFocus=null,renderedSource=null;
 let inputMethod='pointer';
 function loadRead(){try{const data=JSON.parse(localStorage.getItem('ai-security-observer:v1:read')||'[]');return new Set(Array.isArray(data)?data:[]);}catch{return new Set();}}
 const read=loadRead();
@@ -42,7 +44,17 @@ function listMarkup(list){
  return list.map(item=>{const value=itemDate(item);const heading=value!==previous?`<div class="day-label"><span class="year">${value.slice(0,4)}</span><time datetime="${value}">${shortDate(value)}</time><span class="date-rule"></span><span class="day-count">${counts.get(value)} 条</span></div>`:'';previous=value;return heading+article(item);}).join('')+`<div class="results-caption">共 ${list.length} 条</div>`;
 }
 function feedPage(r){const title={feed:'最新情报',incidents:'真实事件',research:'研究披露'}[r.view];const list=filterItems(items,r,read,meta.updatedAt);return `<div class="reading-layout">${sourceSidebar(r)}<section class="content-column"><div class="sr-only"><h1>${title}</h1><span id="result-count" role="status">${list.length} 条情报</span></div>${filters(r)}<div id="news-list" aria-live="polite">${listMarkup(list)}</div></section></div>`;}
-function sourcePage(r){const catalog=sources.filter(source=>source.category!=='reference'&&!hiddenCatalogSources.has(source.id));const text=r.q.toLocaleLowerCase();const list=catalog.filter(source=>[source.name,source.description,source.method,source.notes].join(' ').toLocaleLowerCase().includes(text));const groups={vendor:'厂商与官方披露',research:'AI 安全研究',security:'安全机构',chinese:'中文资料',database:'结构化资料'};return `<div class="page-heading"><h1>来源库</h1><span class="result-count">${catalog.length} 个来源</span></div><div class="source-tools"><label class="search-box" for="source-search">${icon('search')}<input type="search" id="source-search" placeholder="搜索来源…" aria-label="搜索来源" value="${esc(r.q)}"></label><span>入口核验 ${date(meta.updatedAt)} · 定时采集待接入</span></div>${Object.entries(groups).map(([key,name])=>{const group=list.filter(source=>source.category===key);if(!group.length)return '';return `<section class="source-group"><h2 class="source-group-heading">${name}<small>${group.length}</small></h2><div class="source-grid">${group.map(source=>`<article class="source-entry"><div class="source-entry-header"><h3>${esc(source.name)}</h3><span class="method-label">${esc(source.method.toUpperCase())}</span></div><p>${esc(source.description)}</p><div class="source-status ${source.status==='reference'?'reference':''}">${source.status==='checked'?'公开入口已核验':'参考资料'} · ${date(source.checkedAt)}</div><div class="source-entry-links">${safeUrl(source.url)?`<a href="${safeUrl(source.url)}" target="_blank" rel="noopener noreferrer">访问来源 ${icon('external')}</a>`:''}${safeUrl(source.endpoint)?`<a href="${safeUrl(source.endpoint)}" target="_blank" rel="noopener noreferrer">获取入口 ${icon('external')}</a>`:''}${items.some(item=>item.sourceId===source.id)?`<a href="#/feed?source=${source.id}">已收录 ${items.filter(item=>item.sourceId===source.id).length} 条 →</a>`:''}</div><details class="source-details"><summary>接入说明</summary><p>${esc(source.notes)}</p></details></article>`).join('')}</div></section>`;}).join('')}${!list.length?'<div class="empty-state"><h2>没有匹配来源</h2><button class="outline-button" data-action="reset">清空搜索</button></div>':''}`;}
+function sourceDetail(source){
+ const count=items.filter(item=>item.sourceId===source.id).length;
+ return `<section class="source-detail" aria-labelledby="source-detail-title"><div class="source-detail-heading"><div><span class="method-label">${esc(source.method.toUpperCase())}</span><h2 id="source-detail-title" tabindex="-1">${esc(source.name)}</h2></div><button class="source-close" type="button" data-action="source-close" data-value="${esc(source.id)}" aria-label="关闭来源详情">×</button></div><p class="source-description">${esc(source.description)}</p><div class="source-entry-links">${safeUrl(source.url)?`<a href="${safeUrl(source.url)}" target="_blank" rel="noopener noreferrer">访问来源 ${icon('external')}</a>`:''}${safeUrl(source.endpoint)?`<a href="${safeUrl(source.endpoint)}" target="_blank" rel="noopener noreferrer">获取入口 ${icon('external')}</a>`:''}${count?`<a href="#/feed?source=${esc(source.id)}">已收录 ${count} 条 →</a>`:'<span class="source-zero">已收录 0 条</span>'}</div><p class="source-status ${source.status==='reference'?'reference':''}">${source.status==='checked'?'公开入口已核验':'参考资料'} · ${date(source.checkedAt)}</p><details class="source-details"><summary>接入说明</summary><p>${esc(source.notes)}</p></details></section>`;
+}
+function sourcePage(r){
+ const view=sourceCatalogView(sources,r);
+ // Keep the address and detail state aligned after search, including deep links.
+ if(r.source!=='all'&&!view.selected){r.params.delete('source');r.source='all';const next=`#/sources${r.params.size?'?'+r.params.toString():''}`;history.replaceState(null,'',next);lastHash=next;}
+ renderedSource=view.selected?.id||null;
+ return `<div class="page-heading"><h1>来源库</h1></div><form class="source-tools" id="source-search-form" role="search" aria-label="搜索来源库"><label class="search-box" for="source-search">${icon('search')}<input type="search" id="source-search" autocomplete="off" placeholder="搜索来源或分类…" aria-label="搜索来源" value="${esc(r.q)}"></label><span class="source-search-count" role="status">${r.q?`找到 ${view.count} 个来源`:''}</span></form>${view.count?`<section class="source-map" aria-label="来源分类关系图"><svg class="source-connections" aria-hidden="true" focusable="false">${view.groups.map(group=>`<path data-branch="${group.id}" class="${view.selected?.category===group.id?'is-selected':''}"></path>`).join('')}</svg><div class="source-hub"><div class="source-hub-count"><strong>${view.count}</strong><span>个来源</span></div><span class="source-hub-caption">${r.q?`共 ${view.total} 个 · `:''}${view.groups.length} 个分类</span></div><div class="source-branches">${view.groups.map(group=>`<section class="source-category ${view.selected?.category===group.id?'is-selected':''}" data-category="${group.id}" aria-labelledby="source-category-${group.id}"><h2 id="source-category-${group.id}">${group.label}<span>${group.sources.length}</span></h2><div class="source-members">${group.sources.map(source=>`<button type="button" id="source-node-${esc(source.id)}" class="source-node ${view.selected?.id===source.id?'is-selected':''}" data-action="source-detail" data-value="${esc(source.id)}" aria-pressed="${view.selected?.id===source.id}"${view.selected?.id===source.id?' aria-controls="source-detail-title"':''}>${esc(source.category==='database'||source.id==='seebug'?source.name:source.shortName||source.name)}</button>`).join('')}</div></section>`).join('')}</div></section>`:'<div class="empty-state"><h2>没有匹配来源</h2><button class="outline-button" type="button" data-action="source-clear">清空搜索</button></div>'}${view.selected?sourceDetail(view.selected):''}`;
+}
 function detailPage(id){
  const item=items.find(value=>value.id===id);if(!item)return notFound();rememberRead(id);
  const refs=item.references.filter(ref=>safeUrl(ref.url));const related=items.filter(value=>value.id!==id&&value.evidence==='primary'&&value.tags.some(tag=>item.tags.includes(tag))).slice(0,2);
@@ -51,6 +63,8 @@ function detailPage(id){
 function notFound(){return '<div class="empty-state"><h2>没有找到这条资料</h2><a class="outline-button" href="#/feed">返回最新情报 →</a></div>';}
 function render(preserveFocus=false){
  const active=document.activeElement;const focusId=preserveFocus?active?.id:null;const cursor=preserveFocus&&active instanceof HTMLInputElement?active.selectionStart:null;
+ const previousSource=renderedSource;const focusWasInDetail=!!active?.closest('.source-detail');
+ disconnectGraph();renderedSource=null;
  const oldDetails=document.querySelector('.filter-panel');if(oldDetails)filtersOpen=oldDetails.open;
  const r=route();document.querySelectorAll('[data-nav]').forEach(link=>{const current=link.dataset.nav===r.view;link.classList.toggle('active',current);if(current)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
  const nav=document.querySelector('.nav-links');const selected=nav.querySelector('[aria-current]');if(selected){const a=selected.getBoundingClientRect(),b=nav.getBoundingClientRect();if(a.right>b.right)nav.scrollLeft+=a.right-b.right+8;else if(a.left<b.left)nav.scrollLeft-=b.left-a.left+8;}
@@ -58,13 +72,24 @@ function render(preserveFocus=false){
  document.title=`${r.view==='item'?(items.find(item=>item.id===r.id)?.title||'情报详情'):(titles[r.view]||'页面未找到')} | AI 安全观察`;
  document.querySelector('#edition-date').textContent=date(meta.updatedAt);
  main.innerHTML=['feed','incidents','research'].includes(r.view)?feedPage(r):r.view==='sources'?sourcePage(r):r.view==='item'?detailPage(r.id):notFound();
- if(focusId){const target=document.getElementById(focusId);target?.focus({preventScroll:true});if(cursor!==null&&target?.type==='search')try{target.setSelectionRange(cursor,cursor);}catch{}}
+ if(r.view==='sources'){const graph=document.querySelector('.source-map');if(graph)disconnectGraph=connectSourceGraph(graph);}
+ const sourceTarget=sourceFocus||(focusWasInDetail&&!renderedSource?`source-node-${previousSource}`:null);sourceFocus=null;
+ if(sourceTarget){const target=document.getElementById(sourceTarget);target?.focus({preventScroll:true});target?.scrollIntoView({block:'nearest'});}
+ else if(focusId){const target=document.getElementById(focusId);target?.focus({preventScroll:true});if(cursor!==null&&target?.type==='search')try{target.setSelectionRange(cursor,cursor);}catch{}}
 }
 document.addEventListener('pointerdown',()=>inputMethod='pointer');document.addEventListener('keydown',()=>inputMethod='keyboard');
 document.addEventListener('click',async event=>{
  if(event.target.closest('.skip-link')){event.preventDefault();main.focus();main.scrollIntoView();return;}
  const button=event.target.closest('[data-action]');if(!button)return;
- if(button.dataset.action==='source')setParam('source',button.dataset.value);
+ if(button.dataset.action==='source-detail'){
+  clearTimeout(searchTimer);
+  const value=button.dataset.value,query=document.querySelector('#source-search').value;
+  if(query!==route().q)setParam('q',query,{replace:true});
+  sourceFocus='source-detail-title';if(route().source===value)render();else setParam('source',value);
+ }
+ else if(button.dataset.action==='source-close'){sourceFocus=`source-node-${button.dataset.value}`;setParam('source','all');}
+ else if(button.dataset.action==='source-clear'){sourceFocus='source-search';setParam('q','',{replace:true});}
+ else if(button.dataset.action==='source')setParam('source',button.dataset.value);
  else if(button.dataset.action==='topic')setParam('topic',button.dataset.value);
  else if(button.dataset.action==='reset')reset();
  else if(button.dataset.action==='risk-reset')setParam('risk','all');
@@ -75,8 +100,8 @@ document.addEventListener('click',async event=>{
 });
 document.addEventListener('change',event=>{if(event.target.matches('[data-filter]'))setParam(event.target.dataset.filter,event.target.value);if(event.target.id==='unread-toggle')setParam('unread',event.target.checked?'1':'0');});
 document.addEventListener('input',event=>{if(['search-input','source-search'].includes(event.target.id)){const value=event.target.value;clearTimeout(searchTimer);searchTimer=setTimeout(()=>setParam('q',value,{replace:true}),180);}});
-document.addEventListener('submit',event=>{if(event.target.id==='filter-form'){event.preventDefault();clearTimeout(searchTimer);setParam('q',document.querySelector('#search-input').value,{replace:true});}});
-document.addEventListener('keydown',event=>{if(event.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(event.target.tagName)){const input=document.querySelector('#search-input,#source-search');if(input){event.preventDefault();input.focus();}}if(event.key==='Escape'&&event.target.matches('#search-input,#source-search')){clearTimeout(searchTimer);setParam('q','',{replace:true});}});
+document.addEventListener('submit',event=>{if(['filter-form','source-search-form'].includes(event.target.id)){event.preventDefault();clearTimeout(searchTimer);setParam('q',event.target.querySelector('input[type=search]').value,{replace:true});}});
+document.addEventListener('keydown',event=>{if(event.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(event.target.tagName)){const input=document.querySelector('#search-input,#source-search');if(input){event.preventDefault();input.focus();}}if(event.key==='Escape'&&event.target.closest('.source-detail')){event.preventDefault();sourceFocus=`source-node-${route().source}`;setParam('source','all');}else if(event.key==='Escape'&&event.target.matches('#search-input,#source-search')){clearTimeout(searchTimer);setParam('q','',{replace:true});}});
 window.addEventListener('hashchange',()=>{clearTimeout(searchTimer);const previous=lastHash;lastHash=location.hash;const previousView=previous.replace(/^#\/?/,'').split(/[/?]/)[0];const current=route();if(current.view==='item'&&previousView!=='item')returnHash=previous;render();if(previousView!==current.view){window.scrollTo({top:0});if(inputMethod==='keyboard')main.focus({preventScroll:true});}});
 window.addEventListener('storage',event=>{if(event.key==='ai-security-observer:v1:read'){read.clear();loadRead().forEach(id=>read.add(id));render();}});
 try{
