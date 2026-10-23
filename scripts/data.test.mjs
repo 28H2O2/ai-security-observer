@@ -22,5 +22,5 @@ test('Deadbugz补回一手原文并保留23未合并、19关闭4开放的区别'
  const item=data.items.find(value=>value.externalId==='AISID-2026-0007');assert.equal(item.evidence,'primary');assert.ok(item.limitations.includes('19'));assert.ok(item.limitations.includes('4'));assert.ok(!item.title.includes('全部被拦截'));
 });
 test('入口检查与工程参考分开，未来日期不会进入资料快照',()=>{
- assert.equal(sources.filter(s=>s.status==='checked').length,11);assert.equal(sources.find(s=>s.id==='aihot').category,'reference');for(const item of data.items){assert.ok(item.publishedAt<=data.meta.updatedAt);if(item.originalPublishedAt)assert.ok(item.originalPublishedAt<=data.meta.updatedAt);}
+ assert.equal(sources.filter(s=>s.status==='checked').length,12);assert.equal(sources.find(s=>s.id==='aihot').category,'reference');for(const item of data.items){assert.ok(item.publishedAt<=data.meta.updatedAt);if(item.originalPublishedAt)assert.ok(item.originalPublishedAt<=data.meta.updatedAt);if(item.cvePublishedAt)assert.ok(item.cvePublishedAt<=data.meta.updatedAt);}
 });

@@ -117,6 +117,19 @@
     "notes": "主站 Sitemap 入口 HTTP 200 且 XML 可解析；并不保证覆盖 Labs 全部文章，需核对 Labs 列表及详情，尚未实现自动采集。"
   },
   {
+    "id": "cve",
+    "name": "CVE 官方记录",
+    "shortName": "CVE",
+    "url": "https://www.cve.org/",
+    "endpoint": "https://github.com/CVEProject/cvelistV5",
+    "method": "git",
+    "category": "database",
+    "description": "筛选 AI 产品与工具链的官方 CVE 记录，结合项目公告核对影响、版本和修复条件。",
+    "status": "checked",
+    "checkedAt": "2026-10-23",
+    "notes": "首批人工核验 8 条，官方 CVE 固定提交为 cd661319d2df8a740dfc3dfe118a7e79fa82ba60，均附项目公告。来源不提供统一 AI 分类；当前为人工快照，未启用自动采集。列表沿用项目公告日期，CVE 编号发布时间单独展示。"
+  },
+  {
     "id": "github",
     "name": "GitHub Security Advisories",
     "shortName": "GitHub Advisories",

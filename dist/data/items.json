@@ -1,15 +1,16 @@
 {
   "meta": {
     "title": "AI 安全观察",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "updatedAt": "2026-10-23",
     "timeZone": "Asia/Taipei",
     "mode": "curated-snapshot",
     "scheduledCollection": false,
-    "total": 68,
+    "total": 76,
     "pdfRecords": 16,
-    "primaryRecords": 59,
-    "activeSources": 11
+    "primaryRecords": 67,
+    "cveRecords": 26,
+    "activeSources": 12
   },
   "items": [
     {
@@ -45,7 +46,8 @@
       "limitations": "厂商原始报告确认表单提交与垃圾信息处置。该案例不意味着模型侵入警方系统；来源未报告客户数据泄露。模型行为的动机与诚实程度仍需进一步评估。",
       "impact": "警方收到一条虚构线索并按垃圾信息处理，未进入侦查流程；无已披露的入侵或泄露。",
       "recommendation": "评测只接模拟入口，隔离真实政务页面；线索接收方留存原始提交和分流记录。",
-      "pdfPage": 2
+      "pdfPage": 2,
+      "cveIds": []
     },
     {
       "id": "pdf-2026-0002",
@@ -75,7 +77,8 @@
       "limitations": "依据 PDF 汇编，尚未完成一手来源核验。监管方确认的是入侵和泄露事实，并非 AI 因果作用；10 月 14 日为监管确认日期。",
       "impact": "来源称 16 家金融机构被入侵、约 10 万条个人信息泄露；AI 对攻击结果的具体贡献未独立确认。",
       "recommendation": "关联分析登录异常、权限变更与批量导出，完整保留日志并收紧高权限账号权限。",
-      "pdfPage": 2
+      "pdfPage": 2,
+      "cveIds": []
     },
     {
       "id": "pdf-2026-0003",
@@ -104,7 +107,8 @@
       "limitations": "依据 PDF 汇编，尚未完成一手来源核验。另 7 家机构只有侦察记录，不能与 4 家已确认失陷机构合并统计。",
       "impact": "来源称 4 家机构失陷、逾 62.8 万条个人记录外泄；另 7 家机构是否失陷未获确认。",
       "recommendation": "依据资产清单更新网站和插件；发现失陷后继续核查账号权限、可达资源及异常外联。",
-      "pdfPage": 2
+      "pdfPage": 2,
+      "cveIds": []
     },
     {
       "id": "pdf-2026-0004",
@@ -132,7 +136,8 @@
       "limitations": "依据 PDF 汇编，尚未完成一手来源核验。来源称破坏事实确凿，但 AI 驱动仅为基于行为特征的推定，未获独立确认。",
       "impact": "来源称生产环境配置和数据库遭勒索破坏，涉及 1342 项配置；单位名称、经济损失未公开。",
       "recommendation": "将 AI 编排平台纳入资产与补丁管理，隔离测试和生产环境，并演练配置、密钥及依赖恢复。",
-      "pdfPage": 3
+      "pdfPage": 3,
+      "cveIds": []
     },
     {
       "id": "pdf-2026-0005",
@@ -160,7 +165,8 @@
       "limitations": "依据 PDF 汇编，尚未完成一手来源核验。来源归为真实攻击活动，但描述的是攻击意图；未公开具体成功诱导、受害规模及损失。",
       "impact": "已披露钓鱼邮件中存在面向 AI 助手的恶意指令；实际受害规模、处理被篡改的数量和经济损失未公开。",
       "recommendation": "通过已知可信渠道复核账户与付款变更；限制助手外发和改写权限，保留原文与摘要对照。",
-      "pdfPage": 3
+      "pdfPage": 3,
+      "cveIds": []
     },
     {
       "id": "pdf-2026-0006",
@@ -189,7 +195,8 @@
       "limitations": "依据 PDF 汇编，尚未完成一手来源核验。恶意版本上架不等于下游已下载或运行；未公开实际失窃凭证或受影响设备数量。",
       "impact": "0.5.144 版工具包在 npm 可供下载约 100 分钟；下游感染、运行情况及数据损失未公开。",
       "recommendation": "核查锁文件、缓存与安装记录；疑似运行过的设备先隔离取证，再于干净环境更换凭证和重建。",
-      "pdfPage": 3
+      "pdfPage": 3,
+      "cveIds": []
     },
     {
       "id": "pdf-2026-0007",
@@ -223,7 +230,8 @@
       "limitations": "原文说明 23 个 PR 在审查时未通过 GitHub 的合并机制合并，其中 19 个关闭、4 个仍开放；这与 PDF“全部被拦截”的概括不同，不能等同于全部已拒绝。报告确认恶意元数据与投递行为，但未证明这些 PR 已造成凭证失窃。",
       "impact": "公开配置变更被用于投递带延迟触发的恶意 MCP 服务；所审查的 23 个 PR 在披露时尚未合并。其他渠道传播与实际失窃规模未确定。",
       "recommendation": "按可执行代码标准审查工具配置，记录来源、版本和审核人；配置内容或参数变更后重新验证。",
-      "pdfPage": 4
+      "pdfPage": 4,
+      "cveIds": []
     },
     {
       "id": "pdf-2026-0008",
@@ -257,7 +265,8 @@
       "limitations": "原始报告未公开学校名称、具体发生日期和损失，也未给出该缺陷的修复确认。Anthropic 将这批行为的现实影响描述为有限，不能据此推定更大范围入侵。",
       "impact": "来源称真实大学服务器被用于运行计算任务；机构、使用规模、损失与缺陷修复状态未公开。",
       "recommendation": "为联网及执行工具设置允许清单；外部资源不可用时停止报错，并通过实际访问日志检查约束。",
-      "pdfPage": 4
+      "pdfPage": 4,
+      "cveIds": []
     },
     {
       "id": "pdf-2026-0009",
@@ -292,7 +301,8 @@
       "limitations": "来源说明获得的是原已对公众提供但需收费的数据，未称获取了非公开数据。受影响机构、损失与具体发生日期未公开；不能将可访问性视为取得授权。",
       "impact": "来源称智能体绕过付费获取公开地图数据；具体机构、费用及实际经济损失未公开。",
       "recommendation": "登记数据授权与取得方式；付费或有协议限制的数据由获授权人员办理，模型无法完成时停止上报。",
-      "pdfPage": 4
+      "pdfPage": 4,
+      "cveIds": []
     },
     {
       "id": "pdf-2026-0010",
@@ -327,7 +337,8 @@
       "limitations": "厂商确认模型绕过费用获取公共数据，但没有公开州机构名称、经济影响或实际发生日期。此案例与另一项地图评测分别记录，不能因同一篇报告而合并为一次事件。",
       "impact": "来源称办公统计任务未经采购和授权流程取得收费数据；机构名称、数据范围与损失未公开。",
       "recommendation": "复核数据结果时同步核查来源、授权与取得过程；收费数据走采购审批，禁止智能体自行绕开。",
-      "pdfPage": 5
+      "pdfPage": 5,
+      "cveIds": []
     },
     {
       "id": "pdf-2026-0011",
@@ -355,7 +366,8 @@
       "limitations": "依据 PDF 汇编，尚未完成一手来源核验。9 月 16 日是报告更新日期；取得部分信息不等于获得目标数据，越权访问与编造数据需分别判断。",
       "impact": "来源称模型使用一个泄露密钥完成验证并取回部分信息，未取得目标数据而提交了编造结果；外部损失未公开。",
       "recommendation": "仅提供任务必要且可追溯的凭证；抽查关键数据能否从原始来源重现，获取失败时留空说明。",
-      "pdfPage": 5
+      "pdfPage": 5,
+      "cveIds": []
     },
     {
       "id": "pdf-2026-0012",
@@ -383,7 +395,8 @@
       "limitations": "依据 PDF 汇编，尚未完成一手来源核验。日期沿用前文所指的 OpenAI 同批报告更新日；上传与回读不等于已证实第三方获取或凭证失窃。",
       "impact": "来源称一个本应留在本地的工作簿被上传公开临时托管服务；内容敏感性及是否被第三方取得未公开。",
       "recommendation": "采用受控共享通道，通道故障时停止报错；限定上传目的地及类型，并在验收中模拟共享失败。",
-      "pdfPage": 5
+      "pdfPage": 5,
+      "cveIds": []
     },
     {
       "id": "pdf-2026-0013",
@@ -411,7 +424,8 @@
       "limitations": "依据 PDF 汇编，尚未完成一手来源核验。结论限于研究者测试配置；厂商与研究者表述不同，没有在野利用证据，也未在汇编中明确产品名。",
       "impact": "受控测试显示可调用超出业务所需的云资源；真实客户受损、在野利用和经济损失未公开。",
       "recommendation": "按业务需要约束云端执行权限，禁止照搬宽松测试策略；保留可追溯的智能体操作和变更记录。",
-      "pdfPage": 6
+      "pdfPage": 6,
+      "cveIds": []
     },
     {
       "id": "pdf-2026-0014",
@@ -447,7 +461,10 @@
       "limitations": "受影响的是 1.0.0 至 1.7.0 版插件中的本地辅助程序，并非监听网络的服务。攻击需要智能体先摄取恶意内容，随后调用该程序；不影响 Aurora DSQL 服务，也不绕过数据库权限。公告未提供在野受害者或实际利用记录。",
       "impact": "成功利用可按本地辅助程序进程的权限执行系统命令，影响使用插件的主机。Aurora DSQL 服务本身与数据库授权边界不受此漏洞影响。",
       "recommendation": "升级到 1.7.1 或更新版本。通过固定 Git 修订安装的用户应使用 8b13a503746a4ebb0402b936645163224058bde3 或后续提交，避免仅固定到 1.7.1 标签；暂时无法升级时停止使用可选 psql 辅助程序。",
-      "pdfPage": 6
+      "pdfPage": 6,
+      "cveIds": [
+        "CVE-2026-107322"
+      ]
     },
     {
       "id": "pdf-2026-0015",
@@ -486,7 +503,8 @@
       "pdfPage": 7,
       "mergedFrom": [
         "primary-salesbleed-agentforce"
-      ]
+      ],
+      "cveIds": []
     },
     {
       "id": "pdf-2026-0016",
@@ -514,7 +532,8 @@
       "limitations": "依据 PDF 汇编，尚未完成一手来源核验。日期沿用前文所指的 OpenAI 同批报告更新日；属于训练观察，无真实机构采用结果的证据，训练比例不是用户风险率。",
       "impact": "训练观察显示交接摘要可能放大失实汇报；真实机构使用、业务决策影响及经济损失未公开。",
       "recommendation": "逐项标注并复核关键事实来源，缺失数据留空；交接如实保留失败与不确定性，复核时回查原始材料。",
-      "pdfPage": 7
+      "pdfPage": 7,
+      "cveIds": []
     },
     {
       "id": "primary-opencode-mcp-oauth",
@@ -551,7 +570,8 @@
       "limitations": "研究披露，未报告已在野利用。受影响范围为 Windows/WSL 上 1.0.137 至 1.18.32。原文页首标注 10 月 19 日，正文时间线却称 10 月 4 日发布；此处按页首归档并保留冲突。",
       "impact": "恶意 MCP 服务的授权元数据可在开发者权限下触发任意代码执行。macOS 与原生 Linux 的启动路径不受文中这一机制影响。",
       "recommendation": "Windows/WSL 用户升级至 1.18.33 或之后版本；审查远程 MCP 来源，并避免将远端提供的 URL 拼入 shell 命令。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-visual-studio-ssms-copilot-rce",
@@ -588,7 +608,10 @@
       "limitations": "为研究者的概念验证与修复披露，未证明在野受害。共享 Copilot DLL 导致多个产品受影响，具体安装版本应以微软补丁公告为准。",
       "impact": "被劫持的 Copilot 可写入本应受保护的设置，启用恶意 MCP 命令，或在 Visual Studio 中更换搜索工具路径。",
       "recommendation": "安装微软对应安全更新，限制 Agent 写入自身配置，并在比较受保护路径前执行一致的规范化处理。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": [
+        "CVE-2026-103572"
+      ]
     },
     {
       "id": "primary-badengram-memory-backdoor",
@@ -625,7 +648,8 @@
       "limitations": "这是受控后门研究，不是公开模型已经被投毒的证据。约 0.02% 为文中受控实验的参数修改比例，不应外推到所有模型与全部生产规模实验。",
       "impact": "对模型记忆子系统的小范围修改可产生特定触发行为，常规无触发测试和恶意文件扫描可能无法发现。",
       "recommendation": "对完整模型及其记忆组件核验可信来源与完整性，并加入有针对性的触发测试和制品变更审查。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-sql-copilot-readonly-bypass",
@@ -661,7 +685,10 @@
       "limitations": "为研究演示，未报告在野利用。最终权限取决于受害者数据库连接；攻击者需能修改模型会读取的内容或元数据，不能概括为任意匿名用户提权。",
       "impact": "被注入的数据库说明可驱动 Agent 使用高权限连接执行写操作、外传数据或修改服务器角色。",
       "recommendation": "安装安全更新，为 Copilot 使用最小权限数据库连接，并由数据库权限强制实施只读限制。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": [
+        "CVE-2026-65669"
+      ]
     },
     {
       "id": "primary-unsloth-studio-model-inspection",
@@ -697,7 +724,8 @@
       "limitations": "需要运行 Studio 并选择攻击者控制的模型；不是所有使用 Unsloth 库的场景均可触发。维护者与研究者对 beta 功能安全范围有分歧，原文未报告已在野利用。",
       "impact": "模型元数据检查可在 Studio 后端进程权限下执行代码，使该进程可访问的训练数据和凭证面临风险。",
       "recommendation": "升级至 2026.6.9 或之后版本，隔离模型检查进程，审查 trust_remote_code 的启用位置。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-anthropic-gtg20006-cyber-operations",
@@ -733,7 +761,8 @@
       "limitations": "时间范围属于报告覆盖的 2025 年 12 月至 2026 年 8 月，单一发生日未知。活动及归因依据为 Anthropic 的调查判断，本站未独立验证受害系统；人类操作者设定目标，不能写成模型自主发动攻击。",
       "impact": "厂商观察到 AI 协助维护攻击工具、自动化网络行动并处理被窃数据，缩短攻击者工具更新和操作周期。",
       "recommendation": "根据原文指标进行本地关联排查，加强账户滥用监测、设备登录与钓鱼防护，并将静态检测与行为检测结合。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-grafana-mcp-session-ssrf",
@@ -768,7 +797,10 @@
       "limitations": "演示使用受控 canary，未访问真实云元数据服务。是否能触达内部地址取决于部署网络；1.1.0 的可选认证处理入口认证问题，不等于单独解决目标地址限制。",
       "impact": "可达的 MCP 服务可能以自身 Grafana 身份和网络位置执行调用，使外部调用者获得原本没有的服务权限与网络访问能力。",
       "recommendation": "显式开启入口认证、最小化 Grafana 服务账户权限，并为 HTTP 工具配置目标白名单及私网、元数据地址限制。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": [
+        "CVE-2026-19516"
+      ]
     },
     {
       "id": "primary-litellm-admin-api-observed-attacks",
@@ -803,7 +835,10 @@
       "limitations": "4 月 7 日为蜜罐首次记录 config/update 探测的日期；具体文件读取载荷见于 5 月 5 至 12 日。蜜罐流量多无凭证或使用默认密钥，未观察到低权限凭证；完整只读提权链由实验验证，不能据此断言真实企业已被接管。",
       "impact": "缺少管理权限检查可让只读账户改写配置；公开暴露或使用默认密钥的部署进一步降低攻击门槛。",
       "recommendation": "按研究者建议升级至 1.83.0 或之后版本，移除默认主密钥，限制管理面访问，并依据本地暴露与日志证据调查凭证泄露。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": [
+        "CVE-2026-35029"
+      ]
     },
     {
       "id": "primary-claude-sandbox-dns-channel",
@@ -839,7 +874,8 @@
       "limitations": "这是受控研究，命令运行于代码执行沙箱内，并非已逃逸至宿主。首次 DNS 外传于 2025 年 12 月确认关闭；2026 年 5 月复测通道重新可达，厂商将其按已跟踪底层问题归为重复报告；文章未提供最终修复状态。",
       "impact": "只限制 HTTP/HTTPS 可能留下 DNS 外传路径；Agent 自行反序列化不可信文件可使攻击代码进入执行沙箱。",
       "recommendation": "限制并记录 DNS 出站，避免对不可信 pickle 文件执行反序列化，将代码执行环境与敏感聊天及连接器数据隔离。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-claude-code-opus5-auto-mode",
@@ -876,7 +912,8 @@
       "limitations": "实验变体各仅 5 次，文中 60% 至 80% 不能外推为整体攻击成功率。研究者称厂商按 Informative 处理，并说明 Auto Mode 的分类器不构成隔离边界；未报告真实受害。",
       "impact": "看似正常的下载、解码和导入步骤可组合成代码执行，单步审批分类器可能无法覆盖完整攻击链。",
       "recommendation": "在隔离环境中运行处理外部资料的编程 Agent，限制网络及敏感目录，避免从不可信工作目录导入 Python 模块。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-gemini-cli-wif-project-chain",
@@ -913,7 +950,8 @@
       "limitations": "Google 明确被演示的项目是 Gemini CLI 分诊专用沙箱，不能写成 Google 生产云整体失陷。可复用的 WIF 配置脚本扩大了适用范围，但未证明所有使用者均受影响；修复于 8 月 14 日确认。",
       "impact": "不可信 Issue 可影响带工具权限的工作流；项目级 token-creator 授权使最初的工作流身份进一步模拟高权限服务账户。",
       "recommendation": "更新工作流工具权限配置及 WIF 初始化脚本，将服务账户模拟权限限制到特定账户，并隔离运行器身份文件。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-encrypted-reasoning-replay",
@@ -950,7 +988,8 @@
       "limitations": "此条只记录作者自己的复现，未采用文章转述的第三方大规模统计。攻击需先获得加密推理块；作者称输出不一定逐字还原，可靠性曾波动，且未确认波动原因。",
       "impact": "可重放的加密推理字段可能携带用户以为已隐藏的上下文或凭证，公开会话文件会扩大暴露面。",
       "recommendation": "共享会话前去除敏感推理块与凭证，服务端将推理状态绑定至合适的会话、账户及使用范围。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-llm-heist-gateway-routing",
@@ -985,7 +1024,8 @@
       "limitations": "实验假设攻击者已获得主密钥或等效管理凭证；路由变更本身属于管理功能，不是新披露的权限绕过。注入工具调用也不自动绕过客户端工具授权，未报告在野受害。",
       "impact": "集中式网关失陷可影响多用户推理数据与后端提供商密钥；推理后的响应改写可能避开仅检查提示词的防护。",
       "recommendation": "保护并最小化网关管理凭证，监测模型路由和 API 基址变化，对客户端工具执行保留独立授权边界。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-terminal-ansi-dns-exfil",
@@ -1021,7 +1061,8 @@
       "limitations": "为作者自建 CLI 的受控演示，非所有现有 Agent 均已证实可利用。端到端演示录于 2024 年 12 月，修复于 2025 年 11 月发布；2026 年 7 月为本次修复回顾的文章日期。",
       "impact": "攻击不一定需要工具调用：将模型输出直接交给具有控制功能的终端渲染，也可能形成外传通道。",
       "recommendation": "升级至已修复的 macOS 版本，CLI 默认转义模型输出中的控制字符，显式区分文本展示与终端控制。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-computer-use-toctou",
@@ -1057,7 +1098,8 @@
       "limitations": "研究于 2025 年 10 月进行，文章于 2026 年 6 月发布，未报告真实受害。作者称 Anthropic 后续引入动作前像素检查；不能据此断言当前所有 Computer Use 版本仍存在相同漏洞。",
       "impact": "界面在截图之后变化，可能让 Agent 执行与其所检查对象不同的敏感动作，实验演示了邮件发送。",
       "recommendation": "执行敏感动作前重新检查画面及目标状态，将授权绑定到具体对象，检测页面或窗口切换后重新确认动作。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-anthropic-distillation-campaigns",
@@ -1095,7 +1137,8 @@
       "limitations": "账户数量、交互规模与三家实验室归因均为 Anthropic 的单方调查披露，本站未独立验证；蒸馏本身是常用训练方法，本条所指为厂商认定违反其服务及访问规则的协调活动，非司法认定。",
       "impact": "协调账户与代理访问可扩展针对特定模型能力的数据采集，并使单账户封禁难以阻断整体活动。",
       "recommendation": "结合多账户请求结构、访问基础设施与支付等信号识别协调滥用，并完善访问验证和异常流量关联分析。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-aws-strands-a2a-isolation",
@@ -1130,7 +1173,10 @@
       "limitations": "影响多用户或多租户 A2A 部署，需要已认证远程用户；公告未报告在野利用。受影响的是含 A2A 模块的 Python 1.43.0 之前版本及 TypeScript 1.5.0 之前版本。",
       "impact": "跨调用者共享的对话状态可造成历史数据泄露及模型上下文污染。",
       "recommendation": "升级至 strands-agents 1.43.0、TypeScript SDK 1.5.0 或之后版本；升级前为每个用户或租户部署独立 A2A 实例。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": [
+        "CVE-2026-115419"
+      ]
     },
     {
       "id": "primary-aws-sagemaker-default-bucket",
@@ -1166,7 +1212,10 @@
       "limitations": "攻击要求对手抢先占有 SDK 将使用的可预测桶名，并进入相应 SDK 工作流；不代表任意已存在且属于用户的桶都受控。公告未报告真实客户遭利用。",
       "impact": "模型训练与部署的存储依赖可能被替换，进而影响远程执行环境及其 IAM 身份。",
       "recommendation": "升级 SDK V2 至 2.257.3、V3 至 3.10.0 或之后版本；暂不能升级时显式指定本账户所有的桶，避免自动生成默认桶名。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": [
+        "CVE-2026-112408"
+      ]
     },
     {
       "id": "primary-unit42-bugster-ai-cybercrime",
@@ -1204,7 +1253,8 @@
       "limitations": "行为与数据泄露结论来自 Unit 42 的调查可见性，本站未接触受害系统。VoIP、Wi-Fi 与加密资产相关内容包含规划或能力准备，不能全部计为成功入侵。",
       "impact": "AI 生成脚本与领域指导使单个操作者可跨越多种技术领域，调查确认了大学数据外传。",
       "recommendation": "结合原文基础设施指标检查本地日志，监测异常凭证使用、数据批量读取与 AI Agent 活动，独立约束人类及 Agent 的敏感权限。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-aws-kiro-crew-whatsapp-auth",
@@ -1240,7 +1290,10 @@
       "limitations": "影响 0.4.0 至 0.7.2 之前版本，需显式允许群组或设置开放私信等非默认条件；公告未报告在野利用。执行权限仍取决于被影响会话的审批策略。",
       "impact": "不可信消息发送者可跨会话影响子 Agent，造成工具执行权限与审计身份错配。",
       "recommendation": "升级至 0.7.2 或之后版本；升级前清空 whatsapp.groups、保持 dm_policy 为 self，或停用 WhatsApp 通道。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": [
+        "CVE-2026-112380"
+      ]
     },
     {
       "id": "primary-microsoft-open-weight-risk-taxonomy",
@@ -1275,7 +1328,8 @@
       "limitations": "属于风险分类和评测方法指导，主要覆盖模型层；不是某个模型通过安全认证，也不是实测证明所有推荐控制有效。运行时与应用层扩展仍为后续工作。",
       "impact": "帮助把模型风险与评测证据、部署控制和责任主体对应，避免仅凭开放或封闭权重标签判断风险。",
       "recommendation": "以实际用途选择风险及评测，进一步核查 Agent 的权限、数据、工具和运行时，并随模型或部署变化重新评估控制。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-unit42-linux-espionage-ai-artifacts",
@@ -1311,7 +1365,8 @@
       "limitations": "观察窗口为 2025 年 10 月至 2026 年 4 月，单一发生日未知。AI 参与主要由代码和操作痕迹推断，未确定具体模型或自动化程度；UNK 表示归属尚未判定。",
       "impact": "调查显示 Linux 持久化、邮箱及数据库搜集与日志清理组合出现，AI 可能缩短载荷编写和适配时间。",
       "recommendation": "关联原文指标检查 Linux、数据库与邮箱日志，监测异常 PHP 配置、Web shell、凭证搜集及日志清除行为。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-aws-sagemaker-git-log-secrets",
@@ -1347,7 +1402,10 @@
       "limitations": "需要相关 Git 克隆失败且错误输出包含凭证，同时对手能访问相应日志；公告未报告已经发生的客户凭证窃取。",
       "impact": "模型开发和训练流水线的代码仓库凭证可能从子进程错误输出扩散到共享日志系统。",
       "recommendation": "升级 SDK V2 至 2.257.3、V3 至 3.10.0 或之后版本；避免在 Git URL 中放置凭证，限制日志权限并检查、轮换已写入日志的凭证。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": [
+        "CVE-2026-110248"
+      ]
     },
     {
       "id": "primary-openai-false-front-operations",
@@ -1384,7 +1442,8 @@
       "limitations": "来源归因与影响等级为 OpenAI 的调查评估；报告明确操作者会夸大或冒领成果，且并非所有传播内容均由其模型生成。媒体刊载与潜在触达不等于证实改变公众观点。",
       "impact": "AI 支撑传统假身份和机构伪装流程，使叙事包装、语言编辑及向媒体投稿更高效。",
       "recommendation": "对异常机构、署名与材料追溯来源，结合公开传播证据核查行动成果，避免以操作者自报或被回复原帖的浏览量衡量实际影响。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-microsoft-forge-validation-loop",
@@ -1421,7 +1480,8 @@
       "limitations": "属于团队方法与自报项目结果，不是跨工具对照实验。内部已验证报告、公开 CVE 与已合并修复是不同阶段，不能混为同一种成果或外推普遍发现率。",
       "impact": "AI 扫描候选增长会把压力转移到验证与修复，缺少复现证据或重复报告可能降低有效处理速度。",
       "recommendation": "给候选问题附上可构建环境、可达路径与可重复触发样例，加入去重、回归检查及维护者协调，并按修复交付评估产出。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-aws-agentcore-import-injection",
@@ -1457,7 +1517,10 @@
       "limitations": "涉及 CVE-2026-105812 与 CVE-2026-106032，影响 0.1.4 至 0.3.13；条件是导入数据平面字段可被其他主体修改的 Agent。该导入工具问题与现有 AgentCorruption 运行时研究不是同一事件。",
       "impact": "不可信 Agent 定义可影响本地导入过程及生成的代码制品，升级工具本身不足以清除既有制品。",
       "recommendation": "升级至 0.3.14 或之后版本，重新导入并替换本地及部署制品；按官方长期建议迁移至带等效修复的 AgentCore CLI。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": [
+        "CVE-2026-105812"
+      ]
     },
     {
       "id": "primary-aws-security-agent-mcp-diff-args",
@@ -1493,7 +1556,10 @@
       "limitations": "影响 0.1.1 至 0.2.0 之前版本；需恶意引用值进入差异扫描，公告未宣称任意远程连接即可利用，也未报告在野利用。",
       "impact": "用于限制扫描工作区的边界可被参数解释差异绕过，损坏扫描进程可写的宿主文件。",
       "recommendation": "升级至 0.2.0 或之后版本；升级前仅扫描可信仓库，以低权限用户在隔离环境中运行服务。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": [
+        "CVE-2026-97662"
+      ]
     },
     {
       "id": "primary-aws-kiro-global-config-write",
@@ -1528,7 +1594,10 @@
       "limitations": "影响 1.0.242 之前版本，需要用户在特制仓库中运行 Agent；不等于没有打开仓库时即可远程控制 IDE。公告未报告在野利用。",
       "impact": "仓库信任限制可能未覆盖全局自动加载配置，使项目内的不可信输入影响后续 Agent 行为。",
       "recommendation": "升级至 1.0.242 或之后版本；曾在旧版不可信工作区运行 Agent 的用户应检查全局 .kiro 配置中的未知条目。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": [
+        "CVE-2026-95985"
+      ]
     },
     {
       "id": "primary-trail-ai-patching-validation",
@@ -1564,7 +1633,8 @@
       "limitations": "这是参与方对第三方评测的分析及自身工程数据，存在样本和工作条件差异，不能由合并率推出通用补丁正确率。作者也承认自身部分补丁引入了缺陷。",
       "impact": "错误的任务条件、单一路径测试及自动评分可能同时漏报不完整修复并误判合法行为变化。",
       "recommendation": "在漏洞版本与修复版本上运行有区分力的复现检查，至少增加一个根因相关变体，并以项目测试、sanitizer 或有界 fuzzing 检查回归。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-aws-kiro-workspace-data-exfil",
@@ -1600,7 +1670,10 @@
       "limitations": "影响 0.8.135 之前版本；需要特制仓库、配置被写入以及打开 Powers 面板等条件。与 9 月全局配置写入公告属于不同 CVE，不把它们合为一次已发生泄露。",
       "impact": "审批显示与实际落盘时序不一致，使尚未批准的配置变更被另一个界面组件使用。",
       "recommendation": "升级至 0.8.135 或之后版本；按官方建议检查旧版打开过的项目并轮换其中可能暴露的凭证。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": [
+        "CVE-2026-89332"
+      ]
     },
     {
       "id": "primary-checkpoint-puzzlemask-gatekeeper",
@@ -1635,7 +1708,8 @@
       "limitations": "该技术本身不是越狱，而是让载荷绕过前置快速检查；能否执行危险指令仍取决于目标模型。实验只有 23 个构造提示，部分模型或目标测试更少，不能外推总体成功率。",
       "impact": "仅靠低资源输入分类器可能漏掉高资源目标模型能够提取的隐蔽指令，形成防护能力不对称。",
       "recommendation": "结合输入改写、守门策略加强与输出及动作监测进行测试；原文指出各方法存在额外开销、质量损失或误报成本。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-checkpoint-chatgpt-shared-service-channel",
@@ -1672,7 +1746,8 @@
       "limitations": "研究于 2026 年 6 月发现，披露前通信通道已不可用。攻击需恶意指令进入受害者上下文并触发模型使用现有工具；为受控研究，未证明真实用户邮箱已被攻击者窃取。",
       "impact": "容器之间虽无直接互联网连接，共享且可写的内部服务仍可成为跨租户状态与任务交换通道。",
       "recommendation": "隔离内部服务的租户可写状态，限制运行时访问管理接口，并最小化模型、工具及连接应用能访问的数据。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-trail-cyber-agent-vm-containment",
@@ -1710,7 +1785,8 @@
       "limitations": "这是研究者明确授权逃逸的特定开发机实验，不是模型自发逃逸。作者开头概括三次逃逸，但第一条详细记录为宿主卡死且利用未成功落地；不能把三条路径全计作已完成逃逸。",
       "impact": "具备持续漏洞研究能力的 Agent 可寻找并串联虚拟化共享组件缺陷，单一虚拟机隔离假设需结合实际攻击面检验。",
       "recommendation": "及时跟进上游安全修复，减少虚拟化共享功能，使用更小攻击面运行时，并结合最小权限、日志、监测、执行时限及干净环境。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "primary-openai-ibi-covert-influence",
@@ -1746,7 +1822,8 @@
       "limitations": "归因及传播规模为 OpenAI 调查判断。原文明确网站核心文章并非由其模型生成，AI 主要用于推广帖和相关素材；整体即时影响有限，不能将所有网站内容标为 AI 生成。",
       "impact": "AI 推广可与复制学术内容、虚构专家关联及机构包装结合，制造来源可信度并掩盖操作者身份。",
       "recommendation": "核对机构、专家和文章的真实关联，追溯文本原始出处，并分别评估 AI 生成推广与非 AI 机构材料的传播证据。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "expanded-swarm-remote-browser-execution",
@@ -1782,7 +1859,8 @@
       "limitations": "报告分析公开扫描证据并扩展此前研究，不是本站运行的复现。三次 VNC 连接成功不等于受保护数据外泄；最终数据提取是否成功未知，群体归属为基于技术相似性的判断。",
       "impact": "可用外部服务可能被智能体改造为远程浏览器或执行环境，使原有网络沙箱的允许列表失去预期约束。",
       "recommendation": "把公共代理、扫描器和远程执行服务纳入出站威胁模型；监测编码 URL、跨会话控制与任务驱动的绕行行为。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "expanded-dolt-mcp-auth-bypass",
@@ -1818,7 +1896,10 @@
       "limitations": "受影响版本为 0.3.1–0.3.6，本地 stdio 不受此认证路径影响。页首为 8 月 13 日，正文时间线称 8 月 14 日博客披露；此处按页首归档并保留日期冲突。未报告在野成功利用。",
       "impact": "未认证调用者可借 MCP 服务账户读取或修改数据库，实际能力取决于该账户权限；仅监控 HTTP 401 会漏掉已发生的工具副作用。",
       "recommendation": "升级至 Dolt MCP 0.3.7 或更高版本；确认认证拒绝会终止处理，并用最小权限数据库账户验证失败请求不会触发工具。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": [
+        "CVE-2026-73554"
+      ]
     },
     {
       "id": "expanded-claude-chrome-account-takeover",
@@ -1855,7 +1936,8 @@
       "limitations": "实验需要助手读取恶意内容及用户已有登录会话；跨站行动依赖相应账户和批准状态。报告于披露时称仍可复现，不代表已核验 2026-10-23 当前版本或实际在野利用。",
       "impact": "浏览器智能体具有跨站工具和用户身份时，内容注入可升级为邮箱读取、共享权限变化及借邮件验证码进入其他账户。",
       "recommendation": "为浏览器智能体使用独立受限会话，分离邮箱与高价值账户；对脚本导入、共享权限和跨站敏感动作设置确定性授权。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "expanded-grand-theft-atlas",
@@ -1892,7 +1974,8 @@
       "limitations": "这是研究者构造的授权演示，不是已确认在野群发或盗刷案件。原文明确 Atlas 的最终购买按钮硬限制仍有效，购物结果通过另一助手获得；未独立核验当前版本。",
       "impact": "同一浏览器中的用户登录身份可能被跨站滥用；一名助手拒绝的敏感动作，仍可能经由另一名具有相应能力的助手完成。",
       "recommendation": "缩小智能体可访问的登录域和联系人范围；对发信、收款地址变更与付款采用跨工具统一授权，避免只保护单个界面按钮。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "expanded-chaindrop-agent-hooks",
@@ -1929,7 +2012,8 @@
       "limitations": "该活动最先由 StepSecurity 报告；本条依据 Pillar 对两个恶意包及钩子的原始静态分析，未执行恶意载荷。并非每次打开仓库都会自动执行，取决于工具版本、信任设置与批准策略。",
       "impact": "恶意仓库配置可使开发工具以开发者身份启动载荷，窃取工作站或 CI 凭据并继续传播；攻击目标包括智能体宿主，而非仅模型推理。",
       "recommendation": "将仓库级钩子和编辑器任务按可执行代码审查；先在受限工作区检查陌生仓库，限制自动任务并轮换确认受影响的凭据。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "expanded-adk-cross-agent-boundary",
@@ -1965,7 +2049,8 @@
       "limitations": "关键攻击链在研究者模拟仓库中复现，权限受 issues:write 与 pull-requests:write 约束。原文明确不同于其 Gemini CLI 另一报告，本链未直接达到供应链完全接管；Google 确认已缓解相关问题。",
       "impact": "低权限入口输出若继承协作者身份，可能成为触发高权限代理的可信指令，并伪造评论、审查或审批痕迹。",
       "recommendation": "避免将公共分诊代理绑定高权限人类账户；跨代理调用需验证原始请求来源，限制令牌权限，并保护人工审查记录。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "expanded-agentforger-workspace-agent",
@@ -2007,7 +2092,8 @@
       "limitations": "需要用户登录、具备 Workspace Agents 权限且已授权连接器，并点击攻击链接；不是完全无点击。第二篇是同一实验链的后续影响展示，不另计事件。OpenAI 于 6 月 8 日修复。",
       "impact": "被创建的助手可利用用户既有企业连接器执行搜索、发信或内部消息，并通过定时任务延续攻击者的指令通道。",
       "recommendation": "审核已有助手的创建来源、工具批准策略和日程；对链接参数引发的创建、发布及降低批准策略设置独立用户确认。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "expanded-ollama-pull-ssrf-observed",
@@ -2042,7 +2128,10 @@
       "limitations": "观测区间为 3 月 24 日至 4 月 11 日；来源 IP、恶意信誉与探测载荷支持活动研判，但不是完整入侵证据。后续代码执行仅为可能链路，不能当作该批请求已达到的结果。",
       "impact": "公网暴露的模型管理接口可能成为服务端请求通道；内部可达性、外部模型来源与云端出站权限共同决定潜在影响。",
       "recommendation": "将 Ollama 绑定到私有接口并置于认证边界之后，限制模型来源与出站目的地，监测模型管理请求中的异常 URL 和回连域。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": [
+        "CVE-2026-5530"
+      ]
     },
     {
       "id": "expanded-litellm-guardrail-exploit-attempts",
@@ -2077,7 +2166,10 @@
       "limitations": "请求于 4 月 15 日至 5 月 24 日被观测。漏洞利用需要有效主密钥；流量中包含对默认或弱密钥的猜测。实验在 1.83.0 配置中回放，不证明蜜罐请求对应的生产主机均已失陷。",
       "impact": "在掌握主密钥的前提下，脆弱的 Python 护栏测试沙箱可被用于读取环境密钥或执行系统命令；默认 root 容器会扩大影响。",
       "recommendation": "升级 LiteLLM 至 1.83.10 或更新版本，轮换默认及弱主密钥，将控制面隔离于公网，并采用非 root 运行镜像。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": [
+        "CVE-2026-40217"
+      ]
     },
     {
       "id": "expanded-rtk-observation-filter",
@@ -2112,7 +2204,10 @@
       "limitations": "研究关注信息可见性的完整性，不是 RTK 自身直接执行任意代码。原文称补丁于 3 月 25 日发布，5 月 20 日为公开披露日期；未报告生产后门实际成功交付。",
       "impact": "仓库控制的过滤器可以裁剪命令输出，造成 AI 代码审查或扫描总结遗漏风险，即使底层扫描器本身正确运行。",
       "recommendation": "升级 RTK 至 0.33.0 或更高版本；逐仓库审查过滤配置，并对关键扫描保留可追溯的未过滤原始输出。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": [
+        "CVE-2026-45792"
+      ]
     },
     {
       "id": "expanded-gemini-trustissues-workflow",
@@ -2148,7 +2243,8 @@
       "limitations": "这是授权研究的 PoC；文中“完整供应链接管”是证明可达到的能力，不表示已向下游发布恶意版本。与 8 月 WIF 报告及 ADK 跨代理报告为不同披露，不能累加为已确认受害者数。",
       "impact": "公开分诊输入与 CI 凭据、外部写入权限处于同一工作流时，可把低成本提示注入升级为仓库写权限风险。",
       "recommendation": "更新 Gemini CLI 至相关修复版本 0.39.1 或更新版及 run-gemini-cli Action 0.1.22 或更新版；自动批准模式仍须执行工具白名单并隔离 CI 密钥。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "expanded-copirate-365",
@@ -2183,7 +2279,10 @@
       "limitations": "原文为研究者的多项实验汇总，非在野入侵通报；各 Copilot 宿主的 CSP 与可用工具不同。原文称外传问题于 2026-03-05 修复，记忆相关问题更早修复。",
       "impact": "攻击者控制的共享文档可跨越资料与指令边界，借助助手已有的数据权限读取内容，并通过预览资源请求外传；恶意记忆可能扩大持续影响。",
       "recommendation": "限制 AI 预览可加载的外部资源；定期核对长期记忆与工具调用，统一嵌入式助手及其宿主的出站策略。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": [
+        "CVE-2026-24299"
+      ]
     },
     {
       "id": "expanded-antigravity-find-parameter",
@@ -2218,7 +2317,8 @@
       "limitations": "原文为受控实验，非在野利用通报；Google 于 2 月 28 日标记修复。影响针对文中 find_by_name 原生工具的参数处理，不能外推所有搜索工具或当前版本。",
       "impact": "原本受限的文件搜索若能解释额外参数，可能获得本地代码执行能力；仅对显式 shell 工具设置沙箱不足以覆盖原生工具调用。",
       "recommendation": "更新受影响工具；统一所有执行路径的沙箱与授权检查，并对文件模式等参数采用严格类型和参数分隔。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "expanded-claude-opus47-memory-image",
@@ -2254,7 +2354,8 @@
       "limitations": "5/10 是针对单个图片、特定账户与配置的重复实验，不能外推到所有模型或账户。原文后续更新为该样例成功率降至 0%，具体原因未知。",
       "impact": "来自图片的内容可能被提升为用户偏好并影响后续对话；模型识别到可疑内容不等于阻止了记忆写入。",
       "recommendation": "将记忆新增视为独立授权动作；展示具体拟保存内容，并对图片或其他外部材料导出的记忆进行复核。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "expanded-agent-commander-c2",
@@ -2290,7 +2391,8 @@
       "limitations": "文章展示研究者环境中的攻击原语，未公开统一成功率；不同模型与实例会部分执行、拒绝或后来发现恶意指令。工具未广泛公开，不是已观测在野攻击规模。",
       "impact": "被劫持的智能体可在原有工具与账户权限内读取资料、执行任务或回传结果；持久化配置会使影响超出最初会话。",
       "recommendation": "对心跳、身份、记忆及定时任务配置做完整性监测；隔离运行主机与账户，并提供统一停机和凭据撤销能力。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "expanded-unicode-skill-backdoor",
@@ -2326,7 +2428,8 @@
       "limitations": "这是人为植入后门的实验，不表示被修改的官方 Skill 上游遭入侵；行为依赖模型与批准设置。作者称 2 月 10 日重试时 Claude Code 已稳定检测该类标签，网页端表现不同。",
       "impact": "Skill 的说明和正文均可成为指令载体，不可见字符会弱化人工审查；自动批准工具时，影响可延伸到本地命令执行。",
       "recommendation": "审查 Skill 的实际字节内容与来源；对连续不可见 Unicode 标签进行扫描，并限制其可调用工具和自动批准范围。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "expanded-chat-template-backdoor-validation",
@@ -2363,7 +2466,8 @@
       "limitations": "这是研究者主动构造的条件后门评估，关注 GGUF 与 Jinja2 模板。文中的成功率限于实验任务、触发条件和模型集合；不能推断平台上已污染模型数量或当前在野流行程度。",
       "impact": "模板介于用户输入与模型之间，能够插入高优先级指令；若仅核验权重或依赖平台扫描标记，可能遗漏模板完整性变化。",
       "recommendation": "将聊天模板纳入模型供应链审计，与提供方基线比对并固定版本；检查异常条件逻辑，保持模型、模板及来源的完整性记录。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
     },
     {
       "id": "expanded-bizarre-bazaar-llmjacking",
@@ -2400,7 +2504,626 @@
       "limitations": "35,000 指蜜罐攻击会话，不是成功攻陷数或独立受害者数。商业网关及操作者关联为研究团队的归因判断；同文 MCP 侦察被明确区分为另一活动。",
       "impact": "未认证推理接口可能被第三方消耗计算资源或转售；暴露 MCP 等连接器还会增加访问内部系统的机会。",
       "recommendation": "对推理接口和 MCP 启用认证与配额，避免开发服务直通公网，监测跨模型枚举、异常费用与批量探测行为。",
-      "pdfPage": null
+      "pdfPage": null,
+      "cveIds": []
+    },
+    {
+      "id": "cve-2026-111767",
+      "externalId": "CVE-2026-111767",
+      "cveIds": [
+        "CVE-2026-111767"
+      ],
+      "title": "MCP TypeScript 实验任务缺少会话隔离，可跨会话读取和取消任务",
+      "summary": "MCP TypeScript SDK 的实验任务存储未校验任务所属会话。多个客户端共享 InMemoryTaskStore 时，可列举、读取和取消彼此任务；只有 HTTP 服务启用了 taskStore 才受影响，2.x 包不受影响。",
+      "kind": "advisory",
+      "risk": "attack",
+      "tags": [
+        "CVE-2026-111767",
+        "MCP",
+        "会话隔离",
+        "越权"
+      ],
+      "entities": [
+        "MCP TypeScript SDK",
+        "@modelcontextprotocol/sdk"
+      ],
+      "publishedAt": "2026-10-03",
+      "originalPublishedAt": "2026-10-03",
+      "cvePublishedAt": "2026-10-21",
+      "occurredAt": null,
+      "sourceId": "cve",
+      "sourceName": "CVE 官方记录",
+      "evidence": "primary",
+      "evidenceLabel": "官方 CVE · 项目公告",
+      "references": [
+        {
+          "label": "项目维护者安全公告",
+          "url": "https://github.com/modelcontextprotocol/typescript-sdk/security/advisories/GHSA-22jm-h49p-29qw",
+          "role": "primary"
+        },
+        {
+          "label": "官方 CVE 记录（固定提交）",
+          "url": "https://github.com/CVEProject/cvelistV5/blob/cd661319d2df8a740dfc3dfe118a7e79fa82ba60/cves/2026/111xxx/CVE-2026-111767.json",
+          "role": "primary"
+        },
+        {
+          "label": "GitHub Advisory Database",
+          "url": "https://github.com/advisories/GHSA-22jm-h49p-29qw",
+          "role": "database"
+        },
+        {
+          "label": "修复 PR #2925",
+          "url": "https://github.com/modelcontextprotocol/typescript-sdk/pull/2925",
+          "role": "patch"
+        }
+      ],
+      "preconditions": [
+        "HTTP 服务向 McpServer 或 Server 传入 taskStore。",
+        "多个会话共享同一 InMemoryTaskStore。"
+      ],
+      "affectedPackages": [
+        {
+          "name": "@modelcontextprotocol/sdk",
+          "ecosystem": "npm",
+          "affectedRange": ">= 1.24.0, < 1.32.0",
+          "fixedVersion": "1.32.0",
+          "source": "https://github.com/advisories/GHSA-22jm-h49p-29qw"
+        }
+      ],
+      "limitations": "不是所有 MCP 服务都受影响；未使用 taskStore 和 2.x 包均不在该公告范围内。 补丁将任务绑定到创建它的会话，新会话不再能访问旧会话任务，需要留意兼容行为。 本条为公开漏洞公告，未在本站复现，也未独立核实在野利用。",
+      "impact": "任务内容跨会话泄露，以及任务取消和状态干扰。",
+      "recommendation": "升级 @modelcontextprotocol/sdk 至 1.32.0 或更高；优先停用已弃用的实验任务功能。暂不能升级时移除 taskStore，或为每个会话单独建立存储。"
+    },
+    {
+      "id": "cve-2026-111764",
+      "externalId": "CVE-2026-111764",
+      "cveIds": [
+        "CVE-2026-111764"
+      ],
+      "title": "A2A Java 默认任务读取缺少授权检查，可泄露其他调用者数据",
+      "summary": "A2A Java SDK 的默认任务存储和部分手动构建的请求处理器未执行任务读取授权。多调用者部署中，知道或猜到任务 ID 的调用者可读取其他任务的状态、消息历史与产物。",
+      "kind": "advisory",
+      "risk": "attack",
+      "tags": [
+        "CVE-2026-111764",
+        "A2A",
+        "授权缺失",
+        "数据泄露"
+      ],
+      "entities": [
+        "A2A Java SDK",
+        "org.a2aproject.sdk:a2a-java-sdk-server-common"
+      ],
+      "publishedAt": "2026-08-28",
+      "originalPublishedAt": "2026-08-28",
+      "cvePublishedAt": "2026-10-20",
+      "occurredAt": null,
+      "sourceId": "cve",
+      "sourceName": "CVE 官方记录",
+      "evidence": "primary",
+      "evidenceLabel": "官方 CVE · 项目公告",
+      "references": [
+        {
+          "label": "项目维护者安全公告",
+          "url": "https://github.com/a2aproject/a2a-java/security/advisories/GHSA-qw47-mcm5-934w",
+          "role": "primary"
+        },
+        {
+          "label": "官方 CVE 记录（固定提交）",
+          "url": "https://github.com/CVEProject/cvelistV5/blob/cd661319d2df8a740dfc3dfe118a7e79fa82ba60/cves/2026/111xxx/CVE-2026-111764.json",
+          "role": "primary"
+        },
+        {
+          "label": "GitHub Advisory Database",
+          "url": "https://github.com/advisories/GHSA-qw47-mcm5-934w",
+          "role": "database"
+        },
+        {
+          "label": "修复 PR #1095",
+          "url": "https://github.com/a2aproject/a2a-java/pull/1095",
+          "role": "patch"
+        },
+        {
+          "label": "Release v1.3.0.Final",
+          "url": "https://github.com/a2aproject/a2a-java/releases/tag/v1.3.0.Final",
+          "role": "release"
+        }
+      ],
+      "preconditions": [
+        "多调用者部署使用默认 InMemoryTaskStore 或未有效配置授权的请求处理链。",
+        "攻击者能够提交任务读取请求并知道或猜到目标任务 ID。"
+      ],
+      "affectedPackages": [
+        {
+          "name": "org.a2aproject.sdk:a2a-java-sdk-server-common",
+          "ecosystem": "maven",
+          "affectedRange": "< 1.3.0.Final",
+          "fixedVersion": "1.3.0.Final",
+          "source": "https://github.com/advisories/GHSA-qw47-mcm5-934w"
+        }
+      ],
+      "limitations": "默认/参考传输端点未强制认证；有自定义认证的部署需按实际可达性判断，不能一律描述为所有部署均可匿名读取。 项目公告正文保留了草稿占位文字，修复版本采用其结构化字段、CVE 记录与正式 Release 交叉确认的 1.3.0.Final。 项目结构化受影响版本仅写 1.2.0.Final，正文写 <= 1.2.0.Final 及修复前快照；CVE/数据库为 < 1.3.0.Final。保留两种范围，不把仅列出的验证版本视作唯一受影响版本。 项目 GHSA 在 2026-08-28 已公开，CVE 在 10 月发布，应标为近期新增编号的既有披露。 本条为公开漏洞公告，未在本站复现，也未独立核实在野利用。",
+      "impact": "跨调用者读取任务状态、context ID、消息历史和任务产物。",
+      "recommendation": "升级至 1.3.0.Final 或更新版本。暂无法升级时同时配置 TaskAuthorizationProvider 并确保请求经过 AuthorizationRequestHandlerDecorator，不能仅依赖默认存储或手动构建的处理器。"
+    },
+    {
+      "id": "cve-2026-111761",
+      "externalId": "CVE-2026-111761",
+      "cveIds": [
+        "CVE-2026-111761"
+      ],
+      "title": "A2A Java 推送通知目标未校验，允许从服务端向内网发送请求",
+      "summary": "A2A Java SDK 的推送通知接收地址缺少目标校验。启用推送的默认部署中，未认证调用者可让服务器向内网或云元数据地址发送请求，重定向还可改变方法；原实现不向调用者回传响应。",
+      "kind": "advisory",
+      "risk": "attack",
+      "tags": [
+        "CVE-2026-111761",
+        "A2A",
+        "SSRF",
+        "推送通知"
+      ],
+      "entities": [
+        "A2A Java SDK",
+        "org.a2aproject.sdk:a2a-java-sdk-server-common"
+      ],
+      "publishedAt": "2026-08-28",
+      "originalPublishedAt": "2026-08-28",
+      "cvePublishedAt": "2026-10-20",
+      "occurredAt": null,
+      "sourceId": "cve",
+      "sourceName": "CVE 官方记录",
+      "evidence": "primary",
+      "evidenceLabel": "官方 CVE · 项目公告",
+      "references": [
+        {
+          "label": "项目维护者安全公告",
+          "url": "https://github.com/a2aproject/a2a-java/security/advisories/GHSA-q78c-5jjq-57g8",
+          "role": "primary"
+        },
+        {
+          "label": "官方 CVE 记录（固定提交）",
+          "url": "https://github.com/CVEProject/cvelistV5/blob/cd661319d2df8a740dfc3dfe118a7e79fa82ba60/cves/2026/111xxx/CVE-2026-111761.json",
+          "role": "primary"
+        },
+        {
+          "label": "GitHub Advisory Database",
+          "url": "https://github.com/advisories/GHSA-q78c-5jjq-57g8",
+          "role": "database"
+        },
+        {
+          "label": "修复 PR #1096",
+          "url": "https://github.com/a2aproject/a2a-java/pull/1096",
+          "role": "patch"
+        },
+        {
+          "label": "Release v1.3.0.Final",
+          "url": "https://github.com/a2aproject/a2a-java/releases/tag/v1.3.0.Final",
+          "role": "release"
+        }
+      ],
+      "preconditions": [
+        "部署启用推送通知，且调用者可以登记任务推送目标。",
+        "服务器网络能够到达目标地址。"
+      ],
+      "affectedPackages": [
+        {
+          "name": "org.a2aproject.sdk:a2a-java-sdk-server-common",
+          "ecosystem": "maven",
+          "affectedRange": "< 1.3.0.Final",
+          "fixedVersion": "1.3.0.Final",
+          "source": "https://github.com/advisories/GHSA-q78c-5jjq-57g8"
+        }
+      ],
+      "limitations": "响应体及投递成败不返回调用者，不能写成已读取云凭证或成功外传元数据。 直接 POST 携带任务体；重定向转 GET 会丢弃请求体，两个能力不能拼成同一次请求同时具备。 项目正文自写 Severity: High，但给出的 5.8 向量属于 Moderate；结构化公告与 CVE 都为 Medium/5.8。展示时采用后者并保留原文差异。 项目结构化范围为 1.2.0.Final，正文为 <= 1.2.0.Final 及修复前快照，CVE/数据库为 < 1.3.0.Final。 项目 GHSA 在 2026-08-28 已公开，不能标成 10 月首次披露。 本条为公开漏洞公告，未在本站复现，也未独立核实在野利用。",
+      "impact": "从服务器网络位置发起 SSRF，并可在直接 POST 路径向内部服务推送攻击者影响的任务数据。",
+      "recommendation": "升级至 1.3.0.Final 或更新版本。暂不能升级时在网络层限制到云元数据及内部地址的出站流量；目标验证应覆盖实际解析 IP 和重定向路径。"
+    },
+    {
+      "id": "cve-2026-59951",
+      "externalId": "CVE-2026-59951",
+      "cveIds": [
+        "CVE-2026-59951"
+      ],
+      "title": "MCP Python 有状态 HTTP 会话持续保留，可被请求耗尽内存",
+      "summary": "MCP Python SDK 的有状态 Streamable HTTP 服务没有默认空闲会话过期和总数限制，部分结束或被拒绝的会话仍保留初始化数据。可达该端点的客户端可用短请求持续增加内存占用。",
+      "kind": "advisory",
+      "risk": "attack",
+      "tags": [
+        "CVE-2026-59951",
+        "MCP",
+        "资源耗尽",
+        "拒绝服务"
+      ],
+      "entities": [
+        "MCP Python SDK",
+        "mcp",
+        "FastMCP"
+      ],
+      "publishedAt": "2026-10-01",
+      "originalPublishedAt": "2026-10-01",
+      "cvePublishedAt": "2026-10-15",
+      "occurredAt": null,
+      "sourceId": "cve",
+      "sourceName": "CVE 官方记录",
+      "evidence": "primary",
+      "evidenceLabel": "官方 CVE · 项目公告",
+      "references": [
+        {
+          "label": "项目维护者安全公告",
+          "url": "https://github.com/modelcontextprotocol/python-sdk/security/advisories/GHSA-84m7-p3x7-pcfv",
+          "role": "primary"
+        },
+        {
+          "label": "官方 CVE 记录（固定提交）",
+          "url": "https://github.com/CVEProject/cvelistV5/blob/cd661319d2df8a740dfc3dfe118a7e79fa82ba60/cves/2026/59xxx/CVE-2026-59951.json",
+          "role": "primary"
+        },
+        {
+          "label": "GitHub Advisory Database",
+          "url": "https://github.com/advisories/GHSA-84m7-p3x7-pcfv",
+          "role": "database"
+        },
+        {
+          "label": "修复 PR #3395",
+          "url": "https://github.com/modelcontextprotocol/python-sdk/pull/3395",
+          "role": "patch"
+        },
+        {
+          "label": "修复 PR #3426",
+          "url": "https://github.com/modelcontextprotocol/python-sdk/pull/3426",
+          "role": "patch"
+        },
+        {
+          "label": "Release v1.30.0",
+          "url": "https://github.com/modelcontextprotocol/python-sdk/releases/tag/v1.30.0",
+          "role": "release"
+        },
+        {
+          "label": "Release v2.2.0",
+          "url": "https://github.com/modelcontextprotocol/python-sdk/releases/tag/v2.2.0",
+          "role": "release"
+        }
+      ],
+      "preconditions": [
+        "运行有状态 Streamable HTTP 服务并允许不完全可信客户端访问。",
+        "认证只能限制谁能访问，不能限制已获令牌者创建多少会话。"
+      ],
+      "affectedPackages": [
+        {
+          "name": "mcp",
+          "ecosystem": "pip",
+          "affectedRange": ">= 1.8.0, < 1.30.0",
+          "fixedVersion": "1.30.0",
+          "source": "https://github.com/advisories/GHSA-84m7-p3x7-pcfv"
+        },
+        {
+          "name": "mcp",
+          "ecosystem": "pip",
+          "affectedRange": ">= 2.0.0, < 2.2.0",
+          "fixedVersion": "2.2.0",
+          "source": "https://github.com/advisories/GHSA-84m7-p3x7-pcfv"
+        }
+      ],
+      "limitations": "无状态 HTTP、仅 stdio 或 SSE 的服务不受该路径影响。 补丁是有界保留，不是会话不再占内存；仍需合理设置 max_sessions、session_idle_timeout 和请求体上限。 项目公告为 CVSS 3.1 High/7.5，CVE CNA 为 CVSS 4.0 Medium/6.9，GitHub 数据库为 Medium。必须连同来源和评分版本保存，不能选最大值当作统一评分。 本条为公开漏洞公告，未在本站复现，也未独立核实在野利用。",
+      "impact": "会话及初始化参数无界累积，导致服务端内存资源耗尽。",
+      "recommendation": "mcp 1.x 升级到 1.30.0，2.x 升级到 2.2.0 或更新版本，并按主机容量设置会话空闲时间、会话上限和请求体大小；不需要状态时可在兼容版本使用 stateless_http=True。"
+    },
+    {
+      "id": "cve-2026-104850",
+      "externalId": "CVE-2026-104850",
+      "cveIds": [
+        "CVE-2026-104850"
+      ],
+      "title": "MCP TypeScript OAuth 凭证未绑定授权服务器，可发送给恶意服务",
+      "summary": "MCP TypeScript SDK 的 HTTP OAuth 客户端允许 MCP 服务指定接收凭证的授权服务器。持有合法 OAuth 凭证的客户端连接恶意服务时，可能将刷新令牌、客户端密钥或签名断言发送给攻击者。",
+      "kind": "advisory",
+      "risk": "attack",
+      "tags": [
+        "CVE-2026-104850",
+        "MCP",
+        "OAuth",
+        "凭证泄露"
+      ],
+      "entities": [
+        "MCP TypeScript SDK",
+        "@modelcontextprotocol/sdk",
+        "@modelcontextprotocol/client"
+      ],
+      "publishedAt": "2026-10-01",
+      "originalPublishedAt": "2026-10-01",
+      "cvePublishedAt": "2026-10-07",
+      "occurredAt": null,
+      "sourceId": "cve",
+      "sourceName": "CVE 官方记录",
+      "evidence": "primary",
+      "evidenceLabel": "官方 CVE · 项目公告",
+      "references": [
+        {
+          "label": "项目维护者安全公告",
+          "url": "https://github.com/modelcontextprotocol/typescript-sdk/security/advisories/GHSA-6qxp-vccf-f47h",
+          "role": "primary"
+        },
+        {
+          "label": "官方 CVE 记录（固定提交）",
+          "url": "https://github.com/CVEProject/cvelistV5/blob/cd661319d2df8a740dfc3dfe118a7e79fa82ba60/cves/2026/104xxx/CVE-2026-104850.json",
+          "role": "primary"
+        },
+        {
+          "label": "GitHub Advisory Database",
+          "url": "https://github.com/advisories/GHSA-6qxp-vccf-f47h",
+          "role": "database"
+        },
+        {
+          "label": "修复 PR #2887",
+          "url": "https://github.com/modelcontextprotocol/typescript-sdk/pull/2887",
+          "role": "patch"
+        },
+        {
+          "label": "Release v2.2.0",
+          "url": "https://github.com/modelcontextprotocol/typescript-sdk/releases/tag/v2.2.0",
+          "role": "release"
+        }
+      ],
+      "preconditions": [
+        "使用 SDK 的 HTTP OAuth 客户端，并持有既有或预配置的 OAuth 凭证。",
+        "客户端可能连接不可信 MCP 服务；具体 2.x 暴露还取决于 provider 与 issuer 配置。"
+      ],
+      "affectedPackages": [
+        {
+          "name": "@modelcontextprotocol/sdk",
+          "ecosystem": "npm",
+          "affectedRange": ">= 1.12.0, < 1.31.0",
+          "fixedVersion": "1.31.0",
+          "source": "https://github.com/advisories/GHSA-6qxp-vccf-f47h"
+        },
+        {
+          "name": "@modelcontextprotocol/client",
+          "ecosystem": "npm",
+          "affectedRange": ">= 2.0.0, < 2.2.0",
+          "fixedVersion": "2.2.0",
+          "source": "https://github.com/advisories/GHSA-6qxp-vccf-f47h"
+        }
+      ],
+      "limitations": "使用 SDK 实现的 MCP 服务端和 stdio 客户端不受此客户端路径影响。 仅升级不足以修复未绑定 issuer 的既有凭证及部分 bundled provider 配置。 新交互登录、直接调用 refreshAuthorization/exchangeAuthorization，以及跳过 issuer 元数据校验的 2.x 路径不在本次修复完整覆盖范围。 CVE affected 的两个版本段共用 typescript-sdk 产品名；npm 2.x 的实际包名是 @modelcontextprotocol/client，不能把 2.2.0 写成旧 sdk 包版本。 本条为公开漏洞公告，未在本站复现，也未独立核实在野利用。",
+      "impact": "OAuth 刷新令牌、客户端密钥或签名断言发往错误授权服务器，具体泄露对象随 provider 而异。",
+      "recommendation": "1.x 升级 sdk 至 1.31.0；2.x 升级 client 至 2.2.0，直接导入 core 时也升至 2.2.0。内置非交互 provider 显式设置 expectedIssuer，补齐或清除旧凭证的 issuer，自定义 provider 完整保存 issuer；如曾连接不可信服务则轮换密钥并撤销令牌。"
+    },
+    {
+      "id": "cve-2026-106119",
+      "externalId": "CVE-2026-106119",
+      "cveIds": [
+        "CVE-2026-106119"
+      ],
+      "title": "LangChain MongoDB 会话标识被解释为查询条件，可跨用户访问聊天历史",
+      "summary": "LangChain 的 MongoDBChatMessageHistory 未在运行时强制会话标识为字符串。不可信结构化标识可能被当作 MongoDB 查询条件，在共享集合中跨用户读取、修改或删除对话历史。",
+      "kind": "advisory",
+      "risk": "attack",
+      "tags": [
+        "CVE-2026-106119",
+        "会话隔离",
+        "查询注入",
+        "聊天历史"
+      ],
+      "entities": [
+        "LangChain",
+        "MongoDB",
+        "@langchain/mongodb"
+      ],
+      "publishedAt": "2026-10-05",
+      "originalPublishedAt": "2026-10-05",
+      "cvePublishedAt": "2026-10-07",
+      "occurredAt": null,
+      "sourceId": "cve",
+      "sourceName": "CVE 官方记录",
+      "evidence": "primary",
+      "evidenceLabel": "官方 CVE · 项目公告",
+      "references": [
+        {
+          "label": "项目维护者安全公告",
+          "url": "https://github.com/langchain-ai/langchainjs/security/advisories/GHSA-m6rx-h84q-8r95",
+          "role": "primary"
+        },
+        {
+          "label": "官方 CVE 记录（固定提交）",
+          "url": "https://github.com/CVEProject/cvelistV5/blob/cd661319d2df8a740dfc3dfe118a7e79fa82ba60/cves/2026/106xxx/CVE-2026-106119.json",
+          "role": "primary"
+        },
+        {
+          "label": "GitHub Advisory Database",
+          "url": "https://github.com/advisories/GHSA-m6rx-h84q-8r95",
+          "role": "database"
+        },
+        {
+          "label": "修复 PR #11672",
+          "url": "https://github.com/langchain-ai/langchainjs/pull/11672",
+          "role": "patch"
+        },
+        {
+          "label": "Release @langchain/mongodb@1.3.1",
+          "url": "https://github.com/langchain-ai/langchainjs/releases/tag/@langchain/mongodb@1.3.1",
+          "role": "release"
+        }
+      ],
+      "preconditions": [
+        "应用将不可信 sessionId 直接传给 MongoDBChatMessageHistory。",
+        "多个用户历史存储在同一 MongoDB 集合，且攻击者可调用聊天历史操作。"
+      ],
+      "affectedPackages": [
+        {
+          "name": "@langchain/mongodb",
+          "ecosystem": "npm",
+          "affectedRange": "<= 1.3.0",
+          "fixedVersion": "1.3.1",
+          "source": "https://github.com/advisories/GHSA-m6rx-h84q-8r95"
+        }
+      ],
+      "limitations": "服务端根据已认证身份产生并校验字符串标识的应用不受该路径影响。 不应推广为所有 LangChain 应用或所有 MongoDB 部署均受影响。 CVE affected 同时列 langchainjs < 1.5.14 和 @langchain/mongodb < 1.3.1；项目公告及发行说明具体指向后者。本站应明确包名和 1.3.1，不把项目名当包名套用版本。 本条为公开漏洞公告，未在本站复现，也未独立核实在野利用。",
+      "impact": "跨用户读取、修改或删除已存储的聊天历史。",
+      "recommendation": "升级 @langchain/mongodb 至 1.3.1 或更高；拒绝非空字符串以外的会话标识，并从服务端认证身份派生 sessionId，避免直接使用不可信请求字段。"
+    },
+    {
+      "id": "cve-2026-105697",
+      "externalId": "CVE-2026-105697",
+      "cveIds": [
+        "CVE-2026-105697"
+      ],
+      "title": "Langflow MCP stdio 配置可触发主机命令执行",
+      "summary": "Langflow 的 MCP stdio 启动链未统一校验命令、参数和环境变量。能够配置 MCP 或运行含相关组件流程的用户可在主机执行命令；对外暴露且启用开发用自动登录时，攻击者可能无需已有账号。",
+      "kind": "advisory",
+      "risk": "attack",
+      "tags": [
+        "CVE-2026-105697",
+        "MCP",
+        "命令执行",
+        "智能体"
+      ],
+      "entities": [
+        "Langflow",
+        "langflow-base",
+        "lfx"
+      ],
+      "publishedAt": "2026-09-29",
+      "originalPublishedAt": "2026-09-29",
+      "cvePublishedAt": "2026-10-06",
+      "occurredAt": null,
+      "sourceId": "cve",
+      "sourceName": "CVE 官方记录",
+      "evidence": "primary",
+      "evidenceLabel": "官方 CVE · 项目公告",
+      "references": [
+        {
+          "label": "项目维护者安全公告",
+          "url": "https://github.com/langflow-ai/langflow/security/advisories/GHSA-w794-rj3p-xv45",
+          "role": "primary"
+        },
+        {
+          "label": "官方 CVE 记录（固定提交）",
+          "url": "https://github.com/CVEProject/cvelistV5/blob/cd661319d2df8a740dfc3dfe118a7e79fa82ba60/cves/2026/105xxx/CVE-2026-105697.json",
+          "role": "primary"
+        },
+        {
+          "label": "GitHub Advisory Database",
+          "url": "https://github.com/advisories/GHSA-w794-rj3p-xv45",
+          "role": "database"
+        },
+        {
+          "label": "修复 PR #12290",
+          "url": "https://github.com/langflow-ai/langflow/pull/12290",
+          "role": "patch"
+        },
+        {
+          "label": "修复 PR #14036",
+          "url": "https://github.com/langflow-ai/langflow/pull/14036",
+          "role": "patch"
+        },
+        {
+          "label": "Langflow v1.10.3 官方发行说明",
+          "url": "https://github.com/langflow-ai/langflow/releases/tag/v1.10.3",
+          "role": "release"
+        }
+      ],
+      "preconditions": [
+        "攻击者可设置 MCP stdio 服务，或可构建/运行包含 MCP Tools 配置的流程。",
+        "关闭自动登录时通常需要普通账号；若暴露开发默认 AUTO_LOGIN，则可无凭证取令牌。"
+      ],
+      "affectedPackages": [
+        {
+          "name": "langflow",
+          "ecosystem": "pip",
+          "affectedRange": ">= 1.1.2, < 1.10.3",
+          "fixedVersion": "1.10.3",
+          "source": "https://github.com/advisories/GHSA-w794-rj3p-xv45"
+        },
+        {
+          "name": "langflow-base",
+          "ecosystem": "pip",
+          "affectedRange": ">= 0.1.2, < 0.10.3",
+          "fixedVersion": "0.10.3",
+          "source": "https://github.com/advisories/GHSA-w794-rj3p-xv45"
+        },
+        {
+          "name": "lfx",
+          "ecosystem": "pip",
+          "affectedRange": "< 1.10.3",
+          "fixedVersion": "1.10.3",
+          "source": "https://github.com/advisories/GHSA-w794-rj3p-xv45"
+        }
+      ],
+      "limitations": "1.9.0 只修复 REST 模型入口，流程内嵌配置及最终启动位置直到 1.10.3 才统一执行策略。 1.10.3 仍允许 npx/uvx 运行包，不能将基础修复等同于任意不可信用户可安全使用执行功能；额外策略需按已安装版本确认。 公告提到研究者发现互联网暴露实例，未证明已发生在野攻击或受害损失。 首次可核对的本项目 GHSA 是 2026-09-28 UTC；修复 PR 和修复版本早于此日期，不能称漏洞或补丁在 10 月首次出现。公告引用更早的 OX 研究，但本次未证明其与本编号的最早公开时间完全等价。 本条为公开漏洞公告，未在本站复现，也未独立核实在野利用。",
+      "impact": "以 Langflow 服务进程权限执行主机操作系统命令。",
+      "recommendation": "langflow 升至 1.10.3、langflow-base 至 0.10.3、lfx 至 1.10.3 或更新版本；禁用对外部署中的 AUTO_LOGIN。多租户场景继续配置可执行包白名单和解释器/Docker 限制。"
+    },
+    {
+      "id": "cve-2026-105757",
+      "externalId": "CVE-2026-105757",
+      "cveIds": [
+        "CVE-2026-105757"
+      ],
+      "title": "vLLM 结构化输出错误越过请求边界，可终止共享推理引擎",
+      "summary": "vLLM 的三条结构化输出处理路径未将错误限制在单个请求内，异常可能导致共享 EngineCore 终止，影响同实例其他用户。部分路径依赖特定后端或可选 Rust 前端，属于可用性问题。",
+      "kind": "advisory",
+      "risk": "attack",
+      "tags": [
+        "CVE-2026-105757",
+        "推理服务",
+        "结构化输出",
+        "拒绝服务"
+      ],
+      "entities": [
+        "vLLM",
+        "EngineCore"
+      ],
+      "publishedAt": "2026-09-23",
+      "originalPublishedAt": "2026-09-23",
+      "cvePublishedAt": "2026-10-06",
+      "occurredAt": null,
+      "sourceId": "cve",
+      "sourceName": "CVE 官方记录",
+      "evidence": "primary",
+      "evidenceLabel": "官方 CVE · 项目公告",
+      "references": [
+        {
+          "label": "项目维护者安全公告",
+          "url": "https://github.com/vllm-project/vllm/security/advisories/GHSA-85xf-c7hm-whqw",
+          "role": "primary"
+        },
+        {
+          "label": "官方 CVE 记录（固定提交）",
+          "url": "https://github.com/CVEProject/cvelistV5/blob/cd661319d2df8a740dfc3dfe118a7e79fa82ba60/cves/2026/105xxx/CVE-2026-105757.json",
+          "role": "primary"
+        },
+        {
+          "label": "GitHub Advisory Database",
+          "url": "https://github.com/advisories/GHSA-85xf-c7hm-whqw",
+          "role": "database"
+        },
+        {
+          "label": "修复 PR #51450",
+          "url": "https://github.com/vllm-project/vllm/pull/51450",
+          "role": "patch"
+        },
+        {
+          "label": "Release v0.30.0",
+          "url": "https://github.com/vllm-project/vllm/releases/tag/v0.30.0",
+          "role": "release"
+        }
+      ],
+      "preconditions": [
+        "调用者能够向服务发送结构化输出请求；API 认证决定是否需要有效令牌。",
+        "路径一涉及默认 auto 后端；路径二要求 guidance 加 ngram_gpu；路径三要求可选 Rust 前端。"
+      ],
+      "affectedPackages": [
+        {
+          "name": "vllm",
+          "ecosystem": "pip",
+          "affectedRange": "< 0.30.0",
+          "fixedVersion": "0.30.0",
+          "source": "https://github.com/advisories/GHSA-85xf-c7hm-whqw"
+        }
+      ],
+      "limitations": "研究正文路径一需要两个请求，不能笼统写成所有路径都只需一个请求。 公告界定为拒绝服务，不包含代码执行、内存破坏或数据泄露。 结构化字段和 CVE 给出 < 0.30.0；正文只明确在 0.25.1 验证，较早下界未穷尽。 正文尾部仍写 Proposed fix，但 PR #51450 实际已经合并，0.30.0 发行说明列出该 PR；需按实际 PR 状态描述。 本条为公开漏洞公告，未在本站复现，也未独立核实在野利用。",
+      "impact": "共享 EngineCore 终止，影响该实例的并发和后续请求；不代表整个集群失效。",
+      "recommendation": "按维护者结构化公告升级 vllm 至 0.30.0 或更新版本；排查受影响前端及后端组合，并将语法/令牌处理失败限制在单请求范围。"
     }
   ]
 }

@@ -4,7 +4,7 @@ import path from 'node:path';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=name=>JSON.parse(readFileSync(path.join(root,'content',name),'utf8'));
 const pdf=read('pdf-items.json');
-const additions=['expanded-vendor-items.json','expanded-research-items.json'].flatMap(name=>existsSync(path.join(root,'content',name))?read(name):[]);
+const additions=['expanded-vendor-items.json','expanded-research-items.json','cve-items.json'].flatMap(name=>existsSync(path.join(root,'content',name))?read(name):[]);
 const primary=[...read('primary-items.json'),...additions];
 const sources=read('sources.json');
 // SalesBleed is already AISID-2026-0015 in the PDF. Attach its original
@@ -45,7 +45,11 @@ if(awsDatabase)Object.assign(awsDatabase,{
  impact:'成功利用可按本地辅助程序进程的权限执行系统命令，影响使用插件的主机。Aurora DSQL 服务本身与数据库授权边界不受此漏洞影响。',
  recommendation:'升级到 1.7.1 或更新版本。通过固定 Git 修订安装的用户应使用 8b13a503746a4ebb0402b936645163224058bde3 或后续提交，避免仅固定到 1.7.1 标签；暂时无法升级时停止使用可选 psql 辅助程序。'
 });
-for(const item of items){delete item.featured;delete item.featureOrder;}
+for(const item of items){
+ delete item.featured;delete item.featureOrder;
+ // Only explicit identifiers count; prose may mention a different vulnerability.
+ item.cveIds=[...new Set([...(item.cveIds||[]),item.externalId,...item.tags].filter(value=>/^CVE-\d{4}-\d{4,}$/i.test(value||'')).map(value=>value.toUpperCase()))];
+}
 const ids=new Set();
 for(const item of items){
  if(ids.has(item.id))throw new Error('重复记录编号 '+item.id);ids.add(item.id);
@@ -53,8 +57,16 @@ for(const item of items){
  if(item.evidence==='primary'&&!item.references.some(r=>r.role==='primary'&&r.url?.startsWith('https://')))throw new Error('一手披露缺原文 '+item.id);
  if(!/^\d{4}-\d{2}-\d{2}$/.test(item.publishedAt))throw new Error('日期格式不正确 '+item.id);
  for(const ref of item.references)if(!/^https?:\/\//.test(ref.url))throw new Error('无效公开链接 '+item.id);
+ if(item.sourceId==='cve'){
+  if(!item.cveIds.length||item.kind!=='advisory')throw new Error('CVE 条目缺少编号或类型不正确 '+item.id);
+  const duplicate=items.find(other=>other.id!==item.id&&other.kind!=='incident'&&other.cveIds.some(id=>item.cveIds.includes(id)));
+  if(duplicate)throw new Error('重复漏洞公告 '+item.id+' / '+duplicate.id);
+  if(!item.affectedPackages?.length||item.affectedPackages.some(p=>!p.name||!p.ecosystem||!p.affectedRange||!p.fixedVersion))throw new Error('CVE 版本信息不完整 '+item.id);
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(item.cvePublishedAt))throw new Error('CVE 发布日期不正确 '+item.id);
+ }
 }
-const result={meta:{title:'AI 安全观察',version:'0.2.0',updatedAt:'2026-10-23',timeZone:'Asia/Taipei',mode:'curated-snapshot',scheduledCollection:false,total:items.length,pdfRecords:pdf.length,primaryRecords:items.filter(i=>i.evidence==='primary').length,activeSources:new Set(items.map(item=>item.sourceId)).size},items};
+const version=JSON.parse(readFileSync(path.join(root,'package.json'),'utf8')).version;
+const result={meta:{title:'AI 安全观察',version,updatedAt:'2026-10-23',timeZone:'Asia/Taipei',mode:'curated-snapshot',scheduledCollection:false,total:items.length,pdfRecords:pdf.length,primaryRecords:items.filter(i=>i.evidence==='primary').length,cveRecords:items.filter(i=>i.cveIds.length).length,activeSources:new Set(items.map(item=>item.sourceId)).size},items};
 mkdirSync(path.join(root,'dist','data'),{recursive:true});
 writeFileSync(path.join(root,'dist/data/items.json'),JSON.stringify(result,null,2)+'\n');
 writeFileSync(path.join(root,'dist/data/sources.json'),JSON.stringify(sources,null,2)+'\n');
