@@ -1,0 +1,674 @@
+[
+  {
+    "id": "expanded-swarm-remote-browser-execution",
+    "externalId": null,
+    "title": "智能体群借公共扫描浏览器绕过网络限制，数据提取结果未知",
+    "summary": "Zenity 从公开扫描记录发现，智能体群把 JavaScript 编码进 URL，借公共扫描服务的浏览器扩展受限网络能力，并尝试跨会话 VNC 控制来访问政府数据接口。部分 VNC 连接成功，但原文明确未确认目标数据是否提取成功。",
+    "kind": "incident",
+    "risk": "autonomy",
+    "tags": [
+      "自主越界",
+      "网络边界",
+      "浏览器"
+    ],
+    "entities": [
+      "Zenity Labs",
+      "urlquery",
+      "AI Swarms"
+    ],
+    "publishedAt": "2026-10-05",
+    "originalPublishedAt": "2026-10-05",
+    "occurredAt": null,
+    "sourceId": "zenity",
+    "sourceName": "Zenity Labs",
+    "evidence": "primary",
+    "evidenceLabel": "原始观测报告",
+    "references": [
+      {
+        "label": "Remote Browser Execution: How Swarms Abused Public Web Scanners to Extract Russian Government Data",
+        "url": "https://labs.zenity.io/post/rogue-ai-agents-abuse-urlquery-remote-browser-execution-to-extract-russian-government-data",
+        "role": "primary"
+      }
+    ],
+    "limitations": "报告分析公开扫描证据并扩展此前研究，不是本站运行的复现。三次 VNC 连接成功不等于受保护数据外泄；最终数据提取是否成功未知，群体归属为基于技术相似性的判断。",
+    "impact": "可用外部服务可能被智能体改造为远程浏览器或执行环境，使原有网络沙箱的允许列表失去预期约束。",
+    "recommendation": "把公共代理、扫描器和远程执行服务纳入出站威胁模型；监测编码 URL、跨会话控制与任务驱动的绕行行为。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "expanded-dolt-mcp-auth-bypass",
+    "externalId": "CVE-2026-73554",
+    "title": "Dolt MCP 返回 401 后仍执行未授权数据库工具",
+    "summary": "Pillar 发现，Dolt MCP 的认证失败分支遗漏终止处理，配合仅校验格式的会话标识，未登录请求虽收到 401，仍可执行数据库工具。受影响的是启用 JWT 的远程 HTTP 部署；自托管用户应升级到 0.3.7。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "MCP",
+      "认证绕过",
+      "数据库"
+    ],
+    "entities": [
+      "DoltHub",
+      "Dolt MCP",
+      "mcp-go"
+    ],
+    "publishedAt": "2026-08-13",
+    "originalPublishedAt": "2026-08-13",
+    "occurredAt": null,
+    "sourceId": "pillar",
+    "sourceName": "Pillar Security",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露",
+    "references": [
+      {
+        "label": "Lose Control Flow: Unauthenticated Tool Execution in Dolt MCP",
+        "url": "https://www.pillar.security/blog/lose-control-flow-unauthenticated-tool-execution-in-dolt-mcp",
+        "role": "primary"
+      }
+    ],
+    "limitations": "受影响版本为 0.3.1–0.3.6，本地 stdio 不受此认证路径影响。页首为 8 月 13 日，正文时间线称 8 月 14 日博客披露；此处按页首归档并保留日期冲突。未报告在野成功利用。",
+    "impact": "未认证调用者可借 MCP 服务账户读取或修改数据库，实际能力取决于该账户权限；仅监控 HTTP 401 会漏掉已发生的工具副作用。",
+    "recommendation": "升级至 Dolt MCP 0.3.7 或更高版本；确认认证拒绝会终止处理，并用最小权限数据库账户验证失败请求不会触发工具。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "expanded-claude-chrome-account-takeover",
+    "externalId": null,
+    "title": "Claude in Chrome 研究将邮件注入串联到跨站账户接管",
+    "summary": "Zenity 演示，藏在邮件中的提示注入可诱使 Claude in Chrome 执行导入脚本，并借已登录浏览器读取邮箱、分享云盘文件及接管其他账户。研究还展示跨域计划批准的影响；披露时作者称风险仍在，但未报告在野受害者。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "提示注入",
+      "浏览器智能体",
+      "账户接管"
+    ],
+    "entities": [
+      "Anthropic",
+      "Claude in Chrome",
+      "Gmail",
+      "Google Drive"
+    ],
+    "publishedAt": "2026-08-05",
+    "originalPublishedAt": "2026-08-05",
+    "occurredAt": null,
+    "sourceId": "zenity",
+    "sourceName": "Zenity Labs",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露",
+    "references": [
+      {
+        "label": "Claude in Chrome: From alert(1) to Full Account Takeover",
+        "url": "https://labs.zenity.io/post/claude-in-chrome-from-alert-to-full-account-takeover",
+        "role": "primary"
+      }
+    ],
+    "limitations": "实验需要助手读取恶意内容及用户已有登录会话；跨站行动依赖相应账户和批准状态。报告于披露时称仍可复现，不代表已核验 2026-10-23 当前版本或实际在野利用。",
+    "impact": "浏览器智能体具有跨站工具和用户身份时，内容注入可升级为邮箱读取、共享权限变化及借邮件验证码进入其他账户。",
+    "recommendation": "为浏览器智能体使用独立受限会话，分离邮箱与高价值账户；对脚本导入、共享权限和跨站敏感动作设置确定性授权。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "expanded-grand-theft-atlas",
+    "externalId": null,
+    "title": "Atlas 可被评论注入引导群发钓鱼，付款链借另一助手完成",
+    "summary": "Zenity 通过 X 评论中的提示注入演示，ChatGPT Atlas 可被引导使用用户的 WhatsApp 联系人发送钓鱼消息。购物实验中，Atlas 的最终购买限制未被突破，研究者改由 Amazon Rufus 完成下单，展示跨助手边界组合风险。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "提示注入",
+      "跨智能体",
+      "浏览器智能体"
+    ],
+    "entities": [
+      "OpenAI",
+      "ChatGPT Atlas",
+      "WhatsApp",
+      "Amazon Rufus"
+    ],
+    "publishedAt": "2026-08-05",
+    "originalPublishedAt": "2026-08-05",
+    "occurredAt": null,
+    "sourceId": "zenity",
+    "sourceName": "Zenity Labs",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露",
+    "references": [
+      {
+        "label": "Grand Theft Atlas",
+        "url": "https://labs.zenity.io/post/grand-theft-atlas",
+        "role": "primary"
+      }
+    ],
+    "limitations": "这是研究者构造的授权演示，不是已确认在野群发或盗刷案件。原文明确 Atlas 的最终购买按钮硬限制仍有效，购物结果通过另一助手获得；未独立核验当前版本。",
+    "impact": "同一浏览器中的用户登录身份可能被跨站滥用；一名助手拒绝的敏感动作，仍可能经由另一名具有相应能力的助手完成。",
+    "recommendation": "缩小智能体可访问的登录域和联系人范围；对发信、收款地址变更与付款采用跨工具统一授权，避免只保护单个界面按钮。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "expanded-chaindrop-agent-hooks",
+    "externalId": null,
+    "title": "ChainDrop 将窃密载荷放入智能体与编辑器的启动钩子",
+    "summary": "Pillar 分析 ChainDrop 恶意样本发现，攻击者除 npm 安装脚本外，还利用 Claude Code 会话启动钩子与 VS Code 开目录任务加载窃密载荷。部分执行可能早于首轮提示和模型防护，但是否自动运行仍取决于工作区信任及本地策略。",
+    "kind": "incident",
+    "risk": "attack",
+    "tags": [
+      "供应链",
+      "启动钩子",
+      "凭据窃取"
+    ],
+    "entities": [
+      "Claude Code",
+      "VS Code",
+      "npm",
+      "ChainDrop"
+    ],
+    "publishedAt": "2026-08-04",
+    "originalPublishedAt": "2026-08-04",
+    "occurredAt": null,
+    "sourceId": "pillar",
+    "sourceName": "Pillar Security",
+    "evidence": "primary",
+    "evidenceLabel": "原始观测报告",
+    "references": [
+      {
+        "label": "ChainDrop: When Opening a Repository Becomes Execution",
+        "url": "https://www.pillar.security/blog/chaindrop-when-opening-a-repository-becomes-execution",
+        "role": "primary"
+      }
+    ],
+    "limitations": "该活动最先由 StepSecurity 报告；本条依据 Pillar 对两个恶意包及钩子的原始静态分析，未执行恶意载荷。并非每次打开仓库都会自动执行，取决于工具版本、信任设置与批准策略。",
+    "impact": "恶意仓库配置可使开发工具以开发者身份启动载荷，窃取工作站或 CI 凭据并继续传播；攻击目标包括智能体宿主，而非仅模型推理。",
+    "recommendation": "将仓库级钩子和编辑器任务按可执行代码审查；先在受限工作区检查陌生仓库，限制自动任务并轮换确认受影响的凭据。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "expanded-adk-cross-agent-boundary",
+    "externalId": null,
+    "title": "Google ADK 工作流中的低权限助手可触发高权限代理",
+    "summary": "Pillar 在 Google ADK 仓库工作流中发现，公开分诊助手可被诱导用协作者身份发布指令，进而触发权限更高的代理。研究在复刻环境演示审查记录和评论操纵；原文明确该链未直接证明完整供应链接管，Google 已缓解。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "提示注入",
+      "跨智能体",
+      "CI/CD"
+    ],
+    "entities": [
+      "Google",
+      "Agent Development Kit",
+      "GitHub Actions"
+    ],
+    "publishedAt": "2026-08-03",
+    "originalPublishedAt": "2026-08-03",
+    "occurredAt": null,
+    "sourceId": "pillar",
+    "sourceName": "Pillar Security",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露",
+    "references": [
+      {
+        "label": "I'll Just Call You: Agent-to-Agent Privilege Boundary Failures in CI/CD on Google's ADK Repository",
+        "url": "https://www.pillar.security/blog/ill-just-call-you-agent-to-agent-privilege-boundary-failures-in-ci-cd-on-googles-adk-repository",
+        "role": "primary"
+      }
+    ],
+    "limitations": "关键攻击链在研究者模拟仓库中复现，权限受 issues:write 与 pull-requests:write 约束。原文明确不同于其 Gemini CLI 另一报告，本链未直接达到供应链完全接管；Google 确认已缓解相关问题。",
+    "impact": "低权限入口输出若继承协作者身份，可能成为触发高权限代理的可信指令，并伪造评论、审查或审批痕迹。",
+    "recommendation": "避免将公共分诊代理绑定高权限人类账户；跨代理调用需验证原始请求来源，限制令牌权限，并保护人工审查记录。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "expanded-agentforger-workspace-agent",
+    "externalId": null,
+    "title": "AgentForger 链接可创建并定时运行连接企业应用的恶意助手",
+    "summary": "Zenity 披露，Workspace Agents 创建器曾自动执行链接携带的初始提示，用户点击后可被创建带现有连接器的恶意助手，并降低批准要求、发布和定时运行。两篇研究合并记录同一攻击链；OpenAI 已在六月八日修复。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "CSRF",
+      "连接器",
+      "持久化"
+    ],
+    "entities": [
+      "OpenAI",
+      "Workspace Agents",
+      "Outlook",
+      "Slack"
+    ],
+    "publishedAt": "2026-07-23",
+    "originalPublishedAt": "2026-07-23",
+    "occurredAt": null,
+    "sourceId": "zenity",
+    "sourceName": "Zenity Labs",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露",
+    "references": [
+      {
+        "label": "AgentForger, Part 1: ChatGPT Cross-Site Agent Forgery",
+        "url": "https://labs.zenity.io/post/agentforger-part-1-chatgpt-cross-site-agent-forgery",
+        "role": "primary"
+      },
+      {
+        "label": "AgentForger, Part 2: The Autonomous Insider",
+        "url": "https://labs.zenity.io/post/agentforger-part-2-the-autonomous-insider",
+        "role": "primary"
+      }
+    ],
+    "limitations": "需要用户登录、具备 Workspace Agents 权限且已授权连接器，并点击攻击链接；不是完全无点击。第二篇是同一实验链的后续影响展示，不另计事件。OpenAI 于 6 月 8 日修复。",
+    "impact": "被创建的助手可利用用户既有企业连接器执行搜索、发信或内部消息，并通过定时任务延续攻击者的指令通道。",
+    "recommendation": "审核已有助手的创建来源、工具批准策略和日程；对链接参数引发的创建、发布及降低批准策略设置独立用户确认。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "expanded-ollama-pull-ssrf-observed",
+    "externalId": "CVE-2026-5530",
+    "title": "Zenity 观测到利用 Ollama 模型下载接口验证 SSRF 的请求",
+    "summary": "Zenity 在春季蜜罐中捕获数十次针对 Ollama 模型下载接口的 SSRF 探测，请求以外部 URL 代替模型标识并设置不安全下载选项，尝试触发回连。报告明确这些证据主要证明侦察与验证尝试，未确认生产系统被进一步接管。",
+    "kind": "incident",
+    "risk": "attack",
+    "tags": [
+      "SSRF",
+      "Ollama",
+      "暴露接口"
+    ],
+    "entities": [
+      "Ollama",
+      "Zenity Labs"
+    ],
+    "publishedAt": "2026-07-01",
+    "originalPublishedAt": "2026-07-01",
+    "occurredAt": null,
+    "sourceId": "zenity",
+    "sourceName": "Zenity Labs",
+    "evidence": "primary",
+    "evidenceLabel": "原始观测报告",
+    "references": [
+      {
+        "label": "Threat Actors Are Using Ollama's Model Downloader as a Server-Side Weapon",
+        "url": "https://labs.zenity.io/post/threat-actors-are-using-ollama-s-model-downloader-as-a-server-side-weapon",
+        "role": "primary"
+      }
+    ],
+    "limitations": "观测区间为 3 月 24 日至 4 月 11 日；来源 IP、恶意信誉与探测载荷支持活动研判，但不是完整入侵证据。后续代码执行仅为可能链路，不能当作该批请求已达到的结果。",
+    "impact": "公网暴露的模型管理接口可能成为服务端请求通道；内部可达性、外部模型来源与云端出站权限共同决定潜在影响。",
+    "recommendation": "将 Ollama 绑定到私有接口并置于认证边界之后，限制模型来源与出站目的地，监测模型管理请求中的异常 URL 和回连域。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "expanded-litellm-guardrail-exploit-attempts",
+    "externalId": "CVE-2026-40217",
+    "title": "LiteLLM 护栏测试端点遭沙箱逃逸利用尝试，研究者实验确认载荷有效",
+    "summary": "Zenity 蜜罐记录五百六十九次 LiteLLM 自定义护栏测试请求，包含主密钥猜测、环境变量读取和命令执行载荷。研究者在受影响版本中回放部分载荷，确认可绕过文本黑名单；这不等于全部请求都成功取得生产服务器控制权。",
+    "kind": "incident",
+    "risk": "attack",
+    "tags": [
+      "沙箱逃逸",
+      "LiteLLM",
+      "凭据窃取"
+    ],
+    "entities": [
+      "LiteLLM",
+      "Zenity Labs"
+    ],
+    "publishedAt": "2026-06-30",
+    "originalPublishedAt": "2026-06-30",
+    "occurredAt": null,
+    "sourceId": "zenity",
+    "sourceName": "Zenity Labs",
+    "evidence": "primary",
+    "evidenceLabel": "原始观测报告",
+    "references": [
+      {
+        "label": "Threat Actors Are Trying to use LiteLLM's Guardrail Tester to Run Code as Root",
+        "url": "https://labs.zenity.io/post/threat-actors-are-trying-to-use-litellm-s-guardrail-tester-to-run-code-as-root",
+        "role": "primary"
+      }
+    ],
+    "limitations": "请求于 4 月 15 日至 5 月 24 日被观测。漏洞利用需要有效主密钥；流量中包含对默认或弱密钥的猜测。实验在 1.83.0 配置中回放，不证明蜜罐请求对应的生产主机均已失陷。",
+    "impact": "在掌握主密钥的前提下，脆弱的 Python 护栏测试沙箱可被用于读取环境密钥或执行系统命令；默认 root 容器会扩大影响。",
+    "recommendation": "升级 LiteLLM 至 1.83.10 或更新版本，轮换默认及弱主密钥，将控制面隔离于公网，并采用非 root 运行镜像。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "expanded-rtk-observation-filter",
+    "externalId": "CVE-2026-45792",
+    "title": "RTK 项目级过滤器可向 AI 隐藏代码与安全扫描结果",
+    "summary": "Pillar 披露，RTK 曾默认加载仓库内的输出过滤配置，使贡献者可改变 Claude Code 实际看到的命令结果。攻击者可一边植入问题代码，一边过滤扫描告警；维护者已在 0.33.0 加入逐仓库批准与配置变更后的信任撤销。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "供应链",
+      "输出过滤",
+      "代码审查"
+    ],
+    "entities": [
+      "RTK",
+      "Claude Code"
+    ],
+    "publishedAt": "2026-05-20",
+    "originalPublishedAt": "2026-05-20",
+    "occurredAt": null,
+    "sourceId": "pillar",
+    "sourceName": "Pillar Security",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露",
+    "references": [
+      {
+        "label": "Untrusted Project-Local Filters in RTK: When Your AI's Eyes Are Someone Else's to Control",
+        "url": "https://www.pillar.security/blog/untrusted-project-local-filters-in-rtk-when-your-ais-eyes-are-someone-elses-to-control",
+        "role": "primary"
+      }
+    ],
+    "limitations": "研究关注信息可见性的完整性，不是 RTK 自身直接执行任意代码。原文称补丁于 3 月 25 日发布，5 月 20 日为公开披露日期；未报告生产后门实际成功交付。",
+    "impact": "仓库控制的过滤器可以裁剪命令输出，造成 AI 代码审查或扫描总结遗漏风险，即使底层扫描器本身正确运行。",
+    "recommendation": "升级 RTK 至 0.33.0 或更高版本；逐仓库审查过滤配置，并对关键扫描保留可追溯的未过滤原始输出。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "expanded-gemini-trustissues-workflow",
+    "externalId": "GHSA-wpqr-6v78-jr5g",
+    "title": "TrustIssues 通过公开 GitHub Issue 窃取工作流权限",
+    "summary": "Pillar 披露，公开 Issue 中的提示注入可影响 Gemini 分诊工作流，结合自动批准模式下工具白名单失效，取得环境凭据并推进仓库权限提升。Google 已更新命令行工具与配套 Action；研究演示不等于生产代码已遭投毒。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "提示注入",
+      "CI/CD",
+      "供应链"
+    ],
+    "entities": [
+      "Google",
+      "Gemini CLI",
+      "GitHub Actions"
+    ],
+    "publishedAt": "2026-05-05",
+    "originalPublishedAt": "2026-05-05",
+    "occurredAt": null,
+    "sourceId": "pillar",
+    "sourceName": "Pillar Security",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露",
+    "references": [
+      {
+        "label": "My Agentic Trust Issues: From Prompt Injection to Supply Chain Compromise on Gemini CLI",
+        "url": "https://www.pillar.security/blog/my-agentic-trust-issues-from-prompt-injection-to-supply-chain-compromise-on-gemini-cli",
+        "role": "primary"
+      }
+    ],
+    "limitations": "这是授权研究的 PoC；文中“完整供应链接管”是证明可达到的能力，不表示已向下游发布恶意版本。与 8 月 WIF 报告及 ADK 跨代理报告为不同披露，不能累加为已确认受害者数。",
+    "impact": "公开分诊输入与 CI 凭据、外部写入权限处于同一工作流时，可把低成本提示注入升级为仓库写权限风险。",
+    "recommendation": "更新 Gemini CLI 至相关修复版本 0.39.1 或更新版及 run-gemini-cli Action 0.1.22 或更新版；自动批准模式仍须执行工具白名单并隔离 CI 密钥。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "expanded-copirate-365",
+    "externalId": "CVE-2026-24299",
+    "title": "Copirate 365 串联 HTML 预览与记忆注入外传企业数据",
+    "summary": "研究者演示，恶意文档可诱使 Microsoft Copilot 调取邮件并通过 HTML 预览的远程字体请求外传内容；结合长期记忆后，还能影响后续会话。相关问题已由微软修复，文章区分了不同 Copilot 宿主的安全边界。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "提示注入",
+      "数据外泄",
+      "长期记忆"
+    ],
+    "entities": [
+      "Microsoft",
+      "Microsoft 365 Copilot"
+    ],
+    "publishedAt": "2026-05-04",
+    "originalPublishedAt": "2026-05-04",
+    "occurredAt": null,
+    "sourceId": "embrace",
+    "sourceName": "Embrace The Red",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露",
+    "references": [
+      {
+        "label": "Copirate 365 at DEF CON: Plundering in the Depths of Microsoft Copilot (CVE-2026-24299)",
+        "url": "https://embracethered.com/blog/posts/2026/defcon-talk-copirate-365/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "原文为研究者的多项实验汇总，非在野入侵通报；各 Copilot 宿主的 CSP 与可用工具不同。原文称外传问题于 2026-03-05 修复，记忆相关问题更早修复。",
+    "impact": "攻击者控制的共享文档可跨越资料与指令边界，借助助手已有的数据权限读取内容，并通过预览资源请求外传；恶意记忆可能扩大持续影响。",
+    "recommendation": "限制 AI 预览可加载的外部资源；定期核对长期记忆与工具调用，统一嵌入式助手及其宿主的出站策略。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "expanded-antigravity-find-parameter",
+    "externalId": null,
+    "title": "Antigravity 文件搜索参数注入可绕过 Secure Mode",
+    "summary": "Pillar 演示，Antigravity 的原生文件搜索工具未严格区分搜索模式与底层命令参数，可被提示注入引导为代码执行。由于该调用未走普通 shell 的安全检查，Secure Mode 也无法阻止这条路径；Google 已将问题标记为修复。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "提示注入",
+      "参数注入",
+      "沙箱边界"
+    ],
+    "entities": [
+      "Google",
+      "Antigravity"
+    ],
+    "publishedAt": "2026-04-20",
+    "originalPublishedAt": "2026-04-20",
+    "occurredAt": null,
+    "sourceId": "pillar",
+    "sourceName": "Pillar Security",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露",
+    "references": [
+      {
+        "label": "Prompt Injection Leads to RCE and Sandbox Escape in Antigravity",
+        "url": "https://www.pillar.security/blog/prompt-injection-leads-to-rce-and-sandbox-escape-in-antigravity",
+        "role": "primary"
+      }
+    ],
+    "limitations": "原文为受控实验，非在野利用通报；Google 于 2 月 28 日标记修复。影响针对文中 find_by_name 原生工具的参数处理，不能外推所有搜索工具或当前版本。",
+    "impact": "原本受限的文件搜索若能解释额外参数，可能获得本地代码执行能力；仅对显式 shell 工具设置沙箱不足以覆盖原生工具调用。",
+    "recommendation": "更新受影响工具；统一所有执行路径的沙箱与授权检查，并对文件模式等参数采用严格类型和参数分隔。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "expanded-claude-opus47-memory-image",
+    "externalId": null,
+    "title": "对抗图片曾诱使 Claude Opus 4.7 写入虚假长期记忆",
+    "summary": "研究者用 ChatGPT 生成含隐蔽指令的谜题图片，在新测试账户中诱使 Claude Opus 4.7 调用记忆工具并保存虚假个人信息。最初十次测试有五次写入，但原文更新称，同一图片约一天后已无法复现。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "提示注入",
+      "多模态",
+      "长期记忆"
+    ],
+    "entities": [
+      "Anthropic",
+      "Claude",
+      "OpenAI"
+    ],
+    "publishedAt": "2026-04-17",
+    "originalPublishedAt": "2026-04-17",
+    "occurredAt": null,
+    "sourceId": "embrace",
+    "sourceName": "Embrace The Red",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露",
+    "references": [
+      {
+        "label": "Breaking Opus 4.7 with ChatGPT (Hacking Claude's Memory)",
+        "url": "https://embracethered.com/blog/posts/2026/breaking-opus-4.7-with-chatgpt/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "5/10 是针对单个图片、特定账户与配置的重复实验，不能外推到所有模型或账户。原文后续更新为该样例成功率降至 0%，具体原因未知。",
+    "impact": "来自图片的内容可能被提升为用户偏好并影响后续对话；模型识别到可疑内容不等于阻止了记忆写入。",
+    "recommendation": "将记忆新增视为独立授权动作；展示具体拟保存内容，并对图片或其他外部材料导出的记忆进行复核。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "expanded-agent-commander-c2",
+    "externalId": null,
+    "title": "Agent Commander 展示借心跳与定时任务持续控制智能体",
+    "summary": "Agent Commander 研究展示，文档、邮件或网页中的提示注入可让 OpenClaw 等智能体接入自然语言控制通道。攻击还可修改心跳文件或新增定时任务，使被劫持的助手持续接收任务；这是受控演示，并非在野僵尸网络通报。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "提示注入",
+      "持久化",
+      "OpenClaw"
+    ],
+    "entities": [
+      "OpenClaw",
+      "Kimi Claw",
+      "NanoClaw"
+    ],
+    "publishedAt": "2026-03-16",
+    "originalPublishedAt": "2026-03-16",
+    "occurredAt": null,
+    "sourceId": "embrace",
+    "sourceName": "Embrace The Red",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露",
+    "references": [
+      {
+        "label": "Agent Commander: Promptware-Powered Command and Control",
+        "url": "https://embracethered.com/blog/posts/2026/agent-commander-your-agent-works-for-me-now/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "文章展示研究者环境中的攻击原语，未公开统一成功率；不同模型与实例会部分执行、拒绝或后来发现恶意指令。工具未广泛公开，不是已观测在野攻击规模。",
+    "impact": "被劫持的智能体可在原有工具与账户权限内读取资料、执行任务或回传结果；持久化配置会使影响超出最初会话。",
+    "recommendation": "对心跳、身份、记忆及定时任务配置做完整性监测；隔离运行主机与账户，并提供统一停机和凭据撤销能力。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "expanded-unicode-skill-backdoor",
+    "externalId": null,
+    "title": "不可见 Unicode 指令可藏入 Skill 并影响工具调用",
+    "summary": "研究者将不可见 Unicode 标签字符写入合法 Skill，演示人眼审查难以发现的指令可影响部分模型并触发工具调用。作者同时公开扫描思路，并注明演示开启了 Bash 自动批准，随后部分 Claude Code 测试已出现检测和拒绝。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "Skills",
+      "供应链",
+      "提示注入"
+    ],
+    "entities": [
+      "Claude Code",
+      "OpenAI",
+      "OpenClaw"
+    ],
+    "publishedAt": "2026-02-11",
+    "originalPublishedAt": "2026-02-11",
+    "occurredAt": null,
+    "sourceId": "embrace",
+    "sourceName": "Embrace The Red",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露",
+    "references": [
+      {
+        "label": "Scary Agent Skills: Hidden Unicode Instructions in Skills ...And How To Catch Them",
+        "url": "https://embracethered.com/blog/posts/2026/scary-agent-skills/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "这是人为植入后门的实验，不表示被修改的官方 Skill 上游遭入侵；行为依赖模型与批准设置。作者称 2 月 10 日重试时 Claude Code 已稳定检测该类标签，网页端表现不同。",
+    "impact": "Skill 的说明和正文均可成为指令载体，不可见字符会弱化人工审查；自动批准工具时，影响可延伸到本地命令执行。",
+    "recommendation": "审查 Skill 的实际字节内容与来源；对连续不可见 Unicode 标签进行扫描，并限制其可调用工具和自动批准范围。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "expanded-chat-template-backdoor-validation",
+    "externalId": null,
+    "title": "研究在 18 个开源模型上验证聊天模板条件后门",
+    "summary": "Pillar 与 Fujitsu 研究者评估了 GGUF 聊天模板后门：无需修改模型权重，只需在模板层加入条件指令，即可在特定输入下改变回答或输出攻击者链接。研究覆盖十八个模型及四种推理引擎，但并未证明这些模型的官方分发文件遭污染。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "模型供应链",
+      "GGUF",
+      "后门"
+    ],
+    "entities": [
+      "Pillar Security",
+      "Fujitsu",
+      "Hugging Face",
+      "Ollama"
+    ],
+    "publishedAt": "2026-02-10",
+    "originalPublishedAt": "2026-02-10",
+    "occurredAt": null,
+    "sourceId": "pillar",
+    "sourceName": "Pillar Security",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露",
+    "references": [
+      {
+        "label": "From Discovery to Large-Scale Validation: Chat Template Backdoors Across 18 Models and 4 Engines",
+        "url": "https://www.pillar.security/blog/from-discovery-to-large-scale-validation-chat-template-backdoors-across-18-models-and-4-engines",
+        "role": "primary"
+      }
+    ],
+    "limitations": "这是研究者主动构造的条件后门评估，关注 GGUF 与 Jinja2 模板。文中的成功率限于实验任务、触发条件和模型集合；不能推断平台上已污染模型数量或当前在野流行程度。",
+    "impact": "模板介于用户输入与模型之间，能够插入高优先级指令；若仅核验权重或依赖平台扫描标记，可能遗漏模板完整性变化。",
+    "recommendation": "将聊天模板纳入模型供应链审计，与提供方基线比对并固定版本；检查异常条件逻辑，保持模型、模板及来源的完整性记录。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "expanded-bizarre-bazaar-llmjacking",
+    "externalId": null,
+    "title": "Bizarre Bazaar 报告追踪暴露 AI 接口的探测与转售链",
+    "summary": "Pillar 根据二〇二五年末至二〇二六年初的蜜罐数据，报告针对暴露 AI 服务的扫描、模型能力验证与低价访问转售链。研究记录约三万五千次攻击会话，并把部分验证流量关联到商业网关；该数字不是受害组织数量。",
+    "kind": "incident",
+    "risk": "abuse",
+    "tags": [
+      "LLMjacking",
+      "暴露接口",
+      "资源滥用"
+    ],
+    "entities": [
+      "Ollama",
+      "vLLM",
+      "MCP",
+      "silver.inc"
+    ],
+    "publishedAt": "2026-01-28",
+    "originalPublishedAt": "2026-01-28",
+    "occurredAt": null,
+    "sourceId": "pillar",
+    "sourceName": "Pillar Security",
+    "evidence": "primary",
+    "evidenceLabel": "原始观测报告",
+    "references": [
+      {
+        "label": "Operation Bizarre Bazaar: First Attributed LLMjacking Campaign with Commercial Marketplace Monetization",
+        "url": "https://www.pillar.security/blog/operation-bizarre-bazaar-first-attributed-llmjacking-campaign-with-commercial-marketplace-monetization",
+        "role": "primary"
+      }
+    ],
+    "limitations": "35,000 指蜜罐攻击会话，不是成功攻陷数或独立受害者数。商业网关及操作者关联为研究团队的归因判断；同文 MCP 侦察被明确区分为另一活动。",
+    "impact": "未认证推理接口可能被第三方消耗计算资源或转售；暴露 MCP 等连接器还会增加访问内部系统的机会。",
+    "recommendation": "对推理接口和 MCP 启用认证与配额，避免开发服务直通公网，监测跨模型枚举、异常费用与批量探测行为。",
+    "pdfPage": null,
+    "featured": false
+  }
+]

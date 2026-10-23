@@ -1,0 +1,671 @@
+[
+  {
+    "id": "primary-aws-strands-a2a-isolation",
+    "externalId": "CVE-2026-115419",
+    "title": "Strands Agents 的 A2A 服务会话隔离缺陷可能泄露其他调用者历史",
+    "summary": "AWS 披露 Strands Agents SDK 的 A2A 服务未正确隔离调用者之间的对话状态。多租户部署中的已认证远程用户可能读取其他调用者的历史或影响其模型行为；Python 与 TypeScript SDK 均已发布修复。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "A2A",
+      "会话隔离",
+      "Agent SDK"
+    ],
+    "entities": [
+      "AWS",
+      "Strands Agents"
+    ],
+    "publishedAt": "2026-10-22",
+    "originalPublishedAt": "2026-10-22",
+    "occurredAt": null,
+    "sourceId": "aws",
+    "sourceName": "AWS Security",
+    "evidence": "primary",
+    "evidenceLabel": "厂商披露",
+    "references": [
+      {
+        "label": "CVE-2026-115419 - Unintended disclosure of data element to wrong session in Strands Agents SDK A2A Server",
+        "url": "https://aws.amazon.com/security/security-bulletins/2026-146-aws/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "影响多用户或多租户 A2A 部署，需要已认证远程用户；公告未报告在野利用。受影响的是含 A2A 模块的 Python 1.43.0 之前版本及 TypeScript 1.5.0 之前版本。",
+    "impact": "跨调用者共享的对话状态可造成历史数据泄露及模型上下文污染。",
+    "recommendation": "升级至 strands-agents 1.43.0、TypeScript SDK 1.5.0 或之后版本；升级前为每个用户或租户部署独立 A2A 实例。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "primary-aws-sagemaker-default-bucket",
+    "externalId": "CVE-2026-112408",
+    "title": "SageMaker Python SDK 缺少默认 S3 桶所有权检查",
+    "summary": "AWS 披露 SageMaker Python SDK 会采用可预测命名的默认 S3 存储桶，却未核验其是否归调用账户所有。抢先创建该桶的远程攻击者可能在 SageMaker 执行环境中执行代码并获取 IAM 凭证，官方已修复。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "机器学习平台",
+      "S3",
+      "凭证"
+    ],
+    "entities": [
+      "AWS",
+      "Amazon SageMaker",
+      "SageMaker Python SDK"
+    ],
+    "publishedAt": "2026-10-21",
+    "originalPublishedAt": "2026-10-21",
+    "occurredAt": null,
+    "sourceId": "aws",
+    "sourceName": "AWS Security",
+    "evidence": "primary",
+    "evidenceLabel": "厂商披露",
+    "references": [
+      {
+        "label": "CVE-2026-112408 - Missing bucket ownership verification in Amazon SageMaker Python SDK default_bucket()",
+        "url": "https://aws.amazon.com/security/security-bulletins/2026-142-aws/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "攻击要求对手抢先占有 SDK 将使用的可预测桶名，并进入相应 SDK 工作流；不代表任意已存在且属于用户的桶都受控。公告未报告真实客户遭利用。",
+    "impact": "模型训练与部署的存储依赖可能被替换，进而影响远程执行环境及其 IAM 身份。",
+    "recommendation": "升级 SDK V2 至 2.257.3、V3 至 3.10.0 或之后版本；暂不能升级时显式指定本账户所有的桶，避免自动生成默认桶名。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "primary-unit42-bugster-ai-cybercrime",
+    "externalId": null,
+    "title": "Unit 42 调查发现单个攻击者借 AI 支撑多类网络犯罪",
+    "summary": "Unit 42 从攻击者运行环境中观察到 Hermes Agent、DeepSeek 与 Cursor 被用于凭证窃取、VoIP 欺诈规划等活动。调查确认一所印度大学数据库被外传逾 5200 条记录，同时区分了已实施攻击与尚在规划的能力。",
+    "kind": "incident",
+    "risk": "abuse",
+    "tags": [
+      "AI 滥用",
+      "凭证窃取",
+      "攻击观测"
+    ],
+    "entities": [
+      "Unit 42",
+      "BUGSTER",
+      "Hermes Agent",
+      "DeepSeek",
+      "Cursor"
+    ],
+    "publishedAt": "2026-10-21",
+    "originalPublishedAt": "2026-10-21",
+    "occurredAt": null,
+    "sourceId": "unit42",
+    "sourceName": "Unit 42",
+    "evidence": "primary",
+    "evidenceLabel": "厂商披露",
+    "references": [
+      {
+        "label": "Next Exploit Opportunities: How a Threat Actor Used AI to Help Plan and Execute Multiple Types of Cybercrime Activities",
+        "url": "https://unit42.paloaltonetworks.com/ai-assisted-cybercrime-analysis/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "行为与数据泄露结论来自 Unit 42 的调查可见性，本站未接触受害系统。VoIP、Wi-Fi 与加密资产相关内容包含规划或能力准备，不能全部计为成功入侵。",
+    "impact": "AI 生成脚本与领域指导使单个操作者可跨越多种技术领域，调查确认了大学数据外传。",
+    "recommendation": "结合原文基础设施指标检查本地日志，监测异常凭证使用、数据批量读取与 AI Agent 活动，独立约束人类及 Agent 的敏感权限。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "primary-aws-kiro-crew-whatsapp-auth",
+    "externalId": "CVE-2026-112380",
+    "title": "Kiro Crew 的 WhatsApp 与子 Agent 控制接口存在授权缺陷",
+    "summary": "AWS 披露 Kiro Crew 在部分 WhatsApp 群组或开放私信配置下，群成员可向其他会话的子 Agent 发送指令，并借对方审批策略在操作者机器执行工具。审计记录还会误记为操作者行为，默认配置不受影响。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "Agent 授权",
+      "WhatsApp",
+      "审计归属"
+    ],
+    "entities": [
+      "AWS",
+      "Kiro Crew",
+      "WhatsApp"
+    ],
+    "publishedAt": "2026-10-20",
+    "originalPublishedAt": "2026-10-20",
+    "occurredAt": null,
+    "sourceId": "aws",
+    "sourceName": "AWS Security",
+    "evidence": "primary",
+    "evidenceLabel": "厂商披露",
+    "references": [
+      {
+        "label": "CVE-2026-112380 - Missing authorization in the WhatsApp channel in Kiro Crew",
+        "url": "https://aws.amazon.com/security/security-bulletins/2026-140-aws/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "影响 0.4.0 至 0.7.2 之前版本，需显式允许群组或设置开放私信等非默认条件；公告未报告在野利用。执行权限仍取决于被影响会话的审批策略。",
+    "impact": "不可信消息发送者可跨会话影响子 Agent，造成工具执行权限与审计身份错配。",
+    "recommendation": "升级至 0.7.2 或之后版本；升级前清空 whatsapp.groups、保持 dm_policy 为 self，或停用 WhatsApp 通道。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "primary-microsoft-open-weight-risk-taxonomy",
+    "externalId": null,
+    "title": "微软与 NVIDIA 发布开源权重模型的企业风险评估框架",
+    "summary": "微软与 NVIDIA 发布企业模型风险管理白皮书，将网络安全、数据保护、内容、人机交互和偏差纳入统一分类。方法强调把模型评测映射到具体用途、部署环境与控制责任，并指出单独评估模型不足以证明 Agent 安全。",
+    "kind": "research",
+    "risk": "failure",
+    "tags": [
+      "风险评估",
+      "开源权重",
+      "防护方法"
+    ],
+    "entities": [
+      "Microsoft",
+      "NVIDIA"
+    ],
+    "publishedAt": "2026-10-16",
+    "originalPublishedAt": "2026-10-16",
+    "occurredAt": null,
+    "sourceId": "microsoft",
+    "sourceName": "Microsoft Security",
+    "evidence": "primary",
+    "evidenceLabel": "厂商披露",
+    "references": [
+      {
+        "label": "Managing open-weight model risk in enterprise deployments",
+        "url": "https://www.microsoft.com/en-us/security/blog/2026/10/16/managing-open-weight-model-risk-in-enterprise-deployments/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "属于风险分类和评测方法指导，主要覆盖模型层；不是某个模型通过安全认证，也不是实测证明所有推荐控制有效。运行时与应用层扩展仍为后续工作。",
+    "impact": "帮助把模型风险与评测证据、部署控制和责任主体对应，避免仅凭开放或封闭权重标签判断风险。",
+    "recommendation": "以实际用途选择风险及评测，进一步核查 Agent 的权限、数据、工具和运行时，并随模型或部署变化重新评估控制。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "primary-unit42-linux-espionage-ai-artifacts",
+    "externalId": null,
+    "title": "政府 Linux 入侵活动中的脚本痕迹显示攻击者可能使用 AI 辅助",
+    "summary": "Unit 42 披露 CL-UNK-1211 针对政府 Linux 环境的入侵调查，攻击者部署 Web shell、后门并尝试导出数据库与邮箱。多份载荷包含对话式注释和推理说明，研究者据此判断其可能采用 AI 生成或部署脚本。",
+    "kind": "incident",
+    "risk": "abuse",
+    "tags": [
+      "AI 滥用",
+      "Linux",
+      "网络间谍"
+    ],
+    "entities": [
+      "Unit 42",
+      "CL-UNK-1211",
+      "Linux"
+    ],
+    "publishedAt": "2026-10-15",
+    "originalPublishedAt": "2026-10-15",
+    "occurredAt": null,
+    "sourceId": "unit42",
+    "sourceName": "Unit 42",
+    "evidence": "primary",
+    "evidenceLabel": "厂商披露",
+    "references": [
+      {
+        "label": "AI-Powered Espionage Campaign Targets Government Linux Infrastructure",
+        "url": "https://unit42.paloaltonetworks.com/ai-campaign-targets-linux-infrastructure/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "观察窗口为 2025 年 10 月至 2026 年 4 月，单一发生日未知。AI 参与主要由代码和操作痕迹推断，未确定具体模型或自动化程度；UNK 表示归属尚未判定。",
+    "impact": "调查显示 Linux 持久化、邮箱及数据库搜集与日志清理组合出现，AI 可能缩短载荷编写和适配时间。",
+    "recommendation": "关联原文指标检查 Linux、数据库与邮箱日志，监测异常 PHP 配置、Web shell、凭证搜集及日志清除行为。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "primary-aws-sagemaker-git-log-secrets",
+    "externalId": "CVE-2026-110248",
+    "title": "SageMaker SDK 的 Git 失败日志可能写出明文仓库凭证",
+    "summary": "AWS 披露 SageMaker Python SDK 在 Git 克隆失败时，会把子进程错误输出中的仓库凭证未经脱敏写入 CloudWatch Logs。能够访问这些日志的已认证用户可读取明文凭证，官方已对 V2 与 V3 分支发布修复。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "机器学习平台",
+      "日志泄露",
+      "凭证"
+    ],
+    "entities": [
+      "AWS",
+      "Amazon SageMaker",
+      "CloudWatch Logs"
+    ],
+    "publishedAt": "2026-10-14",
+    "originalPublishedAt": "2026-10-14",
+    "occurredAt": null,
+    "sourceId": "aws",
+    "sourceName": "AWS Security",
+    "evidence": "primary",
+    "evidenceLabel": "厂商披露",
+    "references": [
+      {
+        "label": "CVE-2026-110248 - Insertion of sensitive information into log files in Amazon SageMaker Python SDK",
+        "url": "https://aws.amazon.com/security/security-bulletins/2026-134-aws/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "需要相关 Git 克隆失败且错误输出包含凭证，同时对手能访问相应日志；公告未报告已经发生的客户凭证窃取。",
+    "impact": "模型开发和训练流水线的代码仓库凭证可能从子进程错误输出扩散到共享日志系统。",
+    "recommendation": "升级 SDK V2 至 2.257.3、V3 至 3.10.0 或之后版本；避免在 Git URL 中放置凭证，限制日志权限并检查、轮换已写入日志的凭证。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "primary-openai-false-front-operations",
+    "externalId": null,
+    "title": "OpenAI 披露以虚假智库与记者身份传播内容的 AI 滥用行动",
+    "summary": "OpenAI 披露并封禁两组利用 ChatGPT 支撑虚假前台身份的影响行动：一组围绕拉美研究机构运作，另一组使用七个记者化名投稿。AI 被用于编辑文章、伪造材料及内部汇报，部分内容进入新闻媒体。",
+    "kind": "incident",
+    "risk": "abuse",
+    "tags": [
+      "影响行动",
+      "虚假身份",
+      "AI 滥用"
+    ],
+    "entities": [
+      "OpenAI",
+      "ChatGPT",
+      "Dark Clark",
+      "Bogus Bylines"
+    ],
+    "publishedAt": "2026-10-08",
+    "originalPublishedAt": "2026-10-08",
+    "occurredAt": null,
+    "sourceId": "openai",
+    "sourceName": "OpenAI",
+    "evidence": "primary",
+    "evidenceLabel": "厂商披露",
+    "references": [
+      {
+        "label": "Disrupting AI-enabled false front operations",
+        "url": "https://openai.com/index/disrupting-ai-enabled-false-front-operations/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "来源归因与影响等级为 OpenAI 的调查评估；报告明确操作者会夸大或冒领成果，且并非所有传播内容均由其模型生成。媒体刊载与潜在触达不等于证实改变公众观点。",
+    "impact": "AI 支撑传统假身份和机构伪装流程，使叙事包装、语言编辑及向媒体投稿更高效。",
+    "recommendation": "对异常机构、署名与材料追溯来源，结合公开传播证据核查行动成果，避免以操作者自报或被回复原帖的浏览量衡量实际影响。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "primary-microsoft-forge-validation-loop",
+    "externalId": null,
+    "title": "微软 FORGE 强调 AI 漏洞发现必须连接可复现验证与修复",
+    "summary": "微软 FORGE 分享其 AI 漏洞研究流程，指出发现候选问题之后，构建环境、触发样例、去重与修复协调成为扩展瓶颈。团队以 Windows 和开源项目经验说明，应优化有证据推进的漏洞报告，而不是扫描或提交数量。",
+    "kind": "research",
+    "risk": "failure",
+    "tags": [
+      "AI 安全工程",
+      "漏洞验证",
+      "防护方法"
+    ],
+    "entities": [
+      "Microsoft",
+      "FORGE Lab",
+      "MDASH",
+      "Akrites"
+    ],
+    "publishedAt": "2026-10-07",
+    "originalPublishedAt": "2026-10-07",
+    "occurredAt": null,
+    "sourceId": "microsoft",
+    "sourceName": "Microsoft Security",
+    "evidence": "primary",
+    "evidenceLabel": "厂商披露",
+    "references": [
+      {
+        "label": "3 lessons from frontier AI vulnerability research",
+        "url": "https://www.microsoft.com/en-us/security/blog/2026/10/07/3-lessons-from-frontier-ai-vulnerability-research/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "属于团队方法与自报项目结果，不是跨工具对照实验。内部已验证报告、公开 CVE 与已合并修复是不同阶段，不能混为同一种成果或外推普遍发现率。",
+    "impact": "AI 扫描候选增长会把压力转移到验证与修复，缺少复现证据或重复报告可能降低有效处理速度。",
+    "recommendation": "给候选问题附上可构建环境、可达路径与可重复触发样例，加入去重、回归检查及维护者协调，并按修复交付评估产出。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "primary-aws-agentcore-import-injection",
+    "externalId": "CVE-2026-105812",
+    "title": "AgentCore Starter Toolkit 导入 Agent 时存在代码注入和外部引用风险",
+    "summary": "AWS 披露 AgentCore Starter Toolkit 导入恶意构造的 Bedrock Agent 时，可能引入后续运行或部署才触发的代码执行，以及导入期间的意外网络请求或本地文件访问。官方要求升级后重新导入并替换生成制品。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "AgentCore",
+      "代码注入",
+      "SSRF"
+    ],
+    "entities": [
+      "AWS",
+      "Amazon Bedrock",
+      "AgentCore Starter Toolkit"
+    ],
+    "publishedAt": "2026-10-06",
+    "originalPublishedAt": "2026-10-06",
+    "occurredAt": null,
+    "sourceId": "aws",
+    "sourceName": "AWS Security",
+    "evidence": "primary",
+    "evidenceLabel": "厂商披露",
+    "references": [
+      {
+        "label": "CVE-2026-105812 and CVE-2026-106032: Bedrock AgentCore Starter Toolkit import issues",
+        "url": "https://aws.amazon.com/security/security-bulletins/2026-127-aws/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "涉及 CVE-2026-105812 与 CVE-2026-106032，影响 0.1.4 至 0.3.13；条件是导入数据平面字段可被其他主体修改的 Agent。该导入工具问题与现有 AgentCorruption 运行时研究不是同一事件。",
+    "impact": "不可信 Agent 定义可影响本地导入过程及生成的代码制品，升级工具本身不足以清除既有制品。",
+    "recommendation": "升级至 0.3.14 或之后版本，重新导入并替换本地及部署制品；按官方长期建议迁移至带等效修复的 AgentCore CLI。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "primary-aws-security-agent-mcp-diff-args",
+    "externalId": "CVE-2026-97662",
+    "title": "AWS 安全扫描 MCP 的差异扫描参数注入可越出工作区写文件",
+    "summary": "AWS 披露 security-agent-mcp-server 的差异扫描会把恶意构造的版本引用解释为命令行选项，允许依赖上下文的攻击者在预期工作区之外创建、覆盖或截断宿主文件。该 MCP 为 AI 助手提供本地安全扫描能力。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "MCP",
+      "参数注入",
+      "工作区隔离"
+    ],
+    "entities": [
+      "AWS",
+      "security-agent-mcp-server",
+      "awslabs/mcp"
+    ],
+    "publishedAt": "2026-10-01",
+    "originalPublishedAt": "2026-10-01",
+    "occurredAt": null,
+    "sourceId": "aws",
+    "sourceName": "AWS Security",
+    "evidence": "primary",
+    "evidenceLabel": "厂商披露",
+    "references": [
+      {
+        "label": "CVE-2026-97662 - Argument injection in AWS security-agent-mcp-server diff scan",
+        "url": "https://aws.amazon.com/security/security-bulletins/2026-121-aws/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "影响 0.1.1 至 0.2.0 之前版本；需恶意引用值进入差异扫描，公告未宣称任意远程连接即可利用，也未报告在野利用。",
+    "impact": "用于限制扫描工作区的边界可被参数解释差异绕过，损坏扫描进程可写的宿主文件。",
+    "recommendation": "升级至 0.2.0 或之后版本；升级前仅扫描可信仓库，以低权限用户在隔离环境中运行服务。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "primary-aws-kiro-global-config-write",
+    "externalId": "CVE-2026-95985",
+    "title": "Kiro 在不可信工作区中可被诱导修改自动加载的全局配置",
+    "summary": "AWS 披露 Kiro IDE 在恶意仓库被作为不可信工作区打开后，用户发送消息仍可能触发 Agent 修改自动加载的全局配置。文件写入边界缺陷可进一步注入 Agent 上下文或导致命令执行，官方已发布修复。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "编程 Agent",
+      "配置篡改",
+      "工作区信任"
+    ],
+    "entities": [
+      "AWS",
+      "Kiro IDE"
+    ],
+    "publishedAt": "2026-09-24",
+    "originalPublishedAt": "2026-09-24",
+    "occurredAt": null,
+    "sourceId": "aws",
+    "sourceName": "AWS Security",
+    "evidence": "primary",
+    "evidenceLabel": "厂商披露",
+    "references": [
+      {
+        "label": "CVE-2026-95985 - Kiro IDE Allows Agentic Writes to Global Configurations While Working in Untrusted Workspaces",
+        "url": "https://aws.amazon.com/security/security-bulletins/2026-117-aws/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "影响 1.0.242 之前版本，需要用户在特制仓库中运行 Agent；不等于没有打开仓库时即可远程控制 IDE。公告未报告在野利用。",
+    "impact": "仓库信任限制可能未覆盖全局自动加载配置，使项目内的不可信输入影响后续 Agent 行为。",
+    "recommendation": "升级至 1.0.242 或之后版本；曾在旧版不可信工作区运行 Agent 的用户应检查全局 .kiro 配置中的未知条目。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "primary-trail-ai-patching-validation",
+    "externalId": null,
+    "title": "Trail of Bits 以真实补丁审查数据讨论 AI 修复评测与回归验证",
+    "summary": "Trail of Bits 对 AI 补丁评测的实验条件提出质疑，并公开自身补丁审查和回归调查结果。其方法要求重现原漏洞、测试不同触发路径并检查功能回归，强调挡住单个 PoC 或补丁获合并都不足以证明完整修复。",
+    "kind": "research",
+    "risk": "failure",
+    "tags": [
+      "AI 补丁",
+      "评测方法",
+      "回归验证"
+    ],
+    "entities": [
+      "Trail of Bits",
+      "Patch the Planet",
+      "1Password"
+    ],
+    "publishedAt": "2026-09-15",
+    "originalPublishedAt": "2026-09-15",
+    "occurredAt": null,
+    "sourceId": "trail",
+    "sourceName": "Trail of Bits",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露",
+    "references": [
+      {
+        "label": "1Password’s AI patching benchmark is misleading",
+        "url": "https://blog.trailofbits.com/2026/09/15/1passwords-ai-patching-benchmark-is-misleading/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "这是参与方对第三方评测的分析及自身工程数据，存在样本和工作条件差异，不能由合并率推出通用补丁正确率。作者也承认自身部分补丁引入了缺陷。",
+    "impact": "错误的任务条件、单一路径测试及自动评分可能同时漏报不完整修复并误判合法行为变化。",
+    "recommendation": "在漏洞版本与修复版本上运行有区分力的复现检查，至少增加一个根因相关变体，并以项目测试、sanitizer 或有界 fuzzing 检查回归。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "primary-aws-kiro-workspace-data-exfil",
+    "externalId": "CVE-2026-89332",
+    "title": "Kiro 工作区配置可在用户尚未批准编辑时触发数据外传",
+    "summary": "AWS 披露恶意仓库可诱导 Kiro Agent 改写工作区设置，把 Powers 注册地址指向外部端点。虽然界面会展示编辑审批，文件却已先写盘；用户在回应提示前打开 Powers 面板，可能发送其中携带的敏感工作区数据。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "编程 Agent",
+      "审批竞态",
+      "数据外泄"
+    ],
+    "entities": [
+      "AWS",
+      "Kiro IDE",
+      "Kiro Powers"
+    ],
+    "publishedAt": "2026-09-11",
+    "originalPublishedAt": "2026-09-11",
+    "occurredAt": null,
+    "sourceId": "aws",
+    "sourceName": "AWS Security",
+    "evidence": "primary",
+    "evidenceLabel": "厂商披露",
+    "references": [
+      {
+        "label": "CVE-2026-89332 - Kiro IDE Sensitive Workspace Data Exfiltration via Agent-Written Workspace Configuration",
+        "url": "https://aws.amazon.com/security/security-bulletins/2026-111-aws/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "影响 0.8.135 之前版本；需要特制仓库、配置被写入以及打开 Powers 面板等条件。与 9 月全局配置写入公告属于不同 CVE，不把它们合为一次已发生泄露。",
+    "impact": "审批显示与实际落盘时序不一致，使尚未批准的配置变更被另一个界面组件使用。",
+    "recommendation": "升级至 0.8.135 或之后版本；按官方建议检查旧版打开过的项目并轮换其中可能暴露的凭证。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "primary-checkpoint-puzzlemask-gatekeeper",
+    "externalId": null,
+    "title": "PuzzleMask 用普通英文散文隐藏指令以绕过快速模型检查",
+    "summary": "Check Point 的 PuzzleMask 将指令藏入普通英文散文，利用快速检查模型与高推理目标模型的资源差异。小样本实验中，守门模型未识别隐藏载荷，目标模型则可借较长推理与代码解释器恢复并处理指令。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "提示注入",
+      "守门模型",
+      "安全评测"
+    ],
+    "entities": [
+      "Check Point Research",
+      "PuzzleMask"
+    ],
+    "publishedAt": "2026-09-10",
+    "originalPublishedAt": "2026-09-10",
+    "occurredAt": null,
+    "sourceId": "checkpoint",
+    "sourceName": "Check Point Research",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露",
+    "references": [
+      {
+        "label": "PuzzleMask: Abusing Plain Prose as a Covert AI Attack Vector",
+        "url": "https://research.checkpoint.com/2026/puzzlemask-abusing-plain-prose-as-a-covert-ai-attack-vector/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "该技术本身不是越狱，而是让载荷绕过前置快速检查；能否执行危险指令仍取决于目标模型。实验只有 23 个构造提示，部分模型或目标测试更少，不能外推总体成功率。",
+    "impact": "仅靠低资源输入分类器可能漏掉高资源目标模型能够提取的隐蔽指令，形成防护能力不对称。",
+    "recommendation": "结合输入改写、守门策略加强与输出及动作监测进行测试；原文指出各方法存在额外开销、质量损失或误报成本。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "primary-checkpoint-chatgpt-shared-service-channel",
+    "externalId": null,
+    "title": "ChatGPT 共享内部服务曾被用于跨账户隐蔽通信与任务回传",
+    "summary": "Check Point 在 ChatGPT 不同账户的代码执行容器间发现共享内部软件包服务形成的通信通道。受控演示中，恶意共享会话指令让模型在正常答复之外读取已连接 Gmail 数据并回传；OpenAI 确认相关服务已停用。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "会话隔离",
+      "内部服务",
+      "数据外泄"
+    ],
+    "entities": [
+      "Check Point Research",
+      "OpenAI",
+      "ChatGPT",
+      "Gmail"
+    ],
+    "publishedAt": "2026-09-08",
+    "originalPublishedAt": "2026-09-08",
+    "occurredAt": null,
+    "sourceId": "checkpoint",
+    "sourceName": "Check Point Research",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露",
+    "references": [
+      {
+        "label": "The Shared Clipboard Inside the Sandbox: Cross-Account Data Leakage in ChatGPT",
+        "url": "https://research.checkpoint.com/2026/the-shared-clipboard-inside-the-sandbox-cross-account-data-leakage-in-chatgpt/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "研究于 2026 年 6 月发现，披露前通信通道已不可用。攻击需恶意指令进入受害者上下文并触发模型使用现有工具；为受控研究，未证明真实用户邮箱已被攻击者窃取。",
+    "impact": "容器之间虽无直接互联网连接，共享且可写的内部服务仍可成为跨租户状态与任务交换通道。",
+    "recommendation": "隔离内部服务的租户可写状态，限制运行时访问管理接口，并最小化模型、工具及连接应用能访问的数据。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "primary-trail-cyber-agent-vm-containment",
+    "externalId": null,
+    "title": "Trail of Bits 用授权逃逸测试审视强网络能力 Agent 的虚拟机边界",
+    "summary": "Trail of Bits 让预览模型在授权 CTF 中尝试读取虚拟机外的标记，记录其组合宿主内核、QEMU 与网络库漏洞的过程。研究显示共享组件与补丁回移延迟扩大隔离风险，并比较了缩小虚拟化攻击面的防护选择。",
+    "kind": "research",
+    "risk": "autonomy",
+    "tags": [
+      "Agent 隔离",
+      "虚拟机",
+      "能力评估"
+    ],
+    "entities": [
+      "Trail of Bits",
+      "GPT-5.6-Cyber",
+      "QEMU",
+      "KVM",
+      "libslirp"
+    ],
+    "publishedAt": "2026-08-26",
+    "originalPublishedAt": "2026-08-26",
+    "occurredAt": null,
+    "sourceId": "trail",
+    "sourceName": "Trail of Bits",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露",
+    "references": [
+      {
+        "label": "VMs won’t contain cyber-capable agents",
+        "url": "https://blog.trailofbits.com/2026/08/26/vms-wont-contain-cyber-capable-agents/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "这是研究者明确授权逃逸的特定开发机实验，不是模型自发逃逸。作者开头概括三次逃逸，但第一条详细记录为宿主卡死且利用未成功落地；不能把三条路径全计作已完成逃逸。",
+    "impact": "具备持续漏洞研究能力的 Agent 可寻找并串联虚拟化共享组件缺陷，单一虚拟机隔离假设需结合实际攻击面检验。",
+    "recommendation": "及时跟进上游安全修复，减少虚拟化共享功能，使用更小攻击面运行时，并结合最小权限、日志、监测、执行时限及干净环境。",
+    "pdfPage": null,
+    "featured": false
+  },
+  {
+    "id": "primary-openai-ibi-covert-influence",
+    "externalId": null,
+    "title": "OpenAI 封禁利用虚假研究机构品牌推广内容的影响行动账户",
+    "summary": "OpenAI 披露一组很可能来自俄罗斯的账户使用 ChatGPT 为 International Burke Institute 生成社交推广内容。调查进一步发现品牌网站复制或误署名学术文章，并以研究机构和主权指数包装叙事，厂商已封禁相关账户。",
+    "kind": "incident",
+    "risk": "abuse",
+    "tags": [
+      "影响行动",
+      "虚假机构",
+      "AI 滥用"
+    ],
+    "entities": [
+      "OpenAI",
+      "ChatGPT",
+      "International Burke Institute"
+    ],
+    "publishedAt": "2026-08-25",
+    "originalPublishedAt": "2026-08-25",
+    "occurredAt": null,
+    "sourceId": "openai",
+    "sourceName": "OpenAI",
+    "evidence": "primary",
+    "evidenceLabel": "厂商披露",
+    "references": [
+      {
+        "label": "Disrupting a new covert influence campaign from Russia",
+        "url": "https://openai.com/index/disrupting-malicious-uses-of-ai-influence-campaign-russia/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "归因及传播规模为 OpenAI 调查判断。原文明确网站核心文章并非由其模型生成，AI 主要用于推广帖和相关素材；整体即时影响有限，不能将所有网站内容标为 AI 生成。",
+    "impact": "AI 推广可与复制学术内容、虚构专家关联及机构包装结合，制造来源可信度并掩盖操作者身份。",
+    "recommendation": "核对机构、专家和文章的真实关联，追溯文本原始出处，并分别评估 AI 生成推广与非 AI 机构材料的传播证据。",
+    "pdfPage": null,
+    "featured": false
+  }
+]

@@ -15,8 +15,11 @@ test('PDF与新增披露中的SalesBleed合并为一个事件并保留原编号'
  assert.equal(data.items.filter(i=>/salesbleed/i.test(i.title+' '+JSON.stringify(i.references))).length,1);
  const item=data.items.find(i=>i.externalId==='AISID-2026-0015');assert.equal(item.sourceId,'zenity');assert.equal(item.evidence,'primary');assert.equal(item.originalPublishedAt,'2026-09-24');assert.ok(item.pdfPage);
 });
-test('资料快照不会声明自动采集，重点关注不使用未补原文的汇编',()=>{
- assert.equal(data.meta.scheduledCollection,false);assert.equal(data.meta.mode,'curated-snapshot');assert.ok(data.items.length>=28);assert.equal(data.items.filter(i=>i.featured).length,3);assert.ok(data.items.filter(i=>i.featured).every(i=>i.evidence==='primary'));
+test('扩充快照覆盖至少60条和10个实际来源，不声明自动采集',()=>{
+ assert.equal(data.meta.scheduledCollection,false);assert.equal(data.meta.mode,'curated-snapshot');assert.ok(data.items.length>=60);assert.ok(new Set(data.items.map(item=>item.sourceId)).size>=10);assert.equal(data.items.filter(item=>item.featured).length,0);
+});
+test('Deadbugz补回一手原文并保留23未合并、19关闭4开放的区别',()=>{
+ const item=data.items.find(value=>value.externalId==='AISID-2026-0007');assert.equal(item.evidence,'primary');assert.ok(item.limitations.includes('19'));assert.ok(item.limitations.includes('4'));assert.ok(!item.title.includes('全部被拦截'));
 });
 test('入口检查与工程参考分开，未来日期不会进入资料快照',()=>{
  assert.equal(sources.filter(s=>s.status==='checked').length,11);assert.equal(sources.find(s=>s.id==='aihot').category,'reference');for(const item of data.items){assert.ok(item.publishedAt<=data.meta.updatedAt);if(item.originalPublishedAt)assert.ok(item.originalPublishedAt<=data.meta.updatedAt);}
