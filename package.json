@@ -1,0 +1,11 @@
+{
+  "name": "ai-security-observer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-data.mjs",
+    "test": "node --test scripts/data.test.mjs",
+    "start": "node scripts/serve.mjs"
+  }
+}

@@ -1,0 +1,179 @@
+/* Larger reading scale, concise navigation, no editorial slogans. */
+:root {
+  --font-meta: 13px;
+  --font-small: 14px;
+  --font-body: 17px;
+  --font-title: 22px;
+}
+body { font-size: var(--font-body); }
+.brand strong { font-size: 30px; }
+.brand-en { font-size: 10px; }
+.edition { font-size: 12px; }
+.edition strong { font-size: 14px; }
+.edition > span:first-child { font-size: 10px; }
+.nav-links > a { font-size: 16px; }
+.nav-links span { font-size: 12px; }
+.nav-about { font-size: 14px; }
+.section-heading { padding-top: 25px; padding-bottom: 23px; }
+.section-heading h1 { font: 650 26px/1.4 var(--sans); }
+.section-heading .heading-right { font: 13px/1.8 var(--sans); }
+.focus-lead h2 { font-size: 30px; line-height: 1.5; }
+.focus-summary { font-size: 16px; line-height: 1.9; }
+.focus-small h3 { font-size: 20px; line-height: 1.65; }
+.kicker, .focus-number { font-size: 13px; }
+.eyebrow { font-size: 11px; }
+.source-sign { font-size: 13px; line-height: 1.8; }
+.source-icon { font-size: 10px; }
+.text-link { font-size: 14px; }
+.meta { font-size: 13px; gap: 9px; }
+.meta time { font-size: 12px; }
+.kind { font-size: 13px; }
+.tag { font-size: 12px; padding: 2px 8px; }
+.feed-toolbar h2 { font-size: 21px; }
+.feed-toolbar h2 span, .toggle-unread { font-size: 13px; }
+.search-box { height: 46px; }
+.search-box input { font-size: 15px; }
+.select { height: 46px; font-size: 13px; max-width: 200px; }
+.search-row { gap: 12px; }
+.topic-button { font-size: 14px; padding: 0 12px; }
+.filter-meta .select { font-size: 13px; max-width: 200px; }
+.filter-reset { font-size: 13px; }
+.news-title { font-size: 22px; line-height: 1.65; }
+.news-summary { font-size: 17px; line-height: 1.9; }
+.news-index { font-size: 12px; }
+.day-label { font-size: 13px; }
+.news-item { padding-top: 24px; padding-bottom: 28px; }
+.news-footer { flex-wrap: wrap; }
+.evidence-label, .results-caption { font-size: 12px; }
+.rail-title { font-size: 15px; }
+.numbers strong { font-size: 38px; }
+.numbers span { font-size: 13px; }
+.risk-row { font-size: 14px; }
+.risk-row b, .source-rail-row > span:last-child { font-size: 12px; }
+.source-rail-row { font-size: 13px; }
+.source-group-heading { font-size: 20px; }
+.source-group-heading small { font-size: 12px; }
+.source-entry h3 { font-size: 19px; }
+.source-entry-header { flex-wrap: wrap; gap: 4px 12px; }
+.source-entry p { font-size: 16px; }
+.method-label, .source-status { font-size: 12px; }
+.source-entry-links a { font-size: 14px; }
+.source-details summary { font-size: 13px; }
+.source-details p { font-size: 14px; }
+.source-tools > span { font-size: 13px; white-space: normal; }
+.source-tools .search-box { min-height: 46px; }
+.detail-main h1 { font-size: 36px; }
+.detail-deck { font-size: 19px; }
+.detail-section h2 { font-size: 17px; }
+.detail-section h2 span { font-size: 11px; }
+.detail-section p { font-size: 17px; }
+.evidence-box h2, .evidence-box p { font-size: 16px; }
+.detail-id { font-size: 12px; }
+.detail-dl dt { font-size: 13px; }
+.detail-dl dd { font-size: 15px; }
+.reference-link strong { font-size: 16px; }
+.reference-link span { font-size: 12px; }
+.pdf-reference, .back-link, .outline-button, .solid-button { font-size: 14px; }
+.related-item h3 { font-size: 18px; }
+.about-copy p { font-size: 17px; }
+.about-copy ul { font-size: 16px; }
+.about-copy h2 { font-size: 25px; }
+.project-ref, .project-ref p { font-size: 15px; }
+.site-footer { font-size: 12px; }
+.site-footer > a { font-size: 13px; }
+.empty-state p { font-size: 15px; }
+.empty-state h2 { font-size: 22px; }
+.toast { font-size: 14px; }
+@media (min-width: 1500px) { .focus-lead h2 { font-size: 32px; } }
+@media (max-width: 960px) {
+  .reading-rail { grid-template-columns: 1fr 1fr; }
+  .reading-rail .rail-block:last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 680px) {
+  :root { --font-meta: 12px; --font-small: 14px; --font-body: 16px; --font-title: 20px; }
+  .brand strong { font-size: 23px; }
+  .brand-en { font-size: 8px; }
+  .edition { font-size: 10px; }
+  .edition strong { font-size: 11px; }
+  .edition > span:first-child { font-size: 8px; }
+  .nav-links { gap: 25px; }
+  .nav-links > a { font-size: 15px; }
+  .nav-links span { font-size: 11px; }
+  .section-heading { padding-top: 23px; padding-bottom: 20px; }
+  .section-heading h1 { font-size: 25px; }
+  .section-heading .heading-right { display: none; }
+  .focus-lead h2 { font-size: 27px; }
+  .focus-summary { font-size: 16px; }
+  .kicker { font-size: 12px; }
+  .focus-lead .eyebrow { font-size: 10px; }
+  .source-sign { font-size: 12px; }
+  .focus-bottom { flex-wrap: wrap; gap: 5px; }
+  .focus-small h3 { font-size: 17px; line-height: 1.7; }
+  .focus-small .source-sign, .focus-small .meta, .focus-number { font-size: 11px; }
+  .focus-secondary { gap: 18px; }
+  .feed-toolbar h2 { font-size: 20px; }
+  .feed-toolbar h2 span, .toggle-unread { font-size: 12px; }
+  .search-box input { font-size: 16px; }
+  .search-row > .select { height: 42px; font-size: 14px; }
+  .topic-button { font-size: 13px; padding: 0 10px; }
+  .filter-meta .select { font-size: 13px; max-width: 150px; }
+  .filter-reset { font-size: 12px; }
+  .filter-bottom { flex-wrap: wrap; }
+  .news-title { font-size: 20px; }
+  .news-summary { font-size: 16px; }
+  .news-item .meta, .kind { font-size: 12px; }
+  .news-item .meta time { font-size: 11px; }
+  .day-label { font-size: 12px; }
+  .tag { font-size: 11px; }
+  .evidence-label { font-size: 12px; }
+  .news-item { grid-template-columns: minmax(0, 1fr) 32px; gap: 8px; }
+  .news-index { display: none; }
+  .news-item .source-sign { font-size: 12px; }
+  .news-item .news-footer { margin-top: 14px; }
+  .bookmark-button { margin-top: -5px; }
+  .rail-title { font-size: 15px; }
+  .numbers strong { font-size: 35px; }
+  .numbers span { font-size: 12px; }
+  .risk-row, .source-rail-row { font-size: 13px; }
+  .source-group-heading { font-size: 19px; }
+  .source-entry { grid-template-columns: 29px minmax(0, 1fr); }
+  .source-entry h3 { font-size: 18px; }
+  .source-entry p { font-size: 16px; }
+  .source-status { font-size: 12px; }
+  .source-entry-links a { font-size: 14px; }
+  .source-details summary { font-size: 13px; }
+  .source-details p { font-size: 14px; }
+  .source-tools > span { font-size: 12px; }
+  .method-label { font-size: 11px; }
+  .detail-main h1 { font-size: 29px; }
+  .detail-deck { font-size: 18px; }
+  .detail-section p, .evidence-box p { font-size: 16px; }
+  .detail-section h2 { font-size: 17px; }
+  .detail-dl dt { font-size: 12px; }
+  .detail-dl dd { font-size: 15px; }
+  .detail-rail { grid-template-columns: 1fr; }
+  .reference-link strong { font-size: 16px; }
+  .reference-link span { font-size: 12px; }
+  .pdf-reference { font-size: 14px; }
+  .related-item h3 { font-size: 17px; }
+  .back-row .outline-button { font-size: 13px; }
+  .about-copy p { font-size: 16px; }
+  .about-copy ul { font-size: 15px; }
+  .about-copy h2 { font-size: 24px; }
+  .project-ref p { font-size: 15px; }
+  .site-footer { font-size: 11px; }
+  .site-footer > a { font-size: 12px; }
+  .toast { font-size: 13px; }
+}
+@media (max-width: 370px) {
+  .brand strong { font-size: 22px; }
+  .edition strong { font-size: 10px; }
+  .focus-lead h2 { font-size: 25px; }
+  .focus-small h3 { font-size: 16px; }
+  .focus-secondary { gap: 14px; }
+  .focus-number { font-size: 10px; }
+  .filter-meta { max-width: none; }
+  .filter-meta .select { max-width: 140px; }
+  .reading-rail { grid-template-columns: 1fr; }
+  .reading-rail .rail-block:last-child { grid-column: auto; }
+}
