@@ -1,7 +1,7 @@
 {
   "meta": {
     "title": "AI 安全观察",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "updatedAt": "2026-10-23",
     "timeZone": "Asia/Taipei",
     "mode": "curated-snapshot",
@@ -10,7 +10,9 @@
     "pdfRecords": 16,
     "primaryRecords": 67,
     "cveRecords": 26,
-    "activeSources": 12
+    "activeSources": 12,
+    "siteUrl": "https://ai-security-observer.groovymesa1.chatgpt.site/",
+    "preview": false
   },
   "items": [
     {

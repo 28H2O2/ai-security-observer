@@ -1,6 +1,10 @@
 import {readFileSync,writeFileSync,mkdirSync,existsSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
+import {buildBriefings,buildRss,resolveSiteUrl} from '../dist/publication.js';
+import {methodologyPage} from './build-methodology.mjs';
+const production=process.argv.includes('--production')||process.env.NODE_ENV==='production'||process.env.VERCEL_ENV==='production';
+const siteUrl=resolveSiteUrl(process.env.SITE_URL,{production});
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=name=>JSON.parse(readFileSync(path.join(root,'content',name),'utf8'));
 const pdf=read('pdf-items.json');
@@ -68,6 +72,11 @@ for(const item of items){
 const version=JSON.parse(readFileSync(path.join(root,'package.json'),'utf8')).version;
 const result={meta:{title:'AI 安全观察',version,updatedAt:'2026-10-23',timeZone:'Asia/Taipei',mode:'curated-snapshot',scheduledCollection:false,total:items.length,pdfRecords:pdf.length,primaryRecords:items.filter(i=>i.evidence==='primary').length,cveRecords:items.filter(i=>i.cveIds.length).length,activeSources:new Set(items.map(item=>item.sourceId)).size},items};
 mkdirSync(path.join(root,'dist','data'),{recursive:true});
+result.meta.siteUrl=siteUrl;
+result.meta.preview=!production;
 writeFileSync(path.join(root,'dist/data/items.json'),JSON.stringify(result,null,2)+'\n');
 writeFileSync(path.join(root,'dist/data/sources.json'),JSON.stringify(sources,null,2)+'\n');
+writeFileSync(path.join(root,'dist/data/briefings.json'),JSON.stringify(buildBriefings(items,result.meta),null,2)+'\n');
+writeFileSync(path.join(root,'dist/feed.xml'),buildRss(items,result.meta,siteUrl,{preview:!production}));
+writeFileSync(path.join(root,'dist/methodology.html'),methodologyPage(items,sources,result.meta));
 console.log(JSON.stringify({items:items.length,pdf:pdf.length,primary:result.meta.primaryRecords,sources:sources.length,checkedEndpoints:sources.filter(s=>s.status==='checked').length}));

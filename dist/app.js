@@ -1,6 +1,7 @@
 import {kindNames,riskNames,topics,itemDate,filterItems} from './model.js';
 import {sourceCatalogView} from './source-model.js';
 import {connectSourceGraph} from './source-graph.js';
+import {validDate,periodBounds,makeBriefing,exportMarkdown,exportJson,briefingMarkdown} from './publication.js';
 
 const main=document.querySelector('#main-content');
 const iconPaths={search:'<circle cx="9" cy="9" r="6"/><path d="m14 14 4 4"/>',external:'<path d="M7 4h9v9M16 4 4 16"/>',back:'<path d="M16 10H4m5-5-5 5 5 5"/>',down:'<path d="m5 8 5 5 5-5"/>',share:'<path d="M10 13V2m-4 4 4-4 4 4M4 10v7h12v-7"/>'};
@@ -11,7 +12,7 @@ const shortDate=value=>`${Number(value.slice(5,7))}月${Number(value.slice(8,10)
 function safeUrl(value){try{const u=new URL(value);return ['https:','http:'].includes(u.protocol)?esc(u.href):'';}catch{return '';}}
 const sourceNames={anthropic:'Anthropic',openai:'OpenAI',microsoft:'Microsoft Security',trail:'Trail of Bits',unit42:'Unit 42',checkpoint:'Check Point',embrace:'Embrace The Red',pillar:'Pillar Security',zenity:'Zenity Labs',aws:'AWS Security',pdf:'AI事鉴 · PDF',github:'GitHub Advisories',seebug:'Seebug'};
 const sourceLabel=source=>sourceNames[source.id]||source.shortName||source.name;
-let items=[],sources=[],meta={},lastHash=location.hash||'#/feed',returnHash='#/feed',filtersOpen=false,searchTimer,toastTimer;
+let items=[],sources=[],meta={},briefings={daily:[],weekly:[]},lastHash=location.hash||'#/feed',returnHash='#/feed',filtersOpen=false,searchTimer,toastTimer;
 let disconnectGraph=()=>{},sourceFocus=null,renderedSource=null;
 let inputMethod='pointer';
 function loadRead(){try{const data=JSON.parse(localStorage.getItem('ai-security-observer:v1:read')||'[]');return new Set(Array.isArray(data)?data:[]);}catch{return new Set();}}
@@ -43,7 +44,25 @@ function listMarkup(list){
  const counts=new Map();for(const item of list)counts.set(itemDate(item),(counts.get(itemDate(item))||0)+1);let previous='';
  return list.map(item=>{const value=itemDate(item);const heading=value!==previous?`<div class="day-label"><span class="year">${value.slice(0,4)}</span><time datetime="${value}">${shortDate(value)}</time><span class="date-rule"></span><span class="day-count">${counts.get(value)} 条</span></div>`:'';previous=value;return heading+article(item);}).join('')+`<div class="results-caption">共 ${list.length} 条</div>`;
 }
-function feedPage(r){const title={feed:'最新情报',incidents:'真实事件',research:'研究披露'}[r.view];const list=filterItems(items,r,read,meta.updatedAt);return `<div class="reading-layout">${sourceSidebar(r)}<section class="content-column"><div class="sr-only"><h1>${title}</h1><span id="result-count" role="status">${list.length} 条情报</span></div>${filters(r)}<div id="news-list" aria-live="polite">${listMarkup(list)}</div></section></div>`;}
+function feedPage(r){const title={feed:'最新情报',incidents:'真实事件',research:'研究披露'}[r.view];const list=filterItems(items,r,read,meta.updatedAt);return `<div class="reading-layout">${sourceSidebar(r)}<section class="content-column"><div class="sr-only"><h1>${title}</h1><span id="result-count" role="status">${list.length} 条情报</span></div>${filters(r)}<div class="export-bar"><span>${list.length} 条 · 当前筛选结果</span><div><button class="text-link" data-action="export-md">导出 Markdown</button><button class="text-link" data-action="export-json">导出 JSON</button></div></div><div id="news-list" aria-live="polite">${listMarkup(list)}</div></section></div>`;}
+function activeBriefing(r){
+ const mode=r.params.get('mode')==='weekly'?'weekly':'daily';
+ const requested=r.params.get('date');
+ const value=validDate(requested)?requested:briefings[mode][0]?.start||meta.updatedAt;
+ const start=periodBounds(value,mode).start;
+ return briefings[mode].find(entry=>entry.start===start)||makeBriefing(items,value,mode);
+}
+function briefingPage(r){
+ const briefing=activeBriefing(r),byId=new Map(items.map(item=>[item.id,item]));
+ const selected=r.params.get('date');
+ return `<section class="briefing-page"><div class="page-heading"><h1>安全简报</h1><a class="text-link" href="./feed.xml">RSS 订阅 ↗</a></div><p class="briefing-intro">按已收录资料汇编，集中阅读事件、漏洞与研究进展。</p><form id="briefing-form" class="briefing-controls"><label for="briefing-mode">简报类型<select id="briefing-mode" class="select"><option value="daily" ${briefing.mode==='daily'?'selected':''}>按日</option><option value="weekly" ${briefing.mode==='weekly'?'selected':''}>按周 · 周一至周日</option></select></label><label for="briefing-date">${briefing.mode==='weekly'?'选择周内日期':'选择日期'}<input id="briefing-date" type="date" required value="${briefing.start}"></label><button class="outline-button" type="submit">查看简报</button><button class="outline-button" type="button" data-action="briefing-download">下载 Markdown</button></form>${selected&&!validDate(selected)?'<p class="date-notice" role="status">日期无效，已显示最近一期简报。</p>':''}<div class="briefing-layout"><aside class="briefing-archive" aria-label="简报归档"><h2>已收录日期</h2>${briefings[briefing.mode].map(entry=>`<a href="#/briefings?mode=${briefing.mode}&date=${entry.start}" ${entry.start===briefing.start?'aria-current="page"':''}>${date(entry.start)}${briefing.mode==='weekly'?` — ${date(entry.end)}`:''}<span>${entry.total} 条</span></a>`).join('')}</aside><article class="briefing-body"><header class="briefing-header"><p class="brand-kicker">JADE SECURITY BRIEFING</p><h2>安全${briefing.mode==='weekly'?'周报':'日报'}</h2><p class="briefing-period">${date(briefing.start)}${briefing.mode==='weekly'?` — ${date(briefing.end)}`:''}</p><p class="snapshot-label">覆盖 ${briefing.start} 至 ${briefing.end} · ${briefing.total} 条<br>按已收录资料汇编 · 资料更新 ${date(meta.updatedAt)}<br>人工整理，非实时核验；未收录不代表没有事件发生。</p></header>${!briefing.total?'<div class="empty-state"><h2>本站暂无收录</h2><p>请选择其他日期，或从左侧归档查看已有简报。</p></div>':briefing.sections.map(section=>`<section class="briefing-section"><h3>${section.label}<span>${section.itemIds.length} 条</span></h3>${section.itemIds.length?section.itemIds.map(id=>{const item=byId.get(id);return `<article class="briefing-item">${metadata(item,{withDate:true})}<h4><a href="${itemUrl(item)}">${esc(item.title)} →</a></h4><p>${esc(item.summary)}</p><dl><dt>影响范围</dt><dd>${esc(item.impact)}</dd><dt>处置建议</dt><dd>${esc(item.recommendation)}</dd><dt>证据与边界</dt><dd>${esc(item.limitations)}</dd></dl><a class="text-link" href="${itemUrl(item)}">查看详情与原始来源 →</a></article>`;}).join(''):'<p class="section-empty">本站暂无收录。</p>'}</section>`).join('')}</article></div></section>`;
+}
+function download(name,content,type){
+ const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');
+ a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ toast('已生成下载文件');
+}
+function publicationBase(){return meta.preview?new URL('.',document.baseURI).href:meta.siteUrl;}
 function sourceDetail(source){
  const count=items.filter(item=>item.sourceId===source.id).length;
  return `<section class="source-detail" aria-labelledby="source-detail-title"><div class="source-detail-heading"><div><span class="method-label">${esc(source.method.toUpperCase())}</span><h2 id="source-detail-title" tabindex="-1">${esc(source.name)}</h2></div><button class="source-close" type="button" data-action="source-close" data-value="${esc(source.id)}" aria-label="关闭来源详情">×</button></div><p class="source-description">${esc(source.description)}</p><div class="source-entry-links">${safeUrl(source.url)?`<a href="${safeUrl(source.url)}" target="_blank" rel="noopener noreferrer">访问来源 ${icon('external')}</a>`:''}${safeUrl(source.endpoint)?`<a href="${safeUrl(source.endpoint)}" target="_blank" rel="noopener noreferrer">获取入口 ${icon('external')}</a>`:''}${count?`<a href="#/feed?source=${esc(source.id)}">已收录 ${count} 条 →</a>`:'<span class="source-zero">已收录 0 条</span>'}</div><p class="source-status ${source.status==='reference'?'reference':''}">${source.status==='checked'?'公开入口已核验':'参考资料'} · ${date(source.checkedAt)}</p><details class="source-details"><summary>接入说明</summary><p>${esc(source.notes)}</p></details></section>`;
@@ -74,10 +93,11 @@ function render(preserveFocus=false){
  const oldDetails=document.querySelector('.filter-panel');if(oldDetails)filtersOpen=oldDetails.open;
  const r=route();document.querySelectorAll('[data-nav]').forEach(link=>{const current=link.dataset.nav===r.view;link.classList.toggle('active',current);if(current)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
  const nav=document.querySelector('.nav-links');const selected=nav.querySelector('[aria-current]');if(selected){const a=selected.getBoundingClientRect(),b=nav.getBoundingClientRect();if(a.right>b.right)nav.scrollLeft+=a.right-b.right+8;else if(a.left<b.left)nav.scrollLeft-=b.left-a.left+8;}
- const titles={feed:'最新情报',incidents:'真实事件',research:'研究披露',sources:'来源库'};
- document.title=`${r.view==='item'?(items.find(item=>item.id===r.id)?.title||'情报详情'):(titles[r.view]||'页面未找到')} | AI 安全观察`;
+ const titles={feed:'最新情报',incidents:'真实事件',research:'研究披露',sources:'来源库',briefings:'安全简报'};
+ document.title=`${r.view==='item'?(items.find(item=>item.id===r.id)?.title||'情报详情'):(titles[r.view]||'页面未找到')} | 复旦 JADE · AI 安全观察`;
  document.querySelector('#edition-date').textContent=date(meta.updatedAt);
- main.innerHTML=['feed','incidents','research'].includes(r.view)?feedPage(r):r.view==='sources'?sourcePage(r):r.view==='item'?detailPage(r.id):notFound();
+ document.querySelector('#edition-date').dateTime=meta.updatedAt;
+ main.innerHTML=['feed','incidents','research'].includes(r.view)?feedPage(r):r.view==='sources'?sourcePage(r):r.view==='item'?detailPage(r.id):r.view==='briefings'?briefingPage(r):notFound();
  if(r.view==='sources'){const graph=document.querySelector('.source-map');if(graph)disconnectGraph=connectSourceGraph(graph);}
  const sourceTarget=sourceFocus||(focusWasInDetail&&!renderedSource?`source-node-${previousSource}`:null);sourceFocus=null;
  if(sourceTarget){const target=document.getElementById(sourceTarget);target?.focus({preventScroll:true});target?.scrollIntoView({block:'nearest'});}
@@ -99,6 +119,19 @@ document.addEventListener('click',async event=>{
  else if(button.dataset.action==='topic')setParam('topic',button.dataset.value);
  else if(button.dataset.action==='reset')reset();
  else if(button.dataset.action==='risk-reset')setParam('risk','all');
+ else if(['export-md','export-json'].includes(button.dataset.action)){
+  clearTimeout(searchTimer);
+  const r=route(),q=document.querySelector('#search-input')?.value??r.q;
+  if(q!==r.q)setParam('q',q,{replace:true});
+  const current=route(),list=filterItems(items,current,read,meta.updatedAt);
+  const {view,q:query,source,topic,risk,evidence,period,sort,unread}=current;
+  const selection={view,q:query,source,topic,risk,evidence,period,sort,unread};
+  const json=button.dataset.action==='export-json';
+  download(`jade-${view}-${meta.updatedAt}.${json?'json':'md'}`,json?exportJson(list,meta,selection,publicationBase()):exportMarkdown(list,meta,publicationBase()),json?'application/json;charset=utf-8':'text/markdown;charset=utf-8');
+ }
+ else if(button.dataset.action==='briefing-download'){
+  const briefing=activeBriefing(route());download(`jade-${briefing.mode}-${briefing.start}.md`,briefingMarkdown(briefing,items,meta,publicationBase()),'text/markdown;charset=utf-8');
+ }
  else if(button.dataset.action==='share'){
   const url=new URL(location.href);url.hash=`/item/${encodeURIComponent(button.dataset.id)}`;
   try{await navigator.clipboard.writeText(url.href);toast('链接已复制');}catch{toast('可从浏览器地址栏复制链接');}
@@ -106,11 +139,11 @@ document.addEventListener('click',async event=>{
 });
 document.addEventListener('change',event=>{if(event.target.matches('[data-filter]'))setParam(event.target.dataset.filter,event.target.value);if(event.target.id==='unread-toggle')setParam('unread',event.target.checked?'1':'0');});
 document.addEventListener('input',event=>{if(['search-input','source-search'].includes(event.target.id)){const value=event.target.value;clearTimeout(searchTimer);searchTimer=setTimeout(()=>setParam('q',value,{replace:true}),180);}});
-document.addEventListener('submit',event=>{if(['filter-form','source-search-form'].includes(event.target.id)){event.preventDefault();clearTimeout(searchTimer);setParam('q',event.target.querySelector('input[type=search]').value,{replace:true});}});
+document.addEventListener('submit',event=>{if(event.target.id==='briefing-form'){event.preventDefault();const value=document.querySelector('#briefing-date').value;if(validDate(value))location.hash=`#/briefings?mode=${document.querySelector('#briefing-mode').value}&date=${value}`;return;}if(['filter-form','source-search-form'].includes(event.target.id)){event.preventDefault();clearTimeout(searchTimer);setParam('q',event.target.querySelector('input[type=search]').value,{replace:true});}});
 document.addEventListener('keydown',event=>{if(event.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(event.target.tagName)){const input=document.querySelector('#search-input,#source-search');if(input){event.preventDefault();input.focus();}}if(event.key==='Escape'&&event.target.closest('.source-detail')){event.preventDefault();sourceFocus=`source-node-${route().source}`;setParam('source','all');}else if(event.key==='Escape'&&event.target.matches('#search-input,#source-search')){clearTimeout(searchTimer);setParam('q','',{replace:true});}});
 window.addEventListener('hashchange',()=>{clearTimeout(searchTimer);const previous=lastHash;lastHash=location.hash;const previousView=previous.replace(/^#\/?/,'').split(/[/?]/)[0];const current=route();if(current.view==='item'&&previousView!=='item')returnHash=previous;render();if(previousView!==current.view){window.scrollTo({top:0});if(inputMethod==='keyboard')main.focus({preventScroll:true});}});
 window.addEventListener('storage',event=>{if(event.key==='ai-security-observer:v1:read'){read.clear();loadRead().forEach(id=>read.add(id));render();}});
 try{
- const responses=await Promise.all([fetch('./data/items.json'),fetch('./data/sources.json')]);if(responses.some(response=>!response.ok))throw new Error('资料读取失败');
- const [data,catalog]=await Promise.all(responses.map(response=>response.json()));items=data.items;sources=catalog;meta=data.meta;render();
+ const responses=await Promise.all([fetch('./data/items.json'),fetch('./data/sources.json'),fetch('./data/briefings.json')]);if(responses.some(response=>!response.ok))throw new Error('资料读取失败');
+ const [data,catalog,editions]=await Promise.all(responses.map(response=>response.json()));items=data.items;sources=catalog;meta=data.meta;briefings=editions;render();
 }catch(error){main.innerHTML='<div class="empty-state"><h2>暂时无法载入资料</h2><p>请刷新页面重试。</p><button class="outline-button" id="reload-button">重新加载</button></div>';document.querySelector('#reload-button').addEventListener('click',()=>location.reload());console.error(error);}

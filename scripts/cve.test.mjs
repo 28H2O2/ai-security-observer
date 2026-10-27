@@ -63,6 +63,9 @@ test('构建拒绝重复CVE公告，已有真实利用事件可以单独记录',
   cpSync(path.join(root,'package.json'),path.join(dir,'package.json'));
   mkdirSync(path.join(dir,'scripts'));
   cpSync(path.join(root,'scripts/build-data.mjs'),path.join(dir,'scripts/build-data.mjs'));
+  cpSync(path.join(root,'scripts/build-methodology.mjs'),path.join(dir,'scripts/build-methodology.mjs'));
+  mkdirSync(path.join(dir,'dist'));
+  for(const file of ['publication.js','model.js'])cpSync(path.join(root,'dist',file),path.join(dir,'dist',file));
   const source=read('content/cve-items.json');
   source[1].cveIds.push(source[0].cveIds[0]);
   writeFileSync(path.join(dir,'content/cve-items.json'),JSON.stringify(source));

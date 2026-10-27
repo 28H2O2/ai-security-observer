@@ -1,0 +1,2012 @@
+{
+  "meta": {
+    "updatedAt": "2026-10-23",
+    "mode": "curated-snapshot",
+    "timeZone": "Asia/Taipei"
+  },
+  "daily": [
+    {
+      "mode": "daily",
+      "start": "2026-10-22",
+      "end": "2026-10-22",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "primary-aws-strands-a2a-isolation"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-21",
+      "end": "2026-10-21",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-unit42-bugster-ai-cybercrime"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "primary-aws-sagemaker-default-bucket"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-20",
+      "end": "2026-10-20",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "primary-aws-kiro-crew-whatsapp-auth"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-19",
+      "end": "2026-10-19",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-opencode-mcp-oauth"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-16",
+      "end": "2026-10-16",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-microsoft-open-weight-risk-taxonomy"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-15",
+      "end": "2026-10-15",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-unit42-linux-espionage-ai-artifacts"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-14",
+      "end": "2026-10-14",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "primary-aws-sagemaker-git-log-secrets"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-13",
+      "end": "2026-10-13",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-badengram-memory-backdoor",
+            "primary-visual-studio-ssms-copilot-rce"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-09",
+      "end": "2026-10-09",
+      "total": 4,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "pdf-2026-0001",
+            "pdf-2026-0008",
+            "pdf-2026-0009",
+            "pdf-2026-0010"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-08",
+      "end": "2026-10-08",
+      "total": 5,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "pdf-2026-0002",
+            "pdf-2026-0006",
+            "primary-openai-false-front-operations"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "pdf-2026-0013",
+            "pdf-2026-0014"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-07",
+      "end": "2026-10-07",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "pdf-2026-0005"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-microsoft-forge-validation-loop"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-06",
+      "end": "2026-10-06",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "pdf-2026-0003"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "primary-aws-agentcore-import-injection"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-05",
+      "end": "2026-10-05",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "expanded-swarm-remote-browser-execution"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-106119"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-03",
+      "end": "2026-10-03",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-111767"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-01",
+      "end": "2026-10-01",
+      "total": 3,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-104850",
+            "cve-2026-59951",
+            "primary-aws-security-agent-mcp-diff-args"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-09-30",
+      "end": "2026-09-30",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-sql-copilot-readonly-bypass"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-09-29",
+      "end": "2026-09-29",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-105697"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-unsloth-studio-model-inspection"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-09-24",
+      "end": "2026-09-24",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "primary-aws-kiro-global-config-write"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "pdf-2026-0015"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-09-23",
+      "end": "2026-09-23",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-105757"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-09-16",
+      "end": "2026-09-16",
+      "total": 3,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "pdf-2026-0011",
+            "pdf-2026-0012"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "pdf-2026-0016"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-09-15",
+      "end": "2026-09-15",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-trail-ai-patching-validation"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-09-11",
+      "end": "2026-09-11",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "primary-aws-kiro-workspace-data-exfil"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-09-10",
+      "end": "2026-09-10",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-anthropic-gtg20006-cyber-operations"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-checkpoint-puzzlemask-gatekeeper"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-09-08",
+      "end": "2026-09-08",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-checkpoint-chatgpt-shared-service-channel"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-09-02",
+      "end": "2026-09-02",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-grafana-mcp-session-ssrf"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-09-01",
+      "end": "2026-09-01",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-litellm-admin-api-observed-attacks"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-08-28",
+      "end": "2026-08-28",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-111761",
+            "cve-2026-111764"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-08-27",
+      "end": "2026-08-27",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-claude-sandbox-dns-channel"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-08-26",
+      "end": "2026-08-26",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-claude-code-opus5-auto-mode",
+            "primary-trail-cyber-agent-vm-containment"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-08-25",
+      "end": "2026-08-25",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-openai-ibi-covert-influence"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-08-18",
+      "end": "2026-08-18",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-gemini-cli-wif-project-chain"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-08-16",
+      "end": "2026-08-16",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-encrypted-reasoning-replay"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-08-13",
+      "end": "2026-08-13",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-dolt-mcp-auth-bypass"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-08-12",
+      "end": "2026-08-12",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "pdf-2026-0007"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-08-05",
+      "end": "2026-08-05",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-claude-chrome-account-takeover",
+            "expanded-grand-theft-atlas"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-08-04",
+      "end": "2026-08-04",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "expanded-chaindrop-agent-hooks"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-08-03",
+      "end": "2026-08-03",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-adk-cross-agent-boundary",
+            "primary-llm-heist-gateway-routing"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-07-23",
+      "end": "2026-07-23",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-agentforger-workspace-agent"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-07-16",
+      "end": "2026-07-16",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-terminal-ansi-dns-exfil"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-07-01",
+      "end": "2026-07-01",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "expanded-ollama-pull-ssrf-observed",
+            "pdf-2026-0004"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-06-30",
+      "end": "2026-06-30",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "expanded-litellm-guardrail-exploit-attempts"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-06-25",
+      "end": "2026-06-25",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-computer-use-toctou"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-05-20",
+      "end": "2026-05-20",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-rtk-observation-filter"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-05-05",
+      "end": "2026-05-05",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-gemini-trustissues-workflow"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-05-04",
+      "end": "2026-05-04",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-copirate-365"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-04-20",
+      "end": "2026-04-20",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-antigravity-find-parameter"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-04-17",
+      "end": "2026-04-17",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-claude-opus47-memory-image"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-03-16",
+      "end": "2026-03-16",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-agent-commander-c2"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-02-23",
+      "end": "2026-02-23",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-anthropic-distillation-campaigns"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-02-11",
+      "end": "2026-02-11",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-unicode-skill-backdoor"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-02-10",
+      "end": "2026-02-10",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-chat-template-backdoor-validation"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-01-28",
+      "end": "2026-01-28",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "expanded-bizarre-bazaar-llmjacking"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    }
+  ],
+  "weekly": [
+    {
+      "mode": "weekly",
+      "start": "2026-10-19",
+      "end": "2026-10-25",
+      "total": 5,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-unit42-bugster-ai-cybercrime"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "primary-aws-strands-a2a-isolation",
+            "primary-aws-sagemaker-default-bucket",
+            "primary-aws-kiro-crew-whatsapp-auth"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-opencode-mcp-oauth"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-10-12",
+      "end": "2026-10-18",
+      "total": 5,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-unit42-linux-espionage-ai-artifacts"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "primary-aws-sagemaker-git-log-secrets"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-microsoft-open-weight-risk-taxonomy",
+            "primary-badengram-memory-backdoor",
+            "primary-visual-studio-ssms-copilot-rce"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-10-05",
+      "end": "2026-10-11",
+      "total": 15,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "pdf-2026-0001",
+            "pdf-2026-0008",
+            "pdf-2026-0009",
+            "pdf-2026-0010",
+            "pdf-2026-0002",
+            "pdf-2026-0006",
+            "primary-openai-false-front-operations",
+            "pdf-2026-0005",
+            "pdf-2026-0003",
+            "expanded-swarm-remote-browser-execution"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "primary-aws-agentcore-import-injection",
+            "cve-2026-106119"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "pdf-2026-0013",
+            "pdf-2026-0014",
+            "primary-microsoft-forge-validation-loop"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-09-28",
+      "end": "2026-10-04",
+      "total": 7,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-111767",
+            "cve-2026-104850",
+            "cve-2026-59951",
+            "primary-aws-security-agent-mcp-diff-args",
+            "cve-2026-105697"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-sql-copilot-readonly-bypass",
+            "primary-unsloth-studio-model-inspection"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-09-21",
+      "end": "2026-09-27",
+      "total": 3,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "primary-aws-kiro-global-config-write",
+            "cve-2026-105757"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "pdf-2026-0015"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-09-14",
+      "end": "2026-09-20",
+      "total": 4,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "pdf-2026-0011",
+            "pdf-2026-0012"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "pdf-2026-0016",
+            "primary-trail-ai-patching-validation"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-09-07",
+      "end": "2026-09-13",
+      "total": 4,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-anthropic-gtg20006-cyber-operations"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "primary-aws-kiro-workspace-data-exfil"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-checkpoint-puzzlemask-gatekeeper",
+            "primary-checkpoint-chatgpt-shared-service-channel"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-08-31",
+      "end": "2026-09-06",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-litellm-admin-api-observed-attacks"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-grafana-mcp-session-ssrf"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-08-24",
+      "end": "2026-08-30",
+      "total": 6,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-openai-ibi-covert-influence"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-111761",
+            "cve-2026-111764"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-claude-sandbox-dns-channel",
+            "primary-claude-code-opus5-auto-mode",
+            "primary-trail-cyber-agent-vm-containment"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-08-17",
+      "end": "2026-08-23",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-gemini-cli-wif-project-chain"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-08-10",
+      "end": "2026-08-16",
+      "total": 3,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "pdf-2026-0007"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-encrypted-reasoning-replay",
+            "expanded-dolt-mcp-auth-bypass"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-08-03",
+      "end": "2026-08-09",
+      "total": 5,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "expanded-chaindrop-agent-hooks"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-claude-chrome-account-takeover",
+            "expanded-grand-theft-atlas",
+            "expanded-adk-cross-agent-boundary",
+            "primary-llm-heist-gateway-routing"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-07-20",
+      "end": "2026-07-26",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-agentforger-workspace-agent"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-07-13",
+      "end": "2026-07-19",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-terminal-ansi-dns-exfil"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-06-29",
+      "end": "2026-07-05",
+      "total": 3,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "expanded-ollama-pull-ssrf-observed",
+            "pdf-2026-0004",
+            "expanded-litellm-guardrail-exploit-attempts"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-06-22",
+      "end": "2026-06-28",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-computer-use-toctou"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-05-18",
+      "end": "2026-05-24",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-rtk-observation-filter"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-05-04",
+      "end": "2026-05-10",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-gemini-trustissues-workflow",
+            "expanded-copirate-365"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-04-20",
+      "end": "2026-04-26",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-antigravity-find-parameter"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-04-13",
+      "end": "2026-04-19",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-claude-opus47-memory-image"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-03-16",
+      "end": "2026-03-22",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-agent-commander-c2"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-02-23",
+      "end": "2026-03-01",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-anthropic-distillation-campaigns"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-02-09",
+      "end": "2026-02-15",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "expanded-unicode-skill-backdoor",
+            "expanded-chat-template-backdoor-validation"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-01-26",
+      "end": "2026-02-01",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "expanded-bizarre-bazaar-llmjacking"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    }
+  ]
+}

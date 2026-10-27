@@ -1,0 +1,13 @@
+import {spawnSync} from 'node:child_process';
+import {readFileSync,mkdirSync,readdirSync} from 'node:fs';
+import {fileURLToPath} from 'node:url';
+const root=fileURLToPath(new URL('..',import.meta.url));
+const preview=process.argv.includes('--preview');
+const run=(command,args)=>{const result=spawnSync(command,args,{cwd:root,stdio:'inherit'});if(result.error)throw result.error;if(result.status!==0)process.exit(result.status||1);};
+run(process.execPath,['scripts/build-data.mjs',...(preview?[]:['--production'])]);
+run(process.execPath,['--test',...readdirSync(new URL('.',import.meta.url)).filter(name=>name.endsWith('.test.mjs')).map(name=>'scripts/'+name)]);
+const {version}=JSON.parse(readFileSync(new URL('../package.json',import.meta.url),'utf8'));
+mkdirSync(new URL('../output/releases/',import.meta.url),{recursive:true});
+const archive=`output/releases/jade-observer-${version}${preview?'-preview':''}.tar.gz`;
+run('tar',['-czf',archive,'dist','deployment','research/site-methodology.md']);
+console.log(`${preview?'本地预览包（正式发布前必须设置 SITE_URL 重新构建）':'生产发布包'}: ${archive}`);

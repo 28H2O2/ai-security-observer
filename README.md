@@ -1,6 +1,18 @@
 # AI 安全观察
 
-公开阅读站，整理 AI 安全事件、漏洞公告、攻击研究与原始来源。
+复旦 JADE 公开阅读站，整理 AI 安全事件、漏洞公告、攻击研究与原始来源。联系人：张谧教授（mi_zhang@fudan.edu.cn）。
+
+## 0.4.0 新增
+
+- 官方 JADE Logo 本地化，页头加入团队主页、成员、联系人与资料日期。
+- `#/briefings` 按日或按周（周一至周日）汇编已有资料；支持历史归档、空日期和 Markdown 下载。
+- 情报列表按当前搜索、筛选、排序和已读状态导出 Markdown / JSON。
+- 构建生成最新 50 条 RSS：`feed.xml`，以及无需 JavaScript 的 `methodology.html` 来源与核验说明。
+- 日报、周报、导出和 RSS 都读取同一份去重数据，不生成未经核验的新结论。资料仍为 2026-10-23 的人工快照；本轮没有新增事实记录。
+
+整理说明见 [来源、消息格式与核验方法](research/site-methodology.md)。香港 Nginx 部署、正式域名配置、回滚与大陆三网验收见 [部署说明](deployment/README.md)。
+
+本地打包运行 `npm run package:preview`。正式打包设置 `SITE_URL` 后运行 `npm run package`，自动执行生产构建、测试和归档；产物位于 `output/releases/`。本地包带 `-preview`，RSS 使用本机地址，正式部署前必须重新构建。生产构建拒绝缺失、占位、本地或非 HTTPS 地址。
 
 ## 本地预览
 
@@ -26,9 +38,9 @@ npm start
 | Framework Preset | Other |
 | Node.js | 22.x |
 | Install Command | `npm ci` |
-| Build Command | `npm run build` |
+| Build Command | `npm run build:production` |
 | Output Directory | `dist` |
-| Environment Variables | 无需配置 |
+| Environment Variables | `SITE_URL`：正式站点 HTTPS 根地址 |
 
 网页使用 `#/feed` 等哈希路由，无需额外添加路由重写。只发布 `dist/`，研究笔记和本地 PDF 不作为静态资源发布。`.openai/hosting.json` 仅用于原有 Sites 托管，Vercel 不使用该文件。
 
@@ -67,4 +79,4 @@ research/cve-verification-2026-10-23.md 及同名JSON保留本轮接入前的核
 - AI Safety Radar: https://github.com/nrc-cnrc/ai-safety-radar-securite-ia
 - S33R: https://github.com/clivoa/S33R
 
-当前版0.3.0，更新日期：2026-10-23，Asia/Taipei。无注册、在线模型摘要或第三方分析脚本。
+当前代码版0.4.0；资料更新日期：2026-10-23，Asia/Taipei。无注册、在线模型摘要或第三方分析脚本。新增 publication.js 由浏览器与构建脚本共享，data/briefings.json 仅保存分类和条目编号，避免复制事实正文。DOM 文本与导出格式分别转义。资料源与品牌素材说明见 research/site-methodology.md。
