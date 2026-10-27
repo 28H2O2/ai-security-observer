@@ -1,19 +1,19 @@
 # 复旦 JADE · AI 安全观察：来源、消息格式与核验方法
 
-整理日期：2026-10-27。数据快照：2026-10-23。当前网站为人工整理的静态站。
+整理日期：2026-10-27。数据审阅截止：2026-10-27（本次新增资料中最新原始披露为 10 月 26 日）。当前网站为人工整理的静态站。
 
 ## 消息来源
 
-76 条去重记录，67 条附原始披露，12 个实际供稿来源。登记 16 个情报/资料源，另有 AIHOT 工程参考。
+79 条去重记录，70 条附原始披露，13 个实际供稿来源。登记 17 个情报/资料源，另有 AIHOT 工程参考。
 
 | 类别 | 已收录来源及主来源条数 |
 | --- | --- |
-| 厂商官方 | Anthropic 6；OpenAI 2；Microsoft Security 2；AWS Security 9 |
+| 厂商官方 | Anthropic 6；OpenAI 3；Microsoft Security 2；AWS Security 9；LiteLLM 1 |
 | 安全研究 | Trail of Bits 2；Unit 42 2；Check Point Research 2；Embrace The Red 11；Pillar 14；Zenity 9 |
-| 漏洞记录 | CVE 官方记录 8 |
+| 漏洞记录 | CVE 官方记录 9 |
 | 中文汇编 | 三所数据安全·AI事鉴 9 |
 
-GitHub Security Advisories、Seebug、MITRE ATLAS、AI Incident Database 已登记，当前主来源条数为 0；GitHub 公告也被部分 CVE 条目引用。PDF 原始收录共 16 条，7 条补齐原始披露后归入相应来源，不再重复计数。公开来源库显示 15 个来源，隐藏 PDF 和工程参考；本表包含实际使用的 PDF。
+GitHub Security Advisories、Seebug、MITRE ATLAS、AI Incident Database 已登记，当前主来源条数为 0；GitHub 公告也被部分 CVE 条目引用。PDF 原始收录共 16 条，7 条补齐原始披露后归入相应来源，不再重复计数。公开来源库显示 16 个来源，隐藏 PDF 和工程参考；本表包含实际使用的 PDF。
 
 来源入口包含 RSS、Sitemap、API、Git、数据集及人工文档。当前全部由人工整理导入；登记表里的 checked 仅表示 2026-10-23 入口访问和格式检查通过，不代表自动采集任务已经运行。公开的 methodology.html 由构建脚本从实际数据重新计算来源条数。
 
@@ -67,4 +67,4 @@ GitHub Security Advisories、Seebug、MITRE ATLAS、AI Incident Database 已登�
 
 ## 国内访问交付状态
 
-Logo、脚本、样式和数据均同域提供，使用系统字体。香港节点＋自有域名＋HTTPS 的 Nginx 配置、生产构建检查与回滚步骤见 deployment/README.md。尚无正式域名或服务器，未上线，未完成大陆三网可达性验收。
+Logo、脚本、样式和数据均同域提供，使用系统字体。香港节点＋自有域名＋HTTPS 的 Nginx 配置、生产构建检查与回滚步骤见 deployment/README.md。现有 Sites 地址用于网页展示；香港自有服务器部署尚未执行，未完成大陆三网可达性验收。

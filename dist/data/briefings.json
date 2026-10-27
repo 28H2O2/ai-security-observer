@@ -1,10 +1,60 @@
 {
   "meta": {
-    "updatedAt": "2026-10-23",
+    "updatedAt": "2026-10-27",
     "mode": "curated-snapshot",
-    "timeZone": "Asia/Taipei"
+    "timeZone": "Asia/Shanghai"
   },
   "daily": [
+    {
+      "mode": "daily",
+      "start": "2026-10-26",
+      "end": "2026-10-26",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-110474"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-23",
+      "end": "2026-10-23",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-openai-frontier-containment"
+          ]
+        }
+      ]
+    },
     {
       "mode": "daily",
       "start": "2026-10-22",
@@ -34,12 +84,13 @@
       "mode": "daily",
       "start": "2026-10-21",
       "end": "2026-10-21",
-      "total": 2,
+      "total": 3,
       "sections": [
         {
           "kind": "incident",
           "label": "真实事件",
           "itemIds": [
+            "primary-litellm-release-compromise-october",
             "primary-unit42-bugster-ai-cybercrime"
           ]
         },
@@ -1342,14 +1393,40 @@
   "weekly": [
     {
       "mode": "weekly",
+      "start": "2026-10-26",
+      "end": "2026-11-01",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-110474"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
       "start": "2026-10-19",
       "end": "2026-10-25",
-      "total": 5,
+      "total": 7,
       "sections": [
         {
           "kind": "incident",
           "label": "真实事件",
           "itemIds": [
+            "primary-litellm-release-compromise-october",
             "primary-unit42-bugster-ai-cybercrime"
           ]
         },
@@ -1366,6 +1443,7 @@
           "kind": "research",
           "label": "研究披露",
           "itemIds": [
+            "primary-openai-frontier-containment",
             "primary-opencode-mcp-oauth"
           ]
         }

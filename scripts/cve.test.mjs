@@ -12,12 +12,12 @@ const root=fileURLToPath(new URL('../',import.meta.url));
 const read=name=>JSON.parse(readFileSync(path.join(root,name),'utf8'));
 const {items,meta}=read('dist/data/items.json');
 const audit=read('research/cve-verification-2026-10-23.json');
-const imported=items.filter(item=>item.sourceId==='cve');
+const imported=items.filter(item=>item.sourceId==='cve'&&audit.records.some(r=>r.cveId===item.externalId));
 
 test('8条公告与已核验资料对应，保留项目日期、版本和来源，不混入真实事件',()=>{
- assert.equal(items.length,76);assert.equal(imported.length,8);
- assert.equal(items.filter(item=>item.evidence==='primary').length,67);
- assert.equal(items.filter(item=>item.kind==='incident').length,24);
+ assert.equal(items.length,79);assert.equal(imported.length,8);
+ assert.equal(items.filter(item=>item.evidence==='primary').length,70);
+ assert.equal(items.filter(item=>item.kind==='incident').length,25);
  for(const item of imported){
   const evidence=audit.records.find(record=>record.cveId===item.externalId);
   assert.ok(evidence,item.id);assert.equal(item.kind,'advisory');
@@ -34,14 +34,14 @@ test('8条公告与已核验资料对应，保留项目日期、版本和来源�
 
 test('CVE筛选涵盖既有资料，支持编号、包名、来源、时间与已读组合',()=>{
  const all=filterItems(items,{topic:'cve'});
- assert.equal(all.length,26);assert.equal(meta.cveRecords,26);
+ assert.equal(all.length,27);assert.equal(meta.cveRecords,27);
  assert.ok(all.some(item=>item.externalId==='AISID-2026-0014'));
- assert.equal(filterItems(items,{topic:'cve',source:'cve'}).length,8);
+ assert.equal(filterItems(items,{topic:'cve',source:'cve'}).length,9);
  assert.equal(filterItems(items,{topic:'cve',source:'cve',period:'30'},new Set(),meta.updatedAt).length,6);
- assert.equal(filterItems(items,{topic:'cve',source:'cve',period:'7'},new Set(),meta.updatedAt).length,0);
+ assert.equal(filterItems(items,{topic:'cve',source:'cve',period:'7'},new Set(),meta.updatedAt).length,1);
  assert.equal(filterItems(items,{topic:'cve',q:'cve-2026-111767'})[0].id,'cve-2026-111767');
  assert.equal(filterItems(items,{q:'@modelcontextprotocol/client'})[0].id,'cve-2026-104850');
- assert.equal(filterItems(items,{source:'cve',unread:true},new Set([imported[0].id])).length,7);
+ assert.equal(filterItems(items,{source:'cve',unread:true},new Set([imported[0].id])).length,8);
  const probe={...imported[0],title:'一般产品公告',summary:'普通描述',tags:[],entities:[],externalId:null,cveIds:[],affectedPackages:[]};
  assert.equal(filterItems([probe],{topic:'cve'}).length,0);
  probe.cveIds=['CVE-2026-111767'];
@@ -49,11 +49,11 @@ test('CVE筛选涵盖既有资料，支持编号、包名、来源、时间与�
  assert.equal(filterItems([{...probe,cveIds:[],affectedPackages:[{name:'exact-package-name',ecosystem:'pip'}]}],{q:'exact-package-name'}).length,1);
 });
 
-test('新CVE来源可在重构后的关系图中检索、选中，并关联8条情报',()=>{
+test('CVE来源可在关系图中检索、选中，并关联9条情报',()=>{
  const view=sourceCatalogView(read('content/sources.json'),{q:'CVE',source:'cve'});
  assert.equal(view.selected.id,'cve');assert.equal(view.selected.category,'database');
  assert.ok(view.groups.find(group=>group.id==='database').sources.some(source=>source.id==='cve'));
- assert.equal(items.filter(item=>item.sourceId===view.selected.id).length,8);
+ assert.equal(items.filter(item=>item.sourceId===view.selected.id).length,9);
 });
 
 test('构建拒绝重复CVE公告，已有真实利用事件可以单独记录',()=>{
@@ -78,7 +78,7 @@ test('构建拒绝重复CVE公告，已有真实利用事件可以单独记录',
   writeFileSync(path.join(dir,'content/primary-items.json'),JSON.stringify(primary));
   const accepted=run();assert.equal(accepted.status,0,accepted.stderr);
   const built=JSON.parse(readFileSync(path.join(dir,'dist/data/items.json'),'utf8'));
-  assert.equal(built.items.length,77);
+  assert.equal(built.items.length,items.length+1);
   assert.equal(built.items.filter(item=>item.cveIds.includes(source[0].externalId)).length,2);
  }finally{rmSync(dir,{recursive:true,force:true});}
 });

@@ -2,13 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>
 <title>复旦 JADE · AI 安全观察</title><link>https://ai-security-observer.groovymesa1.chatgpt.site/</link>
 <description>AI 安全事件、漏洞公告与研究披露。人工整理，按已收录资料汇编；不代表实时核验。</description><language>zh-CN</language>
-<lastBuildDate>Thu, 22 Oct 2026 16:00:00 GMT</lastBuildDate><atom:link href="https://ai-security-observer.groovymesa1.chatgpt.site/feed.xml" rel="self" type="application/rss+xml"/>
+<lastBuildDate>Mon, 26 Oct 2026 16:00:00 GMT</lastBuildDate><atom:link href="https://ai-security-observer.groovymesa1.chatgpt.site/feed.xml" rel="self" type="application/rss+xml"/>
+<item><title>CreditNirvana AI 呼叫中心前端暴露密钥，可被读取通话资料</title><link>https://ai-security-observer.groovymesa1.chatgpt.site/#/item/cve-2026-110474</link><guid isPermaLink="true">https://ai-security-observer.groovymesa1.chatgpt.site/#/item/cve-2026-110474</guid><pubDate>Sun, 25 Oct 2026 16:00:00 GMT</pubDate><category>漏洞公告</category><description>CERT-In 发布漏洞记录：CreditNirvana 将静态 API 密钥写入前端 JavaScript。未登录的攻击者可提取密钥，经应用 API 获取通话转录与录音；2.0.0 以前版本受影响。
+来源：CVE 官方记录；原始披露日期：2026-10-26。
+证据与边界：依据 CERT-In 提交的官方 CVE 记录整理，官方 CVSS 4.0 为 8.7（高）。独立公告入口本次访问失败；本站未复现，记录未提供实际受害者或在野利用证据。</description></item>
+<item><title>OpenAI 加固训练隔离边界，以智能体红队持续检查逃逸路径</title><link>https://ai-security-observer.groovymesa1.chatgpt.site/#/item/primary-openai-frontier-containment</link><guid isPermaLink="true">https://ai-security-observer.groovymesa1.chatgpt.site/#/item/primary-openai-frontier-containment</guid><pubDate>Thu, 22 Oct 2026 16:00:00 GMT</pubDate><category>研究披露</category><description>OpenAI 披露前沿模型训练与评测环境的隔离改造：通过离线网络环境、微型虚拟机和监测形成多层防护，并组织智能体红队寻找越界访问与跨任务通信路径。
+来源：OpenAI；原始披露日期：2026-10-23。
+证据与边界：这是厂商对内部训练及对抗评测环境的披露，不代表已发布产品或客户环境发生同类逃逸。本站未独立复现，修复后也不能据此推断隔离绝对安全。</description></item>
 <item><title>Strands Agents 的 A2A 服务会话隔离缺陷可能泄露其他调用者历史</title><link>https://ai-security-observer.groovymesa1.chatgpt.site/#/item/primary-aws-strands-a2a-isolation</link><guid isPermaLink="true">https://ai-security-observer.groovymesa1.chatgpt.site/#/item/primary-aws-strands-a2a-isolation</guid><pubDate>Wed, 21 Oct 2026 16:00:00 GMT</pubDate><category>漏洞公告</category><description>AWS 披露 Strands Agents SDK 的 A2A 服务未正确隔离调用者之间的对话状态。多租户部署中的已认证远程用户可能读取其他调用者的历史或影响其模型行为；Python 与 TypeScript SDK 均已发布修复。
 来源：AWS Security；原始披露日期：2026-10-22。
 证据与边界：影响多用户或多租户 A2A 部署，需要已认证远程用户；公告未报告在野利用。受影响的是含 A2A 模块的 Python 1.43.0 之前版本及 TypeScript 1.5.0 之前版本。</description></item>
 <item><title>SageMaker Python SDK 缺少默认 S3 桶所有权检查</title><link>https://ai-security-observer.groovymesa1.chatgpt.site/#/item/primary-aws-sagemaker-default-bucket</link><guid isPermaLink="true">https://ai-security-observer.groovymesa1.chatgpt.site/#/item/primary-aws-sagemaker-default-bucket</guid><pubDate>Tue, 20 Oct 2026 16:00:00 GMT</pubDate><category>漏洞公告</category><description>AWS 披露 SageMaker Python SDK 会采用可预测命名的默认 S3 存储桶，却未核验其是否归调用账户所有。抢先创建该桶的远程攻击者可能在 SageMaker 执行环境中执行代码并获取 IAM 凭证，官方已修复。
 来源：AWS Security；原始披露日期：2026-10-21。
 证据与边界：攻击要求对手抢先占有 SDK 将使用的可预测桶名，并进入相应 SDK 工作流；不代表任意已存在且属于用户的桶都受控。公告未报告真实客户遭利用。</description></item>
+<item><title>LiteLLM 发布链遭入侵，1.107.0 软件包与容器被植入恶意代码</title><link>https://ai-security-observer.groovymesa1.chatgpt.site/#/item/primary-litellm-release-compromise-october</link><guid isPermaLink="true">https://ai-security-observer.groovymesa1.chatgpt.site/#/item/primary-litellm-release-compromise-october</guid><pubDate>Tue, 20 Oct 2026 16:00:00 GMT</pubDate><category>真实事件</category><description>LiteLLM 官方复盘确认，攻击者通过未撤销的泄露主密钥取得组织所有者令牌，绕过发布保护并从恶意仓库构建制品。10 月 21 日发布的 1.107.0 软件包与部分容器标签受到影响。
+来源：LiteLLM；原始披露日期：2026-10-21。
+证据与边界：初始报告关于令牌来自日志的推测被 10 月 23 日定稿修正，应以定稿为准。公开 GitHub 的 1.107.0 源码标签不等同于被投毒的发布制品；使用私有企业发布渠道的客户据项目方说明不受此事件影响。</description></item>
 <item><title>Unit 42 调查发现单个攻击者借 AI 支撑多类网络犯罪</title><link>https://ai-security-observer.groovymesa1.chatgpt.site/#/item/primary-unit42-bugster-ai-cybercrime</link><guid isPermaLink="true">https://ai-security-observer.groovymesa1.chatgpt.site/#/item/primary-unit42-bugster-ai-cybercrime</guid><pubDate>Tue, 20 Oct 2026 16:00:00 GMT</pubDate><category>真实事件</category><description>Unit 42 从攻击者运行环境中观察到 Hermes Agent、DeepSeek 与 Cursor 被用于凭证窃取、VoIP 欺诈规划等活动。调查确认一所印度大学数据库被外传逾 5200 条记录，同时区分了已实施攻击与尚在规划的能力。
 来源：Unit 42；原始披露日期：2026-10-21。
 证据与边界：行为与数据泄露结论来自 Unit 42 的调查可见性，本站未接触受害系统。VoIP、Wi-Fi 与加密资产相关内容包含规划或能力准备，不能全部计为成功入侵。</description></item>
@@ -144,13 +153,4 @@
 <item><title>A2A Java 默认任务读取缺少授权检查，可泄露其他调用者数据</title><link>https://ai-security-observer.groovymesa1.chatgpt.site/#/item/cve-2026-111764</link><guid isPermaLink="true">https://ai-security-observer.groovymesa1.chatgpt.site/#/item/cve-2026-111764</guid><pubDate>Thu, 27 Aug 2026 16:00:00 GMT</pubDate><category>漏洞公告</category><description>A2A Java SDK 的默认任务存储和部分手动构建的请求处理器未执行任务读取授权。多调用者部署中，知道或猜到任务 ID 的调用者可读取其他任务的状态、消息历史与产物。
 来源：CVE 官方记录；原始披露日期：2026-08-28。
 证据与边界：默认/参考传输端点未强制认证；有自定义认证的部署需按实际可达性判断，不能一律描述为所有部署均可匿名读取。 项目公告正文保留了草稿占位文字，修复版本采用其结构化字段、CVE 记录与正式 Release 交叉确认的 1.3.0.Final。 项目结构化受影响版本仅写 1.2.0.Final，正文写 &lt;= 1.2.0.Final 及修复前快照；CVE/数据库为 &lt; 1.3.0.Final。保留两种范围，不把仅列出的验证版本视作唯一受影响版本。 项目 GHSA 在 2026-08-28 已公开，CVE 在 10 月发布，应标为近期新增编号的既有披露。 本条为公开漏洞公告，未在本站复现，也未独立核实在野利用。</description></item>
-<item><title>Claude 沙箱 DNS 通道可被用于数据外传与双向命令通信</title><link>https://ai-security-observer.groovymesa1.chatgpt.site/#/item/primary-claude-sandbox-dns-channel</link><guid isPermaLink="true">https://ai-security-observer.groovymesa1.chatgpt.site/#/item/primary-claude-sandbox-dns-channel</guid><pubDate>Wed, 26 Aug 2026 16:00:00 GMT</pubDate><category>研究披露</category><description>Zenity 展示 Claude 代码执行沙箱中 DNS 解析先于 HTTP 出站限制发生的风险。研究分别通过文档提示注入演示聊天内容外传，以及不安全 pickle 反序列化配合 DNS TXT 记录演示沙箱内双向命令通信。
-来源：Zenity Labs；原始披露日期：2026-08-27。
-证据与边界：这是受控研究，命令运行于代码执行沙箱内，并非已逃逸至宿主。首次 DNS 外传于 2025 年 12 月确认关闭；2026 年 5 月复测通道重新可达，厂商将其按已跟踪底层问题归为重复报告；文章未提供最终修复状态。</description></item>
-<item><title>研究者用恶意归档与 Python 模块遮蔽绕过 Claude Code Auto Mode</title><link>https://ai-security-observer.groovymesa1.chatgpt.site/#/item/primary-claude-code-opus5-auto-mode</link><guid isPermaLink="true">https://ai-security-observer.groovymesa1.chatgpt.site/#/item/primary-claude-code-opus5-auto-mode</guid><pubDate>Tue, 25 Aug 2026 16:00:00 GMT</pubDate><category>研究披露</category><description>研究者在网站总结任务中引导 Claude Code 下载归档。模型拒绝现成二进制后自行编写解码脚本，却因在攻击者目录中导入 Python 模块触发代码。小样本实验展示 Auto Mode 放行了可导致执行的组合步骤。
-来源：Embrace The Red；原始披露日期：2026-08-26。
-证据与边界：实验变体各仅 5 次，文中 60% 至 80% 不能外推为整体攻击成功率。研究者称厂商按 Informative 处理，并说明 Auto Mode 的分类器不构成隔离边界；未报告真实受害。</description></item>
-<item><title>Trail of Bits 用授权逃逸测试审视强网络能力 Agent 的虚拟机边界</title><link>https://ai-security-observer.groovymesa1.chatgpt.site/#/item/primary-trail-cyber-agent-vm-containment</link><guid isPermaLink="true">https://ai-security-observer.groovymesa1.chatgpt.site/#/item/primary-trail-cyber-agent-vm-containment</guid><pubDate>Tue, 25 Aug 2026 16:00:00 GMT</pubDate><category>研究披露</category><description>Trail of Bits 让预览模型在授权 CTF 中尝试读取虚拟机外的标记，记录其组合宿主内核、QEMU 与网络库漏洞的过程。研究显示共享组件与补丁回移延迟扩大隔离风险，并比较了缩小虚拟化攻击面的防护选择。
-来源：Trail of Bits；原始披露日期：2026-08-26。
-证据与边界：这是研究者明确授权逃逸的特定开发机实验，不是模型自发逃逸。作者开头概括三次逃逸，但第一条详细记录为宿主卡死且利用未成功落地；不能把三条路径全计作已完成逃逸。</description></item>
 </channel></rss>

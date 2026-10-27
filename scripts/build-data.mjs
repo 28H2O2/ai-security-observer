@@ -8,7 +8,7 @@ const siteUrl=resolveSiteUrl(process.env.SITE_URL,{production});
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=name=>JSON.parse(readFileSync(path.join(root,'content',name),'utf8'));
 const pdf=read('pdf-items.json');
-const additions=['expanded-vendor-items.json','expanded-research-items.json','cve-items.json'].flatMap(name=>existsSync(path.join(root,'content',name))?read(name):[]);
+const additions=['expanded-vendor-items.json','expanded-research-items.json','cve-items.json','latest-items.json'].flatMap(name=>existsSync(path.join(root,'content',name))?read(name):[]);
 const primary=[...read('primary-items.json'),...additions];
 const sources=read('sources.json');
 // SalesBleed is already AISID-2026-0015 in the PDF. Attach its original
@@ -69,8 +69,9 @@ for(const item of items){
   if(!/^\d{4}-\d{2}-\d{2}$/.test(item.cvePublishedAt))throw new Error('CVE 发布日期不正确 '+item.id);
  }
 }
+const review=read('review.json');
 const version=JSON.parse(readFileSync(path.join(root,'package.json'),'utf8')).version;
-const result={meta:{title:'AI 安全观察',version,updatedAt:'2026-10-23',timeZone:'Asia/Taipei',mode:'curated-snapshot',scheduledCollection:false,total:items.length,pdfRecords:pdf.length,primaryRecords:items.filter(i=>i.evidence==='primary').length,cveRecords:items.filter(i=>i.cveIds.length).length,activeSources:new Set(items.map(item=>item.sourceId)).size},items};
+const result={meta:{title:'AI 安全观察',version,updatedAt:review.reviewedAt,timeZone:review.timeZone,mode:'curated-snapshot',scheduledCollection:false,total:items.length,pdfRecords:pdf.length,primaryRecords:items.filter(i=>i.evidence==='primary').length,cveRecords:items.filter(i=>i.cveIds.length).length,activeSources:new Set(items.map(item=>item.sourceId)).size},items};
 mkdirSync(path.join(root,'dist','data'),{recursive:true});
 result.meta.siteUrl=siteUrl;
 result.meta.preview=!production;
