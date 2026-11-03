@@ -1,0 +1,31 @@
+# Substitute only SITE_HOST, RELEASE_ROOT, TLS_CERT and TLS_KEY (see README).
+server {
+    listen 80;
+    server_name ${SITE_HOST};
+    return 301 https://${SITE_HOST}$request_uri;
+}
+server {
+    listen 443 ssl;
+    server_name ${SITE_HOST};
+    ssl_certificate ${TLS_CERT};
+    ssl_certificate_key ${TLS_KEY};
+    ssl_protocols TLSv1.2 TLSv1.3;
+    root ${RELEASE_ROOT}/current/dist;
+    index index.html;
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+    charset utf-8;
+    add_header X-Content-Type-Options nosniff always;
+    add_header Referrer-Policy strict-origin-when-cross-origin always;
+    add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; font-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'" always;
+    add_header Cache-Control "no-cache" always;
+    gzip on;
+    gzip_types text/css application/javascript application/json application/xml application/rss+xml;
+    location = /feed.xml {
+        types { application/rss+xml xml; }
+        try_files $uri =404;
+    }
+    location / { try_files $uri $uri/ =404; }
+    location ~ /\. { deny all; }
+    error_page 404 /404.html;
+}

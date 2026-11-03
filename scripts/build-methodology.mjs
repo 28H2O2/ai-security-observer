@@ -1,0 +1,15 @@
+const escape=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+export function methodologyPage(items,sources,meta){
+ const rows=sources.filter(s=>s.category!=='reference').map(s=>`<tr><td>${escape(s.name)}</td><td>${items.filter(i=>i.sourceId===s.id).length}</td><td>${escape(s.method)}</td></tr>`).join('');
+ return `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="复旦 JADE · AI 安全观察的消息来源、摘要规范与风险核验方法。"><title>来源与核验说明 | 复旦 JADE · AI 安全观察</title><link rel="icon" href="./assets/jade-logo.png"><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./publication.css"></head><body><div class="page-shell"><main class="methodology"><a class="back-link" href="./#/feed">← 返回 AI 安全观察</a><h1>来源与核验说明</h1><p class="snapshot-label">复旦 JADE · 资料更新 ${meta.updatedAt}</p>
+<h2>消息来自哪里</h2><p>当前共 ${items.length} 条去重资料，${items.filter(i=>i.evidence==='primary').length} 条附原始披露，${new Set(items.map(i=>i.sourceId)).size} 个实际供稿来源。来源登记包括 ${sources.filter(s=>s.category!=='reference').length} 个情报或资料源。以下按每条资料的主来源计数；同一条资料的多个引用不重复计算。</p><table><thead><tr><th scope="col">来源</th><th scope="col">条数</th><th scope="col">获取入口类型</th></tr></thead><tbody>${rows}</tbody></table><p>PDF 原始收录 16 条，其中 7 条补齐原始披露后归入对应来源。零条来源为已登记候选或参考数据集；GitHub 公告也可能出现在其他主来源条目的引用中。AIHOT 是工程参考，不是消息供稿来源。入口类型表示可用的接入方式，当前没有自动采集任务。</p>
+<h2>怎样整理消息</h2><p>标题采用“对象＋安全问题＋直接后果”，摘要先交代结论，再说明利用前提和影响。列表提供短摘要，详情保留影响范围、处置建议、原始链接与证据边界。</p><pre>基本信息：披露日期｜来源｜资料类型｜风险类别
+核心摘要：谁披露了什么，在什么条件下发生，影响是什么。
+影响范围：产品、版本、权限和受影响对象。
+处置建议：升级、配置调整或需要继续关注的事项。
+证据与边界：原始来源、尚未确认的信息、实际利用证据。</pre><p>未知日期、损失和利用情况明确保留为“未披露／未确认”。原始披露日期与 CVE 发布时间分开；缺少原始日期时使用汇编归档日期，不将其冒充新披露。简报按原始披露日期或汇编归档日期组织，按周时使用周一至周日。</p>
+<h2>现在怎样做风险评估</h2><p>本站的风险类别为“针对 AI 的攻击、自主越界、AI 滥用、功能失效”，不是严重程度评分。影响、利用前提、修复建议和证据边界由人工依据公开资料整理；没有自动打分。</p><p>“附原始披露”表示可追溯到披露者，不等于独立证实或本站已复现。漏洞公告、受控研究演示和真实事件分别标记，不将存在漏洞直接写成已发生攻击。</p>
+<h2>现在是否实时核验</h2><p>当前是人工整理的资料快照，没有实时抓取、定时采集或在线模型核验。来源的“公开入口已核验”仅表示登记日期的访问与格式检查。构建时检查编号、来源、日期格式、引用和重复公告，不能以此证明消息真实。</p>
+<h2>后续核验设计（尚未上线）</h2><p>发现新内容 → 定位原始披露 → 核对实体、日期、版本与关键断言 → 检查独立佐证 → 标记冲突或缺失 → 人工复核发布。</p><ul><li>分别展示严重程度、证据可信度与处置优先级；引用官方评级和依据，信息不足标记“待评估”。</li><li>可按小时检查来源更新，保留检查时间、内容变化和失败原因；访问失败不代表消息为假。</li><li>来源可访问性、事实核对和漏洞复现分别记录。转载数量不等于独立佐证数量。</li></ul>
+<h2>参考与联系</h2><p>简报与 RSS 参考 <a href="https://github.com/nrc-cnrc/ai-safety-radar-securite-ia">AI Safety Radar</a>、<a href="https://github.com/KKKKhazix/AIHOT">AIHOT</a>；来源健康记录参考 <a href="https://github.com/clivoa/S33R">S33R</a>；攻击知识与事件分类参考 <a href="https://github.com/mitre-atlas/atlas-data">MITRE ATLAS</a> 和 <a href="https://github.com/responsible-ai-collaborative/aiid">AI Incident Database</a>。本轮没有复制这些项目的代码或文章全文。</p><p><a href="https://whitzard-ai.github.io/index.html">复旦 JADE 团队</a> · 联系人：<a href="https://secsys.fudan.edu.cn/members/faculty/zm/">张谧 教授</a> · <a href="mailto:mi_zhang@fudan.edu.cn">mi_zhang@fudan.edu.cn</a></p><p>原始资料版权归原作者。本站提供独立整理的中文摘要及原文链接，不分发第三方全文或 PDF。</p></main></div></body></html>\n`;
+}

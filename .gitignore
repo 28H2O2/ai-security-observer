@@ -3,6 +3,8 @@ node_modules/
 .sites-runtime/
 .sites-checkout/
 test-results/
+output/
+.seecode/
 *.tar.gz
 *.tgz
 .vercel/

@@ -1,16 +1,18 @@
 {
   "meta": {
     "title": "AI 安全观察",
-    "version": "0.3.0",
-    "updatedAt": "2026-10-23",
-    "timeZone": "Asia/Taipei",
+    "version": "0.4.1",
+    "updatedAt": "2026-10-27",
+    "timeZone": "Asia/Shanghai",
     "mode": "curated-snapshot",
     "scheduledCollection": false,
-    "total": 76,
+    "total": 79,
     "pdfRecords": 16,
-    "primaryRecords": 67,
-    "cveRecords": 26,
-    "activeSources": 12
+    "primaryRecords": 70,
+    "cveRecords": 27,
+    "activeSources": 13,
+    "siteUrl": "https://ai-security-observer.groovymesa1.chatgpt.site/",
+    "preview": false
   },
   "items": [
     {
@@ -3124,6 +3126,139 @@
       "limitations": "研究正文路径一需要两个请求，不能笼统写成所有路径都只需一个请求。 公告界定为拒绝服务，不包含代码执行、内存破坏或数据泄露。 结构化字段和 CVE 给出 < 0.30.0；正文只明确在 0.25.1 验证，较早下界未穷尽。 正文尾部仍写 Proposed fix，但 PR #51450 实际已经合并，0.30.0 发行说明列出该 PR；需按实际 PR 状态描述。 本条为公开漏洞公告，未在本站复现，也未独立核实在野利用。",
       "impact": "共享 EngineCore 终止，影响该实例的并发和后续请求；不代表整个集群失效。",
       "recommendation": "按维护者结构化公告升级 vllm 至 0.30.0 或更新版本；排查受影响前端及后端组合，并将语法/令牌处理失败限制在单请求范围。"
+    },
+    {
+      "id": "cve-2026-110474",
+      "externalId": "CVE-2026-110474",
+      "cveIds": [
+        "CVE-2026-110474"
+      ],
+      "title": "CreditNirvana AI 呼叫中心前端暴露密钥，可被读取通话资料",
+      "summary": "CERT-In 发布漏洞记录：CreditNirvana 将静态 API 密钥写入前端 JavaScript。未登录的攻击者可提取密钥，经应用 API 获取通话转录与录音；2.0.0 以前版本受影响。",
+      "kind": "advisory",
+      "risk": "attack",
+      "tags": [
+        "CVE-2026-110474",
+        "凭证泄露",
+        "AI 呼叫中心"
+      ],
+      "entities": [
+        "CreditNirvana",
+        "Agentic AI Call Centre"
+      ],
+      "publishedAt": "2026-10-26",
+      "originalPublishedAt": "2026-10-26",
+      "cvePublishedAt": "2026-10-26",
+      "reviewedAt": "2026-10-27",
+      "occurredAt": null,
+      "sourceId": "cve",
+      "sourceName": "CVE 官方记录",
+      "evidence": "primary",
+      "evidenceLabel": "CERT-In · CVE 官方记录",
+      "references": [
+        {
+          "label": "CERT-In 提交的 CVE 官方记录",
+          "url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/110xxx/CVE-2026-110474.json",
+          "role": "primary"
+        },
+        {
+          "label": "CERT-In 公告入口（本次未能读取）",
+          "url": "https://www.cert-in.org.in/s2cMainServlet?pageid=PUBVLNOTES01&VLCODE=CIVN-2026-0523",
+          "role": "reference"
+        }
+      ],
+      "preconditions": [
+        "目标运行 2.0.0 以前版本，且前端脚本与应用 API 可被攻击者访问。"
+      ],
+      "affectedPackages": [
+        {
+          "name": "CreditNirvana Agentic AI Call Centre",
+          "ecosystem": "application",
+          "affectedRange": "< 2.0.0",
+          "fixedVersion": "2.0.0",
+          "source": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/110xxx/CVE-2026-110474.json"
+        }
+      ],
+      "limitations": "依据 CERT-In 提交的官方 CVE 记录整理，官方 CVSS 4.0 为 8.7（高）。独立公告入口本次访问失败；本站未复现，记录未提供实际受害者或在野利用证据。",
+      "impact": "未经认证的远程调用者可能读取通话转录和录音；记录未宣称可修改数据或执行系统命令。",
+      "recommendation": "按公告升级至 2.0.0。建议同时撤销暴露密钥、检查通话 API 的异常访问，并将授权检查放在服务端。"
+    },
+    {
+      "id": "primary-openai-frontier-containment",
+      "title": "OpenAI 加固训练隔离边界，以智能体红队持续检查逃逸路径",
+      "summary": "OpenAI 披露前沿模型训练与评测环境的隔离改造：通过离线网络环境、微型虚拟机和监测形成多层防护，并组织智能体红队寻找越界访问与跨任务通信路径。",
+      "kind": "research",
+      "risk": "autonomy",
+      "tags": [
+        "智能体",
+        "沙箱隔离",
+        "红队评测"
+      ],
+      "entities": [
+        "OpenAI",
+        "前沿模型训练环境"
+      ],
+      "publishedAt": "2026-10-23",
+      "originalPublishedAt": "2026-10-23",
+      "reviewedAt": "2026-10-27",
+      "occurredAt": null,
+      "sourceId": "openai",
+      "sourceName": "OpenAI",
+      "evidence": "primary",
+      "evidenceLabel": "厂商研究披露",
+      "references": [
+        {
+          "label": "Securing our frontier model training environment",
+          "url": "https://openai.com/index/securing-our-frontier-model-training-environment/",
+          "role": "primary"
+        }
+      ],
+      "limitations": "这是厂商对内部训练及对抗评测环境的披露，不代表已发布产品或客户环境发生同类逃逸。本站未独立复现，修复后也不能据此推断隔离绝对安全。",
+      "impact": "研究表明，软件缺陷、基础设施配置及间接外联路径都可能削弱智能体的隔离边界。",
+      "recommendation": "部署高权限智能体时采用最小权限、分层隔离和独立外联控制；持续检查跨任务通信与异常行为，并准备暂停运行机制。",
+      "cveIds": []
+    },
+    {
+      "id": "primary-litellm-release-compromise-october",
+      "title": "LiteLLM 发布链遭入侵，1.107.0 软件包与容器被植入恶意代码",
+      "summary": "LiteLLM 官方复盘确认，攻击者通过未撤销的泄露主密钥取得组织所有者令牌，绕过发布保护并从恶意仓库构建制品。10 月 21 日发布的 1.107.0 软件包与部分容器标签受到影响。",
+      "kind": "incident",
+      "risk": "attack",
+      "tags": [
+        "供应链",
+        "凭证泄露",
+        "LiteLLM"
+      ],
+      "entities": [
+        "LiteLLM",
+        "PyPI",
+        "GitHub Actions"
+      ],
+      "publishedAt": "2026-10-21",
+      "originalPublishedAt": "2026-10-21",
+      "sourceUpdatedAt": "2026-10-23",
+      "reviewedAt": "2026-10-27",
+      "occurredAt": "2026-10-21",
+      "sourceId": "litellm",
+      "sourceName": "LiteLLM",
+      "evidence": "primary",
+      "evidenceLabel": "项目方事故复盘",
+      "references": [
+        {
+          "label": "官方定稿：The attack chain behind the v1.107.0 LiteLLM release",
+          "url": "https://docs.litellm.ai/blog/security-incident-oct-21-2026-attack-chain",
+          "role": "primary"
+        },
+        {
+          "label": "受影响制品与处置指引（初始调查推测已被定稿修正）",
+          "url": "https://docs.litellm.ai/blog/security-incident-oct-21-2026",
+          "role": "primary"
+        }
+      ],
+      "limitations": "初始报告关于令牌来自日志的推测被 10 月 23 日定稿修正，应以定稿为准。公开 GitHub 的 1.107.0 源码标签不等同于被投毒的发布制品；使用私有企业发布渠道的客户据项目方说明不受此事件影响。",
+      "impact": "恶意 PyPI 1.107.0 wheels 及受影响时间窗内的容器制品包含凭证窃取与远程代码加载能力；仅安装干净源码不能证明此前运行环境安全。",
+      "recommendation": "核对实际运行的版本、镜像摘要与官方时间窗。对运行过恶意制品的环境进行隔离和重建，轮换其可访问的凭证，并检查密钥后续使用；勿仅原地升级。",
+      "cveIds": []
     }
   ]
 }

@@ -219,5 +219,18 @@
     "status": "reference",
     "checkedAt": "2026-10-23",
     "notes": "MIT 开源项目；18 个 RSS 是首次启动示范名单，不代表线上全部来源；此项属于工程参考，不计入安全情报来源或报道数量。"
+  },
+  {
+    "id": "litellm",
+    "name": "LiteLLM Security",
+    "shortName": "LiteLLM",
+    "url": "https://docs.litellm.ai/blog",
+    "endpoint": "https://docs.litellm.ai/blog/security-incident-oct-21-2026-attack-chain",
+    "method": "manual",
+    "category": "vendor",
+    "description": "LiteLLM 项目方安全公告、事故复盘与修复说明。",
+    "status": "reference",
+    "checkedAt": "2026-10-27",
+    "notes": "本次人工读取事故公告与定稿复盘，未接入自动采集。初稿与定稿冲突时以定稿为准。"
   }
 ]

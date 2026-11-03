@@ -1,6 +1,6 @@
 {
   "name": "ai-security-observer",
-  "version": "0.3.0",
+  "version": "0.4.1",
   "private": true,
   "type": "module",
   "engines": {
@@ -8,6 +8,9 @@
   },
   "scripts": {
     "build": "node scripts/build-data.mjs",
+    "build:production": "node scripts/build-data.mjs --production",
+    "package": "node scripts/package-release.mjs",
+    "package:preview": "node scripts/package-release.mjs --preview",
     "test": "node --test scripts/*.test.mjs",
     "start": "node scripts/serve.mjs"
   }
