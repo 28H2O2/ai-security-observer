@@ -9,6 +9,7 @@ import {RISK_RULES,DIMENSION_KEYS,MAX_RISK_SCORE,emptyDimensions} from '../dist/
 import {calculateRiskScore,validateAssessment,hasRiskScore,pendingAssessment,evidenceUrl} from '../dist/risk-score.js';
 import {attachRiskAssessments,riskCoverage,itemFingerprint,createRiskCandidate} from './build-risk.mjs';
 import {riskBadge,riskAssessmentMarkup} from '../dist/risk-view.js';
+import {riskMethodologyMarkup} from '../dist/risk-methodology.js';
 import {filterItems,itemDate} from '../dist/model.js';
 import {exportJson,detailUrl} from '../dist/publication.js';
 
@@ -135,21 +136,21 @@ test('条目材料变化使旧分数失效，键顺序变化不影响指纹',()=
 test('覆盖清单区分已评分、证据不足、不适用和尚未逐项评估',()=>{
   const coverage=riskCoverage(items);
   assert.deepEqual(coverage,read('dist/data/risk-coverage.json'));
-  assert.equal(coverage.total,79);assert.equal(coverage.withCve,27);
-  assert.equal(coverage.assessed,15);
-  assert.deepEqual(coverage.statuses,{scored:12,insufficient_evidence:1,not_applicable:2,needs_review:64});
-  assert.deepEqual(coverage.applicability,{applicable:13,notApplicable:2,undetermined:64});
-  assert.equal(coverage.pending.length,65);
-  assert.equal(new Set(coverage.pending.map(item=>item.itemId)).size,65);
+  assert.equal(coverage.total,88);assert.equal(coverage.withCve,31);
+  assert.equal(coverage.assessed,25);
+  assert.deepEqual(coverage.statuses,{scored:16,insufficient_evidence:5,not_applicable:4,needs_review:63});
+  assert.deepEqual(coverage.applicability,{applicable:21,notApplicable:4,undetermined:63});
+  assert.equal(coverage.pending.length,68);
+  assert.equal(new Set(coverage.pending.map(item=>item.itemId)).size,68);
   assert.ok(dataset.assessments.every(a=>a.reviewed===false));
 });
 
 test('风险排序降序，同分按日期再按 ID，未评分放最后',()=>{
   const result=filterItems(items,{sort:'risk'});
-  assert.equal(result[0].id,'primary-litellm-release-compromise-october');
-  assert.equal(result[0].riskAssessment.score,77);
-  for(let index=1;index<12;index++)assert.ok(result[index-1].riskAssessment.score>=result[index].riskAssessment.score);
-  assert.ok(result.slice(12).every(item=>!hasRiskScore(item.riskAssessment)));
+  assert.equal(result[0].id,'primary-cursor-claude-extension-compromise');
+  assert.equal(result[0].riskAssessment.score,78);
+  for(let index=1;index<16;index++)assert.ok(result[index-1].riskAssessment.score>=result[index].riskAssessment.score);
+  assert.ok(result.slice(16).every(item=>!hasRiskScore(item.riskAssessment)));
   const base=items[0];
   const scored=validateAssessment(example,exampleItem);
   const fixtures=[
@@ -172,11 +173,11 @@ test('0 分仍是有效评分，不与 null 混排',()=>{
 });
 
 test('评估筛选保留未评估条目，旧数据没有新字段也能浏览',()=>{
-  assert.equal(filterItems(items,{assessment:'scored'}).length,12);
-  assert.equal(filterItems(items,{assessment:'pending'}).length,65);
-  assert.equal(filterItems(items,{assessment:'not_applicable'}).length,2);
-  assert.equal(filterItems(items).length,79);
-  assert.equal(filterItems(facts,{assessment:'pending'}).length,79);
+  assert.equal(filterItems(items,{assessment:'scored'}).length,16);
+  assert.equal(filterItems(items,{assessment:'pending'}).length,68);
+  assert.equal(filterItems(items,{assessment:'not_applicable'}).length,4);
+  assert.equal(filterItems(items).length,88);
+  assert.equal(filterItems(facts,{assessment:'pending'}).length,88);
   assert.equal(filterItems(facts,{assessment:'scored'}).length,0);
   assert.match(riskAssessmentMarkup(facts[0]),/待评估/);
   assert.equal(riskBadge(undefined),'');
@@ -187,7 +188,7 @@ test('新增筛选可与搜索、CVE、来源、类别、日期和已读条件�
   const result=filterItems(items,filters);
   assert.deepEqual(new Set(result.map(item=>item.id)),new Set(['cve-2026-59951','cve-2026-111767']));
   assert.equal(filterItems(items,{...filters,unread:true},new Set([result[0].id])).length,1);
-  assert.equal(filterItems(items,{assessment:'scored',view:'incidents',risk:'attack',evidence:'primary'}).length,3);
+  assert.equal(filterItems(items,{assessment:'scored',view:'incidents',risk:'attack',evidence:'primary'}).length,4);
   assert.equal(filterItems(items,{...filters,period:'7'},new Set(),meta.updatedAt).length,0);
   assert.equal(filterItems(items,{...filters,q:'no-match-985'}).length,0);
   assert.deepEqual(filterItems(items).map(item=>item.id),filterItems(facts).map(item=>item.id));
@@ -227,6 +228,19 @@ test('评分文本与证据链接按文本转义，危险协议不进入 DOM',()
   assert.ok(html.includes('&lt;img'));assert.ok(!html.includes('<img'));assert.ok(!html.includes('href="javascript:'));
   item.riskAssessment.score=99;
   assert.equal(riskBadge(item.riskAssessment),'');assert.match(riskAssessmentMarkup(item),/评分无效/);
+});
+
+test('站内规则与静态说明共享锚点，覆盖链接与实际筛选一致',()=>{
+  const html=riskMethodologyMarkup(items);
+  assert.equal((html.match(/<table>/g)||[]).length,4);
+  for(const key of DIMENSION_KEYS)for(const anchor of RISK_RULES.dimensions[key].anchors)assert.ok(html.includes(anchor));
+  for(const [filter,label] of [['scored','已评分'],['pending','待评估'],['not_applicable','不适用']]){
+    assert.ok(html.includes(`assessment=${filter}`));
+    assert.ok(html.includes(`${label} <strong>${filterItems(items,{assessment:filter}).length}</strong>`));
+  }
+  assert.ok(readFileSync(path.join(root,'dist/risk-methodology.html'),'utf8').includes(html));
+  assert.match(riskAssessmentMarkup(exampleItem),/待评估/);
+  assert.ok(riskAssessmentMarkup(items.find(i=>i.id===example.itemId)).includes('href="#/risk-rules"'));
 });
 
 test('未来提取器的离线候选接口不会声称已评分或人工复核',()=>{

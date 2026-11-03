@@ -1,10 +1,117 @@
 {
   "meta": {
-    "updatedAt": "2026-10-27",
+    "updatedAt": "2026-11-03",
     "mode": "curated-snapshot",
     "timeZone": "Asia/Shanghai"
   },
   "daily": [
+    {
+      "mode": "daily",
+      "start": "2026-11-03",
+      "end": "2026-11-03",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-ncsc-ai-cni-outlook"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-11-01",
+      "end": "2026-11-01",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-trigger-env-exposure"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-29",
+      "end": "2026-10-29",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-cursor-claude-extension-compromise"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "research-epoch-firefox-patch-gap"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-28",
+      "end": "2026-10-28",
+      "total": 5,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-110186",
+            "cve-2026-110192",
+            "cve-2026-110193",
+            "cve-2026-93680"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "research-perplexity-browsesafe-plus-plus"
+          ]
+        }
+      ]
+    },
     {
       "mode": "daily",
       "start": "2026-10-26",
@@ -1393,8 +1500,8 @@
   "weekly": [
     {
       "mode": "weekly",
-      "start": "2026-10-26",
-      "end": "2026-11-01",
+      "start": "2026-11-02",
+      "end": "2026-11-08",
       "total": 1,
       "sections": [
         {
@@ -1405,14 +1512,49 @@
         {
           "kind": "advisory",
           "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
           "itemIds": [
+            "primary-ncsc-ai-cni-outlook"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-10-26",
+      "end": "2026-11-01",
+      "total": 9,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-trigger-env-exposure",
+            "primary-cursor-claude-extension-compromise"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-110186",
+            "cve-2026-110192",
+            "cve-2026-110193",
+            "cve-2026-93680",
             "cve-2026-110474"
           ]
         },
         {
           "kind": "research",
           "label": "研究披露",
-          "itemIds": []
+          "itemIds": [
+            "research-epoch-firefox-patch-gap",
+            "research-perplexity-browsesafe-plus-plus"
+          ]
         }
       ]
     },

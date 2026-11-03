@@ -86,5 +86,5 @@ writeFileSync(path.join(root,'dist/data/briefings.json'),JSON.stringify(buildBri
 writeFileSync(path.join(root,'dist/feed.xml'),buildRss(items,result.meta,siteUrl,{preview:!production}));
 writeFileSync(path.join(root,'dist/methodology.html'),methodologyPage(items,sources,result.meta));
 writeFileSync(path.join(root,'dist/data/risk-coverage.json'),JSON.stringify(coverage,null,2)+'\n');
-writeFileSync(path.join(root,'dist/risk-methodology.html'),riskMethodologyPage());
+writeFileSync(path.join(root,'dist/risk-methodology.html'),riskMethodologyPage(items));
 console.log(JSON.stringify({items:items.length,pdf:pdf.length,primary:result.meta.primaryRecords,sources:sources.length,checkedEndpoints:sources.filter(s=>s.status==='checked').length}));

@@ -1,33 +1,33 @@
 {
   "ruleVersion": "aso-risk-v1.0",
-  "total": 79,
+  "total": 88,
   "byKind": {
-    "advisory": 17,
-    "incident": 25,
-    "research": 37
+    "advisory": 21,
+    "incident": 27,
+    "research": 40
   },
   "byRisk": {
-    "abuse": 10,
-    "attack": 56,
+    "abuse": 12,
+    "attack": 63,
     "autonomy": 9,
     "failure": 4
   },
   "byEvidence": {
     "compilation": 9,
-    "primary": 70
+    "primary": 79
   },
-  "withCve": 27,
+  "withCve": 31,
   "statuses": {
-    "scored": 12,
-    "insufficient_evidence": 1,
-    "not_applicable": 2,
-    "needs_review": 64
+    "scored": 16,
+    "insufficient_evidence": 5,
+    "not_applicable": 4,
+    "needs_review": 63
   },
-  "assessed": 15,
+  "assessed": 25,
   "applicability": {
-    "applicable": 13,
-    "notApplicable": 2,
-    "undetermined": 64
+    "applicable": 21,
+    "notApplicable": 4,
+    "undetermined": 63
   },
   "pending": [
     {
@@ -787,8 +787,8 @@
       ]
     },
     {
-      "itemId": "cve-2026-110474",
-      "title": "CreditNirvana AI 呼叫中心前端暴露密钥，可被读取通话资料",
+      "itemId": "primary-openai-frontier-containment",
+      "title": "OpenAI 加固训练隔离边界，以智能体红队持续检查逃逸路径",
       "status": "needs_review",
       "reason": "尚未逐项核对评分证据。",
       "missingDimensions": [
@@ -799,14 +799,41 @@
       ]
     },
     {
-      "itemId": "primary-openai-frontier-containment",
-      "title": "OpenAI 加固训练隔离边界，以智能体红队持续检查逃逸路径",
-      "status": "needs_review",
-      "reason": "尚未逐项核对评分证据。",
+      "itemId": "primary-trigger-env-exposure",
+      "title": "Trigger.dev 确认部分组织的环境变量被未授权访问",
+      "status": "insufficient_evidence",
+      "reason": "官方确认实际未授权访问，但攻击机制与前置权限未公开，缺少可利用性依据。",
       "missingDimensions": [
-        "I",
+        "F"
+      ]
+    },
+    {
+      "itemId": "cve-2026-93680",
+      "title": "Langflow 认证不当可导致远程绕过安全限制（CVE-2026-93680）",
+      "status": "insufficient_evidence",
+      "reason": "版本与潜在后果已确认，但尚未核对该编号的完整触发条件和利用证据，暂不生成总分。",
+      "missingDimensions": [
         "F",
-        "S",
+        "A"
+      ]
+    },
+    {
+      "itemId": "cve-2026-110186",
+      "title": "Langflow 代码生成控制缺陷可导致远程代码执行（CVE-2026-110186）",
+      "status": "insufficient_evidence",
+      "reason": "版本与潜在后果已确认，但尚未核对该编号的完整触发条件和利用证据，暂不生成总分。",
+      "missingDimensions": [
+        "F",
+        "A"
+      ]
+    },
+    {
+      "itemId": "cve-2026-110192",
+      "title": "Langflow 凭据保护不足可向已认证用户暴露敏感信息（CVE-2026-110192）",
+      "status": "insufficient_evidence",
+      "reason": "版本与潜在后果已确认，但尚未核对该编号的完整触发条件和利用证据，暂不生成总分。",
+      "missingDimensions": [
+        "F",
         "A"
       ]
     }

@@ -1,6 +1,7 @@
 import {kindNames,riskNames,topics,itemDate,filterItems} from './model.js';
 import {RISK_RULES} from './risk-rules.js';
 import {riskBadge,riskAssessmentMarkup} from './risk-view.js';
+import {riskMethodologyMarkup} from './risk-methodology.js';
 import {sourceCatalogView} from './source-model.js';
 import {connectSourceGraph} from './source-graph.js';
 import {validDate,periodBounds,makeBriefing,exportMarkdown,exportJson,briefingMarkdown} from './publication.js';
@@ -96,9 +97,9 @@ function render(preserveFocus=false){
  const oldDetails=document.querySelector('.filter-panel');if(oldDetails)filtersOpen=oldDetails.open;
  const r=route();document.querySelectorAll('[data-nav]').forEach(link=>{const current=link.dataset.nav===r.view;link.classList.toggle('active',current);if(current)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');});
  const nav=document.querySelector('.nav-links');const selected=nav.querySelector('[aria-current]');if(selected){const a=selected.getBoundingClientRect(),b=nav.getBoundingClientRect();if(a.right>b.right)nav.scrollLeft+=a.right-b.right+8;else if(a.left<b.left)nav.scrollLeft-=b.left-a.left+8;}
- const titles={feed:'最新情报',incidents:'真实事件',research:'研究披露',sources:'来源库',briefings:'安全简报'};
+ const titles={feed:'最新情报',incidents:'真实事件',research:'研究披露',sources:'来源库',briefings:'安全简报','risk-rules':'评分规则'};
  document.title=`${r.view==='item'?(items.find(item=>item.id===r.id)?.title||'情报详情'):(titles[r.view]||'页面未找到')} | 复旦 JADE · AI 安全观察`;
- main.innerHTML=['feed','incidents','research'].includes(r.view)?feedPage(r):r.view==='sources'?sourcePage(r):r.view==='item'?detailPage(r.id):r.view==='briefings'?briefingPage(r):notFound();
+ main.innerHTML=['feed','incidents','research'].includes(r.view)?feedPage(r):r.view==='sources'?sourcePage(r):r.view==='item'?detailPage(r.id):r.view==='briefings'?briefingPage(r):r.view==='risk-rules'?riskMethodologyMarkup(items):notFound();
  if(r.view==='sources'){const graph=document.querySelector('.source-map');if(graph)disconnectGraph=connectSourceGraph(graph);}
  const sourceTarget=sourceFocus||(focusWasInDetail&&!renderedSource?`source-node-${previousSource}`:null);sourceFocus=null;
  if(sourceTarget){const target=document.getElementById(sourceTarget);target?.focus({preventScroll:true});target?.scrollIntoView({block:'nearest'});}

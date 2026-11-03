@@ -813,6 +813,592 @@
       "assessedAt": "2026-11-03",
       "reviewed": false,
       "reviewNotes": "保留方法研究的阅读价值；不以研究成果数量评估安全后果。"
+    },
+    {
+      "itemId": "primary-cursor-claude-extension-compromise",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 5,
+        "F": 3,
+        "S": 2,
+        "A": 5
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "恶意扩展在用户主机运行代码并安装持久化，可能按用户权限访问本地资源；不把 SSH 提权成功视为既定事实。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "F": {
+          "reason": "用户在正常安装或更新流程中接收被篡改扩展，随后由扩展执行载荷；完整 SSH 后门还受权限与代码缺陷限制。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "S": {
+          "reason": "限定于 Cursor VS Code 扩展市场、两个版本、Windows/macOS 和约 11 小时时间窗；安装者数量未公开。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "A": {
+          "reason": "市场运营方确认恶意分发、主机信息回传、公钥写入与持久化，并已下架及处置攻击服务器；属于实际事件。",
+          "sources": [
+            "source1"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://cursor.com/en-US/blog/claude-code-extension-security-notice",
+          "label": "Cursor：Claude Code 扩展安全公告（10 月 30 日更新）",
+          "locator": "What happened、What we did、What you should do；10 月 30 日更新及受影响版本说明。",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "activity": "confirmed_exploitation",
+      "reason": "评估已被投毒的扩展在用户主机上的执行与持久化链；不评估攻击者如何取得扩展市场发布权限。",
+      "consequences": {
+        "potential": "用户权限代码执行、凭据访问与持久化；额外权限条件满足时可能建立可用 SSH 后门。",
+        "observed": "Cursor 确认恶意版本分发及载荷行为。多数普通权限主机上的 SSH 服务和隧道步骤失败，受害主机数量未披露。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "复核 I=5 对用户权限恶意扩展执行的适用性；F 仅衡量受害端执行链，市场最初入侵方式未知。",
+      "itemFingerprint": "393e051225a3af743712cdeba54b36138e188768cd19ff7e8d381ecf77c530a5"
+    },
+    {
+      "itemId": "research-epoch-firefox-patch-gap",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 4,
+        "F": 2,
+        "S": 3,
+        "A": 2
+      },
+      "confidence": "medium",
+      "evidence": {
+        "I": {
+          "reason": "访问恶意页面后可读取并外传本地文件，可能覆盖文档和认证资料；实验未证明整机高权限接管。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "F": {
+          "reason": "需构建多阶段利用链、匹配目标版本并结合当时未公开的漏洞；研究使用预先准备的隔离环境和资料。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "S": {
+          "reason": "实验覆盖六个正式 Firefox 版本，攻击面是生产浏览器；不能把全部 Firefox 用户数当作实际受影响人数。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "A": {
+          "reason": "研究团队报告六个版本上的可核对受控实验；同一团队多次成功不等于独立验证或在野利用。",
+          "sources": [
+            "source1"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://epoch.ai/publications/open-weight-models-patch-gap",
+          "label": "Epoch AI：Open-weight models and the patch gap",
+          "locator": "Methodology、Results、Appendix；六个历史版本、离线环境、未公开漏洞及 Firefox 159.0 修复说明。",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "activity": "controlled_poc",
+      "reason": "评估报告中的受控 Firefox 文件读取与外传链，不泛化到当前版本或其他浏览器。",
+      "consequences": {
+        "potential": "本地文件及认证资料泄露。",
+        "observed": "受控实验实现文件读取与回传，未披露真实用户受害。依赖的未公开漏洞已在 Firefox 159.0 修复。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "优先复核 F=2 是否准确反映攻击开发与受害者访问两个阶段；保留实验条件。",
+      "itemFingerprint": "d6b57fa44dcecd204fecb1d64e176e234af481e33c0a10f5fb80bea49e2e63ee"
+    },
+    {
+      "itemId": "cve-2026-110474",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 5,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "可读取通话转录和录音，构成明确敏感数据暴露；记录未给出数据修改或系统执行能力。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "F": {
+          "reason": "远程未认证用户可下载公开前端脚本、提取固定密钥并调用 API，无需受害者额外交互。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "S": {
+          "reason": "明确影响 CreditNirvana Agentic AI Call Centre 2.0.0 以前版本，未提供跨产品影响或部署规模。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "A": {
+          "reason": "官方记录给出下载脚本、提取密钥和读取 API 的具体路径；未把公告当作实际利用证据。",
+          "sources": [
+            "source1"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/110xxx/CVE-2026-110474.json",
+          "label": "CERT-In 提交的 CVE 官方记录",
+          "locator": "CERT-In CNA descriptions、affected：前端 JavaScript 中的静态 API key、无需认证读取路径、2.0.0 之前版本。",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "activity": "attack_path",
+      "reason": "评估前端静态 API 密钥导致未授权读取通话资料的路径。",
+      "consequences": {
+        "potential": "未授权获取通话转录与录音。",
+        "observed": "CERT-In 披露漏洞和受影响版本；现有材料未确认在野受害者或实际读取记录。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "复核通话信息敏感性与 I=3；实际暴露范围和利用活动仍需后续材料。",
+      "itemFingerprint": "fb944eaf574c3a14d7d33eda7e688b901535030273da4fc590867bbba4a5119f"
+    },
+    {
+      "itemId": "cve-2026-110193",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 5,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "公告明确可执行服务器操作系统命令，以受影响进程权限运行，属于严重代码执行后果。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "F": {
+          "reason": "需要低权限认证账户、可用的 Agentic Assistant，并诱导其生成或提交包含未拦截模式的组件代码。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "S": {
+          "reason": "限定 Langflow OSS 1.0.0–1.12.8 及该功能，公开材料未支持跨产品或大规模部署推断。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "A": {
+          "reason": "维护方给出认证账户到组件代码再到系统命令的具体路径；没有据此认定存在 PoC 或在野利用。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://www.ibm.com/support/pages/node/7294467",
+          "label": "IBM：Langflow OSS 安全公告与修复说明",
+          "locator": "IBM Vulnerability Details 的 CVE-2026-110193 段、Affected Products、Remediation，以及 CNA 原始描述。",
+          "accessedAt": "2026-11-03"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/110xxx/CVE-2026-110193.json",
+          "label": "CVE-2026-110193 官方记录",
+          "locator": "IBM Vulnerability Details 的 CVE-2026-110193 段、Affected Products、Remediation，以及 CNA 原始描述。",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "activity": "attack_path",
+      "reason": "评估低权限账号通过 Agentic Assistant 组件代码绕过触发服务器命令执行的路径。",
+      "consequences": {
+        "potential": "低权限用户可触发服务器命令执行，影响服务进程可访问的数据和资源。",
+        "observed": "维护方确认漏洞及 1.13.0 修复；未报告实际攻击者或受害者。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "F=2 仍需原始复现与功能权限配置校准；不要借用同批其他 CVE 的认证或 MCP 条件。",
+      "itemFingerprint": "65f4bd04bde8b5c78663d5687b6f4007b95cea17ccc8efede66dbf88129571cc"
+    },
+    {
+      "itemId": "cve-2026-93680",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "insufficient_evidence",
+      "dimensions": {
+        "I": 3,
+        "F": null,
+        "S": 2,
+        "A": null
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "维护方确认远程绕过认证安全限制。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "F": {
+          "reason": "公告摘要的多项机制与编号对应不够完整，尚不能据此确定全部触发步骤和部署条件。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "S": {
+          "reason": "受影响对象明确为 Langflow OSS 1.0.0–1.12.8；修复版本 1.13.0。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "A": {
+          "reason": "本次尚未核实对应编号的 PoC 或实际攻击证据；保留 unknown，不填 0。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://www.ibm.com/support/pages/node/7294467",
+          "label": "IBM：Langflow OSS 安全公告与修复说明",
+          "locator": "IBM Vulnerability Details 的 CVE-2026-93680 段、Affected Products、Remediation；CNA 描述。",
+          "accessedAt": "2026-11-03"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/93xxx/CVE-2026-93680.json",
+          "label": "CVE-2026-93680 官方记录",
+          "locator": "IBM Vulnerability Details 的 CVE-2026-93680 段、Affected Products、Remediation；CNA 描述。",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "activity": "unknown",
+      "reason": "版本与潜在后果已确认，但尚未核对该编号的完整触发条件和利用证据，暂不生成总分。",
+      "consequences": {
+        "potential": "绕过认证边界并访问未授权功能。",
+        "observed": "维护方漏洞公告与修复说明；未核实实际利用。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "补充逐个编号的复现或维护者技术细节；不得把其他 Langflow CVE 的 KEV 记录或 MCP 模块迁移到此编号。",
+      "itemFingerprint": "60503a5f0ef8e7cbdadf2858aebd0a0ff28596ebda06a820479aad21ca28902b"
+    },
+    {
+      "itemId": "cve-2026-110186",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "insufficient_evidence",
+      "dimensions": {
+        "I": 5,
+        "F": null,
+        "S": 2,
+        "A": null
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "维护方确认远程任意代码执行后果。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "F": {
+          "reason": "公告摘要的多项机制与编号对应不够完整，尚不能据此确定全部触发步骤和部署条件。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "S": {
+          "reason": "受影响对象明确为 Langflow OSS 1.0.0–1.12.8；修复版本 1.13.0。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "A": {
+          "reason": "本次尚未核实对应编号的 PoC 或实际攻击证据；保留 unknown，不填 0。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://www.ibm.com/support/pages/node/7294467",
+          "label": "IBM：Langflow OSS 安全公告与修复说明",
+          "locator": "IBM Vulnerability Details 的 CVE-2026-110186 段、Affected Products、Remediation；CNA 描述。",
+          "accessedAt": "2026-11-03"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/110xxx/CVE-2026-110186.json",
+          "label": "CVE-2026-110186 官方记录",
+          "locator": "IBM Vulnerability Details 的 CVE-2026-110186 段、Affected Products、Remediation；CNA 描述。",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "activity": "unknown",
+      "reason": "版本与潜在后果已确认，但尚未核对该编号的完整触发条件和利用证据，暂不生成总分。",
+      "consequences": {
+        "potential": "远程执行代码。",
+        "observed": "维护方漏洞公告与修复说明；未核实实际利用。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "补充逐个编号的复现或维护者技术细节；不得把其他 Langflow CVE 的 KEV 记录或 MCP 模块迁移到此编号。",
+      "itemFingerprint": "79955610e7dc61a105ad10bdf6920fa9b5b31ab8b8239a85fb37388da5554f2e"
+    },
+    {
+      "itemId": "cve-2026-110192",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "insufficient_evidence",
+      "dimensions": {
+        "I": 3,
+        "F": null,
+        "S": 2,
+        "A": null
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "维护方确认已认证攻击者可获取受保护的敏感信息。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "F": {
+          "reason": "公告摘要的多项机制与编号对应不够完整，尚不能据此确定全部触发步骤和部署条件。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "S": {
+          "reason": "受影响对象明确为 Langflow OSS 1.0.0–1.12.8；修复版本 1.13.0。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "A": {
+          "reason": "本次尚未核实对应编号的 PoC 或实际攻击证据；保留 unknown，不填 0。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://www.ibm.com/support/pages/node/7294467",
+          "label": "IBM：Langflow OSS 安全公告与修复说明",
+          "locator": "IBM Vulnerability Details 的 CVE-2026-110192 段、Affected Products、Remediation；CNA 描述。",
+          "accessedAt": "2026-11-03"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/110xxx/CVE-2026-110192.json",
+          "label": "CVE-2026-110192 官方记录",
+          "locator": "IBM Vulnerability Details 的 CVE-2026-110192 段、Affected Products、Remediation；CNA 描述。",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "activity": "unknown",
+      "reason": "版本与潜在后果已确认，但尚未核对该编号的完整触发条件和利用证据，暂不生成总分。",
+      "consequences": {
+        "potential": "未授权获取敏感信息。",
+        "observed": "维护方漏洞公告与修复说明；未核实实际利用。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "补充逐个编号的复现或维护者技术细节；不得把其他 Langflow CVE 的 KEV 记录或 MCP 模块迁移到此编号。",
+      "itemFingerprint": "79d41ecf9c81296219587c8dcd30740bd55b5d891ac2b3bd806a4c43a4798f7a"
+    },
+    {
+      "itemId": "primary-trigger-env-exposure",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "insufficient_evidence",
+      "dimensions": {
+        "I": 3,
+        "F": null,
+        "S": 2,
+        "A": 5
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "部分组织的环境变量被未授权访问；是否包含仍有效的密钥需按组织确认。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "F": {
+          "reason": "未公开入口、认证要求与漏洞机制，无法为可利用性赋值。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "S": {
+          "reason": "限定 Trigger.dev 的部分组织，未披露数量，不扩大到所有租户。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "A": {
+          "reason": "平台明确确认攻击者取得环境变量访问，并向受影响账户所有者发送处置通知。",
+          "sources": [
+            "source1"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://status.trigger.dev/incident/1110434",
+          "label": "Trigger.dev：Security Disclosure, Sunday November 1st",
+          "locator": "2026-11-01 22:50 UTC 官方状态公告：环境变量访问、部分组织、封堵利用路径及邮件通知。",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "activity": "confirmed_exploitation",
+      "reason": "官方确认实际未授权访问，但攻击机制与前置权限未公开，缺少可利用性依据。",
+      "consequences": {
+        "potential": "若暴露变量含有效凭据，可进一步影响其授权范围。",
+        "observed": "官方确认部分组织环境变量被攻击者访问；更详细损害未公开。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "等待技术复盘后评估 F 和泄露范围；AI 参与攻击未获确认。",
+      "itemFingerprint": "a57abd7abdfe572d716d6fc78051d4cfb3a1de4cf4e433e464c5376dee79178e"
+    },
+    {
+      "itemId": "primary-ncsc-ai-cni-outlook",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "not_applicable",
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "confidence": "medium",
+      "evidence": {},
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://www.ncsc.gov.uk/news/cyber-chief-uk-facing-ai-powered-attacks-on-critical-infrastructure-in-two-years",
+          "label": "NCSC：AI 与关键基础设施威胁研判",
+          "locator": "公告正文关于 2028 年威胁预测、既有漏洞与韧性建设。",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "activity": "unknown",
+      "reason": "这是宏观威胁预测，没有单一漏洞或攻击链对象，不计算 ASO 风险分数。",
+      "consequences": {
+        "potential": null,
+        "observed": null
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "核对原始材料及逐维判断后再标记人工复核。",
+      "itemFingerprint": "86e67377df059be7cb33b5d6ac0b8a93a9f9ec0f96a7532dc970fd2aa1b2b171"
+    },
+    {
+      "itemId": "research-perplexity-browsesafe-plus-plus",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "not_applicable",
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "confidence": "medium",
+      "evidence": {},
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://www.perplexity.ai/gl/hub/blog/browsesafe-plus-plus",
+          "label": "Perplexity：BrowseSafe++ 原文（可读取的官方语言版本）",
+          "locator": "基准构建、Guard、Adapt、测试条件及 BibTeX 日期；官方研究索引。",
+          "accessedAt": "2026-11-03"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://research.perplexity.ai/",
+          "label": "Perplexity 官方研究索引",
+          "locator": "基准构建、Guard、Adapt、测试条件及 BibTeX 日期；官方研究索引。",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "activity": "unknown",
+      "reason": "文章介绍跨模型检测与自适应攻击评测，包含多个目标和机制，不合并成单一漏洞分数。",
+      "consequences": {
+        "potential": null,
+        "observed": null
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "核对原始材料及逐维判断后再标记人工复核。",
+      "itemFingerprint": "e555048f140320c883f2201f60789516746a47cec7d58d0fbcd07467f5294abe"
     }
   ]
 }

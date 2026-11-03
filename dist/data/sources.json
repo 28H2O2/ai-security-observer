@@ -232,5 +232,70 @@
     "status": "reference",
     "checkedAt": "2026-10-27",
     "notes": "本次人工读取事故公告与定稿复盘，未接入自动采集。初稿与定稿冲突时以定稿为准。"
+  },
+  {
+    "id": "ncsc",
+    "name": "英国 NCSC",
+    "shortName": "英国 NCSC",
+    "url": "https://www.ncsc.gov.uk/news/cyber-chief-uk-facing-ai-powered-attacks-on-critical-infrastructure-in-two-years",
+    "endpoint": "https://www.ncsc.gov.uk/news/cyber-chief-uk-facing-ai-powered-attacks-on-critical-infrastructure-in-two-years",
+    "method": "manual",
+    "category": "research",
+    "description": "国家网络安全机构的威胁研判与安全指导。",
+    "status": "reference",
+    "checkedAt": "2026-11-03",
+    "notes": "本次人工核对相关原始页面；未接入自动采集，不代表已审阅该机构全部发布。"
+  },
+  {
+    "id": "trigger",
+    "name": "Trigger.dev",
+    "shortName": "Trigger.dev",
+    "url": "https://status.trigger.dev/incident/1110434",
+    "endpoint": "https://status.trigger.dev/incident/1110434",
+    "method": "manual",
+    "category": "vendor",
+    "description": "开发与 AI 工作流平台的事故公告；不据平台用途推定攻击由 AI 实施。",
+    "status": "reference",
+    "checkedAt": "2026-11-03",
+    "notes": "本次人工核对相关原始页面；未接入自动采集，不代表已审阅该机构全部发布。"
+  },
+  {
+    "id": "cursor",
+    "name": "Cursor Security",
+    "shortName": "Cursor Security",
+    "url": "https://cursor.com/en-US/blog/claude-code-extension-security-notice",
+    "endpoint": "https://cursor.com/en-US/blog/claude-code-extension-security-notice",
+    "method": "manual",
+    "category": "vendor",
+    "description": "AI 编程工具与扩展市场的官方安全公告。",
+    "status": "reference",
+    "checkedAt": "2026-11-03",
+    "notes": "本次人工核对相关原始页面；未接入自动采集，不代表已审阅该机构全部发布。"
+  },
+  {
+    "id": "epoch",
+    "name": "Epoch AI",
+    "shortName": "Epoch AI",
+    "url": "https://epoch.ai/publications/open-weight-models-patch-gap",
+    "endpoint": "https://epoch.ai/publications/open-weight-models-patch-gap",
+    "method": "manual",
+    "category": "research",
+    "description": "模型能力与网络安全评测的原始研究。",
+    "status": "reference",
+    "checkedAt": "2026-11-03",
+    "notes": "本次人工核对相关原始页面；未接入自动采集，不代表已审阅该机构全部发布。"
+  },
+  {
+    "id": "perplexity",
+    "name": "Perplexity Research",
+    "shortName": "Perplexity Research",
+    "url": "https://research.perplexity.ai/",
+    "endpoint": "https://research.perplexity.ai/",
+    "method": "manual",
+    "category": "vendor",
+    "description": "浏览器智能体、提示注入与隔离机制研究。",
+    "status": "reference",
+    "checkedAt": "2026-11-03",
+    "notes": "本次人工核对相关原始页面；未接入自动采集，不代表已审阅该机构全部发布。"
   }
 ]

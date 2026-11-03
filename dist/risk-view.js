@@ -28,7 +28,7 @@ export function riskAssessmentMarkup(item) {
   const validStatus = Object.prototype.hasOwnProperty.call(RISK_RULES.statuses,a.status);
   const status = !scored && a.status === 'scored' ? '待评估 · 评分无效' : validStatus ? RISK_RULES.statuses[a.status] : '待评估';
   return `<section class="risk-assessment" aria-labelledby="risk-assessment-title">
-    <div class="risk-heading"><h2 id="risk-assessment-title">安全风险评估</h2><a href="./risk-methodology.html">评分规则 ↗</a></div>
+    <div class="risk-heading"><h2 id="risk-assessment-title">安全风险评估</h2><a href="#/risk-rules">评分规则 →</a></div>
     <div class="risk-total">${scored ? `<strong>ASO ${a.score}<span>/${MAX_RISK_SCORE}</span></strong>` : `<strong class="risk-status">${esc(status)}</strong>`}${!notApplicable && !a.stale && a.assessedAt ? `<span>${esc(RISK_RULES.activity[a.activity]?.label || '')}</span>` : ''}</div>
     <p class="risk-reason">${esc(!scored && a.status === 'scored' ? '评分未通过规则校验，需重新核对。' : a.reason)}</p>
     ${dimensions}

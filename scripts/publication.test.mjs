@@ -88,7 +88,7 @@ test('Vercel 缺少 SITE_URL 时使用稳定生产域名，显式配置优先且
   const built=JSON.parse(readFileSync(path.join(dir,'dist/data/items.json'),'utf8'));
   assert.equal(built.meta.siteUrl,'https://ai-security-observer.vercel.app/');
   assert.equal(built.meta.preview,false);
-  assert.equal(built.meta.riskScoring.statuses.scored,12);
+  assert.equal(built.meta.riskScoring.statuses.scored,16);
   const rss=readFileSync(path.join(dir,'dist/feed.xml'),'utf8');
   assert.ok(rss.includes('https://ai-security-observer.vercel.app/feed.xml'));
   assert.ok(!rss.includes('temporary-preview.vercel.app'));
