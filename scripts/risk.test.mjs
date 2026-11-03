@@ -137,20 +137,20 @@ test('覆盖清单区分已评分、证据不足、不适用和尚未逐项评�
   const coverage=riskCoverage(items);
   assert.deepEqual(coverage,read('dist/data/risk-coverage.json'));
   assert.equal(coverage.total,88);assert.equal(coverage.withCve,31);
-  assert.equal(coverage.assessed,25);
-  assert.deepEqual(coverage.statuses,{scored:16,insufficient_evidence:5,not_applicable:4,needs_review:63});
-  assert.deepEqual(coverage.applicability,{applicable:21,notApplicable:4,undetermined:63});
-  assert.equal(coverage.pending.length,68);
-  assert.equal(new Set(coverage.pending.map(item=>item.itemId)).size,68);
+  assert.equal(coverage.assessed,88);
+  assert.deepEqual(coverage.statuses,{scored:70,insufficient_evidence:8,not_applicable:10,needs_review:0});
+  assert.deepEqual(coverage.applicability,{applicable:78,notApplicable:10,undetermined:0});
+  assert.equal(coverage.pending.length,8);
+  assert.equal(new Set(coverage.pending.map(item=>item.itemId)).size,8);
   assert.ok(dataset.assessments.every(a=>a.reviewed===false));
 });
 
 test('风险排序降序，同分按日期再按 ID，未评分放最后',()=>{
   const result=filterItems(items,{sort:'risk'});
-  assert.equal(result[0].id,'primary-cursor-claude-extension-compromise');
-  assert.equal(result[0].riskAssessment.score,78);
-  for(let index=1;index<16;index++)assert.ok(result[index-1].riskAssessment.score>=result[index].riskAssessment.score);
-  assert.ok(result.slice(16).every(item=>!hasRiskScore(item.riskAssessment)));
+  assert.equal(result[0].id,'pdf-2026-0004');
+  assert.equal(result[0].riskAssessment.score,84);
+  for(let index=1;index<70;index++)assert.ok(result[index-1].riskAssessment.score>=result[index].riskAssessment.score);
+  assert.ok(result.slice(70).every(item=>!hasRiskScore(item.riskAssessment)));
   const base=items[0];
   const scored=validateAssessment(example,exampleItem);
   const fixtures=[
@@ -163,6 +163,37 @@ test('风险排序降序，同分按日期再按 ID，未评分放最后',()=>{
   assert.deepEqual(filterItems([...fixtures].reverse(),{sort:'risk'}),filterItems(fixtures,{sort:'risk'}));
 });
 
+test('全量评估有逐条来源，部分补证不能制造总分或迁移其他 CVE 的利用证据',()=>{
+  assert.equal(dataset.assessments.length,items.length);
+  for(const item of items){
+    const a=item.riskAssessment;
+    assert.ok(a.assessedAt&&a.sources.length>0,item.id);
+    assert.equal(a.stale,undefined,item.id);
+    assert.equal(a.reviewed,false,item.id);
+    if(a.status==='insufficient_evidence'){
+      assert.equal(a.score,null,item.id);
+      assert.ok(DIMENSION_KEYS.some(k=>a.dimensions[k]===null),item.id);
+      for(const k of DIMENSION_KEYS)assert.ok(a.evidence[k].reason,item.id);
+    }
+  }
+  const assessment=id=>items.find(i=>i.id===id).riskAssessment;
+  const korea=assessment('pdf-2026-0002');
+  assert.deepEqual(korea.dimensions,{I:3,F:null,S:null,A:4});
+  assert.ok(korea.sources.some(s=>s.kind==='primary_url'&&s.url.includes('crowdstrike.com/')));
+  const mcp=assessment('cve-2026-93680');
+  assert.equal(mcp.activity,'controlled_poc');assert.equal(mcp.score,62);
+  for(const id of ['cve-2026-110186','cve-2026-110192']){
+    assert.equal(assessment(id).dimensions.A,null);
+    assert.equal(assessment(id).score,null);
+    assert.ok(!assessment(id).sources.some(s=>s.url.includes('metasploit')));
+  }
+  assert.equal(assessment('pdf-2026-0004').score,84);
+  assert.match(assessment('pdf-2026-0004').reason,/初始/);
+  assert.match(assessment('pdf-2026-0004').consequences.observed,/来源未知/);
+  assert.equal(assessment('expanded-adk-cross-agent-boundary').dimensions.I,3);
+  assert.match(assessment('expanded-adk-cross-agent-boundary').consequences.observed,/维护者/);
+});
+
 test('0 分仍是有效评分，不与 null 混排',()=>{
   const zero={...validateAssessment(example,exampleItem),score:0,dimensions:{I:0,F:0,S:0,A:0},activity:'confirmed_no_public_evidence'};
   const a={...items[0],id:'zero',riskAssessment:zero};
@@ -173,9 +204,9 @@ test('0 分仍是有效评分，不与 null 混排',()=>{
 });
 
 test('评估筛选保留未评估条目，旧数据没有新字段也能浏览',()=>{
-  assert.equal(filterItems(items,{assessment:'scored'}).length,16);
-  assert.equal(filterItems(items,{assessment:'pending'}).length,68);
-  assert.equal(filterItems(items,{assessment:'not_applicable'}).length,4);
+  assert.equal(filterItems(items,{assessment:'scored'}).length,70);
+  assert.equal(filterItems(items,{assessment:'pending'}).length,8);
+  assert.equal(filterItems(items,{assessment:'not_applicable'}).length,10);
   assert.equal(filterItems(items).length,88);
   assert.equal(filterItems(facts,{assessment:'pending'}).length,88);
   assert.equal(filterItems(facts,{assessment:'scored'}).length,0);
@@ -186,9 +217,11 @@ test('评估筛选保留未评估条目，旧数据没有新字段也能浏览',
 test('新增筛选可与搜索、CVE、来源、类别、日期和已读条件组合',()=>{
   const filters={assessment:'scored',topic:'cve',source:'cve',q:'MCP',sort:'risk'};
   const result=filterItems(items,filters);
-  assert.deepEqual(new Set(result.map(item=>item.id)),new Set(['cve-2026-59951','cve-2026-111767']));
-  assert.equal(filterItems(items,{...filters,unread:true},new Set([result[0].id])).length,1);
-  assert.equal(filterItems(items,{assessment:'scored',view:'incidents',risk:'attack',evidence:'primary'}).length,4);
+  assert.deepEqual(result.map(item=>item.id),['cve-2026-105697','cve-2026-59951','cve-2026-104850','cve-2026-111767']);
+  assert.deepEqual(filterItems(items,{...filters,unread:true},new Set([result[0].id])).map(i=>i.id),result.slice(1).map(i=>i.id));
+  assert.deepEqual(new Set(filterItems(items,{assessment:'scored',view:'incidents',risk:'attack',evidence:'primary'}).map(i=>i.id)),new Set([
+    'primary-cursor-claude-extension-compromise','primary-litellm-release-compromise-october','primary-litellm-admin-api-observed-attacks',
+    'pdf-2026-0007','expanded-chaindrop-agent-hooks','expanded-ollama-pull-ssrf-observed','expanded-litellm-guardrail-exploit-attempts']));
   assert.equal(filterItems(items,{...filters,period:'7'},new Set(),meta.updatedAt).length,0);
   assert.equal(filterItems(items,{...filters,q:'no-match-985'}).length,0);
   assert.deepEqual(filterItems(items).map(item=>item.id),filterItems(facts).map(item=>item.id));
@@ -213,7 +246,8 @@ test('详情显示分值、四维条形图、贡献值、来源和评估边界',
   assert.match(html,/aso-risk-v1\.0/);assert.match(html,/ASO 自定义指标，非 CVSS/);
   assert.ok(html.includes(example.sources[0].url));
   const incomplete=riskAssessmentMarkup(items.find(item=>item.id==='pdf-2026-0002'));
-  assert.match(incomplete,/证据不足/);assert.match(incomplete,/未知/);assert.doesNotMatch(incomplete,/<meter|ASO 0/);
+  assert.match(incomplete,/证据不足/);assert.match(incomplete,/未知/);assert.doesNotMatch(incomplete,/ASO \d/);
+  assert.equal((incomplete.match(/<meter /g)||[]).length,2);
   const na=riskAssessmentMarkup(items.find(item=>item.id==='primary-microsoft-open-weight-risk-taxonomy'));
   assert.match(na,/不适用/);assert.doesNotMatch(na,/<meter|ASO 0/);
 });

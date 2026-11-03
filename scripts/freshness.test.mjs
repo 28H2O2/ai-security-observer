@@ -33,8 +33,14 @@ test('今日更新保留历史日期、真实攻击与研究边界，未知利�
   const item=items.find(i=>i.id===id);
   assert.equal(item.originalPublishedAt,'2026-10-28');
   assert.equal(item.cvePublishedAt,'2026-10-29');
-  assert.equal(item.riskAssessment.activity,'unknown');
-  assert.equal(item.riskAssessment.score,null);
+  if(id==='cve-2026-93680'){
+   assert.equal(item.riskAssessment.activity,'controlled_poc');
+   assert.equal(item.riskAssessment.score,62);
+   assert.ok(item.riskAssessment.sources.some(s=>s.url==='https://github.com/rapid7/metasploit-framework/pull/21942'));
+  }else{
+   assert.equal(item.riskAssessment.activity,'unknown');
+   assert.equal(item.riskAssessment.score,null);
+  }
  }
  assert.equal(latestStatus('primary-ncsc-ai-cni-outlook'),'not_applicable');
  assert.equal(latestStatus('research-perplexity-browsesafe-plus-plus'),'not_applicable');

@@ -1,0 +1,2005 @@
+{
+  "assessmentCompletedAt": "2026-11-04",
+  "researchDates": [
+    "2026-11-03",
+    "2026-11-04"
+  ],
+  "ruleVersion": "aso-risk-v1.0",
+  "baselineCommit": "34669716278c12024221061416ad23095957cf0e",
+  "factsChanged": false,
+  "previousScoresPreserved": 16,
+  "independentlyReproduced": false,
+  "humanReviewed": false,
+  "records": [
+    {
+      "itemId": "pdf-2026-0001",
+      "fingerprint": "da9229c5f7164ee86b45a954fd60c844037c421c9f0ce819e32ad5496e939442",
+      "status": "insufficient_evidence",
+      "score": null,
+      "dimensions": {
+        "I": 1,
+        "F": null,
+        "S": 1,
+        "A": 5
+      },
+      "scope": "举报确实发送，但缺少可复现的攻击入口，暂不计算总分。",
+      "reviewNotes": "举报确实发送，但缺少可复现的攻击入口，暂不计算总分。",
+      "sources": [
+        {
+          "url": "https://www.anthropic.com/research/investigating-unintended-model-actions",
+          "label": "Anthropic：非预期模型行动调查",
+          "locator": "模型向执法机构提交举报的案例段落",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "pdf-2026-0002",
+      "fingerprint": "4afb7a4828006e05328e93b97b6e171545e83707868750e971dea593c8cd7820",
+      "status": "insufficient_evidence",
+      "score": null,
+      "dimensions": {
+        "I": 3,
+        "F": null,
+        "S": null,
+        "A": 4
+      },
+      "scope": "已补到原始调查；仍缺完整入侵路径及可归于同一机制的影响范围。",
+      "reviewNotes": "不要将另一次 VAPOR PANDA 活动、新闻受害人数或实验室攻击速度混入本次评分。",
+      "sources": [
+        {
+          "url": "https://www.crowdstrike.com/en-us/blog/unknown-threat-actor-uses-artex-to-target-south-korean-finance/",
+          "label": "CrowdStrike：ARTEX 与韩国金融机构攻击调查",
+          "locator": "Details；ARTEX Infrastructure Analysis；Attribution 限定",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "pdf-2026-0003",
+      "fingerprint": "512264a5504cf3fed6815804b5d088857b1b9fabb5658ad331ae8394a692eebf",
+      "status": "scored",
+      "score": 73,
+      "dimensions": {
+        "I": 5,
+        "F": 2,
+        "S": 3,
+        "A": 4
+      },
+      "scope": "分数对应 CyberXero 的 WordPress wp2shell 攻击链。",
+      "reviewNotes": "核对 wp2shell 的部署条件；不能把乌克兰手工入侵或全部扫描目标计入自动攻击成果。",
+      "sources": [
+        {
+          "url": "https://socradar.io/blog/cyberxero-ai-iab-ukraine-critical-infrastructure/",
+          "label": "SOCRadar：CyberXero 原始调查",
+          "locator": "How We Found It；The Opportunistic Pipeline；Two Pipelines",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "pdf-2026-0004",
+      "fingerprint": "8be4697e5d8514619aeff0919e914690bae52b4da41f322c3abf297a699cd141",
+      "status": "scored",
+      "score": 84,
+      "dimensions": {
+        "I": 5,
+        "F": 5,
+        "S": 2,
+        "A": 4
+      },
+      "scope": "分数对应 JADEPUFFER 的 Langflow 初始入侵入口。",
+      "reviewNotes": "F=5 只适用于 Langflow 初始入口，不表示后续生产数据库可无认证直接接管。",
+      "sources": [
+        {
+          "url": "https://www.sysdig.com/blog/jadepuffer-agentic-ransomware-for-automated-database-extortion",
+          "label": "Sysdig：JADEPUFFER 原始调查",
+          "locator": "The vulnerability；Phase 1；Phase 2 的凭据来源限定",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "pdf-2026-0005",
+      "fingerprint": "72b530f3aca42d2e7e856b0f2f680914a28d5383dc2ecfa7705e27e3f11395ae",
+      "status": "insufficient_evidence",
+      "score": null,
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": null,
+        "A": 3
+      },
+      "scope": "真实投递已确认，缺少受影响助手及执行结果，暂不生成总分。",
+      "reviewNotes": "真实投递已确认，缺少受影响助手及执行结果，暂不生成总分。",
+      "sources": [
+        {
+          "url": "https://blog.barracuda.com/2026/10/07/email-attacks-target-both-humans-ai-assistants",
+          "label": "Barracuda：面向人和 AI 助手的邮件攻击",
+          "locator": "隐藏 HTML 指令与发票支付诱导示例",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "pdf-2026-0006",
+      "fingerprint": "f2f4230dfb888d302ccebebcc728b0acaa2621f72670af368c4d7861543e8e95",
+      "status": "scored",
+      "score": 78,
+      "dimensions": {
+        "I": 5,
+        "F": 3,
+        "S": 2,
+        "A": 5
+      },
+      "scope": "评估已被污染的 Tensorlake npm 包安装路径。",
+      "reviewNotes": "A=5 对应已确认的供应链入侵和发布；F=3 对应下游安装，不评估最初维护者凭据失窃的难度。",
+      "sources": [
+        {
+          "url": "https://github.com/tensorlakeai/tensorlake/security/advisories/GHSA-8g63-53c9-65j2",
+          "label": "Tensorlake：恶意 0.5.144 版本公告",
+          "locator": "Summary；Affected versions；Workarounds",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "pdf-2026-0007",
+      "fingerprint": "0567a780a21a7947929ce286557fe7171fe013568185847f8760e05ef2c2b6de",
+      "status": "scored",
+      "score": 51,
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 3
+      },
+      "scope": "评估 Deadbugz 恶意 MCP 投递与凭证搜寻机制。",
+      "reviewNotes": "攻击尝试按 A=3；不要把载荷意图或实验返回当作成功窃密。",
+      "sources": [
+        {
+          "url": "https://www.pillar.security/blog/deadbugz-currently-active-mcp-supply-chain-campaign",
+          "label": "Deadbugz: Currently Active MCP Supply-Chain Campaign",
+          "locator": "Executive Summary；What happens after the third call；The campaign in evidence",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "pdf-2026-0008",
+      "fingerprint": "6e43337bcefaac15912950effc3d7949610a64b4eed5f82f3776c9dbc597bb78",
+      "status": "scored",
+      "score": 79,
+      "dimensions": {
+        "I": 5,
+        "F": 4,
+        "S": 1,
+        "A": 5
+      },
+      "scope": "评估报告中的大学服务器入侵，不推广为模型的普遍行为。",
+      "reviewNotes": "复核 F=4；具体网站与完整复现未公开，不将该值视为通用攻击成功率。",
+      "sources": [
+        {
+          "url": "https://www.anthropic.com/research/investigating-unintended-model-actions",
+          "label": "Anthropic：非预期模型行动调查",
+          "locator": "大学网站文件读取与代码注入案例",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "pdf-2026-0009",
+      "fingerprint": "a8b2cdea9e3e99375b9dcfd29e8f64b5bb6674d77f8eff766198b3af714e56af",
+      "status": "scored",
+      "score": 58,
+      "dimensions": {
+        "I": 2,
+        "F": 4,
+        "S": 1,
+        "A": 5
+      },
+      "scope": "评估公开客户端令牌被用于绕过付费数据接口。",
+      "reviewNotes": "评估公开客户端令牌被用于绕过付费数据接口。",
+      "sources": [
+        {
+          "url": "https://www.anthropic.com/research/investigating-unintended-model-actions",
+          "label": "Anthropic：非预期模型行动调查",
+          "locator": "地图服务访问令牌及付费访问绕过案例",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "pdf-2026-0010",
+      "fingerprint": "81b6ad2eae7a073df406a852d7ee02e334b601ae81667982aaa4e9ad9a4b17f9",
+      "status": "scored",
+      "score": 58,
+      "dimensions": {
+        "I": 2,
+        "F": 4,
+        "S": 1,
+        "A": 5
+      },
+      "scope": "评估公开仪表盘令牌被复用于受限数据查询。",
+      "reviewNotes": "评估公开仪表盘令牌被复用于受限数据查询。",
+      "sources": [
+        {
+          "url": "https://www.anthropic.com/research/investigating-unintended-model-actions",
+          "label": "Anthropic：非预期模型行动调查",
+          "locator": "州数据服务与仪表盘令牌案例",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "pdf-2026-0011",
+      "fingerprint": "180d0da80981b4716dcffda00de22da2310693c1f6a27f4746063a7e2211cf48",
+      "status": "scored",
+      "score": 48,
+      "dimensions": {
+        "I": 2,
+        "F": 2,
+        "S": 1,
+        "A": 5
+      },
+      "scope": "评估泄露密钥复用；不把随后编造的财务结果算作数据窃取。",
+      "reviewNotes": "评估泄露密钥复用；不把随后编造的财务结果算作数据窃取。",
+      "sources": [
+        {
+          "url": "https://alignment.openai.com/misalignment-reports/searching-github-for-leaked-api-keys/",
+          "label": "OpenAI：搜索并使用泄露 API 密钥",
+          "locator": "事件时间线、API 返回和结果分析",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "pdf-2026-0012",
+      "fingerprint": "b1c2d17e6d5ccf7a3b625fe194edf10dd078247b7e4a7825558f7b7ed1c56424",
+      "status": "insufficient_evidence",
+      "score": null,
+      "dimensions": {
+        "I": 2,
+        "F": null,
+        "S": 1,
+        "A": 5
+      },
+      "scope": "上传确实发生，攻击可利用性仍未知。",
+      "reviewNotes": "上传确实发生，攻击可利用性仍未知。",
+      "sources": [
+        {
+          "url": "https://alignment.openai.com/misalignment-reports/unauthorized-communication-via-temporary-file-hosting-services/",
+          "label": "OpenAI：未经授权使用临时文件托管",
+          "locator": "上传过程、工具响应和事件分析",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "pdf-2026-0013",
+      "fingerprint": "d8816aa187380a128f65cf55b7a498027995cf758456c2ff7e1a2f5f88e20332",
+      "status": "scored",
+      "score": 54,
+      "dimensions": {
+        "I": 4,
+        "F": 2,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估 AgentCorruption 的工具请求与过宽角色组合。",
+      "reviewNotes": "保留研究者与 AWS 对安全边界的不同解释；不可称所有 AWS 账户均可被攻破。",
+      "sources": [
+        {
+          "url": "https://labs.zenity.io/post/agentcorruption-how-a-single-prompt-collapsed-the-entire-cloud-security-model",
+          "label": "Zenity：AgentCorruption 原始研究及 AWS 回应",
+          "locator": "SSRF and IMDS；Overprivileged Role；Responsible Disclosure；Statement from AWS",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "pdf-2026-0014",
+      "fingerprint": "0b76d8582d7591c5870dd9d753cb7b762a30645cc8f334b0653d80bf8fd319bf",
+      "status": "scored",
+      "score": 62,
+      "dimensions": {
+        "I": 5,
+        "F": 3,
+        "S": 2,
+        "A": 1
+      },
+      "scope": "评估 AWS 插件本地数据库辅助程序的命令注入。",
+      "reviewNotes": "核对固定 Git 修订和 1.7.1 的修复指引；已有修复不降低 I。",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-130-aws/",
+          "label": "CVE-2026-107322: OS Command Injection in Amazon Agent Plugins for AWS",
+          "locator": "Description；Affected versions；Resolution",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "pdf-2026-0015",
+      "fingerprint": "723589faf67103a2edafc32d791f488ef41601ff29a9d3e68f373f126872f8ed",
+      "status": "scored",
+      "score": 56,
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 3,
+        "A": 2
+      },
+      "scope": "评估 Web-to-Lead 注入到 Agentforce 数据外传的已披露路径。",
+      "reviewNotes": "人工校准 I=3 与更严重批量泄露的边界；已修复不下调固有后果。",
+      "sources": [
+        {
+          "url": "https://labs.zenity.io/post/salesbleed-0-click-data-exfiltration-on-agentforce",
+          "label": "SalesBleed: Indirect Prompt Injection and 0-Click Data Exfiltration on Agentforce",
+          "locator": "Proof of concept；TL;DR；0-Click by design；This isn’t an esoteric setup；Disclosure timeline",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "pdf-2026-0016",
+      "fingerprint": "c6d16de448c7b37e813bdf5ee9ede2afdd0195be635416824bec45a19e0deb29",
+      "status": "not_applicable",
+      "score": null,
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "scope": "压缩摘要中的欺骗行为研究没有界定可量化的外部安全损害，不合并成漏洞分数。",
+      "reviewNotes": "压缩摘要中的欺骗行为研究没有界定可量化的外部安全损害，不合并成漏洞分数。",
+      "sources": [
+        {
+          "url": "https://alignment.openai.com/misalignment-reports/encouraging-deception-in-compaction-summaries/",
+          "label": "OpenAI：压缩摘要中的欺骗指令",
+          "locator": "训练任务、摘要指令与研究局限",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-opencode-mcp-oauth",
+      "fingerprint": "63e4332dc3469db28145912d3bd55ab49cd05aa87ca61bf1dae90eaa63a576c6",
+      "status": "scored",
+      "score": 66,
+      "dimensions": {
+        "I": 5,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估 Windows/WSL 的 MCP OAuth 命令注入路径。",
+      "reviewNotes": "核对 Windows/WSL 部署覆盖与 OAuth 触发条件；文章页首和时间线有日期差异。",
+      "sources": [
+        {
+          "url": "https://www.pillar.security/blog/open-and-shut-remote-code-execution-in-opencode-via-mcp-oauth",
+          "label": "Open and Shut: Remote Code Execution in opencode via MCP OAuth",
+          "locator": "Executive summary；Where the bug lives；Sink anyone?；演示与版本表",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-visual-studio-ssms-copilot-rce",
+      "fingerprint": "66d5e84d492b450e9d382a0793fdc31b3343608b61ecd8b270e5558b56b6d55f",
+      "status": "scored",
+      "score": 70,
+      "dimensions": {
+        "I": 5,
+        "F": 3,
+        "S": 3,
+        "A": 2
+      },
+      "scope": "评估共享 Copilot 路径检查缺陷及其命令执行链。",
+      "reviewNotes": "按微软公告逐项核对安装版本；多个同源演示不算独立验证。",
+      "sources": [
+        {
+          "url": "https://embracethered.com/blog/posts/2026/visual-studio-copilot-remote-code-execution/",
+          "label": "Visual Studio Copilot and SSMS Remote Code Execution (CVE-2026-103572)",
+          "locator": "The Root Cause；Attack Chains and Exploit Demos；Disclosure and Patch Timeline",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-badengram-memory-backdoor",
+      "fingerprint": "dae475e399ece0cc1aca52914191349ada068d9982d1b18d47d845a1785e1acd",
+      "status": "scored",
+      "score": 28,
+      "dimensions": {
+        "I": 1,
+        "F": 1,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估模型原生记忆组件后门造成的输出操纵。",
+      "reviewNotes": "评估模型原生记忆组件后门造成的输出操纵。",
+      "sources": [
+        {
+          "url": "https://www.pillar.security/blog/badengram-a-new-attack-surface-in-open-weight-ai-models",
+          "label": "BadEngram: A New Attack Surface in Open-Weight AI Models",
+          "locator": "攻击构造、记忆修改比例与实验结果",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-sql-copilot-readonly-bypass",
+      "fingerprint": "410b8f0e1d19ab79a490740bf291bb70bc1841cdeb7dd883260b420554951516",
+      "status": "scored",
+      "score": 61,
+      "dimensions": {
+        "I": 5,
+        "F": 2,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估数据库元数据注入到高权限连接的提权链。",
+      "reviewNotes": "I=5 以演示中的高权限连接为条件，不能外推到最小权限连接。",
+      "sources": [
+        {
+          "url": "https://embracethered.com/blog/posts/2026/from-select-to-sysadmin-sql-copilot-bluehat-asia/",
+          "label": "From SELECT to SYSADMIN with SQL Copilot (CVE-2026-65669)",
+          "locator": "ReadFromDatabase；Indirect Prompt Injection Attack Paths；Database Instructions；权限提升演示",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-unsloth-studio-model-inspection",
+      "fingerprint": "bccb54104b1a071722a95fe91279ab499b095357ba9e014a0fc70ed2167a4d05",
+      "status": "scored",
+      "score": 66,
+      "dimensions": {
+        "I": 5,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估模型选择阶段的远程代码加载。",
+      "reviewNotes": "保留产品测试阶段与版本争议；修复 2026.6.9 不降低原有 I。",
+      "sources": [
+        {
+          "url": "https://www.pillar.security/blog/look-dont-load-model-inspection-in-unsloth-studio-leads-to-critical-arbitrary-code-execution",
+          "label": "Look, Don't Load: Model Inspection in Unsloth Studio Leads to Critical Arbitrary Code Execution",
+          "locator": "模型检查调用链、auto_map、修复及披露时间线",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-anthropic-gtg20006-cyber-operations",
+      "fingerprint": "f3d4c6e76102d1ea10290d7721255f79d09b6be998496d93cf15e9d7273405e6",
+      "status": "scored",
+      "score": 75,
+      "dimensions": {
+        "I": 4,
+        "F": 3,
+        "S": 3,
+        "A": 5
+      },
+      "scope": "分数对应 GTG-20006 的云邮件设备代码钓鱼链。",
+      "reviewNotes": "F 只评价设备代码钓鱼入口，不代表全部活动；复核 S=3 的生产部署证据。",
+      "sources": [
+        {
+          "url": "https://www.anthropic.com/threat-intelligence-report-september-2026",
+          "label": "Detecting and countering misuse of AI: September 2026 — GTG-20006",
+          "locator": "GTG-20006：设备代码钓鱼、云邮件平台及 Initial access 段",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-grafana-mcp-session-ssrf",
+      "fingerprint": "e4fc1882b8b218bba1bef027a99d925913dd12f3dc5e75b248f680beb828297c",
+      "status": "scored",
+      "score": 62,
+      "dimensions": {
+        "I": 3,
+        "F": 5,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估 Grafana MCP 会话伪造与工具权限复用。",
+      "reviewNotes": "评估 Grafana MCP 会话伪造与工具权限复用。",
+      "sources": [
+        {
+          "url": "https://www.pillar.security/blog/valid-but-never-issued-session-spoofing-and-ssrf-in-grafana-mcp",
+          "label": "Valid, But Never Issued: Session Spoofing and SSRF in Grafana MCP",
+          "locator": "会话检查、工具调用和 SSRF PoC",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-litellm-admin-api-observed-attacks",
+      "fingerprint": "9e5413ee70717eed0a1cd4b36f05e28749e4542d8423b75f1254224d93b2332e",
+      "status": "scored",
+      "score": 58,
+      "dimensions": {
+        "I": 4,
+        "F": 2,
+        "S": 2,
+        "A": 3
+      },
+      "scope": "评估 LiteLLM 管理 API 的配置越权链，区分蜜罐流量与实验接管。",
+      "reviewNotes": "A=3 依据请求观测；样本没有观测到低权限凭证在野使用。",
+      "sources": [
+        {
+          "url": "https://labs.zenity.io/post/admin-api-escalation-litellm",
+          "label": "A Read-Only Account is All it Takes to Own a LiteLLM Server",
+          "locator": "The authorization bypass；The /config/update bodies；Attack Reproduction",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-claude-sandbox-dns-channel",
+      "fingerprint": "2d4aeaefb9a70ffb950dd6b3ac86296444242d73f86274b829f646fcf503f8da",
+      "status": "scored",
+      "score": 52,
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估 Claude 沙箱 DNS 外传通道。",
+      "reviewNotes": "评估 Claude 沙箱 DNS 外传通道。",
+      "sources": [
+        {
+          "url": "https://labs.zenity.io/post/it-s-always-dns-in-claude-s-sandbox-from-data-exfiltration-to-a-bidirectional-dns-shell",
+          "label": "It's Always DNS in Claude’s Sandbox: From Data Exfiltration to a Bidirectional DNS Shell",
+          "locator": "DNS 解析时序、Drive 注入与双向信道实验",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-claude-code-opus5-auto-mode",
+      "fingerprint": "d2a8158d40e9554d9956d17cd8955db06c292c71914950283bf9a90735015b96",
+      "status": "scored",
+      "score": 66,
+      "dimensions": {
+        "I": 5,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估 Auto Mode 下归档内容与模块覆盖的执行链。",
+      "reviewNotes": "评估 Auto Mode 下归档内容与模块覆盖的执行链。",
+      "sources": [
+        {
+          "url": "https://embracethered.com/blog/posts/2026/breaking-claude-code-opus-5-and-automode/",
+          "label": "Breaking Claude Code Opus 5 Auto Mode",
+          "locator": "攻击步骤、模块覆盖与五次试验结果",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-gemini-cli-wif-project-chain",
+      "fingerprint": "85dafe12606a5c5895b1aa8a811eb4a962d26717876374ea3e3403e36980e331",
+      "status": "scored",
+      "score": 54,
+      "dimensions": {
+        "I": 4,
+        "F": 2,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估 Gemini CLI 工作流经 WIF 进入 GCP 项目的链条。",
+      "reviewNotes": "评估 Gemini CLI 工作流经 WIF 进入 GCP 项目的链条。",
+      "sources": [
+        {
+          "url": "https://www.pillar.security/blog/a-wif-of-fresh-access-how-a-github-issue-on-gemini-cli-led-to-gcp-project-compromise",
+          "label": "A WIF Of Fresh Access: How a GitHub Issue on Gemini-CLI Led to GCP Project Compromise",
+          "locator": "Issue 触发、WIF 凭据、服务账户模拟与项目权限",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-encrypted-reasoning-replay",
+      "fingerprint": "d5b064c27e2060d27b3f10aec37d55f900f21c6ef6ed94b0c1c09496158e8c43",
+      "status": "scored",
+      "score": 47,
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估已取得加密推理块后的跨上下文重放。",
+      "reviewNotes": "评估已取得加密推理块后的跨上下文重放。",
+      "sources": [
+        {
+          "url": "https://embracethered.com/blog/posts/2026/recovering-encrypted-llm-thoughts/",
+          "label": "Recovering Encrypted LLM Reasoning Traces",
+          "locator": "实验设置、重放请求、恢复结果与限制",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-llm-heist-gateway-routing",
+      "fingerprint": "b053a64e83fe8040a6ee7511882933d74f5aaf10479aa130ed429442c2684414",
+      "status": "scored",
+      "score": 49,
+      "dimensions": {
+        "I": 4,
+        "F": 1,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估管理员失陷后的网关流量截取机制，不评价初始入侵。",
+      "reviewNotes": "这是已获管理权限后的滥用机制，不应包装为新的无认证漏洞。",
+      "sources": [
+        {
+          "url": "https://embracethered.com/blog/posts/2026/hijacking-litellm-for-fun-and-profit/",
+          "label": "LLM Heist: Hijacking LiteLLM for Traffic Interception, Key Theft, and Tool-Call Injection",
+          "locator": "管理员前提、路由修改与截取演示",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-terminal-ansi-dns-exfil",
+      "fingerprint": "02b82a6d7f1ce537ef59aee92815a62af35c9fe0cdb86c67b956c64369c15b31",
+      "status": "scored",
+      "score": 48,
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 1,
+        "A": 2
+      },
+      "scope": "评估工作表内容经终端控制序列外传的实验链。",
+      "reviewNotes": "评估工作表内容经终端控制序列外传的实验链。",
+      "sources": [
+        {
+          "url": "https://embracethered.com/blog/posts/2026/macos-terminal-dillma-dns-exfil-ansi-escape-code-fix/",
+          "label": "From Indirect Prompt Injection to DNS Exfiltration in macOS Terminal",
+          "locator": "CLI 实验、ANSI DNS 机制与修复说明",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-computer-use-toctou",
+      "fingerprint": "06a26638cffa487b214f91faa161cb869ece43472fc7c39ffbd5c0e7ed11f4f9",
+      "status": "scored",
+      "score": 47,
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估截图决策与执行点击之间的界面竞态。",
+      "reviewNotes": "评估截图决策与执行点击之间的界面竞态。",
+      "sources": [
+        {
+          "url": "https://embracethered.com/blog/posts/2026/toctou-agent-what-you-click-is-not-what-you-get/",
+          "label": "Computer-Use and TOCTOU: What You Click Is Not What You Get!",
+          "locator": "截图与点击时差、Outlook 演示和条件",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-anthropic-distillation-campaigns",
+      "fingerprint": "e14f0d25f0bab95509ba7df5f3a0317e5173cd00e1b7f37be0865958ae68736c",
+      "status": "not_applicable",
+      "score": null,
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "scope": "报告重点是蒸馏和服务滥用，未界定本规则下的单一漏洞或安全边界损害。",
+      "reviewNotes": "报告重点是蒸馏和服务滥用，未界定本规则下的单一漏洞或安全边界损害。",
+      "sources": [
+        {
+          "url": "https://www.anthropic.com/news/detecting-and-preventing-distillation-attacks",
+          "label": "Detecting and preventing distillation attacks",
+          "locator": "活动调查、账户使用与蒸馏说明",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-aws-strands-a2a-isolation",
+      "fingerprint": "907107e96e9811e0b6c9ec8fca66e5be1414df241f54a9731462f6210a50b974",
+      "status": "scored",
+      "score": 43,
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "scope": "评估 Strands A2A 任务隔离缺陷。",
+      "reviewNotes": "评估 Strands A2A 任务隔离缺陷。",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-146-aws/",
+          "label": "CVE-2026-115419 - Unintended disclosure of data element to wrong session in Strands Agents SDK A2A Server",
+          "locator": "2026-146：Description、Affected versions、Resolution",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-aws-sagemaker-default-bucket",
+      "fingerprint": "a0e369285a3d41d915bb91fe61b1e6eb2d0a365cf3b86ef0bababf18d2b40ef6",
+      "status": "scored",
+      "score": 57,
+      "dimensions": {
+        "I": 5,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "scope": "评估默认桶名抢占引发的代码及数据信任问题。",
+      "reviewNotes": "评估默认桶名抢占引发的代码及数据信任问题。",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-142-aws/",
+          "label": "CVE-2026-112408 - Missing bucket ownership verification in Amazon SageMaker Python SDK default_bucket()",
+          "locator": "2026-142：桶命名、攻击前提及修复",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-unit42-bugster-ai-cybercrime",
+      "fingerprint": "62e91255f80ea4bc1727b172722f709d8d854714e57c84695218b251b1bd43c6",
+      "status": "scored",
+      "score": 61,
+      "dimensions": {
+        "I": 3,
+        "F": 4,
+        "S": 1,
+        "A": 4
+      },
+      "scope": "分数对应 Bugster 调查中的大学弱口令数据库入侵。",
+      "reviewNotes": "分数对应 Bugster 调查中的大学弱口令数据库入侵。",
+      "sources": [
+        {
+          "url": "https://unit42.paloaltonetworks.com/ai-assisted-cybercrime-analysis/",
+          "label": "Next Exploit Opportunities: How a Threat Actor Used AI to Help Plan and Execute Multiple Types of Cybercrime Activities",
+          "locator": "Credential Theft and Data Exfiltration：第二所大学与导出清单",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-aws-kiro-crew-whatsapp-auth",
+      "fingerprint": "955f1969318dda991114b30cd2c8b0ecda24dcc5f6e22a965375664faca4a9ac",
+      "status": "scored",
+      "score": 57,
+      "dimensions": {
+        "I": 5,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "scope": "评估特定 WhatsApp 配置下的子代理越权。",
+      "reviewNotes": "评估特定 WhatsApp 配置下的子代理越权。",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-140-aws/",
+          "label": "CVE-2026-112380 - Missing authorization in the WhatsApp channel in Kiro Crew",
+          "locator": "2026-140：非默认配置、授权边界和审批限定",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-microsoft-open-weight-risk-taxonomy",
+      "fingerprint": "7eb100e0ce57d9c5161349dae81757919f4d2d6b8f00fb6244816c052daa26b0",
+      "status": "not_applicable",
+      "score": null,
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "scope": "这篇文章介绍企业模型风险分类与评测方法，没有单一、可界定的漏洞或攻击机制。",
+      "reviewNotes": "若未来报道其中某个具体漏洞，应按该问题新建评估。",
+      "sources": [
+        {
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/10/16/managing-open-weight-model-risk-in-enterprise-deployments/",
+          "label": "Managing open-weight model risk in enterprise deployments",
+          "locator": "Understanding risk in the deployment context；Establishing a common language",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-unit42-linux-espionage-ai-artifacts",
+      "fingerprint": "c26ea91504bdb0b51805201d9c7f3dd339998bf8d551f19953707ee337c6d58f",
+      "status": "insufficient_evidence",
+      "score": null,
+      "dimensions": {
+        "I": 5,
+        "F": null,
+        "S": 2,
+        "A": 4
+      },
+      "scope": "实际入侵后果有依据，但初始入口不明，暂不计算总分。",
+      "reviewNotes": "实际入侵后果有依据，但初始入口不明，暂不计算总分。",
+      "sources": [
+        {
+          "url": "https://unit42.paloaltonetworks.com/ai-campaign-targets-linux-infrastructure/",
+          "label": "AI-Powered Espionage Campaign Targets Government Linux Infrastructure",
+          "locator": "Credential Harvesting；SysGoRAT；Persistence 与 AI 归因限制",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-aws-sagemaker-git-log-secrets",
+      "fingerprint": "9791e30b1c66eb3a948d6450532842a7d4765f52c67cd6758e125bc818a3d891",
+      "status": "scored",
+      "score": 43,
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "scope": "评估失败的 Git 克隆把凭据写入日志。",
+      "reviewNotes": "评估失败的 Git 克隆把凭据写入日志。",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-134-aws/",
+          "label": "CVE-2026-110248 - Insertion of sensitive information into log files in Amazon SageMaker Python SDK",
+          "locator": "2026-134：失败克隆、日志读取条件与修复",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-openai-false-front-operations",
+      "fingerprint": "38bb96ab88471e7bfd2b2fc1ae8b7b4bacb6a9f2748e60c2f12ec0c223402384",
+      "status": "not_applicable",
+      "score": null,
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "scope": "虚假身份和影响行动具有现实风险，但报告没有可合为一个 I/F/S/A 分数的技术漏洞对象。",
+      "reviewNotes": "虚假身份和影响行动具有现实风险，但报告没有可合为一个 I/F/S/A 分数的技术漏洞对象。",
+      "sources": [
+        {
+          "url": "https://openai.com/index/disrupting-ai-enabled-false-front-operations/",
+          "label": "Disrupting AI-enabled false front operations",
+          "locator": "活动案例、处置及影响范围限制",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-microsoft-forge-validation-loop",
+      "fingerprint": "f405394867f219de58bfb9e0d016c5473f656cc27357fb2dc86a246b601c1135",
+      "status": "not_applicable",
+      "score": null,
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "scope": "这篇文章讨论漏洞研究与修复流程；多个项目的汇总结果无法共用一个风险分值。",
+      "reviewNotes": "保留方法研究的阅读价值；不以研究成果数量评估安全后果。",
+      "sources": [
+        {
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/10/07/3-lessons-from-frontier-ai-vulnerability-research/",
+          "label": "3 lessons from frontier AI vulnerability research",
+          "locator": "Shift 1；Shift 3；Open-source vulnerability reporting snapshot",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-aws-agentcore-import-injection",
+      "fingerprint": "6411a0267205da3ba5a0496ede3e7fc5eee7ae5ac8c0e80360042ed1ebea8750",
+      "status": "scored",
+      "score": 57,
+      "dimensions": {
+        "I": 5,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "scope": "评估 Agent 导入时的生成代码注入分支。",
+      "reviewNotes": "评估 Agent 导入时的生成代码注入分支。",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-127-aws/",
+          "label": "CVE-2026-105812 and CVE-2026-106032: Bedrock AgentCore Starter Toolkit import issues",
+          "locator": "2026-127：Import、权限前提及注入分支",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-aws-security-agent-mcp-diff-args",
+      "fingerprint": "6a58f478799ecba6edc349a1d545aec2e014853fa104469ec6bcc44d26ea0f3d",
+      "status": "scored",
+      "score": 48,
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 2,
+        "A": 1
+      },
+      "scope": "评估差异分析中的命令参数注入与文件破坏。",
+      "reviewNotes": "评估差异分析中的命令参数注入与文件破坏。",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-121-aws/",
+          "label": "CVE-2026-97662 - Argument injection in AWS security-agent-mcp-server diff scan",
+          "locator": "2026-121：diff ref 参数及文件后果",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-aws-kiro-global-config-write",
+      "fingerprint": "20ed8f7ad31099c3576362593f736b4dd7e9a298ffe4237043a3b80a9e0ce469",
+      "status": "scored",
+      "score": 62,
+      "dimensions": {
+        "I": 5,
+        "F": 3,
+        "S": 2,
+        "A": 1
+      },
+      "scope": "评估不可信仓库驱动的全局配置写入。",
+      "reviewNotes": "评估不可信仓库驱动的全局配置写入。",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-117-aws/",
+          "label": "CVE-2026-95985 - Kiro IDE Allows Agentic Writes to Global Configurations While Working in Untrusted Workspaces",
+          "locator": "2026-117：仓库输入、配置写入与加载",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-trail-ai-patching-validation",
+      "fingerprint": "b6349d4c6fd3c7a7b7dbc525e49050d3e3966fd629465bb2ce34b185cc18c7ea",
+      "status": "not_applicable",
+      "score": null,
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "scope": "文章评议补丁验证方法和评测结论，没有一个可独立评分的漏洞对象。",
+      "reviewNotes": "文章评议补丁验证方法和评测结论，没有一个可独立评分的漏洞对象。",
+      "sources": [
+        {
+          "url": "https://blog.trailofbits.com/2026/09/15/1passwords-ai-patching-benchmark-is-misleading/",
+          "label": "1Password’s AI patching benchmark is misleading",
+          "locator": "评测方法、验证缺口和结论",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-aws-kiro-workspace-data-exfil",
+      "fingerprint": "d47db70b97065799e3b802b2118ba015e90266617855b7fdcb3426a182dece41",
+      "status": "scored",
+      "score": 43,
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "scope": "评估 Powers 授权前的数据外传路径。",
+      "reviewNotes": "评估 Powers 授权前的数据外传路径。",
+      "sources": [
+        {
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-111-aws/",
+          "label": "CVE-2026-89332 - Kiro IDE Sensitive Workspace Data Exfiltration via Agent-Written Workspace Configuration",
+          "locator": "2026-111：Powers 面板和授权时序",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-checkpoint-puzzlemask-gatekeeper",
+      "fingerprint": "0443abe4a546c2c39fe0e32a1c0f502e216ff414f6a2ea8715237e56ab125d3b",
+      "status": "scored",
+      "score": 40,
+      "dimensions": {
+        "I": 2,
+        "F": 2,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估快速检查器漏检的流水线机制，不把它视为通用越狱。",
+      "reviewNotes": "评估快速检查器漏检的流水线机制，不把它视为通用越狱。",
+      "sources": [
+        {
+          "url": "https://research.checkpoint.com/2026/puzzlemask-abusing-plain-prose-as-a-covert-ai-attack-vector/",
+          "label": "PuzzleMask: Abusing Plain Prose as a Covert AI Attack Vector",
+          "locator": "Executive Summary；Scope of Impact；实验条件",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-checkpoint-chatgpt-shared-service-channel",
+      "fingerprint": "d0b1477ff934855e6c6ed929dbbfcbc57522e44c9507d957a8aa6bb7fdc2568c",
+      "status": "scored",
+      "score": 52,
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估共享服务属性形成的跨账户数据通道。",
+      "reviewNotes": "评估共享服务属性形成的跨账户数据通道。",
+      "sources": [
+        {
+          "url": "https://research.checkpoint.com/2026/the-shared-clipboard-inside-the-sandbox-cross-account-data-leakage-in-chatgpt/",
+          "label": "The Shared Clipboard Inside the Sandbox: Cross-Account Data Leakage in ChatGPT",
+          "locator": "共享凭据、Artifactory 属性及外传演示",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-trail-cyber-agent-vm-containment",
+      "fingerprint": "3cf161371025a1cddeb1fbec1dfdad8d8f5d93d810ea8ea43e59d2e37af00469",
+      "status": "scored",
+      "score": 52,
+      "dimensions": {
+        "I": 5,
+        "F": 1,
+        "S": 1,
+        "A": 2
+      },
+      "scope": "分数对应文章中的 QEMU/KVM 逃逸实验。",
+      "reviewNotes": "需人工逐项复核关闭的缓解措施和漏洞链组合，避免把最强实验结果推广到不同宿主机。",
+      "sources": [
+        {
+          "url": "https://blog.trailofbits.com/2026/08/26/vms-wont-contain-cyber-capable-agents/",
+          "label": "VMs won’t contain cyber-capable agents",
+          "locator": "虚拟化实验设置、QEMU/KVM 链与限制",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-openai-ibi-covert-influence",
+      "fingerprint": "efc0814228aa0c7a2e22b8649d52d14bc5d7c835ec3613115e5faa5500aabe2b",
+      "status": "not_applicable",
+      "score": null,
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "scope": "材料分析影响行动与账号网络，缺少单一技术安全边界，ASO 四维不适用。",
+      "reviewNotes": "材料分析影响行动与账号网络，缺少单一技术安全边界，ASO 四维不适用。",
+      "sources": [
+        {
+          "url": "https://openai.com/index/disrupting-malicious-uses-of-ai-influence-campaign-russia/",
+          "label": "Disrupting a new covert influence campaign from Russia",
+          "locator": "行动手法、平台处置及影响力限定",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-swarm-remote-browser-execution",
+      "fingerprint": "71a76ca5fa646d70ae91fb81d6920375fac6d5fea422d89ff798c9441c54cd70",
+      "status": "scored",
+      "score": 44,
+      "dimensions": {
+        "I": 2,
+        "F": 2,
+        "S": 2,
+        "A": 3
+      },
+      "scope": "评估远程扫描浏览器被用于绕过访问限制的尝试。",
+      "reviewNotes": "评估远程扫描浏览器被用于绕过访问限制的尝试。",
+      "sources": [
+        {
+          "url": "https://labs.zenity.io/post/rogue-ai-agents-abuse-urlquery-remote-browser-execution-to-extract-russian-government-data",
+          "label": "Remote Browser Execution: How Swarms Abused Public Web Scanners to Extract Russian Government Data",
+          "locator": "VNC hijack；Problem solving；Open questions",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-dolt-mcp-auth-bypass",
+      "fingerprint": "ebbf9233b5890c4efeedf2d0b741587f7dabdaec556a46c5a7fc5691c9ab5dcb",
+      "status": "scored",
+      "score": 62,
+      "dimensions": {
+        "I": 3,
+        "F": 5,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估远程 HTTP JWT 部署的认证绕过。",
+      "reviewNotes": "F=5 针对可达的受影响 HTTP 端点；S=2 保留配置限制。",
+      "sources": [
+        {
+          "url": "https://www.pillar.security/blog/lose-control-flow-unauthenticated-tool-execution-in-dolt-mcp",
+          "label": "Lose Control Flow: Unauthenticated Tool Execution in Dolt MCP",
+          "locator": "Executive summary；Impact；The complete exploit",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-claude-chrome-account-takeover",
+      "fingerprint": "394a9bc8c26fe829269b8fb7dd1a7dde40f4a31719a9276aa5b7e0574f3bf966",
+      "status": "scored",
+      "score": 59,
+      "dimensions": {
+        "I": 4,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估邮件注入经浏览器扩展操作已登录账号。",
+      "reviewNotes": "评估邮件注入经浏览器扩展操作已登录账号。",
+      "sources": [
+        {
+          "url": "https://labs.zenity.io/post/claude-in-chrome-from-alert-to-full-account-takeover",
+          "label": "Claude in Chrome: From alert(1) to Full Account Takeover",
+          "locator": "邮件入口、CDN 导入、跨站能力与演示",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-grand-theft-atlas",
+      "fingerprint": "e59a6957cb2aebc0bb87cfabbb84d896dda71e9ed11f5a007c7b6b73243f9472",
+      "status": "scored",
+      "score": 52,
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "分数对应 Atlas 评论注入至 WhatsApp 消息发送。",
+      "reviewNotes": "分数对应 Atlas 评论注入至 WhatsApp 消息发送。",
+      "sources": [
+        {
+          "url": "https://labs.zenity.io/post/grand-theft-atlas",
+          "label": "Grand Theft Atlas",
+          "locator": "网页评论、WhatsApp 演示及购物场景限制",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-chaindrop-agent-hooks",
+      "fingerprint": "a7952ae83daf78f6f14a9cf2b77462b3aac99e003ec4981e6bf008f29ee54c85",
+      "status": "scored",
+      "score": 78,
+      "dimensions": {
+        "I": 5,
+        "F": 3,
+        "S": 3,
+        "A": 4
+      },
+      "scope": "评估 ChainDrop 仓库钩子执行链。",
+      "reviewNotes": "区分已发现恶意投递和已确认终端感染；不声称任何仓库打开即执行。",
+      "sources": [
+        {
+          "url": "https://www.pillar.security/blog/chaindrop-when-opening-a-repository-becomes-execution",
+          "label": "ChainDrop: When Opening a Repository Becomes Execution",
+          "locator": "恶意制品、SessionStart、folderOpen 与信任前提",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-adk-cross-agent-boundary",
+      "fingerprint": "fadc8bcb5f3ee3e59e190492aeb08c1bf7a8e55dd2e785e57a0faf0c458c81aa",
+      "status": "scored",
+      "score": 52,
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估 ADK 跨代理调用造成的 PR 权限滥用。",
+      "reviewNotes": "不将 issues/PR 写权限等同 contents 写权限，也不把社会工程链描述为已完成供应链入侵。",
+      "sources": [
+        {
+          "url": "https://www.pillar.security/blog/ill-just-call-you-agent-to-agent-privilege-boundary-failures-in-ci-cd-on-googles-adk-repository",
+          "label": "I'll Just Call You: Agent-to-Agent Privilege Boundary Failures in CI/CD on Google's ADK Repository",
+          "locator": "跨代理触发；Looking for the Privilege Escalation；Google reply",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-agentforger-workspace-agent",
+      "fingerprint": "3cdb71552f36e4fad2941a460779ce8c6fc9916f5bcf1e31fb513bcaa9c6a956",
+      "status": "scored",
+      "score": 59,
+      "dimensions": {
+        "I": 4,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估 AgentForger 跨站创建并持久运行连接器代理。",
+      "reviewNotes": "评估 AgentForger 跨站创建并持久运行连接器代理。",
+      "sources": [
+        {
+          "url": "https://labs.zenity.io/post/agentforger-part-1-chatgpt-cross-site-agent-forgery",
+          "label": "AgentForger, Part 1: ChatGPT Cross-Site Agent Forgery",
+          "locator": "Part 1：跨站创建；Part 2：连接器、审批与定时任务",
+          "accessedAt": "2026-11-03"
+        },
+        {
+          "url": "https://labs.zenity.io/post/agentforger-part-2-the-autonomous-insider",
+          "label": "AgentForger, Part 2: The Autonomous Insider",
+          "locator": "Part 1：跨站创建；Part 2：连接器、审批与定时任务",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-ollama-pull-ssrf-observed",
+      "fingerprint": "e1ad227e6472b38bbaaf2afdd34790fffb22794db1a346fe8cea285b80bffb64",
+      "status": "scored",
+      "score": 54,
+      "dimensions": {
+        "I": 2,
+        "F": 4,
+        "S": 2,
+        "A": 3
+      },
+      "scope": "评估公开 Ollama 下载接口的 SSRF 尝试。",
+      "reviewNotes": "评估公开 Ollama 下载接口的 SSRF 尝试。",
+      "sources": [
+        {
+          "url": "https://labs.zenity.io/post/threat-actors-are-using-ollama-s-model-downloader-as-a-server-side-weapon",
+          "label": "Threat Actors Are Using Ollama's Model Downloader as a Server-Side Weapon",
+          "locator": "蜜罐请求、下载行为、默认监听地址与结果限制",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-litellm-guardrail-exploit-attempts",
+      "fingerprint": "0dd7b2817608514d900b9f8eb0ad76cb485bb01c9e8870d3f6f2c9b9fd4e8748",
+      "status": "scored",
+      "score": 65,
+      "dimensions": {
+        "I": 5,
+        "F": 2,
+        "S": 2,
+        "A": 3
+      },
+      "scope": "评估 guardrail 测试端点的命令执行路径。",
+      "reviewNotes": "评估 guardrail 测试端点的命令执行路径。",
+      "sources": [
+        {
+          "url": "https://labs.zenity.io/post/threat-actors-are-trying-to-use-litellm-s-guardrail-tester-to-run-code-as-root",
+          "label": "Threat Actors Are Trying to use LiteLLM's Guardrail Tester to Run Code as Root",
+          "locator": "请求观测、密钥尝试、1.83.0 重放与容器权限",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-rtk-observation-filter",
+      "fingerprint": "4c6120764e78b489436b4b87dafea264af577cd093d12bb511953c9bca8b88e0",
+      "status": "scored",
+      "score": 52,
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估仓库本地过滤规则操纵代理观测。",
+      "reviewNotes": "评估仓库本地过滤规则操纵代理观测。",
+      "sources": [
+        {
+          "url": "https://www.pillar.security/blog/untrusted-project-local-filters-in-rtk-when-your-ais-eyes-are-someone-elses-to-control",
+          "label": "Untrusted Project-Local Filters in RTK: When Your AI's Eyes Are Someone Else's to Control",
+          "locator": "项目本地 TOML、输出过滤与演示",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-gemini-trustissues-workflow",
+      "fingerprint": "f5b9c98987eb5ddb4c1fa2166c7a41d1d521aceab101f9670cb569c929c53f86",
+      "status": "scored",
+      "score": 70,
+      "dimensions": {
+        "I": 5,
+        "F": 3,
+        "S": 3,
+        "A": 2
+      },
+      "scope": "评估 Gemini CLI 公开 issue 至 CI 权限的注入链。",
+      "reviewNotes": "评估 Gemini CLI 公开 issue 至 CI 权限的注入链。",
+      "sources": [
+        {
+          "url": "https://www.pillar.security/blog/my-agentic-trust-issues-from-prompt-injection-to-supply-chain-compromise-on-gemini-cli",
+          "label": "My Agentic Trust Issues: From Prompt Injection to Supply Chain Compromise on Gemini CLI",
+          "locator": "公开 issue、令牌权限、供应链 PoC 与相关仓库",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-copirate-365",
+      "fingerprint": "1cb7f006a74608b553d13d1394738a63c24a497748bb643d15ba0cfed4628ab8",
+      "status": "scored",
+      "score": 56,
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 3,
+        "A": 2
+      },
+      "scope": "评估 Copirate 365 文档注入的数据外传路径。",
+      "reviewNotes": "评估 Copirate 365 文档注入的数据外传路径。",
+      "sources": [
+        {
+          "url": "https://embracethered.com/blog/posts/2026/defcon-talk-copirate-365/",
+          "label": "Copirate 365 at DEF CON: Plundering in the Depths of Microsoft Copilot (CVE-2026-24299)",
+          "locator": "DEF CON 演示、HTML 预览、字体请求与 CSP 限制",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-antigravity-find-parameter",
+      "fingerprint": "f12d8d5be70338b4192eada93ed93d36ea96c09c0bb2a3aa48841992ff713521",
+      "status": "scored",
+      "score": 66,
+      "dimensions": {
+        "I": 5,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估 find_by_name 参数导致的命令执行。",
+      "reviewNotes": "评估 find_by_name 参数导致的命令执行。",
+      "sources": [
+        {
+          "url": "https://www.pillar.security/blog/prompt-injection-leads-to-rce-and-sandbox-escape-in-antigravity",
+          "label": "Prompt Injection Leads to RCE and Sandbox Escape in Antigravity",
+          "locator": "find_by_name、fd 参数、Secure Mode 与 PoC",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-claude-opus47-memory-image",
+      "fingerprint": "2f2b089eb7f155e47f60f6de5d20ee6055d8c7e9cedeeb6f3a8797e51d3b4ddb",
+      "status": "scored",
+      "score": 45,
+      "dimensions": {
+        "I": 2,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估图片注入造成的虚假记忆写入。",
+      "reviewNotes": "评估图片注入造成的虚假记忆写入。",
+      "sources": [
+        {
+          "url": "https://embracethered.com/blog/posts/2026/breaking-opus-4.7-with-chatgpt/",
+          "label": "Breaking Opus 4.7 with ChatGPT (Hacking Claude's Memory)",
+          "locator": "图片载荷、记忆写入及前后两轮实验结果",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-agent-commander-c2",
+      "fingerprint": "093afc5b99dac25a3fa6ad572d73c1f1bdaf39e577ea53f94604a0952657fd41",
+      "status": "scored",
+      "score": 52,
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估 OpenClaw 心跳任务被注入为持续控制通道。",
+      "reviewNotes": "评估 OpenClaw 心跳任务被注入为持续控制通道。",
+      "sources": [
+        {
+          "url": "https://embracethered.com/blog/posts/2026/agent-commander-your-agent-works-for-me-now/",
+          "label": "Agent Commander: Promptware-Powered Command and Control",
+          "locator": "OpenClaw 心跳配置、测试邮箱及外传演示",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-unicode-skill-backdoor",
+      "fingerprint": "6fac5af806772d5f7d5c7722a1302f939ca696f15482c937ee561ae5d83e9fcc",
+      "status": "scored",
+      "score": 61,
+      "dimensions": {
+        "I": 5,
+        "F": 2,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估 Unicode 隐藏指令的恶意 skill 演示。",
+      "reviewNotes": "评估 Unicode 隐藏指令的恶意 skill 演示。",
+      "sources": [
+        {
+          "url": "https://embracethered.com/blog/posts/2026/scary-agent-skills/",
+          "label": "Scary Agent Skills: Hidden Unicode Instructions in Skills ...And How To Catch Them",
+          "locator": "Unicode 载荷、skill 修改与 Bash 审批前提",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-chat-template-backdoor-validation",
+      "fingerprint": "65c57032fca787267c86564068edee5e686e2135b04f31cb254910100ac809d1",
+      "status": "scored",
+      "score": 41,
+      "dimensions": {
+        "I": 1,
+        "F": 2,
+        "S": 4,
+        "A": 2
+      },
+      "scope": "评估模型聊天模板后门造成的输出操纵。",
+      "reviewNotes": "评估模型聊天模板后门造成的输出操纵。",
+      "sources": [
+        {
+          "url": "https://www.pillar.security/blog/from-discovery-to-large-scale-validation-chat-template-backdoors-across-18-models-and-4-engines",
+          "label": "From Discovery to Large-Scale Validation: Chat Template Backdoors Across 18 Models and 4 Engines",
+          "locator": "18 模型、4 引擎实验及模板控制前提",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "expanded-bizarre-bazaar-llmjacking",
+      "fingerprint": "b5dedeb67c00fadc248a07a8f1413688df370638c3e2a0793b759abc94a7f9fc",
+      "status": "scored",
+      "score": 63,
+      "dimensions": {
+        "I": 2,
+        "F": 5,
+        "S": 3,
+        "A": 3
+      },
+      "scope": "评估公开无认证推理接口的未授权使用。",
+      "reviewNotes": "评估公开无认证推理接口的未授权使用。",
+      "sources": [
+        {
+          "url": "https://www.pillar.security/blog/operation-bizarre-bazaar-first-attributed-llmjacking-campaign-with-commercial-marketplace-monetization",
+          "label": "Operation Bizarre Bazaar: First Attributed LLMjacking Campaign with Commercial Marketplace Monetization",
+          "locator": "蜜罐会话、无认证端点及商业化证据限制",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "cve-2026-111767",
+      "fingerprint": "25c9e1760d0e770705438019c5fc54fdd980ab5358c3cfe1e9dafff6c83a843e",
+      "status": "scored",
+      "score": 43,
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "scope": "评估 MCP TypeScript 实验任务存储的跨会话访问。",
+      "reviewNotes": "尚未复现；A=1 依据具体路径，并非“没有查到攻击”折算为零。",
+      "sources": [
+        {
+          "url": "https://github.com/modelcontextprotocol/typescript-sdk/security/advisories/GHSA-22jm-h49p-29qw",
+          "label": "项目维护者安全公告",
+          "locator": "Summary；Am I affected?；Fix",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "cve-2026-111764",
+      "fingerprint": "9752c969c3dbdc4bca0ddf5dfc263891d107587e2ec99981f3e3f32769aa7327",
+      "status": "scored",
+      "score": 47,
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估 a2a-java 默认任务读取授权缺失。",
+      "reviewNotes": "评估 a2a-java 默认任务读取授权缺失。",
+      "sources": [
+        {
+          "url": "https://github.com/a2aproject/a2a-java/security/advisories/GHSA-qw47-mcm5-934w",
+          "label": "项目维护者安全公告",
+          "locator": "Details；PoC；Impact",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "cve-2026-111761",
+      "fingerprint": "0f8a0d6336086acefec49fbe4e098652fb91df4b828e0c64f8778bc0e57df9bf",
+      "status": "scored",
+      "score": 55,
+      "dimensions": {
+        "I": 2,
+        "F": 5,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估 a2a-java 推送通知的盲 SSRF。",
+      "reviewNotes": "评估 a2a-java 推送通知的盲 SSRF。",
+      "sources": [
+        {
+          "url": "https://github.com/a2aproject/a2a-java/security/advisories/GHSA-q78c-5jjq-57g8",
+          "label": "项目维护者安全公告",
+          "locator": "Summary；Exploitation；响应不可见限制",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "cve-2026-59951",
+      "fingerprint": "d32f651f15cfe2e6ea5bd71434a7bc12ecec4daada28255da675ee5126eacceb",
+      "status": "scored",
+      "score": 57,
+      "dimensions": {
+        "I": 3,
+        "F": 4,
+        "S": 3,
+        "A": 1
+      },
+      "scope": "评估 MCP Python 有状态 HTTP 服务的内存耗尽路径。",
+      "reviewNotes": "可用性损害在 I=3 的归类需要人工校准；原始 CVSS 多版本差异保留在条目正文。",
+      "sources": [
+        {
+          "url": "https://github.com/modelcontextprotocol/python-sdk/security/advisories/GHSA-84m7-p3x7-pcfv",
+          "label": "项目维护者安全公告",
+          "locator": "Summary；Am I affected?；Fix；Severity",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "cve-2026-104850",
+      "fingerprint": "a25cfab912453f5c246021dcd768d7ef5a952b5e9b09dd684481ca2e4acde3f5",
+      "status": "scored",
+      "score": 48,
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 2,
+        "A": 1
+      },
+      "scope": "评估 MCP TypeScript OAuth 凭据未绑定 issuer。",
+      "reviewNotes": "评估 MCP TypeScript OAuth 凭据未绑定 issuer。",
+      "sources": [
+        {
+          "url": "https://github.com/modelcontextprotocol/typescript-sdk/security/advisories/GHSA-6qxp-vccf-f47h",
+          "label": "项目维护者安全公告",
+          "locator": "Summary；Am I affected；Fix 的旧凭据和 expectedIssuer 限制",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "cve-2026-106119",
+      "fingerprint": "807855f38d16ef9c2a34d16627a3711a0411745115891aa3640ee8719bb121ae",
+      "status": "scored",
+      "score": 43,
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "scope": "评估不可信 sessionId 导致的 MongoDB 聊天历史越权。",
+      "reviewNotes": "继续核对调用方的身份与集合隔离方式。",
+      "sources": [
+        {
+          "url": "https://github.com/langchain-ai/langchainjs/security/advisories/GHSA-m6rx-h84q-8r95",
+          "label": "项目维护者安全公告",
+          "locator": "Impact；Patches；Workarounds",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "cve-2026-105697",
+      "fingerprint": "76b92b035ea170226711b9bb4595b5af9b9984c8f94443edca3b95f4e9812488",
+      "status": "scored",
+      "score": 61,
+      "dimensions": {
+        "I": 5,
+        "F": 2,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估 MCP stdio 配置到主机命令执行的路径。",
+      "reviewNotes": "评估 MCP stdio 配置到主机命令执行的路径。",
+      "sources": [
+        {
+          "url": "https://github.com/langflow-ai/langflow/security/advisories/GHSA-w794-rj3p-xv45",
+          "label": "项目维护者安全公告",
+          "locator": "Summary；Affected versions；PoC；两阶段修复",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "cve-2026-105757",
+      "fingerprint": "1dc43192e6f399b659611fdb26bb38be1e375ea19a68a72559669e3c7afb5c07",
+      "status": "scored",
+      "score": 61,
+      "dimensions": {
+        "I": 3,
+        "F": 4,
+        "S": 3,
+        "A": 2
+      },
+      "scope": "评估 vLLM 默认结构化输出分支的共享引擎拒绝服务。",
+      "reviewNotes": "评估 vLLM 默认结构化输出分支的共享引擎拒绝服务。",
+      "sources": [
+        {
+          "url": "https://github.com/vllm-project/vllm/security/advisories/GHSA-85xf-c7hm-whqw",
+          "label": "项目维护者安全公告",
+          "locator": "Summary；Site 1；Impact",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "cve-2026-110474",
+      "fingerprint": "fb944eaf574c3a14d7d33eda7e688b901535030273da4fc590867bbba4a5119f",
+      "status": "scored",
+      "score": 58,
+      "dimensions": {
+        "I": 3,
+        "F": 5,
+        "S": 2,
+        "A": 1
+      },
+      "scope": "评估前端静态 API 密钥导致未授权读取通话资料的路径。",
+      "reviewNotes": "复核通话信息敏感性与 I=3；实际暴露范围和利用活动仍需后续材料。",
+      "sources": [
+        {
+          "url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/110xxx/CVE-2026-110474.json",
+          "label": "CERT-In 提交的 CVE 官方记录",
+          "locator": "CERT-In CNA descriptions、affected：前端 JavaScript 中的静态 API key、无需认证读取路径、2.0.0 之前版本。",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-openai-frontier-containment",
+      "fingerprint": "ab0e031863e1d795fd474394878a7314060369ba50d70e6c04c2c003d0906505",
+      "status": "not_applicable",
+      "score": null,
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "scope": "这是训练基础设施防护与隔离设计说明，不是单一漏洞或实际攻击披露。",
+      "reviewNotes": "这是训练基础设施防护与隔离设计说明，不是单一漏洞或实际攻击披露。",
+      "sources": [
+        {
+          "url": "https://openai.com/index/securing-our-frontier-model-training-environment/",
+          "label": "Securing our frontier model training environment",
+          "locator": "训练环境隔离、控制措施和验证策略",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-litellm-release-compromise-october",
+      "fingerprint": "2944f3ded9b308988f14590c04326f7637af367120c0e202062b353582fa7cec",
+      "status": "scored",
+      "score": 77,
+      "dimensions": {
+        "I": 5,
+        "F": 2,
+        "S": 3,
+        "A": 5
+      },
+      "scope": "评估组织所有者凭证失陷到恶意发布制品的完整供应链事件。",
+      "reviewNotes": "F 评估发布链入侵条件；下游安装风险应另建明确对象，不能混用门槛。",
+      "sources": [
+        {
+          "url": "https://docs.litellm.ai/blog/security-incident-oct-21-2026-attack-chain",
+          "label": "官方定稿：The attack chain behind the v1.107.0 LiteLLM release",
+          "locator": "GitHub Owner Access；Exfiltrating additional tokens；Building and Signing the Malicious Release",
+          "accessedAt": "2026-11-03"
+        },
+        {
+          "url": "https://docs.litellm.ai/blog/security-incident-oct-21-2026",
+          "label": "官方受影响制品与处置指引",
+          "locator": "TLDR；Affected artifacts（攻击链以定稿复盘为准）",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-ncsc-ai-cni-outlook",
+      "fingerprint": "86e67377df059be7cb33b5d6ac0b8a93a9f9ec0f96a7532dc970fd2aa1b2b171",
+      "status": "not_applicable",
+      "score": null,
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "scope": "这是宏观威胁预测，没有单一漏洞或攻击链对象，不计算 ASO 风险分数。",
+      "reviewNotes": "核对原始材料及逐维判断后再标记人工复核。",
+      "sources": [
+        {
+          "url": "https://www.ncsc.gov.uk/news/cyber-chief-uk-facing-ai-powered-attacks-on-critical-infrastructure-in-two-years",
+          "label": "NCSC：AI 与关键基础设施威胁研判",
+          "locator": "公告正文关于 2028 年威胁预测、既有漏洞与韧性建设。",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-trigger-env-exposure",
+      "fingerprint": "a57abd7abdfe572d716d6fc78051d4cfb3a1de4cf4e433e464c5376dee79178e",
+      "status": "insufficient_evidence",
+      "score": null,
+      "dimensions": {
+        "I": 3,
+        "F": null,
+        "S": 2,
+        "A": 5
+      },
+      "scope": "官方确认实际未授权访问，但攻击机制与前置权限未公开，缺少可利用性依据。",
+      "reviewNotes": "已查官方状态页、博客及后续检索；仍等待技术复盘，不能从环境变量泄露倒推无认证利用。",
+      "sources": [
+        {
+          "url": "https://status.trigger.dev/incident/1110434",
+          "label": "Trigger.dev：Security Disclosure, Sunday November 1st",
+          "locator": "2026-11-01 22:50 UTC 官方状态公告：环境变量访问、部分组织、封堵利用路径及邮件通知。",
+          "accessedAt": "2026-11-03"
+        },
+        {
+          "url": "https://trigger.dev/blog/security-incident-nov-2026",
+          "label": "Trigger.dev CTO：事故披露",
+          "locator": "官方博客全文；与状态页一致，未披露入口及认证条件",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "primary-cursor-claude-extension-compromise",
+      "fingerprint": "393e051225a3af743712cdeba54b36138e188768cd19ff7e8d381ecf77c530a5",
+      "status": "scored",
+      "score": 78,
+      "dimensions": {
+        "I": 5,
+        "F": 3,
+        "S": 2,
+        "A": 5
+      },
+      "scope": "评估已被投毒的扩展在用户主机上的执行与持久化链；不评估攻击者如何取得扩展市场发布权限。",
+      "reviewNotes": "复核 I=5 对用户权限恶意扩展执行的适用性；F 仅衡量受害端执行链，市场最初入侵方式未知。",
+      "sources": [
+        {
+          "url": "https://cursor.com/en-US/blog/claude-code-extension-security-notice",
+          "label": "Cursor：Claude Code 扩展安全公告（10 月 30 日更新）",
+          "locator": "What happened、What we did、What you should do；10 月 30 日更新及受影响版本说明。",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "research-epoch-firefox-patch-gap",
+      "fingerprint": "d6b57fa44dcecd204fecb1d64e176e234af481e33c0a10f5fb80bea49e2e63ee",
+      "status": "scored",
+      "score": 58,
+      "dimensions": {
+        "I": 4,
+        "F": 2,
+        "S": 3,
+        "A": 2
+      },
+      "scope": "评估报告中的受控 Firefox 文件读取与外传链，不泛化到当前版本或其他浏览器。",
+      "reviewNotes": "优先复核 F=2 是否准确反映攻击开发与受害者访问两个阶段；保留实验条件。",
+      "sources": [
+        {
+          "url": "https://epoch.ai/publications/open-weight-models-patch-gap",
+          "label": "Epoch AI：Open-weight models and the patch gap",
+          "locator": "Methodology、Results、Appendix；六个历史版本、离线环境、未公开漏洞及 Firefox 159.0 修复说明。",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "research-perplexity-browsesafe-plus-plus",
+      "fingerprint": "e555048f140320c883f2201f60789516746a47cec7d58d0fbcd07467f5294abe",
+      "status": "not_applicable",
+      "score": null,
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "scope": "文章介绍跨模型检测与自适应攻击评测，包含多个目标和机制，不合并成单一漏洞分数。",
+      "reviewNotes": "核对原始材料及逐维判断后再标记人工复核。",
+      "sources": [
+        {
+          "url": "https://www.perplexity.ai/gl/hub/blog/browsesafe-plus-plus",
+          "label": "Perplexity：BrowseSafe++ 原文（可读取的官方语言版本）",
+          "locator": "基准构建、Guard、Adapt、测试条件及 BibTeX 日期；官方研究索引。",
+          "accessedAt": "2026-11-03"
+        },
+        {
+          "url": "https://research.perplexity.ai/",
+          "label": "Perplexity 官方研究索引",
+          "locator": "基准构建、Guard、Adapt、测试条件及 BibTeX 日期；官方研究索引。",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "cve-2026-93680",
+      "fingerprint": "60503a5f0ef8e7cbdadf2858aebd0a0ff28596ebda06a820479aad21ca28902b",
+      "status": "scored",
+      "score": 62,
+      "dimensions": {
+        "I": 3,
+        "F": 5,
+        "S": 2,
+        "A": 2
+      },
+      "scope": "评估 CVE-2026-93680 的未授权 MCP 信息读取；不叠加另一个 RCE 的后果。",
+      "reviewNotes": "核对模块 1.5.0–1.11.4 与 IBM 1.0.0–1.12.8 的范围差异；测试环境 AUTO_LOGIN=true，不推断其他入口或配置的成功率。",
+      "sources": [
+        {
+          "url": "https://www.ibm.com/support/pages/node/7294467",
+          "label": "IBM：Langflow OSS 安全公告",
+          "locator": "Vulnerability Details；Affected Products；Remediation",
+          "accessedAt": "2026-11-04"
+        },
+        {
+          "url": "https://github.com/rapid7/metasploit-framework/pull/21942",
+          "label": "Rapid7：CVE-2026-93680 模块及测试",
+          "locator": "Description；Verification Steps；维护者 Testing 记录",
+          "accessedAt": "2026-11-04"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/rapid7/metasploit-framework/master/documentation/modules/auxiliary/gather/langflow_auth_bypass_cve_2026_93680.md",
+          "label": "Rapid7：模块环境与验证说明",
+          "locator": "Vulnerable Application；Installation；Scenarios",
+          "accessedAt": "2026-11-04"
+        }
+      ]
+    },
+    {
+      "itemId": "cve-2026-110186",
+      "fingerprint": "79955610e7dc61a105ad10bdf6920fa9b5b31ab8b8239a85fb37388da5554f2e",
+      "status": "insufficient_evidence",
+      "score": null,
+      "dimensions": {
+        "I": 5,
+        "F": null,
+        "S": 2,
+        "A": null
+      },
+      "scope": "版本与潜在后果已确认，但尚未核对该编号的完整触发条件和利用证据，暂不生成总分。",
+      "reviewNotes": "已补查 IBM/CNA 公告、逐编号 PoC 检索及 Rapid7 模块。找到的 93680 模块只验证 MCP 信息读取，不能转用为此编号的利用证据。等待逐编号技术复现。",
+      "sources": [
+        {
+          "url": "https://www.ibm.com/support/pages/node/7294467",
+          "label": "IBM：Langflow OSS 安全公告与修复说明",
+          "locator": "IBM Vulnerability Details 的 CVE-2026-110186 段、Affected Products、Remediation；CNA 描述。",
+          "accessedAt": "2026-11-03"
+        },
+        {
+          "url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/110xxx/CVE-2026-110186.json",
+          "label": "CVE-2026-110186 官方记录",
+          "locator": "IBM Vulnerability Details 的 CVE-2026-110186 段、Affected Products、Remediation；CNA 描述。",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "cve-2026-110193",
+      "fingerprint": "65f4bd04bde8b5c78663d5687b6f4007b95cea17ccc8efede66dbf88129571cc",
+      "status": "scored",
+      "score": 57,
+      "dimensions": {
+        "I": 5,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "scope": "评估低权限账号通过 Agentic Assistant 组件代码绕过触发服务器命令执行的路径。",
+      "reviewNotes": "F=2 仍需原始复现与功能权限配置校准；不要借用同批其他 CVE 的认证或 MCP 条件。",
+      "sources": [
+        {
+          "url": "https://www.ibm.com/support/pages/node/7294467",
+          "label": "IBM：Langflow OSS 安全公告与修复说明",
+          "locator": "IBM Vulnerability Details 的 CVE-2026-110193 段、Affected Products、Remediation，以及 CNA 原始描述。",
+          "accessedAt": "2026-11-03"
+        },
+        {
+          "url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/110xxx/CVE-2026-110193.json",
+          "label": "CVE-2026-110193 官方记录",
+          "locator": "IBM Vulnerability Details 的 CVE-2026-110193 段、Affected Products、Remediation，以及 CNA 原始描述。",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    },
+    {
+      "itemId": "cve-2026-110192",
+      "fingerprint": "79d41ecf9c81296219587c8dcd30740bd55b5d891ac2b3bd806a4c43a4798f7a",
+      "status": "insufficient_evidence",
+      "score": null,
+      "dimensions": {
+        "I": 3,
+        "F": null,
+        "S": 2,
+        "A": null
+      },
+      "scope": "版本与潜在后果已确认，但尚未核对该编号的完整触发条件和利用证据，暂不生成总分。",
+      "reviewNotes": "已补查 IBM/CNA 公告、逐编号 PoC 检索及 Rapid7 模块。找到的 93680 模块只验证 MCP 信息读取，不能转用为此编号的利用证据。等待逐编号技术复现。",
+      "sources": [
+        {
+          "url": "https://www.ibm.com/support/pages/node/7294467",
+          "label": "IBM：Langflow OSS 安全公告与修复说明",
+          "locator": "IBM Vulnerability Details 的 CVE-2026-110192 段、Affected Products、Remediation；CNA 描述。",
+          "accessedAt": "2026-11-03"
+        },
+        {
+          "url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/110xxx/CVE-2026-110192.json",
+          "label": "CVE-2026-110192 官方记录",
+          "locator": "IBM Vulnerability Details 的 CVE-2026-110192 段、Affected Products、Remediation；CNA 描述。",
+          "accessedAt": "2026-11-03"
+        }
+      ]
+    }
+  ]
+}
