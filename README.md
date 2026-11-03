@@ -48,7 +48,9 @@ npm start
 | Install Command | `npm ci` |
 | Build Command | `npm run build:production` |
 | Output Directory | `dist` |
-| Environment Variables | `SITE_URL`：正式站点 HTTPS 根地址 |
+| Environment Variables | `SITE_URL` 可指定正式 HTTPS 根地址；未设置时使用 Vercel 提供的生产域名 |
+
+在 Vercel 上，显式 `SITE_URL` 优先；缺省时读取 `VERCEL_PROJECT_PRODUCTION_URL` 并加上 HTTPS 协议，不使用临时预览域名。需保持平台的 Automatically expose System Environment Variables 设置开启；若关闭，则手动设置 `SITE_URL`。其他生产部署仍须显式设置 `SITE_URL`。参见 [Vercel 系统环境变量](https://vercel.com/docs/environment-variables/system-environment-variables)。
 
 网页使用 `#/feed` 等哈希路由，无需额外添加路由重写。只发布 `dist/`，研究笔记和本地 PDF 不作为静态资源发布。`.openai/hosting.json` 仅用于原有 Sites 托管，Vercel 不使用该文件。
 

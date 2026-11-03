@@ -6,7 +6,7 @@ import {methodologyPage} from './build-methodology.mjs';
 import {attachRiskAssessments,riskCoverage} from './build-risk.mjs';
 import {riskMethodologyPage} from './build-risk-methodology.mjs';
 const production=process.argv.includes('--production')||process.env.NODE_ENV==='production'||process.env.VERCEL_ENV==='production';
-const siteUrl=resolveSiteUrl(process.env.SITE_URL,{production});
+const siteUrl=resolveSiteUrl(process.env.SITE_URL,{production,vercelProductionDomain:process.env.VERCEL==='1'?process.env.VERCEL_PROJECT_PRODUCTION_URL:undefined});
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=name=>JSON.parse(readFileSync(path.join(root,'content',name),'utf8'));
 const pdf=read('pdf-items.json');

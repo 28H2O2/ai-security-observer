@@ -24,7 +24,11 @@ export function buildBriefings(items,meta){
  const weeks=[...new Set(dates.map(value=>periodBounds(value,'weekly').start))];
  return {meta:{updatedAt:meta.updatedAt,mode:meta.mode,timeZone:meta.timeZone},daily:dates.map(value=>makeBriefing(items,value)),weekly:weeks.map(value=>makeBriefing(items,value,'weekly'))};
 }
-export function resolveSiteUrl(value,{production=false}={}){
+export function resolveSiteUrl(value,{production=false,vercelProductionDomain}={}){
+ if(!value&&vercelProductionDomain){
+  if(typeof vercelProductionDomain!=='string'||!/^[a-z0-9.-]+$/i.test(vercelProductionDomain))throw new Error('VERCEL_PROJECT_PRODUCTION_URL 必须是无协议和路径的域名');
+  value=`https://${vercelProductionDomain}`;
+ }
  if(!value&&production)throw new Error('生产构建必须设置 SITE_URL 为正式 HTTPS 域名');
  const url=new URL(value||'http://127.0.0.1:4173/');
  if(!['http:','https:'].includes(url.protocol)||url.username||url.password||url.search||url.hash)throw new Error('SITE_URL 必须是无凭据、查询或片段的 HTTP(S) 地址');

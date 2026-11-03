@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readFileSync,cpSync,mkdtempSync,rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import path from 'node:path';
 import {spawnSync} from 'node:child_process';
 import {filterItems,itemDate} from '../dist/model.js';
 import {validDate,periodBounds,makeBriefing,buildBriefings,resolveSiteUrl,exportMarkdown,exportJson,briefingMarkdown,buildRss} from '../dist/publication.js';
@@ -65,6 +67,34 @@ test('生产地址拒绝缺失、占位域名、本地地址、凭据与非HTTPS
  assert.throws(()=>resolveSiteUrl('https://jade.fudan.edu.cn/#a'));
  assert.equal(resolveSiteUrl(base,{production:true}),base);
  assert.equal(resolveSiteUrl(), 'http://127.0.0.1:4173/');
- const fail=spawnSync(process.execPath,['scripts/build-data.mjs','--production'],{cwd:new URL('..',import.meta.url),env:{...process.env,SITE_URL:''},encoding:'utf8'});
+ const fail=spawnSync(process.execPath,['scripts/build-data.mjs','--production'],{cwd:new URL('..',import.meta.url),env:{...process.env,SITE_URL:'',VERCEL:''},encoding:'utf8'});
  assert.notEqual(fail.status,0);assert.match(fail.stderr,/SITE_URL/);
+});
+
+test('Vercel 缺少 SITE_URL 时使用稳定生产域名，显式配置优先且保留校验',()=>{
+ const options={production:true,vercelProductionDomain:'ai-security-observer.vercel.app'};
+ assert.equal(resolveSiteUrl('',options),'https://ai-security-observer.vercel.app/');
+ assert.equal(resolveSiteUrl(base,options),base);
+ assert.throws(()=>resolveSiteUrl('http://localhost',options));
+ for(const domain of ['localhost','example.com','https://site.vercel.app','user@site.vercel.app','site.vercel.app/path']){
+  assert.throws(()=>resolveSiteUrl('',{production:true,vercelProductionDomain:domain}));
+ }
+ const dir=mkdtempSync(path.join(tmpdir(),'aso-vercel-build-'));
+ try{
+  for(const name of ['content','dist','scripts','package.json'])cpSync(new URL(`../${name}`,import.meta.url),path.join(dir,name),{recursive:true});
+  const env={...process.env,SITE_URL:'',VERCEL:'1',VERCEL_ENV:'production',VERCEL_PROJECT_PRODUCTION_URL:options.vercelProductionDomain,VERCEL_URL:'temporary-preview.vercel.app'};
+  const result=spawnSync(process.execPath,['scripts/build-data.mjs','--production'],{cwd:dir,env,encoding:'utf8'});
+  assert.equal(result.status,0,result.stderr);
+  const built=JSON.parse(readFileSync(path.join(dir,'dist/data/items.json'),'utf8'));
+  assert.equal(built.meta.siteUrl,'https://ai-security-observer.vercel.app/');
+  assert.equal(built.meta.preview,false);
+  assert.equal(built.meta.riskScoring.statuses.scored,12);
+  const rss=readFileSync(path.join(dir,'dist/feed.xml'),'utf8');
+  assert.ok(rss.includes('https://ai-security-observer.vercel.app/feed.xml'));
+  assert.ok(!rss.includes('temporary-preview.vercel.app'));
+ }finally{
+  assert.equal(path.dirname(path.resolve(dir)),path.resolve(tmpdir()));
+  assert.ok(path.basename(dir).startsWith('aso-vercel-build-'));
+  rmSync(dir,{recursive:true,force:true});
+ }
 });
