@@ -1,0 +1,818 @@
+{
+  "ruleVersion": "aso-risk-v1.0",
+  "assessments": [
+    {
+      "itemId": "primary-opencode-mcp-oauth",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "63e4332dc3469db28145912d3bd55ab49cd05aa87ca61bf1dae90eaa63a576c6",
+      "status": "scored",
+      "dimensions": {
+        "I": 5,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "confidence": "medium",
+      "activity": "controlled_poc",
+      "evidence": {
+        "I": {
+          "reason": "OAuth 授权地址进入 shell，可按开发者进程权限执行任意代码。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "已连接的恶意或失陷 MCP 在正常 OAuth 握手中返回载荷；仍以受害者连接该服务为前提。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "限定于 Windows/WSL 上 1.0.137–1.18.32；不把下载量当作易受攻击部署数。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "原文提供触发路径、载荷和演示；本次依据为研究 PoC。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://www.pillar.security/blog/open-and-shut-remote-code-execution-in-opencode-via-mcp-oauth",
+          "label": "Open and Shut: Remote Code Execution in opencode via MCP OAuth",
+          "locator": "Executive summary；Where the bug lives；Sink anyone?；演示与版本表",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "reason": "评估 Windows/WSL 的 MCP OAuth 命令注入路径。",
+      "consequences": {
+        "potential": "开发者主机上的任意代码执行。",
+        "observed": "研究者演示了执行路径；所读材料未报告在野受害者。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "核对 Windows/WSL 部署覆盖与 OAuth 触发条件；文章页首和时间线有日期差异。"
+    },
+    {
+      "itemId": "primary-visual-studio-ssms-copilot-rce",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "66d5e84d492b450e9d382a0793fdc31b3343608b61ecd8b270e5558b56b6d55f",
+      "status": "scored",
+      "dimensions": {
+        "I": 5,
+        "F": 3,
+        "S": 3,
+        "A": 2
+      },
+      "confidence": "medium",
+      "activity": "controlled_poc",
+      "evidence": {
+        "I": {
+          "reason": "配置保护被绕过后可启用恶意 MCP 命令或替换搜索程序，导致主机代码执行。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "用户让 Copilot 处理含恶意指令的文件后触发，属于正常读取工作流。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "同一 DLL 影响 Visual Studio 与 SSMS 的受影响安装；尚无易受攻击装机规模统计。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "研究者公开两个产品的受控演示和补丁分析，未给出在野受害记录。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://embracethered.com/blog/posts/2026/visual-studio-copilot-remote-code-execution/",
+          "label": "Visual Studio Copilot and SSMS Remote Code Execution (CVE-2026-103572)",
+          "locator": "The Root Cause；Attack Chains and Exploit Demos；Disclosure and Patch Timeline",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "reason": "评估共享 Copilot 路径检查缺陷及其命令执行链。",
+      "consequences": {
+        "potential": "受害者权限下的任意程序执行。",
+        "observed": "受控演示运行了测试程序；实际客户损失未知。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "按微软公告逐项核对安装版本；多个同源演示不算独立验证。"
+    },
+    {
+      "itemId": "primary-sql-copilot-readonly-bypass",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "410b8f0e1d19ab79a490740bf291bb70bc1841cdeb7dd883260b420554951516",
+      "status": "scored",
+      "dimensions": {
+        "I": 5,
+        "F": 2,
+        "S": 2,
+        "A": 2
+      },
+      "confidence": "medium",
+      "activity": "controlled_poc",
+      "evidence": {
+        "I": {
+          "reason": "演示可借 sysadmin 连接修改服务器角色，后果达到高权限数据库接管。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "需能修改被读取的内容或元数据，并等待使用高权限连接的用户调用 Copilot。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "限定于受影响的 SSMS SQL Copilot 及数据库权限配置。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "文章给出只读绕过、间接注入和提权演示，证据来自同一研究团队。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://embracethered.com/blog/posts/2026/from-select-to-sysadmin-sql-copilot-bluehat-asia/",
+          "label": "From SELECT to SYSADMIN with SQL Copilot (CVE-2026-65669)",
+          "locator": "ReadFromDatabase；Indirect Prompt Injection Attack Paths；Database Instructions；权限提升演示",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "reason": "评估数据库元数据注入到高权限连接的提权链。",
+      "consequences": {
+        "potential": "数据库写入、数据外传及服务器角色变更，受连接权限约束。",
+        "observed": "研究环境验证了越权修改；未报告在野利用。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "I=5 以演示中的高权限连接为条件，不能外推到最小权限连接。"
+    },
+    {
+      "itemId": "pdf-2026-0015",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "723589faf67103a2edafc32d791f488ef41601ff29a9d3e68f373f126872f8ed",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 3,
+        "A": 2
+      },
+      "confidence": "medium",
+      "activity": "controlled_poc",
+      "evidence": {
+        "I": {
+          "reason": "外部销售线索可诱导读取并外传账户数据，构成敏感数据暴露。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "员工正常查询被污染的线索即可触发；无需点击恶意链接仍不等于无工作流交互。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "原文指向 General CRM 默认跨表读取权限与常见线索审阅流程。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "公开 PoC 演示 DNS 外传，披露时间线记录双方确认修复。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://labs.zenity.io/post/salesbleed-0-click-data-exfiltration-on-agentforce",
+          "label": "SalesBleed: Indirect Prompt Injection and 0-Click Data Exfiltration on Agentforce",
+          "locator": "Proof of concept；TL;DR；0-Click by design；This isn’t an esoteric setup；Disclosure timeline",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "reason": "评估 Web-to-Lead 注入到 Agentforce 数据外传的已披露路径。",
+      "consequences": {
+        "potential": "外传该子 Agent 有权读取的 CRM 资料。",
+        "observed": "研究者演示测试租户的数据外传；未报告真实客户被窃。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "人工校准 I=3 与更严重批量泄露的边界；已修复不下调固有后果。"
+    },
+    {
+      "itemId": "expanded-dolt-mcp-auth-bypass",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "ebbf9233b5890c4efeedf2d0b741587f7dabdaec556a46c5a7fc5691c9ab5dcb",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 5,
+        "S": 2,
+        "A": 2
+      },
+      "confidence": "medium",
+      "activity": "controlled_poc",
+      "evidence": {
+        "I": {
+          "reason": "未认证请求可执行数据库读写工具；实际能力受服务账户权限限制。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "伪造令牌和格式合法的会话 ID 即可远程调用工具，无需有效凭证或受害者交互。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "仅覆盖 0.3.1–0.3.6 的远程 HTTP JWT 配置，stdio 不受此路径影响。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "原文公开请求示例和工具执行视频，属于受控 PoC。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://www.pillar.security/blog/lose-control-flow-unauthenticated-tool-execution-in-dolt-mcp",
+          "label": "Lose Control Flow: Unauthenticated Tool Execution in Dolt MCP",
+          "locator": "Executive summary；Impact；The complete exploit",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "reason": "评估远程 HTTP JWT 部署的认证绕过。",
+      "consequences": {
+        "potential": "以 MCP 服务账户权限读取、修改或删除数据库内容。",
+        "observed": "研究者验证认证失败后仍执行工具；未报告在野成功利用。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "F=5 针对可达的受影响 HTTP 端点；S=2 保留配置限制。"
+    },
+    {
+      "itemId": "pdf-2026-0007",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "0567a780a21a7947929ce286557fe7171fe013568185847f8760e05ef2c2b6de",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 3
+      },
+      "confidence": "medium",
+      "activity": "observed_attempts",
+      "evidence": {
+        "I": {
+          "reason": "恶意元数据指示 Agent 搜寻密钥并隐瞒操作，潜在后果为敏感凭证暴露。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "须先接受恶意配置、连接服务并触发工具调用；投递的 PR 尚未合并。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "已界定对象为采用该配置的 MCP 客户端；23 个投递目标不等于 23 个受害部署。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "公开 PR 与服务返回支持真实投递尝试；没有证据证明这些 PR 已造成凭证失窃。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://www.pillar.security/blog/deadbugz-currently-active-mcp-supply-chain-campaign",
+          "label": "Deadbugz: Currently Active MCP Supply-Chain Campaign",
+          "locator": "Executive Summary；What happens after the third call；The campaign in evidence",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "reason": "评估 Deadbugz 恶意 MCP 投递与凭证搜寻机制。",
+      "consequences": {
+        "potential": "Agent 若服从载荷，可能搜寻并外传本地敏感凭证。",
+        "observed": "确认 23 个投递 PR 和延迟返回的恶意指令；披露时 19 个关闭、4 个开放，均未合并。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "攻击尝试按 A=3；不要把载荷意图或实验返回当作成功窃密。"
+    },
+    {
+      "itemId": "primary-litellm-admin-api-observed-attacks",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "9e5413ee70717eed0a1cd4b36f05e28749e4542d8423b75f1254224d93b2332e",
+      "status": "scored",
+      "dimensions": {
+        "I": 4,
+        "F": 2,
+        "S": 2,
+        "A": 3
+      },
+      "confidence": "medium",
+      "activity": "observed_attempts",
+      "evidence": {
+        "I": {
+          "reason": "只读账户可改写敏感配置，实验串联凭证外传和管理员账户接管。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "完整提权链需要只读凭证与可达管理面；默认密钥或未认证配置另有部署前提。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "限定于受影响的 LiteLLM 代理管理面，无法推算实际暴露部署数量。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "蜜罐记录含文件读取载荷的攻击请求；完整只读提权链是另行实验验证。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://labs.zenity.io/post/admin-api-escalation-litellm",
+          "label": "A Read-Only Account is All it Takes to Own a LiteLLM Server",
+          "locator": "The authorization bypass；The /config/update bodies；Attack Reproduction",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "reason": "评估 LiteLLM 管理 API 的配置越权链，区分蜜罐流量与实验接管。",
+      "consequences": {
+        "potential": "服务器文件与凭证泄露，以及代理管理员接管。",
+        "observed": "蜜罐观测到针对管理 API 的攻击尝试；未证实真实企业被完整接管。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "A=3 依据请求观测；样本没有观测到低权限凭证在野使用。"
+    },
+    {
+      "itemId": "cve-2026-111767",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "25c9e1760d0e770705438019c5fc54fdd980ab5358c3cfe1e9dafff6c83a843e",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "activity": "attack_path",
+      "evidence": {
+        "I": {
+          "reason": "共享存储的客户端可读取、取消彼此任务，产生跨会话数据暴露和未授权操作。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "HTTP 服务须启用 taskStore，且多个会话共用 InMemoryTaskStore。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "限定 1.24.0 至低于 1.32.0 的实验功能；2.x 和未启用该存储的服务不受影响。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "维护者明确说明跨会话列举、读取和取消任务的路径；不把公告视为已公开 PoC 或在野利用。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://github.com/modelcontextprotocol/typescript-sdk/security/advisories/GHSA-22jm-h49p-29qw",
+          "label": "项目维护者安全公告",
+          "locator": "Summary；Am I affected?；Fix",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "reason": "评估 MCP TypeScript 实验任务存储的跨会话访问。",
+      "consequences": {
+        "potential": "其他会话的任务内容泄露、任务取消和状态干扰。",
+        "observed": "本次材料提供维护者确认的攻击路径；实际受害情况未知。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "尚未复现；A=1 依据具体路径，并非“没有查到攻击”折算为零。"
+    },
+    {
+      "itemId": "cve-2026-59951",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "d32f651f15cfe2e6ea5bd71434a7bc12ecec4daada28255da675ee5126eacceb",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 4,
+        "S": 3,
+        "A": 1
+      },
+      "confidence": "high",
+      "activity": "attack_path",
+      "evidence": {
+        "I": {
+          "reason": "普通短请求可使服务端内存持续累积，最终影响服务可用性。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "可达端点的客户端即可反复创建会话；认证部署仍要求访问令牌，故不统一给 5 分。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "覆盖两个 SDK 版本线的默认有状态 HTTP 配置；stdio、SSE 和无状态模式不在范围内。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "维护者描述了会话保留与短请求耗尽路径；所读公告未提供可核实的独立利用验证。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://github.com/modelcontextprotocol/python-sdk/security/advisories/GHSA-84m7-p3x7-pcfv",
+          "label": "项目维护者安全公告",
+          "locator": "Summary；Am I affected?；Fix；Severity",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "reason": "评估 MCP Python 有状态 HTTP 服务的内存耗尽路径。",
+      "consequences": {
+        "potential": "受影响服务内存耗尽及可用性中断。",
+        "observed": "维护者确认缺陷机制；本次未核实生产损害或在野利用。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "可用性损害在 I=3 的归类需要人工校准；原始 CVSS 多版本差异保留在条目正文。"
+    },
+    {
+      "itemId": "cve-2026-106119",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "807855f38d16ef9c2a34d16627a3711a0411745115891aa3640ee8719bb121ae",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "activity": "attack_path",
+      "evidence": {
+        "I": {
+          "reason": "结构化标识可变成查询条件，跨用户读取、修改或删除对话历史。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "须将不可信标识直接传入组件，多个用户共用集合，且调用者能执行历史操作。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "限定 @langchain/mongodb 的特定应用用法；服务端派生并校验标识的应用不在此范围。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "项目公告描述输入到查询条件的具体攻击路径，不能由官方来源身份推断实际利用。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://github.com/langchain-ai/langchainjs/security/advisories/GHSA-m6rx-h84q-8r95",
+          "label": "项目维护者安全公告",
+          "locator": "Impact；Patches；Workarounds",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "reason": "评估不可信 sessionId 导致的 MongoDB 聊天历史越权。",
+      "consequences": {
+        "potential": "跨用户的对话内容暴露或篡改。",
+        "observed": "维护者确认漏洞及 1.3.1 修复；未核实在野受害。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "继续核对调用方的身份与集合隔离方式。"
+    },
+    {
+      "itemId": "pdf-2026-0014",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "0b76d8582d7591c5870dd9d753cb7b762a30645cc8f334b0653d80bf8fd319bf",
+      "status": "scored",
+      "dimensions": {
+        "I": 5,
+        "F": 3,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "activity": "attack_path",
+      "evidence": {
+        "I": {
+          "reason": "特制数据库命令可在主机上按辅助进程权限执行系统命令。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "Agent 须先读取恶意内容，再在正常工具流程中调用本地辅助程序。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "影响指定插件的本地脚本；Aurora DSQL 服务及数据库授权不受此路径影响。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "AWS 公告给出内容摄取到本地命令执行的路径；未将漏洞公告当作 PoC 或实际攻击。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-130-aws/",
+          "label": "CVE-2026-107322: OS Command Injection in Amazon Agent Plugins for AWS",
+          "locator": "Description；Affected versions；Resolution",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "reason": "评估 AWS 插件本地数据库辅助程序的命令注入。",
+      "consequences": {
+        "potential": "运行插件的主机发生任意系统命令执行。",
+        "observed": "厂商确认漏洞与修复；未提供本次可核实的在野损害记录。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "核对固定 Git 修订和 1.7.1 的修复指引；已有修复不降低 I。"
+    },
+    {
+      "itemId": "primary-litellm-release-compromise-october",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "2944f3ded9b308988f14590c04326f7637af367120c0e202062b353582fa7cec",
+      "status": "scored",
+      "dimensions": {
+        "I": 5,
+        "F": 2,
+        "S": 3,
+        "A": 5
+      },
+      "confidence": "high",
+      "activity": "confirmed_exploitation",
+      "evidence": {
+        "I": {
+          "reason": "攻击者取得组织所有者权限并发布窃密与远程代码加载制品，后果达到高权限接管。",
+          "sources": [
+            "primary",
+            "artifacts"
+          ]
+        },
+        "F": {
+          "reason": "攻击依赖未撤销的泄露主密钥、过权 GitHub 令牌与被突破的发布控制。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "确认影响公开 1.107.0 软件包和特定容器时间窗；私有企业发布渠道被排除，受害总量未知。",
+          "sources": [
+            "primary",
+            "artifacts"
+          ]
+        },
+        "A": {
+          "reason": "项目方定稿复盘确认令牌获取、保护绕过和恶意制品发布，构成充分的实际利用证据。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://docs.litellm.ai/blog/security-incident-oct-21-2026-attack-chain",
+          "label": "官方定稿：The attack chain behind the v1.107.0 LiteLLM release",
+          "locator": "GitHub Owner Access；Exfiltrating additional tokens；Building and Signing the Malicious Release",
+          "accessedAt": "2026-11-03"
+        },
+        {
+          "id": "artifacts",
+          "kind": "reference",
+          "url": "https://docs.litellm.ai/blog/security-incident-oct-21-2026",
+          "label": "官方受影响制品与处置指引",
+          "locator": "TLDR；Affected artifacts（攻击链以定稿复盘为准）",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "reason": "评估组织所有者凭证失陷到恶意发布制品的完整供应链事件。",
+      "consequences": {
+        "potential": "运行恶意制品的环境可能被执行代码并泄露其可访问凭证。",
+        "observed": "项目方确认组织凭证失陷及恶意制品发布；未据此认定每个下游安装均已被窃密。"
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "F 评估发布链入侵条件；下游安装风险应另建明确对象，不能混用门槛。"
+    },
+    {
+      "itemId": "pdf-2026-0002",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "4afb7a4828006e05328e93b97b6e171545e83707868750e971dea593c8cd7820",
+      "status": "insufficient_evidence",
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "confidence": "low",
+      "activity": "unknown",
+      "evidence": {
+        "I": {
+          "reason": "泄露规模为汇编转述，尚未核对原始报告。",
+          "sources": []
+        },
+        "F": {
+          "reason": "没有足够材料界定攻击入口、权限与前置条件。",
+          "sources": []
+        },
+        "S": {
+          "reason": "尚未核对受影响对象及它们与同一攻击机制的关系。",
+          "sources": []
+        },
+        "A": {
+          "reason": "缺少可追溯的原始利用证据，不能将未查到证据记为 0。",
+          "sources": []
+        }
+      },
+      "sources": [],
+      "reason": "仅有汇编转述，缺少可核对的一手材料及 AI 参与攻击的具体路径。",
+      "consequences": {
+        "potential": null,
+        "observed": null
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "补 CrowdStrike 原始披露与监管材料，并区分入侵事实和 AI 因果作用。"
+    },
+    {
+      "itemId": "primary-microsoft-open-weight-risk-taxonomy",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "7eb100e0ce57d9c5161349dae81757919f4d2d6b8f00fb6244816c052daa26b0",
+      "status": "not_applicable",
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "confidence": "high",
+      "activity": "unknown",
+      "evidence": {},
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/10/16/managing-open-weight-model-risk-in-enterprise-deployments/",
+          "label": "Managing open-weight model risk in enterprise deployments",
+          "locator": "Understanding risk in the deployment context；Establishing a common language",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "reason": "这篇文章介绍企业模型风险分类与评测方法，没有单一、可界定的漏洞或攻击机制。",
+      "consequences": {
+        "potential": null,
+        "observed": null
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "若未来报道其中某个具体漏洞，应按该问题新建评估。"
+    },
+    {
+      "itemId": "primary-microsoft-forge-validation-loop",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "f405394867f219de58bfb9e0d016c5473f656cc27357fb2dc86a246b601c1135",
+      "status": "not_applicable",
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "confidence": "high",
+      "activity": "unknown",
+      "evidence": {},
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/10/07/3-lessons-from-frontier-ai-vulnerability-research/",
+          "label": "3 lessons from frontier AI vulnerability research",
+          "locator": "Shift 1；Shift 3；Open-source vulnerability reporting snapshot",
+          "accessedAt": "2026-11-03"
+        }
+      ],
+      "reason": "这篇文章讨论漏洞研究与修复流程；多个项目的汇总结果无法共用一个风险分值。",
+      "consequences": {
+        "potential": null,
+        "observed": null
+      },
+      "assessedAt": "2026-11-03",
+      "reviewed": false,
+      "reviewNotes": "保留方法研究的阅读价值；不以研究成果数量评估安全后果。"
+    }
+  ]
+}

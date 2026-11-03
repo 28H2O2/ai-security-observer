@@ -3,6 +3,8 @@ import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import {buildBriefings,buildRss,resolveSiteUrl} from '../dist/publication.js';
 import {methodologyPage} from './build-methodology.mjs';
+import {attachRiskAssessments,riskCoverage} from './build-risk.mjs';
+import {riskMethodologyPage} from './build-risk-methodology.mjs';
 const production=process.argv.includes('--production')||process.env.NODE_ENV==='production'||process.env.VERCEL_ENV==='production';
 const siteUrl=resolveSiteUrl(process.env.SITE_URL,{production});
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
@@ -20,7 +22,7 @@ if(salesbleed&&pdfSalesbleed){
  Object.assign(pdfSalesbleed,disclosure,{mergedFrom:[id]});
 }
 const distinctPrimary=primary.filter(i=>i.id!=='primary-salesbleed-agentforce');
-const items=[...pdf,...distinctPrimary];
+let items=[...pdf,...distinctPrimary];
 const original='https://www.anthropic.com/research/investigating-unintended-model-actions';
 const enrichments={
  'pdf-2026-0001':{title:'评测模型向真实警方网站提交虚构线索',summary:'Anthropic 披露，Claude Haiku 4.5 在生成网页操作示例时，向费城警方的真实命案线索表单提交了虚构内容。该提交被标记为垃圾信息，未转交调查。事件说明测试任务可能跨出模拟环境，触及真实业务入口。',limitations:'厂商原始报告确认表单提交与垃圾信息处置。该案例不意味着模型侵入警方系统；来源未报告客户数据泄露。模型行为的动机与诚实程度仍需进一步评估。'},
@@ -69,15 +71,20 @@ for(const item of items){
   if(!/^\d{4}-\d{2}-\d{2}$/.test(item.cvePublishedAt))throw new Error('CVE 发布日期不正确 '+item.id);
  }
 }
+items=attachRiskAssessments(items,read('risk-assessments.json'));
+const coverage=riskCoverage(items);
 const review=read('review.json');
 const version=JSON.parse(readFileSync(path.join(root,'package.json'),'utf8')).version;
 const result={meta:{title:'AI 安全观察',version,updatedAt:review.reviewedAt,timeZone:review.timeZone,mode:'curated-snapshot',scheduledCollection:false,total:items.length,pdfRecords:pdf.length,primaryRecords:items.filter(i=>i.evidence==='primary').length,cveRecords:items.filter(i=>i.cveIds.length).length,activeSources:new Set(items.map(item=>item.sourceId)).size},items};
 mkdirSync(path.join(root,'dist','data'),{recursive:true});
 result.meta.siteUrl=siteUrl;
 result.meta.preview=!production;
+result.meta.riskScoring={ruleVersion:coverage.ruleVersion,statuses:coverage.statuses};
 writeFileSync(path.join(root,'dist/data/items.json'),JSON.stringify(result,null,2)+'\n');
 writeFileSync(path.join(root,'dist/data/sources.json'),JSON.stringify(sources,null,2)+'\n');
 writeFileSync(path.join(root,'dist/data/briefings.json'),JSON.stringify(buildBriefings(items,result.meta),null,2)+'\n');
 writeFileSync(path.join(root,'dist/feed.xml'),buildRss(items,result.meta,siteUrl,{preview:!production}));
 writeFileSync(path.join(root,'dist/methodology.html'),methodologyPage(items,sources,result.meta));
+writeFileSync(path.join(root,'dist/data/risk-coverage.json'),JSON.stringify(coverage,null,2)+'\n');
+writeFileSync(path.join(root,'dist/risk-methodology.html'),riskMethodologyPage());
 console.log(JSON.stringify({items:items.length,pdf:pdf.length,primary:result.meta.primaryRecords,sources:sources.length,checkedEndpoints:sources.filter(s=>s.status==='checked').length}));

@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ASO Risk Score v1.0 · AI 安全观察</title><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./publication.css"><link rel="stylesheet" href="./risk.css"></head>
+<body><main class="page-shell"><article class="risk-rules-page"><a href="./#/feed">← 返回情报</a><h1>ASO Risk Score v1.0</h1>
+<p>根据公开证据，评估已界定的安全漏洞和攻击机制。分数用于比较技术后果、攻击条件、影响范围与利用证据。ASO 是本站自定义指标，非 CVSS、EPSS，也不是经过统计校准的攻击概率。</p>
+<p><code>7 × I + 5 × F + 4 × S + 4 × A</code>，总分 0–100。四维均有证据才计算总分；未知值保留为 null。分数越高，代表这套规则下的风险越高。</p>
+<h2>四个维度</h2>
+<section><h3>I · 安全后果 / Impact · 35%</h3><table><thead><tr><th>分值</th><th>依据</th></tr></thead><tbody><tr><td>0</td><td>未体现实际安全边界损害</td></tr><tr><td>1</td><td>轻微输出偏离、有限功能干扰</td></tr><tr><td>2</td><td>有限的信息暴露或操作异常</td></tr><tr><td>3</td><td>明确的未授权操作、敏感数据暴露或权限滥用</td></tr><tr><td>4</td><td>严重数据泄露、关键系统操作失控或高影响攻击后果</td></tr><tr><td>5</td><td>严重代码执行、高权限系统接管、大规模敏感数据失陷等重大后果</td></tr></tbody></table></section><section><h3>F · 可利用性 / Feasibility · 25%</h3><table><thead><tr><th>分值</th><th>依据</th></tr></thead><tbody><tr><td>0</td><td>只有理论假设，尚无合理攻击路径</td></tr><tr><td>1</td><td>依赖非常苛刻的环境、权限或复杂条件</td></tr><tr><td>2</td><td>需要多个非默认前置条件或较高攻击能力</td></tr><tr><td>3</td><td>可通过正常工作流接触的低信任内容触发，例如网页、文档或工具返回</td></tr><tr><td>4</td><td>攻击门槛低，通常不需要特殊权限，利用路径较直接</td></tr><tr><td>5</td><td>能够远程、无需认证、无需额外用户交互地直接触发</td></tr></tbody></table></section><section><h3>S · 影响范围 / Scope · 20%</h3><table><thead><tr><th>分值</th><th>依据</th></tr></thead><tbody><tr><td>0</td><td>尚无明确的受影响对象</td></tr><tr><td>1</td><td>仅限实验环境、罕见配置或特定个人系统</td></tr><tr><td>2</td><td>影响特定产品、平台或配置</td></tr><tr><td>3</td><td>影响明确的生产产品及一部分常见部署</td></tr><tr><td>4</td><td>涉及多个广泛使用的产品或部署场景</td></tr><tr><td>5</td><td>涉及大规模部署的核心基础组件或广泛的 AI 系统生态</td></tr></tbody></table></section><section><h3>A · 利用证据 / Activity · 20%</h3><table><thead><tr><th>分值</th><th>依据</th></tr></thead><tbody><tr><td>0</td><td>已确认目前没有公开 PoC 或在野利用证据；不代表攻击不存在</td></tr><tr><td>1</td><td>存在具体攻击路径或初步可行性分析</td></tr><tr><td>2</td><td>有可核实的研究 PoC 或受控实验</td></tr><tr><td>3</td><td>有多个独立利用验证，或可信的实际攻击尝试观测</td></tr><tr><td>4</td><td>有可信的在野利用记录</td></tr><tr><td>5</td><td>有权威确认的实际利用，例如适用的 CISA KEV 收录或充分的真实利用证据</td></tr></tbody></table></section>
+<h2>怎样读评分</h2><p>后果维度描述有证据支持的潜在能力；实际观测单列。研究 PoC 可以证明机制可行，攻击请求可以证明有人尝试；成功入侵还需要相应记录。官方公告、CVE 编号与来源声誉都不能替代利用证据。</p>
+<p>仅仅没有找到 PoC 或攻击记录时，A 保留为未知。已有具体路径可按 A=1 评估，但不能声称已经排除实际利用。A=0 需要明确记录核查范围与来源。来源可信度单独展示，不参与加权。</p>
+<p>影响范围按已披露的产品、版本和配置判断。厂商规模、下载量或目标数量不直接等于受影响部署数。修复已发布不会降低固有后果，当前修复建议仍见条目正文。</p>
+<h2>未评分的资料</h2><p>尚未逐项核对的条目显示“待评估”；缺少关键证据时保留具体缺口。方法文章或无法界定单一安全问题的资料可标为“不适用”。材料变化后，旧分数会暂停显示，等待重新复核。</p>
+<p>“已评分”表示四维证据齐全并通过程序校验。是否人工复核另行显示；首批样本尚未由人工复核。初版没有行业严重性等级或风险区间阈值。</p>
+<h2>维护与版本</h2><p>评估日期独立于新闻日期，重新构建不会刷新日期。每次修改保存证据位置和理由，规则版本固定为 <code>aso-risk-v1.0</code>。权重或分值定义变化时发布新版本，保留旧版记录，再用同一组样本比较差异。</p>
+<p>当前覆盖情况与逐条待评估原因见 <a href="./data/risk-coverage.json">评估清单</a>。分数依赖公开材料与评估者判断，尚未经过多评估者一致性检验或历史攻击数据校准。</p>
+</article></main></body></html>
