@@ -266,7 +266,8 @@ test('评分文本与证据链接按文本转义，危险协议不进入 DOM',()
 
 test('站内规则与静态说明共享锚点，覆盖链接与实际筛选一致',()=>{
   const html=riskMethodologyMarkup(items);
-  assert.equal((html.match(/<table>/g)||[]).length,4);
+  assert.equal((html.match(/class="dim-card /g)||[]).length,4);
+  assert.equal((html.match(/<li class="lv-/g)||[]).length,24);
   for(const key of DIMENSION_KEYS)for(const anchor of RISK_RULES.dimensions[key].anchors)assert.ok(html.includes(anchor));
   for(const [filter,label] of [['scored','已评分'],['pending','待评估'],['not_applicable','不适用']]){
     assert.ok(html.includes(`assessment=${filter}`));

@@ -6,7 +6,8 @@ const sourceLink = (source,label) => evidenceUrl(source?.url) ?
   `<a href="${esc(evidenceUrl(source.url))}" target="_blank" rel="noopener noreferrer" title="${esc(source.label)} · ${esc(source.locator)}">${esc(label)}</a>` : '';
 
 export function riskBadge(assessment) {
-  return hasRiskScore(assessment) ? `<span class="aso-badge" title="ASO 自定义指标；${assessment.reviewed ? '已人工复核' : '未人工复核'}" aria-label="ASO 风险评分 ${assessment.score}，满分 ${MAX_RISK_SCORE}">ASO ${assessment.score}/${MAX_RISK_SCORE}</span>` : '';
+  const level = hasRiskScore(assessment) ? (assessment.score >= 70 ? 'high' : assessment.score >= 55 ? 'mid' : 'low') : '';
+  return hasRiskScore(assessment) ? `<span class="aso-badge aso-${level}" title="ASO 自定义指标；${assessment.reviewed ? '已人工复核' : '未人工复核'}" aria-label="ASO 风险评分 ${assessment.score}，满分 ${MAX_RISK_SCORE}">ASO ${assessment.score}/${MAX_RISK_SCORE}</span>` : '';
 }
 
 export function riskAssessmentMarkup(item) {

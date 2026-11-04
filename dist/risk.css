@@ -8,7 +8,39 @@
 .risk-dimension>p{font-size:14px;line-height:1.85;color:var(--muted)}.risk-citations{white-space:nowrap}.risk-citations a{color:var(--red);display:inline-block;min-width:24px;text-align:center;text-decoration:underline;text-underline-offset:3px}.risk-formula{font:13px/1.9 var(--mono);color:var(--muted);margin:20px 0}
 .risk-consequences{font-size:14px;margin:22px 0}.risk-consequences>div{display:grid;grid-template-columns:65px minmax(0,1fr);gap:12px;margin-top:10px}.risk-consequences dt{color:var(--muted)}.risk-consequences dd{margin:0}.risk-assessment-meta{display:flex;flex-wrap:wrap;gap:4px 18px;font-size:12px;color:var(--muted);padding-top:10px}.risk-assessment-meta code{font:12px/1.85 var(--mono)}
 .risk-evidence{font-size:13px;margin-top:12px}.risk-evidence summary{cursor:pointer;min-height:40px;display:list-item;padding:6px 0;list-style-position:inside;color:var(--muted)}.risk-evidence ol{margin:6px 0;padding-left:24px}.risk-evidence li{padding:4px 0 10px}.risk-evidence a{color:var(--red);text-decoration:underline;text-underline-offset:3px}.risk-evidence li p{font-size:12px;color:var(--muted);margin-top:3px}.risk-disclaimer{font-size:12px;color:var(--muted);margin-top:16px}.risk-order-note{font-size:12px;color:var(--muted);padding-top:18px}
-.risk-rules-page{max-width:850px;margin:32px auto;overflow-wrap:anywhere}.risk-rules-page h1{font-size:30px;margin-bottom:12px}.risk-rules-page h2{font-size:22px;margin:30px 0 14px}.risk-rules-page h3{font-size:17px;margin:24px 0 10px}.risk-rules-page p{margin:12px 0}.risk-rules-page table{border-collapse:collapse;width:100%;font-size:15px}.risk-rules-page th,.risk-rules-page td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left}.risk-rules-page th:first-child,.risk-rules-page td:first-child{width:68px}.risk-rules-page a{color:var(--red);text-decoration:underline;text-underline-offset:4px}.risk-rules-page code{font-family:var(--mono)}
-@media(max-width:400px){.risk-heading h2{font-size:19px}.risk-total strong{font-size:28px}.risk-dimension-heading small{margin-left:6px}.risk-consequences>div{grid-template-columns:1fr;gap:2px}.risk-rules-page h1{font-size:25px}.risk-rules-page td,.risk-rules-page th{padding:8px}.filter-controls{max-width:calc(100vw - 32px)}}
+@media(max-width:400px){.risk-heading h2{font-size:19px}.risk-total strong{font-size:28px}.risk-dimension-heading small{margin-left:6px}.risk-consequences>div{grid-template-columns:1fr;gap:2px}.filter-controls{max-width:calc(100vw - 32px)}}
 
-.risk-coverage{border-block:1px solid var(--line);padding:18px 0;margin:24px 0}.risk-coverage h2{margin:0 0 12px;font-size:18px}.risk-coverage>div{display:flex;flex-wrap:wrap;gap:12px 28px}.risk-coverage a{font-size:15px}.risk-coverage strong{font:600 19px var(--mono);margin-left:6px}.risk-coverage p{font-size:13px;color:var(--muted)}.risk-static-return{display:inline-block;margin-top:24px}
+.risk-static-return{display:inline-block;margin-top:24px}
+
+/* List rows: colour carries kind and score, so separators and spare labels are gone. */
+.item-meta{gap:6px 12px}.item-meta .kind{padding:0 10px;border-radius:999px;font-size:12px;font-weight:650;line-height:1.8;background:var(--kind-bg);color:var(--kind-ink)}
+.kind.incident{--kind-ink:#b4472f;--kind-bg:#f8e9e5}.kind.advisory{--kind-ink:#8a5a0b;--kind-bg:#f7eedb}.kind.research{--kind-ink:#2f6b5a;--kind-bg:#e2f1ed}
+.meta-source{color:#3d4a5c;font-weight:550}.item-meta time{font-variant-numeric:tabular-nums}
+.aso-badge{border:0;border-radius:999px;padding:0 10px;font-size:12px}.aso-high{background:#b4472f;color:#fff}.aso-mid{background:#f7eedb;color:#8a5a0b}.aso-low{background:#e7eef8;color:#244e86}
+.item-tags{gap:6px}.tag{padding:0 10px;border-radius:999px;background:var(--soft);color:#526985;font-size:12px;line-height:1.9}.tag+.tag:before{content:none;padding:0}
+.export-bar button{display:inline-flex;align-items:center;gap:5px;min-height:36px}.export-bar button svg{width:13px;height:13px}
+
+/* Rules page: one colour per dimension, shared by the weight bar and its card. */
+.dim-I{--dim:#b4472f;--dim-soft:#f8e9e5}.dim-F{--dim:#a86f0e;--dim-soft:#f7eedb}.dim-S{--dim:#2f7d6d;--dim-soft:#e2f1ed}.dim-A{--dim:#4f5bb5;--dim-soft:#e8eaf8}
+.risk-rules-page{max-width:1040px;margin:32px auto 8px;overflow-wrap:anywhere}
+.rules-title{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 14px}.rules-title h1{font-size:30px;line-height:1.5}.rules-title code{font:12px/1.8 var(--mono);color:var(--muted);background:var(--soft);padding:0 10px;border-radius:999px}
+.rules-formula{font:600 17px/1.7 var(--mono);margin:6px 0 14px}.rules-formula span{margin-left:12px;color:var(--muted);font-weight:400}
+.rules-weights{display:flex;gap:4px;height:40px}.rules-weights span{display:flex;align-items:center;gap:8px;min-width:0;padding:0 14px;border-radius:10px;background:var(--dim);color:#fff;font:600 14px var(--mono);white-space:nowrap;overflow:hidden}.rules-weights b{opacity:.8}
+.rules-panel{margin-top:20px;padding:18px 20px;background:var(--surface);border:1px solid var(--line);border-radius:18px}
+.cov-scored{--cov:#244e86}.cov-pending{--cov:#a86f0e}.cov-not_applicable{--cov:#7b8696}
+.coverage-bar{display:flex;gap:3px;height:8px;margin-bottom:14px}.coverage-bar i{min-width:6px;border-radius:4px;background:var(--cov)}
+.coverage-items{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.coverage-items a{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 8px;min-height:44px;padding:9px 14px;border:1px solid var(--line);border-left:4px solid var(--cov);border-radius:10px;background:var(--paper);font-size:16px;line-height:1.6}.coverage-items strong{font:650 22px var(--mono);color:var(--cov)}.coverage-items small{flex-basis:100%;font-size:12px;color:var(--muted)}
+.dim-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:16px 0}
+.dim-card{overflow:hidden;background:var(--surface);border:1px solid var(--line);border-radius:18px}
+.dim-card header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--dim-soft)}
+.dim-letter{display:grid;place-items:center;flex-shrink:0;width:40px;height:40px;border-radius:50%;background:var(--dim);color:#fff;font:600 20px var(--mono)}
+.dim-card h2{flex:1;min-width:0;font-size:20px;line-height:1.5}.dim-card h2 small{margin-left:8px;font-size:13px;font-weight:400;color:var(--muted)}.dim-weight{font:600 20px var(--mono);color:var(--dim)}
+.dim-ladder{list-style:none;margin:0;padding:4px 20px 8px}.dim-ladder li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;align-items:start;padding:9px 0;border-bottom:1px dashed var(--line);font-size:15px;line-height:1.65;color:#3d4a5c}.dim-ladder li:last-child{border-bottom:0}
+.dim-ladder b{position:relative;display:grid;place-items:center;width:28px;height:28px;font:600 13px var(--mono);color:var(--dim)}.dim-ladder b:before{content:"";position:absolute;inset:0;border-radius:50%;background:var(--dim);opacity:var(--fill)}
+.dim-ladder b{isolation:isolate}
+.lv-0{--fill:.1}.lv-1{--fill:.22}.lv-2{--fill:.38}.lv-3{--fill:.58}.lv-4{--fill:.8}.lv-5{--fill:1}.dim-ladder .lv-3 b,.dim-ladder .lv-4 b,.dim-ladder .lv-5 b{color:#fff}
+.rules-boundaries{display:flex;flex-wrap:wrap;gap:10px;list-style:none;margin:0 0 4px;padding:0}.rules-boundaries li{display:flex;align-items:center;gap:9px;min-height:40px;padding:6px 14px;background:var(--surface);border:1px solid var(--line);border-radius:999px;font-size:14px;line-height:1.5}.rules-boundaries li:before{content:"";width:8px;height:8px;flex-shrink:0;border-radius:50%;background:var(--tone)}
+.tone-neutral{--tone:#7b8696}.tone-blue{--tone:#244e86}.tone-amber{--tone:#a86f0e}.tone-red{--tone:#b4472f}.tone-green{--tone:#2f7d6d}
+.rules-footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 20px;margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}.rules-footer a{color:var(--red);display:inline-flex;align-items:center;min-height:40px}
+@media(max-width:760px){.risk-rules-page{margin-top:22px}.rules-title h1{font-size:26px}.rules-formula{font-size:14px}.dim-grid{grid-template-columns:1fr}.dim-card header{padding:12px 16px}.dim-ladder{padding:2px 16px 6px}.rules-panel{padding:16px}.rules-weights{height:36px}.rules-weights span{padding:0 7px;font-size:12px;gap:4px}}
+@media(max-width:560px){.coverage-items{grid-template-columns:1fr}}
