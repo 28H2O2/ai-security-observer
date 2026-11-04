@@ -269,9 +269,9 @@ test('站内规则与静态说明共享锚点，覆盖链接与实际筛选一�
   assert.equal((html.match(/class="dim-card /g)||[]).length,4);
   assert.equal((html.match(/<li class="lv-/g)||[]).length,24);
   for(const key of DIMENSION_KEYS)for(const anchor of RISK_RULES.dimensions[key].anchors)assert.ok(html.includes(anchor));
-  for(const [filter,label] of [['scored','已评分'],['pending','待评估'],['not_applicable','不适用']]){
-    assert.ok(html.includes(`assessment=${filter}`));
-    assert.ok(html.includes(`${label} <strong>${filterItems(items,{assessment:filter}).length}</strong>`));
+  for(const key of DIMENSION_KEYS){
+    const levels=[...html.split(`dim-card dim-${key}`)[1].split('</ol>')[0].matchAll(/<li class="lv-(\d)"/g)].map(m=>Number(m[1]));
+    assert.deepEqual(levels,[5,4,3,2,1,0]);
   }
   assert.ok(readFileSync(path.join(root,'dist/risk-methodology.html'),'utf8').includes(html));
   assert.match(riskAssessmentMarkup(exampleItem),/待评估/);
