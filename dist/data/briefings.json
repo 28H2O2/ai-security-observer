@@ -1,6 +1,6 @@
 {
   "meta": {
-    "updatedAt": "2026-11-03",
+    "updatedAt": "2026-11-04",
     "mode": "curated-snapshot",
     "timeZone": "Asia/Shanghai"
   },
@@ -9,23 +9,60 @@
       "mode": "daily",
       "start": "2026-11-03",
       "end": "2026-11-03",
-      "total": 1,
+      "total": 6,
       "sections": [
         {
           "kind": "incident",
           "label": "真实事件",
-          "itemIds": []
+          "itemIds": [
+            "primary-gitbook-infrastructure-credentials"
+          ]
         },
         {
           "kind": "advisory",
           "label": "漏洞公告",
-          "itemIds": []
+          "itemIds": [
+            "advisory-surrealdb-mcp-statement-injection",
+            "cve-2026-121458"
+          ]
         },
         {
           "kind": "research",
           "label": "研究披露",
           "itemIds": [
-            "primary-ncsc-ai-cni-outlook"
+            "primary-ncsc-ai-cni-outlook",
+            "research-checkpoint-haiou-prompt-adware",
+            "research-voluntary-servitude"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-11-02",
+      "end": "2026-11-02",
+      "total": 4,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-gtig-llmjacking-mixers"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-116635",
+            "cve-2026-120497"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "research-glow-mcphantom"
           ]
         }
       ]
@@ -1502,23 +1539,34 @@
       "mode": "weekly",
       "start": "2026-11-02",
       "end": "2026-11-08",
-      "total": 1,
+      "total": 10,
       "sections": [
         {
           "kind": "incident",
           "label": "真实事件",
-          "itemIds": []
+          "itemIds": [
+            "primary-gitbook-infrastructure-credentials",
+            "primary-gtig-llmjacking-mixers"
+          ]
         },
         {
           "kind": "advisory",
           "label": "漏洞公告",
-          "itemIds": []
+          "itemIds": [
+            "advisory-surrealdb-mcp-statement-injection",
+            "cve-2026-121458",
+            "cve-2026-116635",
+            "cve-2026-120497"
+          ]
         },
         {
           "kind": "research",
           "label": "研究披露",
           "itemIds": [
-            "primary-ncsc-ai-cni-outlook"
+            "primary-ncsc-ai-cni-outlook",
+            "research-checkpoint-haiou-prompt-adware",
+            "research-voluntary-servitude",
+            "research-glow-mcphantom"
           ]
         }
       ]

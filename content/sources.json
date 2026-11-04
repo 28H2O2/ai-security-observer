@@ -297,5 +297,57 @@
     "status": "reference",
     "checkedAt": "2026-11-03",
     "notes": "本次人工核对相关原始页面；未接入自动采集，不代表已审阅该机构全部发布。"
+  },
+  {
+    "id": "gitbook",
+    "name": "GitBook",
+    "shortName": "GitBook",
+    "url": "https://www.gitbook.com/status/security-incident-2026-11-03",
+    "endpoint": "https://www.gitbook.com/status/security-incident-2026-11-03",
+    "method": "manual",
+    "category": "vendor",
+    "description": "文档平台与 Assistant 的官方事故披露。",
+    "status": "reference",
+    "checkedAt": "2026-11-04",
+    "notes": "本轮读取所列原始材料，未接入自动采集，不表示已复核该机构全部发布。"
+  },
+  {
+    "id": "technion",
+    "name": "Technion / Zenity",
+    "shortName": "Technion / Zenity",
+    "url": "https://arxiv.org/html/2611.04393v1",
+    "endpoint": "https://arxiv.org/html/2611.04393v1",
+    "method": "manual",
+    "category": "research",
+    "description": "研究者署名论文，区分实验结果与真实攻击。",
+    "status": "reference",
+    "checkedAt": "2026-11-04",
+    "notes": "本轮读取所列原始材料，未接入自动采集，不表示已复核该机构全部发布。"
+  },
+  {
+    "id": "glow",
+    "name": "Glow Labs",
+    "shortName": "Glow Labs",
+    "url": "https://www.glow.io/blogs/mcphantom-ai-coding-agents-are-installing-vulnerable-deprecated-mcp-servers-from-training-data",
+    "endpoint": "https://www.glow.io/blogs/mcphantom-ai-coding-agents-are-installing-vulnerable-deprecated-mcp-servers-from-training-data",
+    "method": "manual",
+    "category": "research",
+    "description": "AI 编程工具、MCP 与开发者端点安全原始研究。",
+    "status": "reference",
+    "checkedAt": "2026-11-04",
+    "notes": "本轮读取所列原始材料，未接入自动采集，不表示已复核该机构全部发布。"
+  },
+  {
+    "id": "gtig",
+    "name": "Google Threat Intelligence Group",
+    "shortName": "Google Threat Intelligence Group",
+    "url": "https://cloud.google.com/blog/topics/threat-intelligence/llmjacking-monetizing-compromised-cloud-models/",
+    "endpoint": "https://cloud.google.com/blog/topics/threat-intelligence/llmjacking-monetizing-compromised-cloud-models/",
+    "method": "manual",
+    "category": "research",
+    "description": "Google / Mandiant 的原始威胁调查与事件响应报告。",
+    "status": "reference",
+    "checkedAt": "2026-11-04",
+    "notes": "本轮读取所列原始材料，未接入自动采集，不表示已复核该机构全部发布。"
   }
 ]

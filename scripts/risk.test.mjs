@@ -136,12 +136,12 @@ test('条目材料变化使旧分数失效，键顺序变化不影响指纹',()=
 test('覆盖清单区分已评分、证据不足、不适用和尚未逐项评估',()=>{
   const coverage=riskCoverage(items);
   assert.deepEqual(coverage,read('dist/data/risk-coverage.json'));
-  assert.equal(coverage.total,88);assert.equal(coverage.withCve,31);
-  assert.equal(coverage.assessed,88);
-  assert.deepEqual(coverage.statuses,{scored:70,insufficient_evidence:8,not_applicable:10,needs_review:0});
-  assert.deepEqual(coverage.applicability,{applicable:78,notApplicable:10,undetermined:0});
-  assert.equal(coverage.pending.length,8);
-  assert.equal(new Set(coverage.pending.map(item=>item.itemId)).size,8);
+  assert.equal(coverage.total,97);assert.equal(coverage.withCve,34);
+  assert.equal(coverage.assessed,97);
+  assert.deepEqual(coverage.statuses,{scored:77,insufficient_evidence:10,not_applicable:10,needs_review:0});
+  assert.deepEqual(coverage.applicability,{applicable:87,notApplicable:10,undetermined:0});
+  assert.equal(coverage.pending.length,10);
+  assert.equal(new Set(coverage.pending.map(item=>item.itemId)).size,10);
   assert.ok(dataset.assessments.every(a=>a.reviewed===false));
 });
 
@@ -149,8 +149,8 @@ test('风险排序降序，同分按日期再按 ID，未评分放最后',()=>{
   const result=filterItems(items,{sort:'risk'});
   assert.equal(result[0].id,'pdf-2026-0004');
   assert.equal(result[0].riskAssessment.score,84);
-  for(let index=1;index<70;index++)assert.ok(result[index-1].riskAssessment.score>=result[index].riskAssessment.score);
-  assert.ok(result.slice(70).every(item=>!hasRiskScore(item.riskAssessment)));
+  for(let index=1;index<77;index++)assert.ok(result[index-1].riskAssessment.score>=result[index].riskAssessment.score);
+  assert.ok(result.slice(77).every(item=>!hasRiskScore(item.riskAssessment)));
   const base=items[0];
   const scored=validateAssessment(example,exampleItem);
   const fixtures=[
@@ -204,11 +204,11 @@ test('0 分仍是有效评分，不与 null 混排',()=>{
 });
 
 test('评估筛选保留未评估条目，旧数据没有新字段也能浏览',()=>{
-  assert.equal(filterItems(items,{assessment:'scored'}).length,70);
-  assert.equal(filterItems(items,{assessment:'pending'}).length,8);
+  assert.equal(filterItems(items,{assessment:'scored'}).length,77);
+  assert.equal(filterItems(items,{assessment:'pending'}).length,10);
   assert.equal(filterItems(items,{assessment:'not_applicable'}).length,10);
-  assert.equal(filterItems(items).length,88);
-  assert.equal(filterItems(facts,{assessment:'pending'}).length,88);
+  assert.equal(filterItems(items).length,97);
+  assert.equal(filterItems(facts,{assessment:'pending'}).length,97);
   assert.equal(filterItems(facts,{assessment:'scored'}).length,0);
   assert.match(riskAssessmentMarkup(facts[0]),/待评估/);
   assert.equal(riskBadge(undefined),'');

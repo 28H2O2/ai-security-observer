@@ -5,24 +5,24 @@ import {sourceCatalogView} from '../dist/source-model.js';
 const sources=JSON.parse(readFileSync(new URL('../content/sources.json',import.meta.url),'utf8'));
 const {items}=JSON.parse(readFileSync(new URL('../dist/data/items.json',import.meta.url),'utf8'));
 
-test('来源图保留21个唯一来源，按8/8/4/1分类，排除PDF和工程参考',()=>{
+test('来源图保留25个唯一来源，按9/11/4/1分类，排除PDF和工程参考',()=>{
  const view=sourceCatalogView(sources);
  const visible=view.groups.flatMap(group=>group.sources);
- assert.equal(view.total,21);assert.equal(view.count,21);
- assert.deepEqual(view.groups.map(group=>[group.id,group.sources.length]),[['vendor',8],['research',8],['database',4],['chinese',1]]);
- assert.equal(new Set(visible.map(source=>source.id)).size,21);
+ assert.equal(view.total,25);assert.equal(view.count,25);
+ assert.deepEqual(view.groups.map(group=>[group.id,group.sources.length]),[['vendor',9],['research',11],['database',4],['chinese',1]]);
+ assert.equal(new Set(visible.map(source=>source.id)).size,25);
  assert.ok(!visible.some(source=>['pdf','aihot'].includes(source.id)));
  assert.equal(view.selected,null);
 });
 test('未收录的结构化资料仍可选中，不依赖情报数量',()=>{
- const view=sourceCatalogView(sources,{source:'github'});
- assert.equal(view.selected.id,'github');
+ const view=sourceCatalogView(sources,{source:'atlas'});
+ assert.equal(view.selected.id,'atlas');
  assert.equal(items.filter(item=>item.sourceId===view.selected.id).length,0);
  assert.deepEqual(view.groups.find(group=>group.id==='database').sources.map(source=>source.id),['cve','github','atlas','aiid']);
 });
 test('关键词和分类搜索同步计数，过滤掉选中来源时关闭详情',()=>{
  const vendor=sourceCatalogView(sources,{q:'厂商官方'});
- assert.equal(vendor.count,8);assert.equal(vendor.groups.length,1);
+ assert.equal(vendor.count,9);assert.equal(vendor.groups.length,1);
  const pillar=sourceCatalogView(sources,{q:'PILLAR MCP',source:'pillar'});
  assert.equal(pillar.count,1);assert.equal(pillar.selected.id,'pillar');
  assert.equal(sourceCatalogView(sources,{q:'OpenAI',source:'pillar'}).selected,null);

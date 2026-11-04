@@ -539,5 +539,435 @@
     "limitations": "正文明确要求认证；不能因公告摘要中的措辞而将此条标成无需认证，也不能把信息暴露等同于代码执行。 IBM CVSS 3.1 为 6.5；该指标与 ASO 分开。公告未确认这条漏洞的在野利用。",
     "impact": "受影响凭据或敏感信息可能被已认证用户访问，具体字段和后续权限未在记录中明确。",
     "recommendation": "按 IBM 公告升级至 1.13.0，并核对实际运行制品。升级前限制网络暴露和访问权限；这些措施不等于修复。"
+  },
+  {
+    "id": "primary-gitbook-infrastructure-credentials",
+    "title": "GitBook 确认基础设施凭据遭未授权访问，要求客户轮换集成密钥",
+    "summary": "GitBook 披露一次使用 AI 智能体的定向攻击，攻击者取得部分基础设施凭据。集成令牌、Git Sync 密钥、API 令牌及访客向 Assistant 提交的问题可能被访问；具体攻击入口尚未公开。",
+    "kind": "incident",
+    "risk": "abuse",
+    "tags": [
+      "AI 辅助攻击",
+      "凭证泄露",
+      "GitBook Assistant"
+    ],
+    "entities": [
+      "GitBook",
+      "GitBook MCP"
+    ],
+    "publishedAt": "2026-11-03",
+    "occurredAt": "2026-11-02",
+    "sourceId": "gitbook",
+    "sourceName": "GitBook",
+    "references": [
+      {
+        "label": "GitBook：11 月安全事件通知",
+        "url": "https://www.gitbook.com/status/security-incident-2026-11-03",
+        "role": "primary"
+      }
+    ],
+    "limitations": "原文记录攻击发生于 11 月 2 日 19:00 CET（上海 11 月 3 日 02:00），11 月 3 日发布通知；保留来源日历日期。AI 参与是厂商的描述，所用模型、入口、实际外传范围和客户数量尚未披露；未发现内容被修改不等于已排除数据读取。",
+    "impact": "已确认部分基础设施凭据被访问；客户侧令牌及 Assistant 问题属于可能暴露范围，不能写成全部客户数据已泄露。",
+    "recommendation": "按官方要求轮换 GitBook API 令牌、连接第三方工具的密钥及公开集成的秘密；重新认证 GitBook MCP，检查关联服务访问日志。",
+    "originalPublishedAt": "2026-11-03",
+    "reviewedAt": "2026-11-04",
+    "evidence": "primary",
+    "evidenceLabel": "原始披露 · AI 辅助整理，未人工复核"
+  },
+  {
+    "id": "cve-2026-121458",
+    "externalId": "CVE-2026-121458",
+    "cveIds": [
+      "CVE-2026-121458"
+    ],
+    "cvePublishedAt": "2026-11-03",
+    "title": "Instatic 的 AI/MCP 读取工具缺少对象授权，可读取其他用户草稿",
+    "summary": "维护者确认，具有 ai.chat 和 content.edit.own 权限的已认证用户可通过 MCP 读取或枚举其他用户的私有草稿。普通 HTTP 接口会拒绝相同访问；0.0.21 已修复。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "CVE-2026-121458",
+      "MCP",
+      "对象授权"
+    ],
+    "entities": [
+      "Instatic",
+      "CoreBunch"
+    ],
+    "publishedAt": "2026-11-03",
+    "sourceId": "github",
+    "sourceName": "GitHub Advisories",
+    "references": [
+      {
+        "label": "Instatic 维护者公告与本地 PoC",
+        "url": "https://github.com/CoreBunch/Instatic/security/advisories/GHSA-x5cc-8486-8qqx",
+        "role": "primary"
+      },
+      {
+        "label": "VulnCheck 提交的 CVE 官方记录",
+        "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/121xxx/CVE-2026-121458.json",
+        "role": "primary"
+      }
+    ],
+    "preconditions": [
+      "已认证用户持有 ai.chat 和 content.edit.own 能力，并能访问 AI/MCP 接口。",
+      "直接调用 MCP 无需配置 LLM 提供商。"
+    ],
+    "affectedPackages": [
+      {
+        "name": "ghcr.io/corebunch/instatic",
+        "ecosystem": "container",
+        "affectedRange": "< 0.0.21（维护者）；CVE 枚举 >= 0.0.12, < 0.0.21",
+        "fixedVersion": "0.0.21",
+        "source": "https://github.com/CoreBunch/Instatic/security/advisories/GHSA-x5cc-8486-8qqx"
+      }
+    ],
+    "limitations": "维护者测试 0.0.20，称行为可追溯到 0.0.5；CVE 结构化版本从 0.0.12 起，两者差异未归一化。维护者 CVSS 3.1 为 6.5，CNA CVSS 4.0 为 7.1，分开保留。PoC 使用研究者本地账户和测试数据，未确认在野受害。",
+    "impact": "绕过草稿和数据行的用户所有权边界；公告未证明代码执行或任意写入。",
+    "recommendation": "升级至 0.0.21，核查 AI/MCP 与 HTTP 接口是否执行相同对象授权，并审计低权限账户的数据读取。",
+    "originalPublishedAt": "2026-11-03",
+    "reviewedAt": "2026-11-04",
+    "occurredAt": null,
+    "evidence": "primary",
+    "evidenceLabel": "原始披露 · AI 辅助整理，未人工复核"
+  },
+  {
+    "id": "advisory-surrealdb-mcp-statement-injection",
+    "title": "SurrealDB MCP 标识符解析不一致，可越过工具限制执行查询",
+    "summary": "SurrealDB 公告指出，MCP 对转义反引号的检查与 SurrealQL 词法规则不一致，特制工具参数可进入原始查询执行。公告列出 4.0.0 以前版本受影响，4.0.0 修复。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "MCP",
+      "查询注入",
+      "GHSA-cr79-9p8r-p5wx"
+    ],
+    "entities": [
+      "SurrealDB",
+      "SurrealQL"
+    ],
+    "publishedAt": "2026-11-03",
+    "sourceId": "github",
+    "sourceName": "GitHub Advisories",
+    "references": [
+      {
+        "label": "SurrealDB：MCP 工具标识符语句注入公告",
+        "url": "https://github.com/surrealdb/surrealdb/security/advisories/GHSA-cr79-9p8r-p5wx",
+        "role": "primary"
+      }
+    ],
+    "preconditions": [
+      "部署并使用受影响的 MCP 集成，攻击者能够向工具调用提供特制标识符。",
+      "认证、数据库授权和实际可达接口需结合部署核查。"
+    ],
+    "affectedPackages": [
+      {
+        "name": "surrealdb",
+        "ecosystem": "Cargo",
+        "affectedRange": "< 4.0.0",
+        "fixedVersion": "4.0.0",
+        "source": "https://github.com/surrealdb/surrealdb/security/advisories/GHSA-cr79-9p8r-p5wx"
+      }
+    ],
+    "limitations": "公告未列 CVE 编号，也未交代所有部署的认证要求。任意查询在 MCP 连接所持权限内执行，不能推断为操作系统命令执行或整个数据库服务未认证失陷；未确认在野利用。",
+    "impact": "绕过 MCP 参数限制，可能执行调用者原本不应通过该工具表达的数据库查询；后果取决于连接权限。",
+    "recommendation": "升级到 4.0.0 或后续版本，限制 MCP 可达范围与连接权限；自建查询层应采用一致的词法处理或参数化 AST。",
+    "originalPublishedAt": "2026-11-03",
+    "reviewedAt": "2026-11-04",
+    "occurredAt": null,
+    "evidence": "primary",
+    "evidenceLabel": "原始披露 · AI 辅助整理，未人工复核"
+  },
+  {
+    "id": "research-voluntary-servitude",
+    "title": "Voluntary Servitude 实验：伪造安全警告可诱导智能体改变推荐",
+    "summary": "Technion 与 Zenity 研究者将虚构风险写成普通评论，使智能体排除合法选项并推荐攻击者目标。论文在六个模型、十类消费服务及四个浏览器智能体上测试，载荷不含直接命令。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "提示注入",
+      "推荐操纵",
+      "浏览器智能体"
+    ],
+    "entities": [
+      "Technion",
+      "Zenity",
+      "Perplexity Comet",
+      "Microsoft Edge",
+      "Brave",
+      "OpenAI Codex"
+    ],
+    "publishedAt": "2026-11-03",
+    "sourceId": "technion",
+    "sourceName": "Technion / Zenity",
+    "references": [
+      {
+        "label": "作者论文 v1：Voluntary Servitude",
+        "url": "https://arxiv.org/html/2611.04393v1",
+        "role": "primary"
+      },
+      {
+        "label": "arXiv 提交日期与摘要",
+        "url": "https://arxiv.org/abs/2611.04393",
+        "role": "primary"
+      }
+    ],
+    "limitations": "测量的是选择和推荐，不是实际付款、软件安装或身体伤害。浏览器实验每个智能体每种攻击仅 20 次；防护实验只针对非自适应攻击者，不能据此宣称普遍修复或真实用户受害率。",
+    "impact": "单一伪造安全主张可改变受测智能体的服务选择，提示注入检测器可能将这类内容视为普通信息。",
+    "recommendation": "将安全关键主张视为待核实信息，在排除选项或执行操作前寻找独立支持；同时评估伪造多源佐证及误拒真实警告的风险。",
+    "originalPublishedAt": "2026-11-03",
+    "reviewedAt": "2026-11-04",
+    "occurredAt": null,
+    "evidence": "primary",
+    "evidenceLabel": "原始披露 · AI 辅助整理，未人工复核"
+  },
+  {
+    "id": "research-glow-mcphantom",
+    "title": "MCPhantom 研究：智能体仍会安装已归档且缺少补丁的 MCP 服务",
+    "summary": "Glow Labs 从实际编程会话发现智能体选用已弃用的 MCP 参考服务，并披露其中四项缺陷。Puppeteer 服务存在经提示注入启动任意进程的路径；维护者表示该归档项目不再发布修复。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "MCP",
+      "供应链",
+      "弃用依赖",
+      "提示注入"
+    ],
+    "entities": [
+      "Glow Labs",
+      "Puppeteer MCP",
+      "Claude Code",
+      "Cursor",
+      "Codex CLI"
+    ],
+    "publishedAt": "2026-11-02",
+    "sourceUpdatedAt": "2026-11-03",
+    "sourceId": "glow",
+    "sourceName": "Glow Labs",
+    "references": [
+      {
+        "label": "Glow Labs：MCPhantom 原始研究",
+        "url": "https://www.glow.io/blogs/mcphantom-ai-coding-agents-are-installing-vulnerable-deprecated-mcp-servers-from-training-data",
+        "role": "primary"
+      },
+      {
+        "label": "MCP 归档服务仓库与维护说明",
+        "url": "https://github.com/modelcontextprotocol/servers-archived",
+        "role": "primary"
+      }
+    ],
+    "preconditions": [
+      "开发者安装受影响的旧 Puppeteer MCP，并授予浏览器调用能力；智能体还需读取攻击者可控制的内容。"
+    ],
+    "limitations": "页面顶部为 11 月 2 日，作者区为 11 月 3 日，保留较早日期并记录差异。98% 是研究者所审查的弃用安装会话内比例，未披露样本总数；下载量不等于受害机器数。真实会话中的弃用安装没有恶意参与者；原文称未观察到漏洞利用，本站未核实公开 PoC。",
+    "impact": "选定的 Puppeteer 路径可能将浏览权限扩展为开发者主机上的进程执行；不把所有归档服务等同于同一 RCE。",
+    "recommendation": "盘点 MCP 配置与 npx 启动的包，核对维护和弃用状态，优先替换为服务方维护的实现；使用经过审查的版本与最小工具权限。",
+    "originalPublishedAt": "2026-11-02",
+    "reviewedAt": "2026-11-04",
+    "occurredAt": null,
+    "evidence": "primary",
+    "evidenceLabel": "原始披露 · AI 辅助整理，未人工复核"
+  },
+  {
+    "id": "primary-gtig-llmjacking-mixers",
+    "title": "GTIG 调查：失窃模型密钥经转售网关消耗企业付费额度",
+    "summary": "GTIG 与 Mandiant 报告多起 2026 年 LLMjacking 事件。一个使用失窃第三方密钥的转售服务在不足八小时内发起逾 50 万次模型调用，将接近 100 万美元的 token 费用转给受害组织。",
+    "kind": "incident",
+    "risk": "abuse",
+    "tags": [
+      "LLMjacking",
+      "凭证滥用",
+      "模型网关",
+      "资源盗用"
+    ],
+    "entities": [
+      "Google Threat Intelligence Group",
+      "Mandiant",
+      "LLM Mixers"
+    ],
+    "publishedAt": "2026-11-02",
+    "sourceId": "gtig",
+    "sourceName": "Google Threat Intelligence Group",
+    "references": [
+      {
+        "label": "GTIG / Mandiant：LLMjacking 原始调查",
+        "url": "https://cloud.google.com/blog/topics/threat-intelligence/llmjacking-monetizing-compromised-cloud-models/",
+        "role": "primary"
+      }
+    ],
+    "preconditions": [
+      "攻击者获得仍有效且有付费模型调用权限的第三方 API 密钥；本文评分仅针对这条资源滥用路径。"
+    ],
+    "limitations": "费用和调用量是调查方的观测，非本站审计；具体受害组织和该案例发生日期未公开。报告汇总多个入口与行动，不能将每个攻击者的持久化、提权或云服务权限拼成同一事件；关于未来超过挖矿盗用的判断属于预测。",
+    "impact": "有效模型凭证可被用于未授权调用和额度转售，费用由凭证所属组织承担。",
+    "recommendation": "撤销暴露密钥并核查关联身份；按模型、环境和调用量收紧权限，设置配额与预算告警，监控异常低量验证请求及未经授权启用模型服务。",
+    "originalPublishedAt": "2026-11-02",
+    "reviewedAt": "2026-11-04",
+    "occurredAt": null,
+    "evidence": "primary",
+    "evidenceLabel": "原始披露 · AI 辅助整理，未人工复核"
+  },
+  {
+    "id": "cve-2026-116635",
+    "externalId": "CVE-2026-116635",
+    "cveIds": [
+      "CVE-2026-116635"
+    ],
+    "cvePublishedAt": "2026-11-03",
+    "title": "AWS Serverless MCP 路径限制不足，可越界读取或覆盖 JSON 文件",
+    "summary": "AWS 确认，攻击者影响 MCP 智能体提交的项目名后，可通过路径穿越读取部署目录之外的 JSON；启用写入时还可覆盖文件。awslabs.aws-serverless-mcp-server 0.2.1 已修复。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "CVE-2026-116635",
+      "MCP",
+      "路径穿越"
+    ],
+    "entities": [
+      "AWS",
+      "AWS Serverless MCP Server"
+    ],
+    "publishedAt": "2026-11-02",
+    "sourceId": "aws",
+    "sourceName": "AWS Security",
+    "references": [
+      {
+        "label": "AWS：2026-164 安全公告",
+        "url": "https://aws.amazon.com/security/security-bulletins/2026-164-aws/",
+        "role": "primary"
+      },
+      {
+        "label": "AWS 维护者公告与写入限制",
+        "url": "https://github.com/awslabs/mcp/security/advisories/GHSA-r6mm-377j-qg8m",
+        "role": "primary"
+      },
+      {
+        "label": "CVE 官方记录",
+        "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/116xxx/CVE-2026-116635.json",
+        "role": "primary"
+      }
+    ],
+    "preconditions": [
+      "运行 0.2.1 以前的服务，智能体受第三方项目名影响且进程有目标文件访问权。",
+      "覆盖行为另外要求 --enable-write；写入内容为部署元数据。"
+    ],
+    "affectedPackages": [
+      {
+        "name": "awslabs.aws-serverless-mcp-server",
+        "ecosystem": "PyPI",
+        "affectedRange": "< 0.2.1",
+        "fixedVersion": "0.2.1",
+        "source": "https://aws.amazon.com/security/security-bulletins/2026-164-aws/"
+      }
+    ],
+    "limitations": "公告时间为 11 月 2 日 13:30 PST（上海 11 月 3 日 05:30）；按来源公告日期归档，CVE 发布日按上海为 11 月 3 日。读取限 JSON；不能将部署元数据覆盖写成任意载荷写入或代码执行。公告未确认在野利用。",
+    "impact": "目标 JSON 内容可进入智能体上下文；开启写入后，目录外文件可能被部署元数据覆盖。",
+    "recommendation": "升级到 0.2.1 或更新版本，同步修复分支和派生版本；官方未提供替代修复方案。",
+    "originalPublishedAt": "2026-11-02",
+    "reviewedAt": "2026-11-04",
+    "occurredAt": null,
+    "evidence": "primary",
+    "evidenceLabel": "原始披露 · AI 辅助整理，未人工复核"
+  },
+  {
+    "id": "cve-2026-120497",
+    "externalId": "CVE-2026-120497",
+    "cveIds": [
+      "CVE-2026-120497"
+    ],
+    "cvePublishedAt": "2026-11-03",
+    "title": "AWS AI-DLC 旧版追溯报告工具可被制品内容注入浏览器脚本",
+    "summary": "AWS 公告指出，旧 aidlc-traceability 将未经安全处理的制品标题或描述嵌入 HTML，用户打开生成的报告时可执行脚本。修复已在 7 月 3 日的提交 96cf0ea 中完成。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "CVE-2026-120497",
+      "AI-DLC",
+      "存储型 XSS"
+    ],
+    "entities": [
+      "AWS",
+      "aidlc-traceability"
+    ],
+    "publishedAt": "2026-11-02",
+    "sourceId": "aws",
+    "sourceName": "AWS Security",
+    "references": [
+      {
+        "label": "AWS：2026-163 安全公告",
+        "url": "https://aws.amazon.com/security/security-bulletins/2026-163-aws/",
+        "role": "primary"
+      },
+      {
+        "label": "AWS 维护者公告与受控 PoC",
+        "url": "https://github.com/awslabs/aidlc-workflows/security/advisories/GHSA-gjmq-52p3-7fh2",
+        "role": "primary"
+      },
+      {
+        "label": "CVE 官方记录",
+        "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/120xxx/CVE-2026-120497.json",
+        "role": "primary"
+      }
+    ],
+    "preconditions": [
+      "攻击者能修改项目制品文件，用户使用未修复 CLI 生成并打开 HTML 报告。",
+      "不要求启用 AI 模式或 AWS 凭据。"
+    ],
+    "affectedPackages": [
+      {
+        "name": "aidlc-traceability",
+        "ecosystem": "git",
+        "affectedRange": ">= 0.1.0 且早于提交 96cf0eaa31a3ad8636e486c7fd2b91c55166393f",
+        "fixedVersion": "96cf0eaa31a3ad8636e486c7fd2b91c55166393f",
+        "source": "https://aws.amazon.com/security/security-bulletins/2026-163-aws/"
+      }
+    ],
+    "limitations": "11 月 2 日 11:00 PST 公告对应上海 11 月 3 日 03:00，保留来源公告日期；不是 11 月新产生的缺陷。CLI 7 月 16 日已从原仓库移除。公告限定脚本可读取或改写报告及所含本地路径，不能访问其他本地文件或凭据；未确认在野利用。",
+    "impact": "报告结果可被篡改，追溯覆盖和差距分析可能被误呈现，报告自身信息可能暴露。",
+    "recommendation": "按官方建议移除旧 CLI 或更新到修复提交及以后；未处理前改用 Markdown 输出，避免打开来自不可信项目的旧版 HTML 报告。",
+    "originalPublishedAt": "2026-11-02",
+    "reviewedAt": "2026-11-04",
+    "occurredAt": null,
+    "evidence": "primary",
+    "evidenceLabel": "原始披露 · AI 辅助整理，未人工复核"
+  },
+  {
+    "id": "research-checkpoint-haiou-prompt-adware",
+    "title": "Check Point 分析海鸥越狱包：全局指令会持续向 Codex 输出插入广告",
+    "summary": "Check Point 在攻击者公开服务器上发现 Haiou 工具包，并分析其 Codex 4.5.0 版本。安装器改写全局提示和 Skill，特定问候词触发第三方模型网关广告，影响后续会话输出。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "提示注入",
+      "Skill",
+      "全局配置",
+      "提示广告软件"
+    ],
+    "entities": [
+      "Check Point Research",
+      "Haiou",
+      "OpenAI Codex"
+    ],
+    "publishedAt": "2026-11-03",
+    "sourceId": "checkpoint",
+    "sourceName": "Check Point Research",
+    "references": [
+      {
+        "label": "Check Point：Haiou jailbreak bundle 原始分析",
+        "url": "https://research.checkpoint.com/2026/free-the-model-sell-the-gateway-prompt-adware-hidden-in-jailbreak-bundles/",
+        "role": "primary"
+      }
+    ],
+    "preconditions": [
+      "用户执行第三方工具包安装器，允许其改写智能体的全局指令与配置。"
+    ],
+    "limitations": "发现工具包被犯罪行为者使用，不证明作者参与犯罪，也不证明该网关窃密。广告触发是研究测试；未披露真实受害总量。Claude Code 版本未含同样广告机制，研究测试中 Sonnet 5 拒绝了载荷，不能扩大为所有工具均受影响。",
+    "impact": "经安装后的全局可信指令可持续改变 Codex 的问候输出；本文只评这条已演示的广告操纵路径。",
+    "recommendation": "安装前检查第三方 Skill、全局指令与配置变更；从可信备份恢复受到修改的文件，重新审查代理网关和账户设置。",
+    "originalPublishedAt": "2026-11-03",
+    "reviewedAt": "2026-11-04",
+    "occurredAt": null,
+    "evidence": "primary",
+    "evidenceLabel": "原始披露 · AI 辅助整理，未人工复核"
   }
 ]

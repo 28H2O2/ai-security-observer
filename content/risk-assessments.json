@@ -4953,6 +4953,552 @@
       "reviewed": false,
       "reviewNotes": "核对模块 1.5.0–1.11.4 与 IBM 1.0.0–1.12.8 的范围差异；测试环境 AUTO_LOGIN=true，不推断其他入口或配置的成功率。",
       "itemFingerprint": "60503a5f0ef8e7cbdadf2858aebd0a0ff28596ebda06a820479aad21ca28902b"
+    },
+    {
+      "itemId": "primary-gitbook-infrastructure-credentials",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "5a3a0d9b7bba145dae4e48facdab5cc7d2da39117e4179350330cfbc616abf84",
+      "status": "insufficient_evidence",
+      "dimensions": {
+        "I": 4,
+        "F": null,
+        "S": 2,
+        "A": 5
+      },
+      "confidence": "high",
+      "activity": "confirmed_exploitation",
+      "evidence": {
+        "I": {
+          "reason": "部分基础设施凭据失陷，客户集成令牌等可能暴露。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "未公开获得基础设施凭据的机制或前置条件，不能确定可利用性。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "仅能确认 GitBook 平台及相应连接，不知道实际受影响客户数量。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "平台方确认攻击者实际取得未授权的基础设施凭据访问。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://www.gitbook.com/status/security-incident-2026-11-03",
+          "label": "GitBook：11 月安全事件通知",
+          "locator": "What happened；Your data；What you need to do now",
+          "accessedAt": "2026-11-04"
+        }
+      ],
+      "reason": "评估 GitBook 基础设施凭据访问；入口未知，暂不生成总分。",
+      "consequences": {
+        "potential": "已确认部分基础设施凭据被访问；客户侧令牌及 Assistant 问题属于可能暴露范围，不能写成全部客户数据已泄露。",
+        "observed": "部分基础设施凭据已被访问；客户数据读取范围仍在调查。"
+      },
+      "assessedAt": "2026-11-04",
+      "reviewed": false,
+      "reviewNotes": "自动评估尚未人工复核。核对评分对象、触发条件与部署范围；保留原文的日期和版本差异，不把研究或可能后果改写为实际受害。"
+    },
+    {
+      "itemId": "cve-2026-121458",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "3dbd3742946ad5b992cd01188af3b340443e6e6f522a2623d088d06763c974d6",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 2
+      },
+      "confidence": "high",
+      "activity": "controlled_poc",
+      "evidence": {
+        "I": {
+          "reason": "可跨用户读取私有草稿及数据行，构成明确的敏感数据暴露。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "需要已认证账户、ai.chat 和 content.edit.own 能力，以及可调用 MCP 的令牌。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "限定于受影响 Instatic 安装及其 AI/MCP 读取接口；版本下界仍有来源差异。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "维护者公告展示研究者本地账户和测试数据的复现步骤与结果。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://github.com/CoreBunch/Instatic/security/advisories/GHSA-x5cc-8486-8qqx",
+          "label": "Instatic 维护者公告与本地 PoC",
+          "locator": "Prerequisites；Steps to Reproduce；Result；PoC",
+          "accessedAt": "2026-11-04"
+        }
+      ],
+      "reason": "评估低权限 MCP 读取绕过，不包括其他写入功能。",
+      "consequences": {
+        "potential": "绕过草稿和数据行的用户所有权边界；公告未证明代码执行或任意写入。",
+        "observed": "本地测试草稿被读取；未确认真实用户受害。"
+      },
+      "assessedAt": "2026-11-04",
+      "reviewed": false,
+      "reviewNotes": "自动评估尚未人工复核。核对评分对象、触发条件与部署范围；保留原文的日期和版本差异，不把研究或可能后果改写为实际受害。"
+    },
+    {
+      "itemId": "advisory-surrealdb-mcp-statement-injection",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "4c270e87310a7b62a0d77b5023cb49acf2fd3313090f31c0c589ba9ae29dec21",
+      "status": "insufficient_evidence",
+      "dimensions": {
+        "I": 3,
+        "F": null,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "activity": "attack_path",
+      "evidence": {
+        "I": {
+          "reason": "可越过工具参数约束执行数据库查询，产生未授权操作风险。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "公告未完整交代认证和部署入口，无法据此确定利用门槛。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "限定为 4.0.0 以前使用 MCP 集成的产品配置，不能扩为全部数据库安装。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "维护者指出转义反引号输入、验证差异和原始查询后果；未核实公开运行 PoC。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://github.com/surrealdb/surrealdb/security/advisories/GHSA-cr79-9p8r-p5wx",
+          "label": "SurrealDB：MCP 工具标识符语句注入公告",
+          "locator": "Summary；Vulnerability Details；Patches",
+          "accessedAt": "2026-11-04"
+        }
+      ],
+      "reason": "评估 MCP 参数语句注入；权限边界未补齐，暂不生成总分。",
+      "consequences": {
+        "potential": "绕过 MCP 参数限制，可能执行调用者原本不应通过该工具表达的数据库查询；后果取决于连接权限。",
+        "observed": "维护者公布技术路径和修复；未确认在野活动。"
+      },
+      "assessedAt": "2026-11-04",
+      "reviewed": false,
+      "reviewNotes": "自动评估尚未人工复核。核对评分对象、触发条件与部署范围；保留原文的日期和版本差异，不把研究或可能后果改写为实际受害。"
+    },
+    {
+      "itemId": "research-voluntary-servitude",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "9ee2e7233193c7927e4e014bd0f551dc85e99f57aaeb0f5ca072205c99af52e3",
+      "status": "scored",
+      "dimensions": {
+        "I": 1,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "confidence": "medium",
+      "activity": "controlled_poc",
+      "evidence": {
+        "I": {
+          "reason": "已测后果是有限的推荐输出偏离，未测付款、安装或身体伤害。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "普通阅读工作流接触攻击者可发布的评论，仍要求污染页面被检索或打开。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "四个具名浏览器智能体均有测试，但各自只有小样本，按特定受测配置评价。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "论文提供受控页面、实验设计和结果；不代表真实受害。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://arxiv.org/html/2611.04393v1",
+          "label": "作者论文 v1：Voluntary Servitude",
+          "locator": "§3 Threat model；§5.3 Browser agents；§6 Defense；§7 Limitations",
+          "accessedAt": "2026-11-04"
+        }
+      ],
+      "reason": "只评伪造安全警告造成单次服务推荐偏转。",
+      "consequences": {
+        "potential": "单一伪造安全主张可改变受测智能体的服务选择，提示注入检测器可能将这类内容视为普通信息。",
+        "observed": "研究页面上的推荐选择发生偏转，未报告真实交易损失。"
+      },
+      "assessedAt": "2026-11-04",
+      "reviewed": false,
+      "reviewNotes": "自动评估尚未人工复核。核对评分对象、触发条件与部署范围；保留原文的日期和版本差异，不把研究或可能后果改写为实际受害。"
+    },
+    {
+      "itemId": "research-glow-mcphantom",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "a0a553251791573198409a4e053623fa790171831180995f6988c3ddfafa4779",
+      "status": "scored",
+      "dimensions": {
+        "I": 5,
+        "F": 3,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "medium",
+      "activity": "attack_path",
+      "evidence": {
+        "I": {
+          "reason": "选定的 Puppeteer 路径可在开发者机器启动任意进程并执行命令。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "要求先安装旧服务并允许浏览，再由智能体在普通阅读中接触提示注入。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "限定于旧 Puppeteer MCP 及对应工具授权；不以总下载量估计易受攻击装机。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "原文给出提示注入到进程启动的路径，但本站未核实可运行公开 PoC；未观察到利用不填 A=0。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://www.glow.io/blogs/mcphantom-ai-coding-agents-are-installing-vulnerable-deprecated-mcp-servers-from-training-data",
+          "label": "Glow Labs：MCPhantom 原始研究",
+          "locator": "What can an attacker do with these servers?；Disclosure timeline",
+          "accessedAt": "2026-11-04"
+        }
+      ],
+      "reason": "只评旧 Puppeteer MCP 的提示注入进程执行，其他三项缺陷不合并。",
+      "consequences": {
+        "potential": "选定的 Puppeteer 路径可能将浏览权限扩展为开发者主机上的进程执行；不把所有归档服务等同于同一 RCE。",
+        "observed": "研究者发现弃用安装并描述攻击路径；所查会话没有恶意行为者。"
+      },
+      "assessedAt": "2026-11-04",
+      "reviewed": false,
+      "reviewNotes": "自动评估尚未人工复核。核对评分对象、触发条件与部署范围；保留原文的日期和版本差异，不把研究或可能后果改写为实际受害。"
+    },
+    {
+      "itemId": "primary-gtig-llmjacking-mixers",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "f6720ecab567269c1ed0a47cc7b191c908985ce9923df446a622683a7beb03e5",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 4
+      },
+      "confidence": "medium",
+      "activity": "in_the_wild",
+      "evidence": {
+        "I": {
+          "reason": "未授权消耗企业付费模型额度，构成明确的资源和权限滥用。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "前提是获得仍有效且有付费调用权限的密钥；不将获取密钥的多种入口合成容易利用。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "评分只针对失窃第三方 API 密钥经网关消耗额度的配置，不量化全部云用户。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "GTIG / Mandiant 记录真实事件响应、逾 50 万次调用和受害组织账单。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://cloud.google.com/blog/topics/threat-intelligence/llmjacking-monetizing-compromised-cloud-models/",
+          "label": "GTIG / Mandiant：LLMjacking 原始调查",
+          "locator": "Introduction；Initial Access；Monetization；Detection and Hunting",
+          "accessedAt": "2026-11-04"
+        }
+      ],
+      "reason": "只评 API 密钥资源盗用，排除报告中其他行动的主机和云提权。",
+      "consequences": {
+        "potential": "有效模型凭证可被用于未授权调用和额度转售，费用由凭证所属组织承担。",
+        "observed": "调查方观测不足八小时的逾 50 万次调用和接近 100 万美元费用；本站未审计账单。"
+      },
+      "assessedAt": "2026-11-04",
+      "reviewed": false,
+      "reviewNotes": "自动评估尚未人工复核。核对评分对象、触发条件与部署范围；保留原文的日期和版本差异，不把研究或可能后果改写为实际受害。"
+    },
+    {
+      "itemId": "cve-2026-116635",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "fa2aa728c29fcba0882b6e514f0afbc5882f8e54550a4abe346d89dae7f1d09d",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "activity": "attack_path",
+      "evidence": {
+        "I": {
+          "reason": "可读取目录外敏感 JSON；开启写入后还可用元数据覆盖文件。",
+          "sources": [
+            "primary",
+            "maintainer"
+          ]
+        },
+        "F": {
+          "reason": "需智能体摄取第三方影响的项目名；写入额外要求 --enable-write。",
+          "sources": [
+            "primary",
+            "maintainer"
+          ]
+        },
+        "S": {
+          "reason": "限定于低于 0.2.1 的本地 MCP 服务及可访问文件，不是 AWS 云服务普遍失陷。",
+          "sources": [
+            "primary",
+            "maintainer"
+          ]
+        },
+        "A": {
+          "reason": "官方给出项目名路径穿越、文件类型和后果的具体攻击路径，未核实公开 PoC。",
+          "sources": [
+            "primary",
+            "maintainer"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-164-aws/",
+          "label": "AWS：2026-164 安全公告",
+          "locator": "Description；Impacted versions；Resolution；维护者 Impact",
+          "accessedAt": "2026-11-04"
+        },
+        {
+          "id": "maintainer",
+          "kind": "reference",
+          "url": "https://github.com/awslabs/mcp/security/advisories/GHSA-r6mm-377j-qg8m",
+          "label": "AWS 维护者公告与写入限制",
+          "locator": "Description；Impact；复现或路径与补丁段落",
+          "accessedAt": "2026-11-04"
+        }
+      ],
+      "reason": "评估项目名导致的 JSON 目录边界绕过，不推断任意代码执行。",
+      "consequences": {
+        "potential": "目标 JSON 内容可进入智能体上下文；开启写入后，目录外文件可能被部署元数据覆盖。",
+        "observed": "公告说明可达路径与修复；未确认在野受害。"
+      },
+      "assessedAt": "2026-11-04",
+      "reviewed": false,
+      "reviewNotes": "自动评估尚未人工复核。核对评分对象、触发条件与部署范围；保留原文的日期和版本差异，不把研究或可能后果改写为实际受害。"
+    },
+    {
+      "itemId": "cve-2026-120497",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "a181134db7a4c5135f7a235dcd570cca0ef1d42ddb3b30a528b67457658d894f",
+      "status": "scored",
+      "dimensions": {
+        "I": 2,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "confidence": "high",
+      "activity": "controlled_poc",
+      "evidence": {
+        "I": {
+          "reason": "脚本限于报告上下文，可读取报告及本地路径并改变结果，不能访问其他本地文件或凭据。",
+          "sources": [
+            "primary",
+            "maintainer"
+          ]
+        },
+        "F": {
+          "reason": "用户正常生成并打开不可信项目的 HTML 报告可触发；攻击者需能修改制品。",
+          "sources": [
+            "primary",
+            "maintainer"
+          ]
+        },
+        "S": {
+          "reason": "限定于旧 aidlc-traceability CLI 和未修复的派生副本。",
+          "sources": [
+            "primary",
+            "maintainer"
+          ]
+        },
+        "A": {
+          "reason": "维护者提供制品字段、生成和打开报告的受控复现流程。",
+          "sources": [
+            "primary",
+            "maintainer"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-163-aws/",
+          "label": "AWS：2026-163 安全公告",
+          "locator": "Summary；Patches；Proof of concept；Impact",
+          "accessedAt": "2026-11-04"
+        },
+        {
+          "id": "maintainer",
+          "kind": "reference",
+          "url": "https://github.com/awslabs/aidlc-workflows/security/advisories/GHSA-gjmq-52p3-7fh2",
+          "label": "AWS 维护者公告与受控 PoC",
+          "locator": "Description；Impact；复现或路径与补丁段落",
+          "accessedAt": "2026-11-04"
+        }
+      ],
+      "reason": "只评旧报告工具的存储型 XSS，不扩为 AWS 凭据窃取。",
+      "consequences": {
+        "potential": "报告结果可被篡改，追溯覆盖和差距分析可能被误呈现，报告自身信息可能暴露。",
+        "observed": "公告提供受控复现，未确认真实用户受害。"
+      },
+      "assessedAt": "2026-11-04",
+      "reviewed": false,
+      "reviewNotes": "自动评估尚未人工复核。核对评分对象、触发条件与部署范围；保留原文的日期和版本差异，不把研究或可能后果改写为实际受害。"
+    },
+    {
+      "itemId": "research-checkpoint-haiou-prompt-adware",
+      "ruleVersion": "aso-risk-v1.0",
+      "itemFingerprint": "2f56a982261aefa9e15f804b667177f39d40cb2673bde3fac305ede12f3df1cb",
+      "status": "scored",
+      "dimensions": {
+        "I": 1,
+        "F": 2,
+        "S": 2,
+        "A": 2
+      },
+      "confidence": "medium",
+      "activity": "controlled_poc",
+      "evidence": {
+        "I": {
+          "reason": "已确认效果是问候输出中的持续广告，属于有限输出偏离。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "F": {
+          "reason": "必须先安装第三方包并允许改写全局指令，触发词随后生效。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "S": {
+          "reason": "只评研究中分析的 Haiou Codex 4.5.0；不扩到 Claude Code 包或其他版本。",
+          "sources": [
+            "primary"
+          ]
+        },
+        "A": {
+          "reason": "研究解包分析并演示 Codex 广告触发；犯罪服务器上有该包不证明广告真实受害规模。",
+          "sources": [
+            "primary"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "primary",
+          "kind": "reference",
+          "url": "https://research.checkpoint.com/2026/free-the-model-sell-the-gateway-prompt-adware-hidden-in-jailbreak-bundles/",
+          "label": "Check Point：Haiou jailbreak bundle 原始分析",
+          "locator": "Key Points；Prompt-Persistence；Distribution；Conclusion",
+          "accessedAt": "2026-11-04"
+        }
+      ],
+      "reason": "只评安装后的持续广告操纵，不把网关窃密猜测作为后果。",
+      "consequences": {
+        "potential": "经安装后的全局可信指令可持续改变 Codex 的问候输出；本文只评这条已演示的广告操纵路径。",
+        "observed": "研究者演示广告输出；另在攻击者服务器发现包，但未证明作者涉案或网关窃密。"
+      },
+      "assessedAt": "2026-11-04",
+      "reviewed": false,
+      "reviewNotes": "自动评估尚未人工复核。核对评分对象、触发条件与部署范围；保留原文的日期和版本差异，不把研究或可能后果改写为实际受害。"
     }
   ]
 }

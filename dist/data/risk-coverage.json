@@ -1,31 +1,31 @@
 {
   "ruleVersion": "aso-risk-v1.0",
-  "total": 88,
+  "total": 97,
   "byKind": {
-    "advisory": 21,
-    "incident": 27,
-    "research": 40
+    "advisory": 25,
+    "incident": 29,
+    "research": 43
   },
   "byRisk": {
-    "abuse": 12,
-    "attack": 63,
+    "abuse": 14,
+    "attack": 70,
     "autonomy": 9,
     "failure": 4
   },
   "byEvidence": {
     "compilation": 9,
-    "primary": 79
+    "primary": 88
   },
-  "withCve": 31,
+  "withCve": 34,
   "statuses": {
-    "scored": 70,
-    "insufficient_evidence": 8,
+    "scored": 77,
+    "insufficient_evidence": 10,
     "not_applicable": 10,
     "needs_review": 0
   },
-  "assessed": 88,
+  "assessed": 97,
   "applicability": {
-    "applicable": 78,
+    "applicable": 87,
     "notApplicable": 10,
     "undetermined": 0
   },
@@ -103,6 +103,24 @@
       "missingDimensions": [
         "F",
         "A"
+      ]
+    },
+    {
+      "itemId": "primary-gitbook-infrastructure-credentials",
+      "title": "GitBook 确认基础设施凭据遭未授权访问，要求客户轮换集成密钥",
+      "status": "insufficient_evidence",
+      "reason": "评估 GitBook 基础设施凭据访问；入口未知，暂不生成总分。",
+      "missingDimensions": [
+        "F"
+      ]
+    },
+    {
+      "itemId": "advisory-surrealdb-mcp-statement-injection",
+      "title": "SurrealDB MCP 标识符解析不一致，可越过工具限制执行查询",
+      "status": "insufficient_evidence",
+      "reason": "评估 MCP 参数语句注入；权限边界未补齐，暂不生成总分。",
+      "missingDimensions": [
+        "F"
       ]
     }
   ]
