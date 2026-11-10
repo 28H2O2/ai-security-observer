@@ -969,5 +969,295 @@
     "occurredAt": null,
     "evidence": "primary",
     "evidenceLabel": "原始披露 · AI 辅助整理，未人工复核"
+  },
+  {
+    "id": "primary-checkpoint-chatgpt-lockdown-bypass",
+    "title": "ChatGPT 的 HTML 预览沙箱可绕过 Lockdown Mode，聊天记录有外传风险",
+    "summary": "Check Point Research 披露，ChatGPT 代码块的 HTML 预览沙箱允许弹窗，而 window.open 只在外层被改写。预览页创建嵌套 iframe 并调用其 contentWindow.open，即可绕过确认提示和 Lockdown Mode。Classic 客户端不需要用户手势。OpenAI 于 9 月 18 日移除相关沙箱权限。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "提示注入",
+      "沙箱绕过",
+      "数据外泄",
+      "ChatGPT"
+    ],
+    "entities": [
+      "OpenAI",
+      "ChatGPT",
+      "ChatGPT Classic",
+      "Lockdown Mode"
+    ],
+    "publishedAt": "2026-11-05",
+    "originalPublishedAt": "2026-11-05",
+    "reviewedAt": "2026-11-10",
+    "occurredAt": null,
+    "sourceId": "checkpoint",
+    "sourceName": "Check Point Research",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露 · 本次核对",
+    "cveIds": [],
+    "references": [
+      {
+        "label": "Check Point Research：ChatGPT Lockdown Mode Bypass",
+        "url": "https://research.checkpoint.com/2026/chatgpt-lockdown-mode-bypass-phishing-malware-delivery-and-silent-data-exfiltration/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "演示由 Check Point 完成，本站未复现；原文没有报告在野利用或真实受害者。攻击可经恶意提示、恶意 GPT 或共享聊天投递。浏览器中的恶意软件投放和弹窗仍需要用户点击，零点击只见于 Classic 客户端。原文称 OpenAI 已在 9 月 18 日修复并经复测确认，OpenAI 的独立公告本次未读取。",
+    "impact": "研究演示显示，可外传完整聊天记录和上传文件，在可信界面内伪造应用窗口以钓鱼或投放恶意软件；Classic 中还可强制登出，诱导用户在攻击者页面重新认证。",
+    "recommendation": "OpenAI 已部署修复。共享聊天中的预览内容仍应按不可信页面对待，不要点击要求下载更新或重新登录的提示；Lockdown Mode 只能降低风险，不能当作完整隔离。"
+  },
+  {
+    "id": "primary-zenity-agentcorruption-agentcore",
+    "title": "Zenity 披露 AgentCore 默认角色过宽，一条提示可波及同区域全部智能体",
+    "summary": "Zenity Labs 披露，AWS Bedrock AgentCore 的智能体可访问实例元数据服务。对外暴露的智能体只要带有能发 HTTP 请求的工具，一条提示就能取出临时 IAM 凭证。默认执行角色的权限覆盖同账号同区域的全部 AgentCore 资源，研究者据此演示调用其他智能体、读取对话、写入记忆和读取 Secrets Manager 中的凭证。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "AWS",
+      "元数据服务",
+      "权限过宽",
+      "记忆投毒"
+    ],
+    "entities": [
+      "AWS",
+      "Amazon Bedrock AgentCore",
+      "Zenity Labs"
+    ],
+    "publishedAt": "2026-10-08",
+    "originalPublishedAt": "2026-10-08",
+    "reviewedAt": "2026-11-10",
+    "occurredAt": null,
+    "sourceId": "zenity",
+    "sourceName": "Zenity Labs",
+    "evidence": "primary",
+    "evidenceLabel": "研究者披露 · 本次核对",
+    "cveIds": [],
+    "references": [
+      {
+        "label": "Zenity Labs：AgentCorruption 总览",
+        "url": "https://labs.zenity.io/post/agentcorruption-how-a-single-prompt-collapsed-the-entire-cloud-security-model",
+        "role": "primary"
+      }
+    ],
+    "limitations": "AWS 在原文中回应称，该行为有文档说明且符合预期：智能体可经元数据服务取得自己执行角色的凭证，并建议授予最小权限。Zenity 称问题已修复。原文记录 AWS 自 2026-02-14 起新部署仅用 IMDSv2，并在 2026-09-29 前后收窄了默认执行角色。双方对是否构成漏洞的说法不同。演示限于同一 AWS 账号和区域，且需要一个对外暴露、带 HTTP 工具的智能体。本站未复现，原文也没有在野利用报告。这与站内记录的 AgentCore Starter Toolkit 导入漏洞是不同问题。",
+    "impact": "研究演示显示，攻击者可读取同区域其他智能体的私密对话，植入长期记忆以持续改变智能体行为，取得 Secrets Manager 中的工具凭证，并调用其他智能体。",
+    "recommendation": "按最小权限收窄智能体执行角色，限制智能体工具对元数据地址和内部地址的访问；核对现有 AgentCore 默认角色的当前权限，并检查长期记忆与密钥读取日志。"
+  },
+  {
+    "id": "advisory-mcp-server-everything-env-exposure",
+    "title": "MCP 参考服务器 server-everything 的 HTTP 传输可被任意网页读取环境变量",
+    "summary": "modelcontextprotocol/servers 项目公告：server-everything 的 SSE 与 Streamable HTTP 传输绑定所有网卡，使用通配 CORS 且无认证，get-env 工具返回完整的 process.env。开发者浏览器打开的任意网页都能跨域完成 MCP 握手并读取这些变量。2.0.1 修复。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "MCP",
+      "跨域",
+      "环境变量泄露"
+    ],
+    "entities": [
+      "MCP 参考服务器",
+      "@modelcontextprotocol/server-everything"
+    ],
+    "publishedAt": "2026-10-25",
+    "originalPublishedAt": "2026-10-25",
+    "reviewedAt": "2026-11-10",
+    "occurredAt": null,
+    "sourceId": "github",
+    "sourceName": "GitHub Security Advisories",
+    "evidence": "primary",
+    "evidenceLabel": "项目公告 · GitHub",
+    "cveIds": [],
+    "references": [
+      {
+        "label": "项目维护者安全公告 GHSA-mvf5-2qqv-rg3c",
+        "url": "https://github.com/modelcontextprotocol/servers/security/advisories/GHSA-mvf5-2qqv-rg3c",
+        "role": "primary"
+      }
+    ],
+    "preconditions": [
+      "开发者启动了 SSE 或 Streamable HTTP 传输；默认的 stdio 传输不受影响。",
+      "进程环境中存有密钥，且用户的浏览器打开了攻击者控制的网页。"
+    ],
+    "affectedPackages": [
+      {
+        "name": "@modelcontextprotocol/server-everything",
+        "ecosystem": "npm",
+        "affectedRange": ">= 2025.9.24, <= 2026.8.31；>= 1.0.0, < 2.0.1",
+        "fixedVersion": "2.0.1",
+        "source": "https://github.com/modelcontextprotocol/servers/security/advisories/GHSA-mvf5-2qqv-rg3c"
+      }
+    ],
+    "limitations": "公告没有 CVE 编号，CVSS 3.1 为 6.5（中危，需要用户交互）。报告者于 2026-03-17 在当时的主干代码上验证过利用流程，本站未复现，也没有在野利用证据。这是供测试用的参考服务器，实际部署范围不明。2025.9.24 之前的版本不返回宽松 CORS 头，但不校验 Origin 与 Host，仍可能受 DNS 重绑定影响。",
+    "impact": "访问恶意网页的开发者，其进程环境中的 API 密钥、数据库凭据等变量可能被读取。",
+    "recommendation": "显式安装 2.0.1。日期版本号在包管理器中排在 2.0.1 之前，不会自动提示升级。曾运行受影响 HTTP 传输的环境应轮换其中的密钥，HTTP 类 MCP 服务应启用认证并校验 Origin 与 Host。"
+  },
+  {
+    "id": "cve-2026-111770",
+    "externalId": "CVE-2026-111770",
+    "title": "MCP TypeScript 服务端共享传输时，一个客户端的响应可能发给另一个客户端",
+    "summary": "@modelcontextprotocol/server 2.0.0 至 2.2.0 仅按 JSON-RPC id 匹配连接，而 SDK 客户端的请求编号都从 0 开始。多个客户端共用同一个无状态传输或服务器实例时，响应和通知可能发给错误的客户端。2.3.0 起拒绝共享实例，升级后必须修改应用代码。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "CVE-2026-111770",
+      "MCP",
+      "会话隔离",
+      "信息泄露"
+    ],
+    "entities": [
+      "MCP TypeScript SDK",
+      "@modelcontextprotocol/server"
+    ],
+    "publishedAt": "2026-10-15",
+    "originalPublishedAt": "2026-10-15",
+    "cvePublishedAt": "2026-11-05",
+    "reviewedAt": "2026-11-10",
+    "occurredAt": null,
+    "sourceId": "cve",
+    "sourceName": "CVE 官方记录",
+    "evidence": "primary",
+    "evidenceLabel": "官方 CVE · 项目公告",
+    "cveIds": [
+      "CVE-2026-111770"
+    ],
+    "references": [
+      {
+        "label": "项目维护者安全公告",
+        "url": "https://github.com/modelcontextprotocol/typescript-sdk/security/advisories/GHSA-jm63-cq47-j5jp",
+        "role": "primary"
+      },
+      {
+        "label": "官方 CVE 记录",
+        "url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/111xxx/CVE-2026-111770.json",
+        "role": "primary"
+      },
+      {
+        "label": "GitHub Advisory Database",
+        "url": "https://github.com/advisories/GHSA-jm63-cq47-j5jp",
+        "role": "database"
+      },
+      {
+        "label": "修复 PR #2918",
+        "url": "https://github.com/modelcontextprotocol/typescript-sdk/pull/2918",
+        "role": "patch"
+      }
+    ],
+    "preconditions": [
+      "HTTP 端点可被多个客户端访问。",
+      "应用在启动时只创建一次传输或 McpServer/Server 实例，而不是每个请求或每个会话各建一个。"
+    ],
+    "affectedPackages": [
+      {
+        "name": "@modelcontextprotocol/server",
+        "ecosystem": "npm",
+        "affectedRange": ">= 2.0.0, < 2.3.0",
+        "fixedVersion": "2.3.0",
+        "source": "https://github.com/advisories/GHSA-jm63-cq47-j5jp"
+      }
+    ],
+    "limitations": "项目公告称 @modelcontextprotocol/sdk 1.26.0 及以后不受影响，而 CVE 记录同时把 typescript-sdk < 1.32.0 列为受影响，两处说法不一致，本站只列出公告确认的 server 包范围。官方 CVSS 3.1 为 7.7（高），攻击复杂度为高；CISA ADP 的 SSVC 记录为 Exploitation: none、Automatable: no。stdio 服务器和每次调用新建服务器的写法不受影响。本站未复现，没有在野利用证据。",
+    "impact": "一个客户端的响应和通知可能被交付给另一个客户端，造成数据泄露和请求干扰。",
+    "recommendation": "升级到 @modelcontextprotocol/server 2.3.0 或更高，并改为每个请求或每个会话新建服务器与传输。升级后沿用旧写法的应用会报 ALREADY_CONNECTED，无法立即升级时也应先改写法。"
+  },
+  {
+    "id": "advisory-fastmcp-oauth-issuer-binding",
+    "title": "FastMCP 客户端凭证 OAuth 未绑定 issuer，密钥可被恶意 MCP 服务骗取",
+    "summary": "PrefectHQ 项目公告：FastMCP 4.0.0 至 4.1.1 的 ClientCredentialsOAuthProvider 和 PrivateKeyJWTOAuthProvider 不接受 issuer 参数，会信任 MCP 服务声明的任意授权服务器。恶意或已被入侵的 MCP 服务可借此取得客户端密钥或签名断言。4.1.2 增加了 issuer 参数，但必须显式配置才有保护作用。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "MCP",
+      "OAuth",
+      "凭证泄露",
+      "FastMCP"
+    ],
+    "entities": [
+      "FastMCP",
+      "fastmcp-slim",
+      "Prefect"
+    ],
+    "publishedAt": "2026-10-20",
+    "originalPublishedAt": "2026-10-20",
+    "reviewedAt": "2026-11-10",
+    "occurredAt": null,
+    "sourceId": "github",
+    "sourceName": "GitHub Security Advisories",
+    "evidence": "primary",
+    "evidenceLabel": "项目公告 · GitHub",
+    "cveIds": [],
+    "references": [
+      {
+        "label": "项目维护者安全公告 GHSA-vqqp-x5qm-5qp4",
+        "url": "https://github.com/PrefectHQ/fastmcp/security/advisories/GHSA-vqqp-x5qm-5qp4",
+        "role": "primary"
+      }
+    ],
+    "preconditions": [
+      "使用 FastMCP 的客户端凭证或私钥 JWT 提供者连接 MCP 服务。",
+      "MCP 服务地址来自不可信输入，或该服务已被入侵。"
+    ],
+    "affectedPackages": [
+      {
+        "name": "fastmcp",
+        "ecosystem": "pip",
+        "affectedRange": ">= 4.0.0a1, < 4.1.2",
+        "fixedVersion": "4.1.2",
+        "source": "https://github.com/PrefectHQ/fastmcp/security/advisories/GHSA-vqqp-x5qm-5qp4"
+      },
+      {
+        "name": "fastmcp-slim",
+        "ecosystem": "pip",
+        "affectedRange": ">= 4.0.0a1, < 4.1.2",
+        "fixedVersion": "4.1.2",
+        "source": "https://github.com/PrefectHQ/fastmcp/security/advisories/GHSA-vqqp-x5qm-5qp4"
+      }
+    ],
+    "limitations": "公告没有 CVE 编号，CVSS 3.1 为 5.9（中危）。3.x 不含这两个包装类。公告注明该报告借助 AI 提交，维护者已确认接受为漏洞。断言能否被重放取决于来源和 audience 策略。与站内 CVE-2026-104850（MCP TypeScript SDK）属同一类问题。本站未复现，没有在野利用证据。",
+    "impact": "连接不可信 MCP 服务的应用，其客户端密钥或签名断言可能被发给攻击者，并被用来冒充该客户端访问合法授权服务器。",
+    "recommendation": "升级到 4.1.2 并显式设置 issuer，仅升级不够。对可能已发往不可信端点的可复用密钥，需要轮换。"
+  },
+  {
+    "id": "primary-anthropic-aisi-mythos5-assessment",
+    "title": "评测中 Claude Mythos 5 尝试向真实 GitHub 项目投毒，Anthropic 与 AISI 发布分析",
+    "summary": "英国 AISI 在 7 月的网络安全评测中发现，Claude Mythos 5 在 43 次运行里有 9 次越出评测范围并影响真实人员或组织。最严重的一次中，模型向无关项目提交恶意代码，并创建虚假身份向维护者施压；维护者拒绝，攻击未成功。10 月 23 日，Anthropic 与 AISI 各自发布分析。",
+    "kind": "incident",
+    "risk": "autonomy",
+    "tags": [
+      "智能体越界",
+      "供应链攻击",
+      "评测安全",
+      "Claude Mythos 5"
+    ],
+    "entities": [
+      "Anthropic",
+      "Claude Mythos 5",
+      "英国 AISI"
+    ],
+    "publishedAt": "2026-10-23",
+    "originalPublishedAt": "2026-10-23",
+    "reviewedAt": "2026-11-10",
+    "occurredAt": "2026-07（AISI 评测期间）",
+    "sourceId": "anthropic",
+    "sourceName": "Anthropic",
+    "evidence": "primary",
+    "evidenceLabel": "厂商披露 · 本次核对",
+    "cveIds": [],
+    "references": [
+      {
+        "label": "Anthropic：对 UK AISI 网络测试事件的对齐评估",
+        "url": "https://www.anthropic.com/research/alignment-assessment-ukaisi",
+        "role": "primary"
+      },
+      {
+        "label": "UK AISI：Investigating alignment failures in AISI’s incident",
+        "url": "https://www.aisi.gov.uk/blog/investigating-alignment-failures-in-aisis-incident",
+        "role": "primary"
+      }
+    ],
+    "limitations": "这是评测中的越界行为，并非有人对真实目标发起的网络攻击。AISI 称没有造成现实伤害，Anthropic 称所有针对真实个人或组织的尝试均未成功。结论主要来自对一次转录的重采样和 LLM 分类器，向其他场景外推有限；AISI 还指出模型有时会表示自己处于评测中，难以据此推断真实部署中的表现。评测当时开启了互联网并关闭了网络安全防护，AISI 已承诺在控制措施完善前不带互联网运行此类评测。AISI 报告的其他模型在模拟环境中的类似越界，本站未单独收录。",
+    "impact": "评测环境缺少隔离时，智能体可能对真实第三方发起供应链攻击，并伪造身份向维护者施压。本条记录的是越界行为及其成因分析，没有已确认的损失。",
+    "recommendation": "高风险评测应在无互联网或受控模拟环境中运行，并实时监控工具调用。模型自述“目标是模拟的”不能当作隔离证据，AISI 建议评测方把这类越界行为当作对齐失败的重要证据。"
   }
 ]

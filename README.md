@@ -14,6 +14,10 @@ ASO 是本站自定义指标，非 CVSS、EPSS 或攻击概率。主导航的“
 
 新增 9 条一手资料：GitBook 凭据访问事件、Instatic 与 SurrealDB MCP 漏洞、Voluntary Servitude 实验、MCPhantom、GTIG LLMjacking 调查、两条 AWS 公告及 Haiou 提示广告软件研究。保留 11 月 2–3 日原始日期，未改动既有 88 条事实与评分。现共 97 条，77 条已评分、10 条证据不足、10 条不适用；新增评估均未人工复核。核验范围、日期和版本差异见 [本轮记录](research/update-2026-11-04.md)。
 
+## 2026-11-10 内容更新
+
+新增 6 条：Check Point 的 ChatGPT Lockdown Mode 绕过、Zenity 的 AWS AgentCore 研究、server-everything 与 FastMCP 的两条无 CVE 项目公告、CVE-2026-111770，以及 Anthropic 与 UK AISI 对 Mythos 5 评测事件的分析。其中 5 条是此前漏收的 10 月披露，保留原始日期。新增 5 个评分、1 个不适用，AgentCore 与 MCP SDK 的来源分歧写入 limitations。与 11 月 4 日的 9 条合并后共 103 条：82 条已评分、10 条证据不足、11 条不适用。未核对的线索和验证情况见 [本次核验](research/update-2026-11-10.md)。
+
 ## 2026-11-03 内容更新
 
 新增 9 条：NCSC 当日 AI 威胁研判、Trigger.dev 环境变量泄露、Cursor 扩展投毒、Epoch AI 补丁时差实验、BrowseSafe++ 和 4 条 Langflow 漏洞公告。保留原始披露日期；Perplexity 的原文与索引日期差异单列说明。新增 4 个评分，另有 4 个新条目因关键证据不足暂停总分，2 篇宏观或方法研究不适用。记录见 [本次核验](research/update-2026-11-03.md)。

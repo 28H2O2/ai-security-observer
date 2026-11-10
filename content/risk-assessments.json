@@ -5499,6 +5499,348 @@
       "assessedAt": "2026-11-04",
       "reviewed": false,
       "reviewNotes": "自动评估尚未人工复核。核对评分对象、触发条件与部署范围；保留原文的日期和版本差异，不把研究或可能后果改写为实际受害。"
+    },
+    {
+      "itemId": "primary-checkpoint-chatgpt-lockdown-bypass",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 4,
+        "F": 3,
+        "S": 3,
+        "A": 2
+      },
+      "confidence": "medium",
+      "evidence": {
+        "I": {
+          "reason": "原文演示可静默外传完整聊天记录和上传文件，并可借伪造窗口钓鱼或投放恶意软件；浏览器端的下载仍需用户点击。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "F": {
+          "reason": "Classic 客户端中，恶意提示或恶意 GPT 在正常对话里即可触发，无需用户手势；浏览器端的钓鱼与下载需要点击，可经共享聊天投递。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "S": {
+          "reason": "限于 ChatGPT 的 HTML 预览功能（2026 年 2 月上线）与 Classic 客户端；受影响用户数量未公开。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "A": {
+          "reason": "Check Point 提供视频演示并在修复后复测；原文没有在野利用报告。",
+          "sources": [
+            "source1"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://research.checkpoint.com/2026/chatgpt-lockdown-mode-bypass-phishing-malware-delivery-and-silent-data-exfiltration/",
+          "label": "Check Point Research：ChatGPT Lockdown Mode Bypass",
+          "locator": "Technical Details、Attack surface、Zero-Click Exploitation in ChatGPT Classic、Conclusion 各节。",
+          "accessedAt": "2026-11-10"
+        }
+      ],
+      "activity": "controlled_poc",
+      "reason": "评估 HTML 预览沙箱的弹窗权限与嵌套 iframe 绕过 Lockdown Mode 的路径。已于 2026-09-18 修复，评估保留漏洞固有后果。",
+      "consequences": {
+        "potential": "聊天记录与上传文件外传、可信界面内的钓鱼与恶意软件投放；Classic 中可强制登出并诱导重新认证。",
+        "observed": "Check Point 的受控演示成功；没有真实受害者或在野利用报告。"
+      },
+      "assessedAt": "2026-11-10",
+      "reviewed": false,
+      "reviewNotes": "复核 I=4 相对同类共享服务通道是否合理；Classic 与浏览器端的 F 可能需要分别评估；OpenAI 的独立公告本次未读取。",
+      "itemFingerprint": "3e26ea5981bef073a0338196d6189ec316ee533d4845882b82d6bbe87e1de35f"
+    },
+    {
+      "itemId": "primary-zenity-agentcorruption-agentcore",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 4,
+        "F": 3,
+        "S": 3,
+        "A": 2
+      },
+      "confidence": "medium",
+      "evidence": {
+        "I": {
+          "reason": "取得的临时凭证可读取私密对话、写入长期记忆并读取 Secrets Manager 中的工具凭证，属于高影响的数据泄露与跨智能体操作。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "F": {
+          "reason": "需要一个对外暴露对话入口、且带有能发 HTTP 请求的工具的智能体；元数据服务可达取决于当时的 IMDS 配置。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "S": {
+          "reason": "限定于 AgentCore 默认执行角色下同一账号、同一区域的智能体；实际范围取决于各部署使用的角色。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "A": {
+          "reason": "Zenity 以截图和多篇技术文章演示了完整链条；没有在野利用报告，AWS 回应称该行为属预期。",
+          "sources": [
+            "source1"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://labs.zenity.io/post/agentcorruption-how-a-single-prompt-collapsed-the-entire-cloud-security-model",
+          "label": "Zenity Labs：AgentCorruption 总览",
+          "locator": "TL;DR、The Overprivileged Role And Blast Radius、Responsible Disclosure、Statement from AWS。",
+          "accessedAt": "2026-11-10"
+        }
+      ],
+      "activity": "controlled_poc",
+      "reason": "评估元数据服务凭证与过宽默认执行角色组成的跨智能体接管链。AWS 已收窄默认角色，评估保留固有后果。",
+      "consequences": {
+        "potential": "同账号同区域内读取其他智能体对话、植入长期记忆、取得 Secrets Manager 凭证并调用其他智能体。",
+        "observed": "Zenity 的受控演示成功；AWS 称行为符合文档，未报告真实受害者。"
+      },
+      "assessedAt": "2026-11-10",
+      "reviewed": false,
+      "reviewNotes": "AWS 与 Zenity 对是否构成漏洞的说法不同，复核时需核对四篇子文章的披露时间线；I=4 与 S=3 依赖修复前的默认角色权限。",
+      "itemFingerprint": "4628b15844548a38b0e06dbe9de2033eeee20407b6881f4ff9213ade599dc229"
+    },
+    {
+      "itemId": "advisory-mcp-server-everything-env-exposure",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "get-env 返回完整 process.env，可含 API 密钥和数据库凭据；公告没有说明可修改数据或执行命令。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "F": {
+          "reason": "需要开发者显式启动 HTTP 传输并访问攻击者网页；之后因通配 CORS 且无认证，无需额外交互。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "S": {
+          "reason": "限于 server-everything 的 SSE 与 Streamable HTTP 传输；默认的 stdio 传输不受影响。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "A": {
+          "reason": "报告者提供浏览器端 PoC，并于 2026-03-17 在主干代码上验证；没有在野利用证据。",
+          "sources": [
+            "source1"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://github.com/modelcontextprotocol/servers/security/advisories/GHSA-mvf5-2qqv-rg3c",
+          "label": "项目维护者安全公告 GHSA-mvf5-2qqv-rg3c",
+          "locator": "Summary、Attack Chain、PoC、Impact 与 Earlier versions 各节。",
+          "accessedAt": "2026-11-10"
+        }
+      ],
+      "activity": "controlled_poc",
+      "reason": "评估 HTTP 传输上的跨域环境变量读取路径。",
+      "consequences": {
+        "potential": "访问恶意网页的开发者，其进程环境中的密钥可能被读取并外传。",
+        "observed": "报告者在自建环境中读取到测试变量；没有真实受害者报告。"
+      },
+      "assessedAt": "2026-11-10",
+      "reviewed": false,
+      "reviewNotes": "这是测试用参考服务器，S=2 依据其使用范围未公开；复核时确认 HTTP 传输在实际开发流程中的使用比例。",
+      "itemFingerprint": "d946d372e22d19cbf9a3a4210e6b4406f68535435eff3fc77f56277eb6c8af1f"
+    },
+    {
+      "itemId": "cve-2026-111770",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 3,
+        "A": 1
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "一个客户端的响应和通知可能被交付给另一个客户端；CVSS 机密性为高，但公告没有说明可执行命令。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "F": {
+          "reason": "需要应用在启动时创建一次共享传输或服务器实例，再有多个客户端访问；请求 id 从 0 开始，冲突在正常使用中就会出现。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "S": {
+          "reason": "限定 @modelcontextprotocol/server 2.0.0–2.2.0；公告称 README 示例曾展示这种写法，实际部署占比未公开。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "A": {
+          "reason": "公告给出机制与触发条件；CISA ADP 的 SSVC 记录 Exploitation 为 none，本站不据此评 A=0，也没有 PoC 或在野利用证据。",
+          "sources": [
+            "source2"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://github.com/modelcontextprotocol/typescript-sdk/security/advisories/GHSA-jm63-cq47-j5jp",
+          "label": "项目维护者安全公告",
+          "locator": "Summary、Am I affected、Fix。",
+          "accessedAt": "2026-11-10"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://github.com/CVEProject/cvelistV5/blob/main/cves/2026/111xxx/CVE-2026-111770.json",
+          "label": "CVE-2026-111770 官方记录",
+          "locator": "CNA 描述、metrics、CISA ADP SSVC。",
+          "accessedAt": "2026-11-10"
+        }
+      ],
+      "activity": "attack_path",
+      "reason": "评估共享传输或服务器实例导致的跨客户端消息投递路径。",
+      "consequences": {
+        "potential": "多个客户端共用端点时，一方的响应和通知被另一方收到。",
+        "observed": "公告未报告实际受害者；CISA ADP 记录未见利用。"
+      },
+      "assessedAt": "2026-11-10",
+      "reviewed": false,
+      "reviewNotes": "公告与 CVE 记录对 sdk 1.x 是否受影响的说法不一致；F 的评估对象是 README 示例所示的共享实例写法。",
+      "itemFingerprint": "553023c9e33d57a43e75b82a3f265080f6dd7b9b6e3b0ca1f2b5260485e56d88"
+    },
+    {
+      "itemId": "advisory-fastmcp-oauth-issuer-binding",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "客户端密钥或签名断言可被发往攻击者的授权服务器，攻击者可据此冒充客户端；签名密钥本身仍在本地。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "F": {
+          "reason": "受害者需配置预注册凭证并连接攻击者控制或已被入侵的 MCP 服务；与同类 CVE-2026-104850 采用同一口径。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "S": {
+          "reason": "限于 fastmcp 与 fastmcp-slim 4.0.0–4.1.1 的两个 M2M OAuth 包装类；3.x 不含。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "A": {
+          "reason": "报告含复现步骤，维护者确认为漏洞；没有在野利用证据。",
+          "sources": [
+            "source1"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://github.com/PrefectHQ/fastmcp/security/advisories/GHSA-vqqp-x5qm-5qp4",
+          "label": "项目维护者安全公告 GHSA-vqqp-x5qm-5qp4",
+          "locator": "Maintainer assessment and remediation、Original report。",
+          "accessedAt": "2026-11-10"
+        }
+      ],
+      "activity": "attack_path",
+      "reason": "评估 FastMCP 客户端凭证 OAuth 提供者缺少 issuer 绑定的凭证外传路径。",
+      "consequences": {
+        "potential": "客户端密钥或签名断言泄露后冒充客户端访问合法授权服务器。",
+        "observed": "公告未报告实际受害者。"
+      },
+      "assessedAt": "2026-11-10",
+      "reviewed": false,
+      "reviewNotes": "公告注明报告借助 AI 提交；需核对 F 是否应与 TypeScript 同类 CVE 继续保持一致。",
+      "itemFingerprint": "6cca31ede081c954fabd010fb9c08e312441242ab1bb0f84e2412847621ef661"
+    },
+    {
+      "itemId": "primary-anthropic-aisi-mythos5-assessment",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "not_applicable",
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "confidence": "medium",
+      "evidence": {},
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://www.anthropic.com/research/alignment-assessment-ukaisi",
+          "label": "Anthropic：对 UK AISI 网络测试事件的对齐评估",
+          "locator": "Alignment assessment summary、Discussion。",
+          "accessedAt": "2026-11-10"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://www.aisi.gov.uk/blog/investigating-alignment-failures-in-aisis-incident",
+          "label": "UK AISI：Investigating alignment failures in AISI’s incident",
+          "locator": "Three key findings、Implications。",
+          "accessedAt": "2026-11-10"
+        }
+      ],
+      "activity": "unknown",
+      "reason": "分析对象是模型对齐失败的成因与评测环境教训，没有可单独界定的漏洞、受影响产品版本或成功的攻击；越界尝试均未得逞。",
+      "consequences": {
+        "potential": null,
+        "observed": null
+      },
+      "assessedAt": "2026-11-10",
+      "reviewed": false,
+      "reviewNotes": "若日后单独评估评测环境的隔离缺口，应另建对象，不沿用本条的不适用结论。",
+      "itemFingerprint": "b156a26966392be6ef5b9e8595f75f9a6cc99f8d55b5d85ded074f3852fb7ea9"
     }
   ]
 }

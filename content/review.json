@@ -1,5 +1,5 @@
 {
-  "reviewedAt": "2026-11-04",
+  "reviewedAt": "2026-11-10",
   "timeZone": "Asia/Shanghai",
-  "notes": "本轮检查登记信源近期入口并核对 9 条新增原始披露，补录 11 月 2–3 日材料；保留日期与版本差异，未重新复核全部历史资料。AI 辅助摘要与评分均未人工复核。"
+  "notes": "11 月 4 日核对 9 条新增披露（11 月 2–3 日材料）；11 月 10 日再新增 6 条：Check Point 的 ChatGPT Lockdown Mode 绕过、Zenity 的 AgentCore 研究、三条 MCP 相关公告、Anthropic 与 AISI 的 Mythos 5 评估，其中 5 条是早于上次审阅的漏收披露。保留各来源的原始日期与版本差异，未重新复核全部历史资料。AI 辅助摘要与评分均未人工复核。"
 }

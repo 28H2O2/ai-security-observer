@@ -1,10 +1,35 @@
 {
   "meta": {
-    "updatedAt": "2026-11-04",
+    "updatedAt": "2026-11-10",
     "mode": "curated-snapshot",
     "timeZone": "Asia/Shanghai"
   },
   "daily": [
+    {
+      "mode": "daily",
+      "start": "2026-11-05",
+      "end": "2026-11-05",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "primary-checkpoint-chatgpt-lockdown-bypass"
+          ]
+        }
+      ]
+    },
     {
       "mode": "daily",
       "start": "2026-11-03",
@@ -176,14 +201,41 @@
     },
     {
       "mode": "daily",
-      "start": "2026-10-23",
-      "end": "2026-10-23",
+      "start": "2026-10-25",
+      "end": "2026-10-25",
       "total": 1,
       "sections": [
         {
           "kind": "incident",
           "label": "真实事件",
           "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "advisory-mcp-server-everything-env-exposure"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-10-23",
+      "end": "2026-10-23",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-anthropic-aisi-mythos5-assessment"
+          ]
         },
         {
           "kind": "advisory",
@@ -256,7 +308,7 @@
       "mode": "daily",
       "start": "2026-10-20",
       "end": "2026-10-20",
-      "total": 1,
+      "total": 2,
       "sections": [
         {
           "kind": "incident",
@@ -267,6 +319,7 @@
           "kind": "advisory",
           "label": "漏洞公告",
           "itemIds": [
+            "advisory-fastmcp-oauth-issuer-binding",
             "primary-aws-kiro-crew-whatsapp-auth"
           ]
         },
@@ -331,7 +384,7 @@
       "mode": "daily",
       "start": "2026-10-15",
       "end": "2026-10-15",
-      "total": 1,
+      "total": 2,
       "sections": [
         {
           "kind": "incident",
@@ -343,7 +396,9 @@
         {
           "kind": "advisory",
           "label": "漏洞公告",
-          "itemIds": []
+          "itemIds": [
+            "cve-2026-111770"
+          ]
         },
         {
           "kind": "research",
@@ -435,7 +490,7 @@
       "mode": "daily",
       "start": "2026-10-08",
       "end": "2026-10-08",
-      "total": 5,
+      "total": 6,
       "sections": [
         {
           "kind": "incident",
@@ -456,7 +511,8 @@
           "label": "研究披露",
           "itemIds": [
             "pdf-2026-0013",
-            "pdf-2026-0014"
+            "pdf-2026-0014",
+            "primary-zenity-agentcorruption-agentcore"
           ]
         }
       ]
@@ -1539,7 +1595,7 @@
       "mode": "weekly",
       "start": "2026-11-02",
       "end": "2026-11-08",
-      "total": 10,
+      "total": 11,
       "sections": [
         {
           "kind": "incident",
@@ -1563,6 +1619,7 @@
           "kind": "research",
           "label": "研究披露",
           "itemIds": [
+            "primary-checkpoint-chatgpt-lockdown-bypass",
             "primary-ncsc-ai-cni-outlook",
             "research-checkpoint-haiou-prompt-adware",
             "research-voluntary-servitude",
@@ -1610,12 +1667,13 @@
       "mode": "weekly",
       "start": "2026-10-19",
       "end": "2026-10-25",
-      "total": 7,
+      "total": 10,
       "sections": [
         {
           "kind": "incident",
           "label": "真实事件",
           "itemIds": [
+            "primary-anthropic-aisi-mythos5-assessment",
             "primary-litellm-release-compromise-october",
             "primary-unit42-bugster-ai-cybercrime"
           ]
@@ -1624,8 +1682,10 @@
           "kind": "advisory",
           "label": "漏洞公告",
           "itemIds": [
+            "advisory-mcp-server-everything-env-exposure",
             "primary-aws-strands-a2a-isolation",
             "primary-aws-sagemaker-default-bucket",
+            "advisory-fastmcp-oauth-issuer-binding",
             "primary-aws-kiro-crew-whatsapp-auth"
           ]
         },
@@ -1643,7 +1703,7 @@
       "mode": "weekly",
       "start": "2026-10-12",
       "end": "2026-10-18",
-      "total": 5,
+      "total": 6,
       "sections": [
         {
           "kind": "incident",
@@ -1656,6 +1716,7 @@
           "kind": "advisory",
           "label": "漏洞公告",
           "itemIds": [
+            "cve-2026-111770",
             "primary-aws-sagemaker-git-log-secrets"
           ]
         },
@@ -1674,7 +1735,7 @@
       "mode": "weekly",
       "start": "2026-10-05",
       "end": "2026-10-11",
-      "total": 15,
+      "total": 16,
       "sections": [
         {
           "kind": "incident",
@@ -1706,6 +1767,7 @@
           "itemIds": [
             "pdf-2026-0013",
             "pdf-2026-0014",
+            "primary-zenity-agentcorruption-agentcore",
             "primary-microsoft-forge-validation-loop"
           ]
         }

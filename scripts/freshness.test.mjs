@@ -8,9 +8,9 @@ const {items,meta}=read('dist/data/items.json');
 test('审核日期独立于新闻日期，补录历史事件不会成为今日新闻',()=>{
  assert.equal(meta.updatedAt,read('content/review.json').reviewedAt);
  const latest=filterItems(items)[0];
- assert.equal(latest.id,'advisory-surrealdb-mcp-statement-injection');
- assert.equal(latest.originalPublishedAt,'2026-11-03');
- assert.equal(latest.reviewedAt,'2026-11-04');
+ assert.equal(latest.id,'primary-checkpoint-chatgpt-lockdown-bypass');
+ assert.equal(latest.originalPublishedAt,'2026-11-05');
+ assert.equal(latest.reviewedAt,'2026-11-10');
  const incident=items.find(i=>i.id==='primary-litellm-release-compromise-october');
  assert.equal(incident.originalPublishedAt,'2026-10-21');
  assert.equal(incident.sourceUpdatedAt,'2026-10-23');
@@ -69,4 +69,28 @@ test('11月4日补录保留原日期、受控实验和未知条件，不拼接�
  assert.match(get('cve-2026-116635').preconditions.join(' '),/--enable-write/);
  assert.match(get('cve-2026-120497').limitations,/不能访问其他本地文件或凭据/);
  assert.ok(added.every(i=>i.riskAssessment.reviewed===false));
+});
+
+test('11-10 更新保留原始披露日期，5 条早于上次审阅的资料按原日期排序',()=>{
+ const expected={
+  'primary-checkpoint-chatgpt-lockdown-bypass':['2026-11-05',63],
+  'primary-zenity-agentcorruption-agentcore':['2026-10-08',63],
+  'advisory-mcp-server-everything-env-exposure':['2026-10-25',52],
+  'cve-2026-111770':['2026-10-15',52],
+  'advisory-fastmcp-oauth-issuer-binding':['2026-10-20',48],
+  'primary-anthropic-aisi-mythos5-assessment':['2026-10-23',null]
+ };
+ for(const [id,[date,score]] of Object.entries(expected)){
+  const item=items.find(i=>i.id===id);
+  assert.equal(item.originalPublishedAt,date,id);
+  assert.equal(item.reviewedAt,'2026-11-10',id);
+  assert.equal(item.riskAssessment.score,score,id);
+ }
+ const cve=items.find(i=>i.id==='cve-2026-111770');
+ assert.equal(cve.cvePublishedAt,'2026-11-05');
+ assert.deepEqual(cve.affectedPackages.map(p=>p.name),['@modelcontextprotocol/server']);
+ assert.equal(items.find(i=>i.id==='primary-anthropic-aisi-mythos5-assessment').riskAssessment.status,'not_applicable');
+ assert.equal(makeBriefing(items,'2026-11-05','daily').total,1);
+ const oct8=makeBriefing(items,'2026-10-08','daily');
+ assert.ok(oct8.sections.some(s=>s.itemIds.includes('primary-zenity-agentcorruption-agentcore')));
 });
