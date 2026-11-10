@@ -145,7 +145,13 @@ document.addEventListener('submit',event=>{if(event.target.id==='briefing-form')
 document.addEventListener('keydown',event=>{if(event.key==='/'&&!['INPUT','TEXTAREA','SELECT'].includes(event.target.tagName)){const input=document.querySelector('#search-input,#source-search');if(input){event.preventDefault();input.focus();}}if(event.key==='Escape'&&event.target.closest('.source-detail')){event.preventDefault();sourceFocus=`source-node-${route().source}`;setParam('source','all');}else if(event.key==='Escape'&&event.target.matches('#search-input,#source-search')){clearTimeout(searchTimer);setParam('q','',{replace:true});}});
 window.addEventListener('hashchange',()=>{clearTimeout(searchTimer);const previous=lastHash;lastHash=location.hash;const previousView=previous.replace(/^#\/?/,'').split(/[/?]/)[0];const current=route();if(current.view==='item'&&previousView!=='item')returnHash=previous;render();if(previousView!==current.view){window.scrollTo({top:0});if(inputMethod==='keyboard')main.focus({preventScroll:true});}});
 window.addEventListener('storage',event=>{if(event.key==='ai-security-observer:v1:read'){read.clear();loadRead().forEach(id=>read.add(id));render();}});
+function showUpdated(){
+ const node=document.querySelector('#data-updated');
+ if(!node||!/^\d{4}-\d{2}-\d{2}$/.test(meta.updatedAt||''))return;
+ node.innerHTML=`资料更新 <time datetime="${meta.updatedAt}">${date(meta.updatedAt)}</time>`;
+ node.title='人工整理的资料快照日期，非实时更新';node.hidden=false;
+}
 try{
  const responses=await Promise.all([fetch('./data/items.json'),fetch('./data/sources.json'),fetch('./data/briefings.json')]);if(responses.some(response=>!response.ok))throw new Error('资料读取失败');
- const [data,catalog,editions]=await Promise.all(responses.map(response=>response.json()));items=data.items;sources=catalog;meta=data.meta;briefings=editions;render();
+ const [data,catalog,editions]=await Promise.all(responses.map(response=>response.json()));items=data.items;sources=catalog;meta=data.meta;briefings=editions;showUpdated();render();
 }catch(error){main.innerHTML='<div class="empty-state"><h2>暂时无法载入资料</h2><p>请刷新页面重试。</p><button class="outline-button" id="reload-button">重新加载</button></div>';document.querySelector('#reload-button').addEventListener('click',()=>location.reload());console.error(error);}
