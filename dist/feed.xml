@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>
-<title>复旦 JADE · AI 安全观察</title><link>https://ai-security-observer.h2o228314.chatgpt.site/</link>
+<title>复旦 JADE · AI 威胁情报站</title><link>https://ai-security-observer.h2o228314.chatgpt.site/</link>
 <description>AI 安全事件、漏洞公告与研究披露。人工整理，按已收录资料汇编；不代表实时核验。</description><language>zh-CN</language>
 <lastBuildDate>Tue, 10 Nov 2026 16:00:00 GMT</lastBuildDate><atom:link href="https://ai-security-observer.h2o228314.chatgpt.site/feed.xml" rel="self" type="application/rss+xml"/>
 <item><title>Kiro CLI 会话文件默认权限过宽，同机用户可能读取提示与工具输出</title><link>https://ai-security-observer.h2o228314.chatgpt.site/#/item/cve-2026-124848</link><guid isPermaLink="true">https://ai-security-observer.h2o228314.chatgpt.site/#/item/cve-2026-124848</guid><pubDate>Mon, 09 Nov 2026 16:00:00 GMT</pubDate><category>漏洞公告</category><description>AWS 披露，macOS 和 Linux 上的 Kiro CLI（原 Amazon Q Developer CLI）将会话与提示历史创建为其他本地用户可读。1.16.0 至 2.27.0 以前版本受影响；升级后还须启动一次以收紧已有会话文件。

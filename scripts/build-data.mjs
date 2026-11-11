@@ -75,7 +75,7 @@ items=attachRiskAssessments(items,read('risk-assessments.json'));
 const coverage=riskCoverage(items);
 const review=read('review.json');
 const version=JSON.parse(readFileSync(path.join(root,'package.json'),'utf8')).version;
-const result={meta:{title:'AI 安全观察',version,updatedAt:review.reviewedAt,timeZone:review.timeZone,mode:'curated-snapshot',scheduledCollection:false,total:items.length,pdfRecords:pdf.length,primaryRecords:items.filter(i=>i.evidence==='primary').length,cveRecords:items.filter(i=>i.cveIds.length).length,activeSources:new Set(items.map(item=>item.sourceId)).size},items};
+const result={meta:{title:'AI 威胁情报站',version,updatedAt:review.reviewedAt,timeZone:review.timeZone,mode:'curated-snapshot',scheduledCollection:false,total:items.length,pdfRecords:pdf.length,primaryRecords:items.filter(i=>i.evidence==='primary').length,cveRecords:items.filter(i=>i.cveIds.length).length,activeSources:new Set(items.map(item=>item.sourceId)).size},items};
 mkdirSync(path.join(root,'dist','data'),{recursive:true});
 result.meta.siteUrl=siteUrl;
 result.meta.preview=!production;

@@ -53,7 +53,7 @@ export function itemMarkdown(item,base){
  if(!refs.length)lines.push('- 原始公开链接待补。');
  return lines.join('\n');
 }
-export function exportMarkdown(items,meta,base,{title='复旦 JADE · AI 安全观察',coverage='当前筛选结果'}={}){
+export function exportMarkdown(items,meta,base,{title='复旦 JADE · AI 威胁情报站',coverage='当前筛选结果'}={}){
  return [`# ${title}`,'',`${coverage} · ${items.length} 条`,'',`按已收录资料汇编 · 资料更新：${meta.updatedAt} · 人工整理，非实时核验`,'',...items.map(item=>itemMarkdown(item,base))].join('\n\n').replace(/\n{3,}/g,'\n\n')+'\n';
 }
 export function exportJson(items,meta,filters,base){
@@ -72,7 +72,7 @@ const rssDate=value=>new Date(`${value}T00:00:00+08:00`).toUTCString();
 export function buildRss(items,meta,base,{preview=false}={}){
  const latest=filterItems(items).slice(0,50);
  return `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>
-<title>${xml('复旦 JADE · AI 安全观察'+(preview?'（本地预览）':''))}</title><link>${xml(base)}</link>
+<title>${xml('复旦 JADE · AI 威胁情报站'+(preview?'（本地预览）':''))}</title><link>${xml(base)}</link>
 <description>AI 安全事件、漏洞公告与研究披露。人工整理，按已收录资料汇编；不代表实时核验。</description><language>zh-CN</language>
 <lastBuildDate>${rssDate(meta.updatedAt)}</lastBuildDate><atom:link href="${xml(new URL('feed.xml',base).href)}" rel="self" type="application/rss+xml"/>
 ${latest.map(item=>`<item><title>${xml(item.title)}</title><link>${xml(detailUrl(item,base))}</link><guid isPermaLink="true">${xml(detailUrl(item,base))}</guid><pubDate>${rssDate(itemDate(item))}</pubDate><category>${xml(kindNames[item.kind])}</category><description>${xml(`${item.summary}\n来源：${item.sourceName}；${item.originalPublishedAt?'原始披露日期':'汇编归档日期，原始披露日期未确认'}：${itemDate(item)}。\n证据与边界：${item.limitations}`)}</description></item>`).join('\n')}
