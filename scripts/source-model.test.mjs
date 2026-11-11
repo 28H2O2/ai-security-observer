@@ -5,12 +5,12 @@ import {sourceCatalogView} from '../dist/source-model.js';
 const sources=JSON.parse(readFileSync(new URL('../content/sources.json',import.meta.url),'utf8'));
 const {items}=JSON.parse(readFileSync(new URL('../dist/data/items.json',import.meta.url),'utf8'));
 
-test('来源图保留25个唯一来源，按9/11/4/1分类，排除PDF和工程参考',()=>{
+test('来源图保留26个唯一来源，按9/12/4/1分类，排除PDF和工程参考',()=>{
  const view=sourceCatalogView(sources);
  const visible=view.groups.flatMap(group=>group.sources);
- assert.equal(view.total,25);assert.equal(view.count,25);
- assert.deepEqual(view.groups.map(group=>[group.id,group.sources.length]),[['vendor',9],['research',11],['database',4],['chinese',1]]);
- assert.equal(new Set(visible.map(source=>source.id)).size,25);
+ assert.equal(view.total,26);assert.equal(view.count,26);
+ assert.deepEqual(view.groups.map(group=>[group.id,group.sources.length]),[['vendor',9],['research',12],['database',4],['chinese',1]]);
+ assert.equal(new Set(visible.map(source=>source.id)).size,26);
  assert.ok(!visible.some(source=>['pdf','aihot'].includes(source.id)));
  assert.equal(view.selected,null);
 });

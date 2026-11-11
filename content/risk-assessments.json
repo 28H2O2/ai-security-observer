@@ -4,60 +4,96 @@
     {
       "itemId": "primary-opencode-mcp-oauth",
       "ruleVersion": "aso-risk-v1.0",
-      "itemFingerprint": "63e4332dc3469db28145912d3bd55ab49cd05aa87ca61bf1dae90eaa63a576c6",
+      "itemFingerprint": "16cb8f52256ee65588330817a0201f3b22e47f8dea20d88a32850396724780e4",
       "status": "scored",
       "dimensions": {
         "I": 5,
         "F": 3,
-        "S": 2,
+        "S": 3,
         "A": 2
       },
       "confidence": "medium",
       "activity": "controlled_poc",
       "evidence": {
         "I": {
-          "reason": "OAuth 授权地址进入 shell，可按开发者进程权限执行任意代码。",
+          "reason": "同一启动链按调用用户权限执行代码，无提权或逃逸结论。",
           "sources": [
-            "primary"
+            "source1",
+            "source2",
+            "source3",
+            "source4"
           ]
         },
         "F": {
-          "reason": "已连接的恶意或失陷 MCP 在正常 OAuth 握手中返回载荷；仍以受害者连接该服务为前提。",
+          "reason": "需连接恶意或失陷远程 MCP，在正常 OAuth 握手接收不可信地址。",
           "sources": [
-            "primary"
+            "source1",
+            "source2",
+            "source3",
+            "source4"
           ]
         },
         "S": {
-          "reason": "限定于 Windows/WSL 上 1.0.137–1.18.32；不把下载量当作易受攻击部署数。",
+          "reason": "CVE 明确涵盖两个生产工具及共享 open 依赖的版本范围，限 Windows/WSL。",
           "sources": [
-            "primary"
+            "source1",
+            "source2",
+            "source3",
+            "source4"
           ]
         },
         "A": {
-          "reason": "原文提供触发路径、载荷和演示；本次依据为研究 PoC。",
+          "reason": "研究演示与 Inspector sink PoC；不增加独立验证或在野分。",
           "sources": [
-            "primary"
+            "source1",
+            "source2",
+            "source3",
+            "source4"
           ]
         }
       },
       "sources": [
         {
-          "id": "primary",
+          "id": "source1",
           "kind": "reference",
           "url": "https://www.pillar.security/blog/open-and-shut-remote-code-execution-in-opencode-via-mcp-oauth",
           "label": "Open and Shut: Remote Code Execution in opencode via MCP OAuth",
-          "locator": "Executive summary；Where the bug lives；Sink anyone?；演示与版本表",
-          "accessedAt": "2026-11-03"
+          "locator": "Key findings; paragraph stating Microsoft has not observed threat actors weaponizing this technique",
+          "accessedAt": "2026-11-11"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/119xxx/CVE-2026-119025.json",
+          "label": "CVE-2026-119025 官方记录",
+          "locator": "cveMetadata.datePublished; containers.cna.affected, descriptions and metrics",
+          "accessedAt": "2026-11-11"
+        },
+        {
+          "id": "source3",
+          "kind": "reference",
+          "url": "https://github.com/modelcontextprotocol/inspector/security/advisories/GHSA-q978-78c7-phqw",
+          "label": "MCP Inspector 维护者公告 GHSA-q978-78c7-phqw",
+          "locator": "Affected/Patched versions; Details; PoC final paragraphs on sink validation platform; Impact",
+          "accessedAt": "2026-11-11"
+        },
+        {
+          "id": "source4",
+          "kind": "reference",
+          "url": "https://www.pillar.security/blog/inspecting-the-inspector-rce-in-mcps-official-debugging-tool",
+          "label": "Pillar：Inspecting the Inspector",
+          "locator": "Key findings; paragraph stating Microsoft has not observed threat actors weaponizing this technique",
+          "accessedAt": "2026-11-11"
         }
       ],
-      "reason": "评估 Windows/WSL 的 MCP OAuth 命令注入路径。",
+      "reason": "归并 CVE-2026-119025 的同一 PowerShell URL 启动缺陷，补充 Inspector。",
       "consequences": {
-        "potential": "开发者主机上的任意代码执行。",
-        "observed": "研究者演示了执行路径；所读材料未报告在野受害者。"
+        "potential": "按开发者进程权限执行代码。",
+        "observed": "opencode 研究演示；Inspector 在 macOS PowerShell 验证 sink，平台完整路径依赖代码分析。"
       },
-      "assessedAt": "2026-11-03",
+      "assessedAt": "2026-11-11",
       "reviewed": false,
-      "reviewNotes": "核对 Windows/WSL 部署覆盖与 OAuth 触发条件；文章页首和时间线有日期差异。"
+      "reviewNotes": "S 从2调到3基于两个生产工具和共享依赖的明确范围，仍需人工校准；不因 CVE 增加 A。"
     },
     {
       "itemId": "primary-visual-studio-ssms-copilot-rce",
@@ -5841,6 +5877,447 @@
       "reviewed": false,
       "reviewNotes": "若日后单独评估评测环境的隔离缺口，应另建对象，不沿用本条的不适用结论。",
       "itemFingerprint": "b156a26966392be6ef5b9e8595f75f9a6cc99f8d55b5d85ded074f3852fb7ea9"
+    },
+    {
+      "itemId": "advisory-basic-memory-dns-rebinding",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 2,
+        "A": 2
+      },
+      "confidence": "medium",
+      "evidence": {
+        "I": {
+          "reason": "PoC 验证测试笔记读取与删除。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "F": {
+          "reason": "运行 HTTP/SSE 时浏览低信任网页，可接触攻击输入。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "S": {
+          "reason": "限 basic-memory <0.24.0 的 HTTP/SSE 配置。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "A": {
+          "reason": "模拟重绑定请求的受控 PoC，未验证完整浏览器链路。",
+          "sources": [
+            "source1"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://github.com/basicmachines-co/basic-memory/security/advisories/GHSA-4gfv-c2mm-mvj2",
+          "label": "Basic Memory 的 HTTP/SSE 传输缺少来源校验，可被网页读取或删除笔记",
+          "locator": "Description; Proof of concept; Impact; Remediation; affected and patched version fields",
+          "accessedAt": "2026-11-11"
+        }
+      ],
+      "activity": "controlled_poc",
+      "reason": "评估 HTTP/SSE 来源校验缺失的笔记越权路径。",
+      "consequences": {
+        "potential": "笔记读取、修改或删除。",
+        "observed": "公告测试笔记读取和删除，非客户受害记录。"
+      },
+      "assessedAt": "2026-11-11",
+      "reviewed": false,
+      "reviewNotes": "复核浏览器和 DNS 条件，以及 F=3 的部署假设。",
+      "itemFingerprint": "780b6bc8b36f264d79af2071c7d8026cbe8e42d085d2bb16919761aeadf551ef"
+    },
+    {
+      "itemId": "advisory-agent-router-mcp-session-subject",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "可沿用他人后端会话调用工具，跨越用户授权。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "F": {
+          "reason": "需要有效后端会话信息及可达路由，默认密钥不消除这些条件。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "S": {
+          "reason": "限 <=1.1.0 的 MCP 路由和后端会话配置。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "A": {
+          "reason": "公告明确为未在真实集群运行的代码级路径。",
+          "sources": [
+            "source1"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://github.com/theagentrouter/agent-router/security/advisories/GHSA-953h-535j-jg2v",
+          "label": "Agent Router 恢复 MCP 会话时未核对身份，默认密钥进一步放大风险",
+          "locator": "Summary; Impact; Reproduction (code-level, not run against a live cluster); affected and patched version fields",
+          "accessedAt": "2026-11-11"
+        }
+      ],
+      "activity": "attack_path",
+      "reason": "评估跨用户会话恢复缺少身份绑定。",
+      "consequences": {
+        "potential": "在后端会话允许范围内跨用户读取或操作。",
+        "observed": "代码级分析，无真实集群或客户受害验证。"
+      },
+      "assessedAt": "2026-11-11",
+      "reviewed": false,
+      "reviewNotes": "核对会话获取和入口认证条件，不能由标识可伪造推出任意匿名接管。",
+      "itemFingerprint": "e250ca9f7d5fc517abc6db2a15ba74b6331ac24a5dc5e48c3487ebd61d3337d6"
+    },
+    {
+      "itemId": "cve-2026-123809",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 2
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "模板可求值事件数据，并在有效连接器下向指定频道发送。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "F": {
+          "reason": "需创建权限、审批或提示注入；外传还需有效 Slack 连接器。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "S": {
+          "reason": "限特定 Dynatrace MCP 工具及租户工作流；版本差异保留。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "A": {
+          "reason": "租户 PoC 验证存储与求值，但占位连接器使发送失败。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://github.com/dynatrace-oss/dynatrace-mcp/security/advisories/GHSA-xrmj-5g4g-8987",
+          "label": "Dynatrace MCP 可持久保存恶意工作流模板，数据外传仍需有效连接器",
+          "locator": "Summary; PoC (synthetic event, evaluated Input tab and failed placeholder Slack connection); Impact",
+          "accessedAt": "2026-11-11"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/123xxx/CVE-2026-123809.json",
+          "label": "CVE 官方原始记录",
+          "locator": "cveMetadata.datePublished; containers.cna.affected, descriptions and metrics",
+          "accessedAt": "2026-11-11"
+        }
+      ],
+      "activity": "controlled_poc",
+      "reason": "评估持久工作流求值和有条件外传，不评系统代码执行。",
+      "consequences": {
+        "potential": "事件或租户元数据通过持久工作流有条件外传。",
+        "observed": "合成事件被模板求值，Slack 动作未成功投递。"
+      },
+      "assessedAt": "2026-11-11",
+      "reviewed": false,
+      "reviewNotes": "复核 I=3 和连接器条件，不能写成已发生生产泄密。",
+      "itemFingerprint": "ddcb7853e5042875c74c6124340a9615a5e3ea8a2a83a5d06348e37758aaf88f"
+    },
+    {
+      "itemId": "research-microsoft-lazarus-weight-backdoor",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 5,
+        "F": 2,
+        "S": 1,
+        "A": 2
+      },
+      "confidence": "medium",
+      "evidence": {
+        "I": {
+          "reason": "微软原文描述触发后下载运行攻击者代码，按智能体权限执行。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "F": {
+          "reason": "需篡改被加载的权重、引入触发内容，且智能体具备执行工具。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "S": {
+          "reason": "仅依微软研究演示，不外推至所有模型或托管服务。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "A": {
+          "reason": "两篇微软原文描述受控演示，明确尚未观察到攻击者武器化。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/11/10/detecting-sleeper-agents-hiding-in-ai-model-neurons/",
+          "label": "微软演示改写少量神经元植入智能体后门，触发后可执行命令",
+          "locator": "Key findings; paragraph stating Microsoft has not observed threat actors weaponizing this technique",
+          "accessedAt": "2026-11-11"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://www.microsoft.com/en-us/research/blog/lazare-veni-foras-reprogramming-dormant-neurons-to-backdoor-ai-agents/",
+          "label": "补充原始披露",
+          "locator": "Research summary paragraphs on fewer than 10 neurons, trigger example, execution permissions and weight diffing",
+          "accessedAt": "2026-11-11"
+        }
+      ],
+      "activity": "controlled_poc",
+      "reason": "评估被篡改模型在终端智能体中触发命令执行的实验机制。",
+      "consequences": {
+        "potential": "在已授予终端工具权限的环境执行攻击者代码。",
+        "observed": "微软研究演示；未独立复现或逐项复核 PDF 实验参数。"
+      },
+      "assessedAt": "2026-11-11",
+      "reviewed": false,
+      "reviewNotes": "需人工核对 PDF 的模型、样本与成功率，复核 F=2、S=1。",
+      "itemFingerprint": "0b1bc3d90479694fe3066386f536ea88f08b829fa17b4b436f2182960e967c29"
+    },
+    {
+      "itemId": "cve-2026-125271",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 4,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "官方举例包含停用 MFA 和删除数据库集群，仍受运行身份权限约束。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        },
+        "F": {
+          "reason": "需本地服务、自定义清单列入相关操作及用户与助手交互。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        },
+        "S": {
+          "reason": "限 0.2.13–1.5.0；托管服务和两项独立安全设置不受影响。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        },
+        "A": {
+          "reason": "维护者给出连续大写操作名归一化路径，未确认 PoC 或实际攻击。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-176-aws/",
+          "label": "AWS API MCP 自定义策略的名称归一化错误，可绕过禁止或确认清单",
+          "locator": "Publication Date; Description; Impacted versions; Resolution; Workarounds",
+          "accessedAt": "2026-11-11"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://github.com/awslabs/mcp/security/advisories/GHSA-4wq9-grf3-qg2p",
+          "label": "补充原始披露",
+          "locator": "Summary; Impact (local custom policy and unaffected settings); Patches; Workarounds",
+          "accessedAt": "2026-11-11"
+        },
+        {
+          "id": "source3",
+          "kind": "reference",
+          "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/125xxx/CVE-2026-125271.json",
+          "label": "CVE 官方原始记录",
+          "locator": "cveMetadata.datePublished; containers.cna.affected, descriptions and metrics",
+          "accessedAt": "2026-11-11"
+        }
+      ],
+      "activity": "attack_path",
+      "reason": "评估本地自定义策略绕过，不等同于 IAM 权限提升。",
+      "consequences": {
+        "potential": "在已有凭据权限内执行本应禁止或要求确认的高影响操作。",
+        "observed": "官方漏洞披露，未确认实际受害者。"
+      },
+      "assessedAt": "2026-11-11",
+      "reviewed": false,
+      "reviewNotes": "核对运行身份权限，不将高影响举例当作每个部署都可执行。",
+      "itemFingerprint": "91da54d818fc36a12e27ab946ba012e2d3e598707b5d89f66d36b43422f167c8"
+    },
+    {
+      "itemId": "cve-2026-124848",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "会话中的提示、响应和工具输出可能包含敏感信息。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "F": {
+          "reason": "需同机另一账户且能访问权限过宽文件，受共享主机条件限制。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "S": {
+          "reason": "限 macOS/Linux 上 CLI 1.16.0 至 2.27.0 以前版本。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "A": {
+          "reason": "官方明确文件权限及本地读取路径，未确认真实攻击。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-178-aws/",
+          "label": "Kiro CLI 会话文件默认权限过宽，同机用户可能读取提示与工具输出",
+          "locator": "Publication Date; Description; Impacted versions; Resolution; Workarounds",
+          "accessedAt": "2026-11-11"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/124xxx/CVE-2026-124848.json",
+          "label": "CVE 官方原始记录",
+          "locator": "cveMetadata.datePublished; containers.cna.affected, descriptions and metrics",
+          "accessedAt": "2026-11-11"
+        }
+      ],
+      "activity": "attack_path",
+      "reason": "评估同机其他账户读取 CLI 会话文件，不评远程攻击。",
+      "consequences": {
+        "potential": "会话中实际存在的凭据、代码或其他资料被同机用户读取。",
+        "observed": "厂商漏洞披露，未确认在野读取。"
+      },
+      "assessedAt": "2026-11-11",
+      "reviewed": false,
+      "reviewNotes": "复核 F=2 的本地账户条件；升级后启动一次和旧历史须单独处理。",
+      "itemFingerprint": "5ba1cc1c66f28232c910c1ba1e0e250a91507707639276012b972e3d9aa5b624"
+    },
+    {
+      "itemId": "research-deepmind-adaptive-injection-swarms",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "not_applicable",
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "confidence": "medium",
+      "evidence": {},
+      "sources": [
+        {
+          "id": "paper",
+          "kind": "reference",
+          "url": "https://arxiv.org/html/2611.11861v1",
+          "label": "DeepMind 用智能体群搜索提示注入，合成评测显示攻击预算影响防御结果",
+          "locator": "Sections 3.1-3.2 and 5.1-5.2; Table 1; Comparison with prior work",
+          "accessedAt": "2026-11-11"
+        }
+      ],
+      "activity": "unknown",
+      "reason": "合成目标刻意选择非恶意无关工具调用，评估攻击优化与指令边界，未界定单一部署安全后果；不把抵抗率换算为 ASO。",
+      "consequences": {
+        "potential": null,
+        "observed": null
+      },
+      "assessedAt": "2026-11-11",
+      "reviewed": false,
+      "reviewNotes": "复核安全分类器关闭、320次预算与保留外部防护的对照边界。",
+      "itemFingerprint": "140b230e938327ae74c19fda2c34ce987ae3468ff2fa5b145e4ca3c7b3e6b929"
     }
   ]
 }

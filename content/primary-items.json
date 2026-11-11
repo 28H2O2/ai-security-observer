@@ -2,8 +2,8 @@
   {
     "id": "primary-opencode-mcp-oauth",
     "externalId": null,
-    "title": "opencode 的 MCP OAuth 流程可在 Windows 与 WSL 触发远程代码执行",
-    "summary": "Pillar 发现，恶意远程 MCP 服务可将 OAuth 授权地址传入 opencode 的浏览器启动链，在 Windows 与 WSL 上触发命令注入。该链不依赖提示注入；研究者称修复已随 1.18.33 发布，但未分配 CVE。",
+    "title": "opencode 与 MCP Inspector 的 OAuth 启动链可在 Windows 与 WSL 执行代码",
+    "summary": "Pillar 披露的 opencode OAuth 命令注入现已登记为 CVE-2026-119025，同一 open 依赖缺陷也影响 MCP Inspector。恶意远程服务返回授权地址即可触发 Windows/WSL 的 PowerShell 启动链，无需模型参与。",
     "kind": "research",
     "risk": "attack",
     "tags": [
@@ -15,7 +15,9 @@
       "opencode",
       "Anomaly",
       "Windows",
-      "WSL"
+      "WSL",
+      "MCP Inspector",
+      "open"
     ],
     "publishedAt": "2026-10-19",
     "originalPublishedAt": "2026-10-19",
@@ -29,13 +31,57 @@
         "label": "Open and Shut: Remote Code Execution in opencode via MCP OAuth",
         "url": "https://www.pillar.security/blog/open-and-shut-remote-code-execution-in-opencode-via-mcp-oauth",
         "role": "primary"
+      },
+      {
+        "label": "CVE-2026-119025 官方记录",
+        "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/119xxx/CVE-2026-119025.json",
+        "role": "primary"
+      },
+      {
+        "label": "MCP Inspector 维护者公告 GHSA-q978-78c7-phqw",
+        "url": "https://github.com/modelcontextprotocol/inspector/security/advisories/GHSA-q978-78c7-phqw",
+        "role": "primary"
+      },
+      {
+        "label": "Pillar：Inspecting the Inspector",
+        "url": "https://www.pillar.security/blog/inspecting-the-inspector-rce-in-mcps-official-debugging-tool",
+        "role": "primary"
       }
     ],
-    "limitations": "研究披露，未报告已在野利用。受影响范围为 Windows/WSL 上 1.0.137 至 1.18.32。原文页首标注 10 月 19 日，正文时间线却称 10 月 4 日发布；此处按页首归档并保留冲突。",
-    "impact": "恶意 MCP 服务的授权元数据可在开发者权限下触发任意代码执行。macOS 与原生 Linux 的启动路径不受文中这一机制影响。",
-    "recommendation": "Windows/WSL 用户升级至 1.18.33 或之后版本；审查远程 MCP 来源，并避免将远端提供的 URL 拼入 shell 命令。",
+    "limitations": "补充 CVE 和 Inspector 范围，保留最早 opencode 披露日 10 月 19 日；原文页首与正文时间线的日期冲突仍未消除。Inspector 公告的执行验证在 macOS PowerShell 上完成，Windows/WSL 完整路径依赖代码分析；不是第三方生产受害事件，无提权或沙箱逃逸结论。GHSA 与 CVE 的 CVSS 版本、数值不同，均不替代 ASO。",
+    "impact": "恶意 MCP 授权元数据可能按调用用户权限执行代码；影响 Windows/WSL 的 opencode 与 MCP Inspector 受影响版本，原生 Linux 与 macOS 的 URL 启动路径不受此机制影响。",
+    "recommendation": "opencode 升至 1.18.33+，MCP Inspector 升至 2.12.0+；直接使用 open 的项目升级至 11.0.0+。仅检查 URL 是 HTTPS 不足以阻止 shell 插值。",
     "pdfPage": null,
-    "featured": false
+    "featured": false,
+    "cveIds": [
+      "CVE-2026-119025"
+    ],
+    "cvePublishedAt": "2026-10-29",
+    "reviewedAt": "2026-11-11",
+    "sourceUpdatedAt": "2026-11-05",
+    "affectedPackages": [
+      {
+        "name": "open",
+        "ecosystem": "npm",
+        "affectedRange": ">= 7.2.0, < 11.0.0",
+        "fixedVersion": "11.0.0",
+        "source": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/119xxx/CVE-2026-119025.json"
+      },
+      {
+        "name": "opencode-ai",
+        "ecosystem": "npm",
+        "affectedRange": ">= 1.0.137, < 1.18.33",
+        "fixedVersion": "1.18.33",
+        "source": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/119xxx/CVE-2026-119025.json"
+      },
+      {
+        "name": "@modelcontextprotocol/inspector",
+        "ecosystem": "npm",
+        "affectedRange": ">= 2.0.0, < 2.12.0",
+        "fixedVersion": "2.12.0",
+        "source": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/119xxx/CVE-2026-119025.json"
+      }
+    ]
   },
   {
     "id": "primary-visual-studio-ssms-copilot-rce",

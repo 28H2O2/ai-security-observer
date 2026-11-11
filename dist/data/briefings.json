@@ -1,10 +1,63 @@
 {
   "meta": {
-    "updatedAt": "2026-11-10",
+    "updatedAt": "2026-11-11",
     "mode": "curated-snapshot",
     "timeZone": "Asia/Shanghai"
   },
   "daily": [
+    {
+      "mode": "daily",
+      "start": "2026-11-10",
+      "end": "2026-11-10",
+      "total": 3,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-124848",
+            "cve-2026-125271"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "research-microsoft-lazarus-weight-backdoor"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-11-09",
+      "end": "2026-11-09",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "research-deepmind-adaptive-injection-swarms"
+          ]
+        }
+      ]
+    },
     {
       "mode": "daily",
       "start": "2026-11-05",
@@ -228,7 +281,7 @@
       "mode": "daily",
       "start": "2026-10-23",
       "end": "2026-10-23",
-      "total": 2,
+      "total": 3,
       "sections": [
         {
           "kind": "incident",
@@ -240,7 +293,9 @@
         {
           "kind": "advisory",
           "label": "漏洞公告",
-          "itemIds": []
+          "itemIds": [
+            "advisory-basic-memory-dns-rebinding"
+          ]
         },
         {
           "kind": "research",
@@ -521,7 +576,7 @@
       "mode": "daily",
       "start": "2026-10-07",
       "end": "2026-10-07",
-      "total": 2,
+      "total": 3,
       "sections": [
         {
           "kind": "incident",
@@ -533,7 +588,9 @@
         {
           "kind": "advisory",
           "label": "漏洞公告",
-          "itemIds": []
+          "itemIds": [
+            "advisory-agent-router-mcp-session-subject"
+          ]
         },
         {
           "kind": "research",
@@ -1341,6 +1398,31 @@
     },
     {
       "mode": "daily",
+      "start": "2026-06-09",
+      "end": "2026-06-09",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-123809"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
       "start": "2026-05-20",
       "end": "2026-05-20",
       "total": 1,
@@ -1593,6 +1675,35 @@
   "weekly": [
     {
       "mode": "weekly",
+      "start": "2026-11-09",
+      "end": "2026-11-15",
+      "total": 4,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-124848",
+            "cve-2026-125271"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "research-microsoft-lazarus-weight-backdoor",
+            "research-deepmind-adaptive-injection-swarms"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
       "start": "2026-11-02",
       "end": "2026-11-08",
       "total": 11,
@@ -1667,7 +1778,7 @@
       "mode": "weekly",
       "start": "2026-10-19",
       "end": "2026-10-25",
-      "total": 10,
+      "total": 11,
       "sections": [
         {
           "kind": "incident",
@@ -1683,6 +1794,7 @@
           "label": "漏洞公告",
           "itemIds": [
             "advisory-mcp-server-everything-env-exposure",
+            "advisory-basic-memory-dns-rebinding",
             "primary-aws-strands-a2a-isolation",
             "primary-aws-sagemaker-default-bucket",
             "advisory-fastmcp-oauth-issuer-binding",
@@ -1735,7 +1847,7 @@
       "mode": "weekly",
       "start": "2026-10-05",
       "end": "2026-10-11",
-      "total": 16,
+      "total": 17,
       "sections": [
         {
           "kind": "incident",
@@ -1757,6 +1869,7 @@
           "kind": "advisory",
           "label": "漏洞公告",
           "itemIds": [
+            "advisory-agent-router-mcp-session-subject",
             "primary-aws-agentcore-import-injection",
             "cve-2026-106119"
           ]
@@ -2133,6 +2246,31 @@
           "itemIds": [
             "primary-computer-use-toctou"
           ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-06-08",
+      "end": "2026-06-14",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-123809"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
         }
       ]
     },

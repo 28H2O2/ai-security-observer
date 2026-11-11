@@ -8,9 +8,9 @@ const {items,meta}=read('dist/data/items.json');
 test('审核日期独立于新闻日期，补录历史事件不会成为今日新闻',()=>{
  assert.equal(meta.updatedAt,read('content/review.json').reviewedAt);
  const latest=filterItems(items)[0];
- assert.equal(latest.id,'primary-checkpoint-chatgpt-lockdown-bypass');
- assert.equal(latest.originalPublishedAt,'2026-11-05');
- assert.equal(latest.reviewedAt,'2026-11-10');
+ assert.equal(latest.id,'cve-2026-124848');
+ assert.equal(latest.originalPublishedAt,'2026-11-10');
+ assert.equal(latest.reviewedAt,'2026-11-11');
  const incident=items.find(i=>i.id==='primary-litellm-release-compromise-october');
  assert.equal(incident.originalPublishedAt,'2026-10-21');
  assert.equal(incident.sourceUpdatedAt,'2026-10-23');
@@ -93,4 +93,35 @@ test('11-10 更新保留原始披露日期，5 条早于上次审阅的资料按
  assert.equal(makeBriefing(items,'2026-11-05','daily').total,1);
  const oct8=makeBriefing(items,'2026-10-08','daily');
  assert.ok(oct8.sections.some(s=>s.itemIds.includes('primary-zenity-agentcorruption-agentcore')));
+});
+
+test('11-11 核验保留旧公告日期、上海 CVE 日期和未完成的外传边界',()=>{
+ const get=id=>items.find(i=>i.id===id);
+ assert.equal(meta.updatedAt,'2026-11-11');
+ assert.equal(makeBriefing(items,'2026-11-11','daily').total,0);
+ assert.equal(get('advisory-agent-router-mcp-session-subject').originalPublishedAt,'2026-10-07');
+ assert.equal(get('advisory-agent-router-mcp-session-subject').riskAssessment.activity,'attack_path');
+ const dynatrace=get('cve-2026-123809');
+ assert.equal(dynatrace.originalPublishedAt,'2026-06-09');
+ assert.equal(dynatrace.cvePublishedAt,'2026-11-10');
+ assert.match(dynatrace.riskAssessment.consequences.observed,/未成功投递/);
+ assert.match(dynatrace.preconditions.join(' '),/有效连接器/);
+ for(const id of ['cve-2026-125271','cve-2026-124848']){
+  assert.equal(get(id).originalPublishedAt,'2026-11-10');
+  assert.equal(get(id).cvePublishedAt,'2026-11-11');
+  assert.equal(get(id).riskAssessment.activity,'attack_path');
+ }
+ assert.match(get('cve-2026-125271').limitations,/IAM/);
+ assert.match(get('cve-2026-124848').recommendation,/启动一次/);
+ const paper=get('research-deepmind-adaptive-injection-swarms');
+ assert.equal(paper.riskAssessment.status,'not_applicable');
+ assert.match(paper.limitations,/关闭.*模型外/);
+ const opencode=get('primary-opencode-mcp-oauth');
+ assert.equal(items.filter(i=>i.cveIds.includes('CVE-2026-119025')).length,1);
+ assert.equal(opencode.originalPublishedAt,'2026-10-19');
+ assert.equal(opencode.affectedPackages.length,3);
+ assert.equal(opencode.riskAssessment.score,70);
+ const reviewed=items.filter(i=>i.reviewedAt==='2026-11-11');
+ assert.equal(reviewed.length,8);
+ assert.ok(reviewed.every(i=>i.riskAssessment.reviewed===false&&!i.riskAssessment.stale));
 });

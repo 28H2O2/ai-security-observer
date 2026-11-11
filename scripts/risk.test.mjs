@@ -46,7 +46,7 @@ test('未知值不转为零，缺失键、浮点数、字符串、NaN 和越界�
 });
 
 test('正式总分只由完整维度产生，来源总分不能覆盖公式',()=>{
-  assert.equal(validateAssessment(example,exampleItem).score,66);
+  assert.equal(validateAssessment(example,exampleItem).score,70);
   assert.throws(()=>validated(a=>a.score=100),/总分/);
   assert.throws(()=>validated(a=>a.dimensions.F=null),/缺失维度/);
   const pending=validated(a=>{a.status='needs_review';a.score=null;});
@@ -76,7 +76,7 @@ test('Activity 分类与分值对应，未找到攻击证据不能隐式记零',
   const unknown=validated(a=>{a.status='insufficient_evidence';a.dimensions.A=null;a.activity='unknown';a.evidence.A={reason:'尚未取得利用证据。',sources:[]};});
   assert.equal(unknown.score,null);
   const noEvidence=validated(a=>{a.activity='confirmed_no_public_evidence';a.dimensions.A=0;a.evidence.A.reason='测试夹具：来源明确陈述核查结果及范围。';});
-  assert.equal(noEvidence.score,58);
+  assert.equal(noEvidence.score,62);
   assert.throws(()=>validated(a=>{a.dimensions.A=0;a.activity='unknown';}),/Activity/);
 });
 
@@ -88,7 +88,7 @@ test('非空维度必须有理由及能追溯的证据引用',()=>{
   assert.throws(()=>validated(a=>a.sources.push(clone(a.sources[0]))),/重复证据/);
   assert.throws(()=>validated(a=>a.evidence.X=a.evidence.I),/未知证据维度/);
   assert.throws(()=>validated(a=>a.sources[0].locator=''),/locator/);
-  assert.throws(()=>validated(a=>a.sources[0].accessedAt='2026-11-04'),/读取日期/);
+  assert.throws(()=>validated(a=>a.sources[0].accessedAt='2026-11-12'),/读取日期/);
 });
 
 test('证据必须关联 reference 或显式原始 URL，拒绝危险链接',()=>{
@@ -136,10 +136,10 @@ test('条目材料变化使旧分数失效，键顺序变化不影响指纹',()=
 test('覆盖清单区分已评分、证据不足、不适用和尚未逐项评估',()=>{
   const coverage=riskCoverage(items);
   assert.deepEqual(coverage,read('dist/data/risk-coverage.json'));
-  assert.equal(coverage.total,103);assert.equal(coverage.withCve,35);
-  assert.equal(coverage.assessed,103);
-  assert.deepEqual(coverage.statuses,{scored:82,insufficient_evidence:10,not_applicable:11,needs_review:0});
-  assert.deepEqual(coverage.applicability,{applicable:92,notApplicable:11,undetermined:0});
+  assert.equal(coverage.total,110);assert.equal(coverage.withCve,39);
+  assert.equal(coverage.assessed,110);
+  assert.deepEqual(coverage.statuses,{scored:88,insufficient_evidence:10,not_applicable:12,needs_review:0});
+  assert.deepEqual(coverage.applicability,{applicable:98,notApplicable:12,undetermined:0});
   assert.equal(coverage.pending.length,10);
   assert.equal(new Set(coverage.pending.map(item=>item.itemId)).size,10);
   assert.ok(dataset.assessments.every(a=>a.reviewed===false));
@@ -149,8 +149,8 @@ test('风险排序降序，同分按日期再按 ID，未评分放最后',()=>{
   const result=filterItems(items,{sort:'risk'});
   assert.equal(result[0].id,'pdf-2026-0004');
   assert.equal(result[0].riskAssessment.score,84);
-  for(let index=1;index<82;index++)assert.ok(result[index-1].riskAssessment.score>=result[index].riskAssessment.score);
-  assert.ok(result.slice(82).every(item=>!hasRiskScore(item.riskAssessment)));
+  for(let index=1;index<88;index++)assert.ok(result[index-1].riskAssessment.score>=result[index].riskAssessment.score);
+  assert.ok(result.slice(88).every(item=>!hasRiskScore(item.riskAssessment)));
   const base=items[0];
   const scored=validateAssessment(example,exampleItem);
   const fixtures=[
@@ -204,11 +204,11 @@ test('0 分仍是有效评分，不与 null 混排',()=>{
 });
 
 test('评估筛选保留未评估条目，旧数据没有新字段也能浏览',()=>{
-  assert.equal(filterItems(items,{assessment:'scored'}).length,82);
+  assert.equal(filterItems(items,{assessment:'scored'}).length,88);
   assert.equal(filterItems(items,{assessment:'pending'}).length,10);
-  assert.equal(filterItems(items,{assessment:'not_applicable'}).length,11);
-  assert.equal(filterItems(items).length,103);
-  assert.equal(filterItems(facts,{assessment:'pending'}).length,103);
+  assert.equal(filterItems(items,{assessment:'not_applicable'}).length,12);
+  assert.equal(filterItems(items).length,110);
+  assert.equal(filterItems(facts,{assessment:'pending'}).length,110);
   assert.equal(filterItems(facts,{assessment:'scored'}).length,0);
   assert.match(riskAssessmentMarkup(facts[0]),/待评估/);
   assert.equal(riskBadge(undefined),'');
@@ -217,7 +217,7 @@ test('评估筛选保留未评估条目，旧数据没有新字段也能浏览',
 test('新增筛选可与搜索、CVE、来源、类别、日期和已读条件组合',()=>{
   const filters={assessment:'scored',topic:'cve',source:'cve',q:'MCP',sort:'risk'};
   const result=filterItems(items,filters);
-  assert.deepEqual(result.map(item=>item.id),['cve-2026-105697','cve-2026-59951','cve-2026-111770','cve-2026-104850','cve-2026-111767']);
+  assert.deepEqual(result.map(item=>item.id),['cve-2026-105697','cve-2026-59951','cve-2026-111770','cve-2026-104850','cve-2026-123809','cve-2026-111767']);
   assert.deepEqual(filterItems(items,{...filters,unread:true},new Set([result[0].id])).map(i=>i.id),result.slice(1).map(i=>i.id));
   assert.deepEqual(new Set(filterItems(items,{assessment:'scored',view:'incidents',risk:'attack',evidence:'primary'}).map(i=>i.id)),new Set([
     'primary-cursor-claude-extension-compromise','primary-litellm-release-compromise-october','primary-litellm-admin-api-observed-attacks',
@@ -240,9 +240,9 @@ test('JSON 导出保留当前评估筛选、排序、完整证据与详情 URL',
 
 test('详情显示分值、四维条形图、贡献值、来源和评估边界',()=>{
   const item=items.find(item=>item.id===example.itemId),html=riskAssessmentMarkup(item);
-  assert.match(html,/ASO 66/);assert.equal((html.match(/<meter /g)||[]).length,4);
+  assert.match(html,/ASO 70/);assert.equal((html.match(/<meter /g)||[]).length,4);
   assert.match(html,/贡献 35 分/);assert.match(html,/原始证据/);assert.match(html,/潜在后果/);assert.match(html,/实际观测/);
-  assert.match(html,/证据可信度：中/);assert.match(html,/未人工复核/);assert.match(html,/2026-11-03/);
+  assert.match(html,/证据可信度：中/);assert.match(html,/未人工复核/);assert.match(html,/2026-11-11/);
   assert.match(html,/aso-risk-v1\.0/);assert.match(html,/ASO 自定义指标，非 CVSS/);
   assert.ok(html.includes(example.sources[0].url));
   const incomplete=riskAssessmentMarkup(items.find(item=>item.id==='pdf-2026-0002'));

@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 import {filterItems} from '../dist/model.js';
 const {items,meta}=JSON.parse(readFileSync(new URL('../dist/data/items.json',import.meta.url),'utf8'));
 test('首页默认含全部资料，按原文日期展示最新披露',()=>{
- const result=filterItems(items);assert.equal(result.length,items.length);assert.equal(result[0].id,'primary-checkpoint-chatgpt-lockdown-bypass');assert.ok(result.some(item=>item.evidence==='compilation'));
+ const result=filterItems(items);assert.equal(result.length,items.length);assert.equal(result[0].id,'cve-2026-124848');assert.ok(result.some(item=>item.evidence==='compilation'));
 });
 test('按外部编号找到PDF记录，不受来源证据默认过滤',()=>{
  const result=filterItems(items,{q:'AISID-2026-0014'});assert.equal(result.length,1);assert.equal(result[0].id,'pdf-2026-0014');
