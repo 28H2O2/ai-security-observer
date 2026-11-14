@@ -362,5 +362,31 @@
     "status": "reference",
     "checkedAt": "2026-11-11",
     "notes": "本轮读取所列论文 v1 及提交记录；未接入采集，不表示审阅全部研究。"
+  },
+  {
+    "id": "railway",
+    "name": "Railway",
+    "shortName": "Railway",
+    "url": "https://blog.railway.com/p/security-disclosure-wednesday-october-21st",
+    "endpoint": "https://blog.railway.com/p/security-disclosure-wednesday-october-21st",
+    "method": "manual",
+    "category": "vendor",
+    "description": "平台官方事故披露与复盘。",
+    "status": "reference",
+    "checkedAt": "2026-11-14",
+    "notes": "本轮实际读取所列原文；未接入采集，不表示已复核全部发布。"
+  },
+  {
+    "id": "depi",
+    "name": "Depi",
+    "shortName": "Depi",
+    "url": "https://depi.security/blog/20261111-backdooring-codex/",
+    "endpoint": "https://depi.security/blog/20261111-backdooring-codex/",
+    "method": "manual",
+    "category": "research",
+    "description": "研究者原始攻击链披露。",
+    "status": "reference",
+    "checkedAt": "2026-11-14",
+    "notes": "本轮实际读取所列原文；未接入采集，不表示已复核全部发布。"
   }
 ]

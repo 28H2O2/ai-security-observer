@@ -1,10 +1,65 @@
 {
   "meta": {
-    "updatedAt": "2026-11-11",
+    "updatedAt": "2026-11-14",
     "mode": "curated-snapshot",
     "timeZone": "Asia/Shanghai"
   },
   "daily": [
+    {
+      "mode": "daily",
+      "start": "2026-11-12",
+      "end": "2026-11-12",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-unit42-cairn-operations"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "research-microsoft-post-training-poisoning"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-11-11",
+      "end": "2026-11-11",
+      "total": 3,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-100307",
+            "cve-2026-125926"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "research-depi-codex-release-chain"
+          ]
+        }
+      ]
+    },
     {
       "mode": "daily",
       "start": "2026-11-10",
@@ -335,13 +390,14 @@
       "mode": "daily",
       "start": "2026-10-21",
       "end": "2026-10-21",
-      "total": 3,
+      "total": 4,
       "sections": [
         {
           "kind": "incident",
           "label": "真实事件",
           "itemIds": [
             "primary-litellm-release-compromise-october",
+            "primary-railway-ai-key-theft",
             "primary-unit42-bugster-ai-cybercrime"
           ]
         },
@@ -1677,17 +1733,21 @@
       "mode": "weekly",
       "start": "2026-11-09",
       "end": "2026-11-15",
-      "total": 4,
+      "total": 9,
       "sections": [
         {
           "kind": "incident",
           "label": "真实事件",
-          "itemIds": []
+          "itemIds": [
+            "primary-unit42-cairn-operations"
+          ]
         },
         {
           "kind": "advisory",
           "label": "漏洞公告",
           "itemIds": [
+            "cve-2026-100307",
+            "cve-2026-125926",
             "cve-2026-124848",
             "cve-2026-125271"
           ]
@@ -1696,6 +1756,8 @@
           "kind": "research",
           "label": "研究披露",
           "itemIds": [
+            "research-microsoft-post-training-poisoning",
+            "research-depi-codex-release-chain",
             "research-microsoft-lazarus-weight-backdoor",
             "research-deepmind-adaptive-injection-swarms"
           ]
@@ -1778,7 +1840,7 @@
       "mode": "weekly",
       "start": "2026-10-19",
       "end": "2026-10-25",
-      "total": 11,
+      "total": 12,
       "sections": [
         {
           "kind": "incident",
@@ -1786,6 +1848,7 @@
           "itemIds": [
             "primary-anthropic-aisi-mythos5-assessment",
             "primary-litellm-release-compromise-october",
+            "primary-railway-ai-key-theft",
             "primary-unit42-bugster-ai-cybercrime"
           ]
         },

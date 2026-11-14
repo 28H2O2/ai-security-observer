@@ -1,32 +1,32 @@
 {
   "ruleVersion": "aso-risk-v1.0",
-  "total": 110,
+  "total": 116,
   "byKind": {
-    "advisory": 33,
-    "incident": 30,
-    "research": 47
+    "advisory": 35,
+    "incident": 32,
+    "research": 49
   },
   "byRisk": {
-    "abuse": 14,
-    "attack": 82,
+    "abuse": 16,
+    "attack": 86,
     "autonomy": 10,
     "failure": 4
   },
   "byEvidence": {
     "compilation": 9,
-    "primary": 101
+    "primary": 107
   },
-  "withCve": 39,
+  "withCve": 41,
   "statuses": {
-    "scored": 88,
-    "insufficient_evidence": 10,
-    "not_applicable": 12,
+    "scored": 92,
+    "insufficient_evidence": 11,
+    "not_applicable": 13,
     "needs_review": 0
   },
-  "assessed": 110,
+  "assessed": 116,
   "applicability": {
-    "applicable": 98,
-    "notApplicable": 12,
+    "applicable": 103,
+    "notApplicable": 13,
     "undetermined": 0
   },
   "pending": [
@@ -121,6 +121,16 @@
       "reason": "评估 MCP 参数语句注入；权限边界未补齐，暂不生成总分。",
       "missingDimensions": [
         "F"
+      ]
+    },
+    {
+      "itemId": "primary-unit42-cairn-operations",
+      "title": "Unit 42 调查：Cairn 智能体攻击在 10 家目标获得未授权访问或数据",
+      "status": "insufficient_evidence",
+      "reason": "真实攻击调查，但多目标入口不同，缺少统一 F 与 S，保留未知总分。",
+      "missingDimensions": [
+        "F",
+        "S"
       ]
     }
   ]

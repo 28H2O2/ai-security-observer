@@ -10,15 +10,15 @@
 
 | 项目 | 数值 |
 | --- | --- |
-| 资料审阅日期 | 2026-11-11（Asia/Shanghai） |
-| 去重资料 | 110 条（真实事件 30 / 漏洞公告 33 / 研究披露 47） |
-| 附原始披露 | 101 条 |
-| 带明确 CVE 编号 | 39 条 |
-| 实际供稿来源 | 24 个 |
+| 资料审阅日期 | 2026-11-14（Asia/Shanghai） |
+| 去重资料 | 116 条（真实事件 32 / 漏洞公告 35 / 研究披露 49） |
+| 附原始披露 | 107 条 |
+| 带明确 CVE 编号 | 41 条 |
+| 实际供稿来源 | 26 个 |
 | PDF 汇编原始收录 | 16 条 |
-| ASO 评分 | 88 已评分 / 10 证据不足 / 12 不适用 / 0 待处理 |
+| ASO 评分 | 92 已评分 / 11 证据不足 / 13 不适用 / 0 待处理 |
 
-最近一次更新（2026-11-11）新增 7 条一手资料，并修正了 opencode 条目的 CVE 覆盖；核验范围与待核验线索见[本轮记录](research/update-2026-11-11.md)。
+最近一次更新（2026-11-14）新增 6 条一手资料：Railway 事故补录、Depi 发布链研究、Cairn 真实攻击调查、两条 MCP Gateway 公告与微软训练后投毒研究。保留原始日期与未知条件，核验范围见[本轮记录](research/update-2026-11-14.md)。
 
 这是**人工整理的静态快照**：没有实时抓取、定时采集、在线模型摘要或自动事实核验，部署也不会自动产生新情报。日期只表示审阅快照，不表示采集器运行时间。AI 辅助生成的摘要与评分均**尚未人工复核**。
 
@@ -105,7 +105,7 @@ SITE_URL='https://你的正式域名/' npm run package   # 生产包
 - [DESIGN.md](DESIGN.md)：视觉、排印与交互约定
 - [docs/aso-risk-score.md](docs/aso-risk-score.md)：ASO 评分公式、四维锚点与维护步骤
 - [research/site-methodology.md](research/site-methodology.md)：来源、消息格式与核验方法
-- [research/update-2026-11-11.md](research/update-2026-11-11.md)：最近一次内容更新与核验范围（`research/update-*.md` 为历次记录）
+- [research/update-2026-11-14.md](research/update-2026-11-14.md)：最近一次内容更新与核验范围（`research/update-*.md` 为历次记录）
 - [research/risk-assessment-2026-11-04.md](research/risk-assessment-2026-11-04.md)：ASO 全量评估记录
 - 工程参考：[AIHOT](https://github.com/KKKKhazix/AIHOT)（MIT）、[AI Safety Radar](https://github.com/nrc-cnrc/ai-safety-radar-securite-ia)、[S33R](https://github.com/clivoa/S33R)；本项目未复制其品牌、界面或后台代码
 
@@ -113,4 +113,4 @@ SITE_URL='https://你的正式域名/' npm run package   # 生产包
 
 复旦大学 · JADE 团队：[团队主页](https://whitzard-ai.github.io/index.html) · [团队成员](https://whitzard-ai.github.io/member.html)；联系人：张谧教授（[mi_zhang@fudan.edu.cn](mailto:mi_zhang@fudan.edu.cn)）。
 
-原始资料版权归原作者。本站只提供独立整理的中文摘要与原文链接，不分发第三方全文或 PDF。代码版本 0.4.1；资料核对日期 2026-11-11，不代表全部历史资料已重新核验。无注册、在线模型摘要或第三方分析脚本。
+原始资料版权归原作者。本站只提供独立整理的中文摘要与原文链接，不分发第三方全文或 PDF。代码版本 0.4.1；资料核对日期 2026-11-14，不代表全部历史资料已重新核验。无注册、在线模型摘要或第三方分析脚本。

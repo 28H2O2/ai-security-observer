@@ -5,12 +5,40 @@ import {filterItems} from '../dist/model.js';
 import {makeBriefing} from '../dist/publication.js';
 const read=p=>JSON.parse(readFileSync(new URL('../'+p,import.meta.url),'utf8'));
 const {items,meta}=read('dist/data/items.json');
+
+test('11-14 保留实际攻击、研究链与两个独立修复的边界',()=>{
+ const get=id=>items.find(i=>i.id===id);
+ const added=items.filter(i=>i.reviewedAt==='2026-11-14');
+ assert.equal(added.length,6);
+ assert.equal(makeBriefing(items,'2026-11-14','daily').total,0);
+ const railway=get('primary-railway-ai-key-theft');
+ assert.equal(railway.originalPublishedAt,'2026-10-21');
+ assert.equal(railway.sourceUpdatedAt,'2026-11-12');
+ assert.equal(railway.riskAssessment.activity,'confirmed_exploitation');
+ assert.equal(get('research-depi-codex-release-chain').kind,'research');
+ assert.match(get('research-depi-codex-release-chain').limitations,/未证实.*公开 npm/);
+ const cairn=get('primary-unit42-cairn-operations');
+ assert.equal(cairn.riskAssessment.activity,'in_the_wild');
+ assert.equal(cairn.riskAssessment.dimensions.F,null);
+ assert.equal(cairn.riskAssessment.score,null);
+ for(const id of ['cve-2026-100307','cve-2026-125926']){
+  assert.equal(get(id).originalPublishedAt,'2026-11-11');
+  assert.equal(get(id).cvePublishedAt,'2026-11-12');
+  assert.equal(get(id).riskAssessment.activity,'attack_path');
+ }
+ assert.equal(get('cve-2026-100307').affectedPackages[0].fixedVersion,'1.25.0');
+ assert.match(get('cve-2026-100307').recommendation,/升级不会清除/);
+ assert.equal(get('cve-2026-125926').affectedPackages[0].fixedVersion,'1.35.0');
+ assert.match(get('cve-2026-125926').recommendation,/升级不重写/);
+ assert.equal(get('research-microsoft-post-training-poisoning').riskAssessment.status,'not_applicable');
+ assert.ok(added.every(i=>!i.riskAssessment.reviewed&&!i.riskAssessment.stale));
+});
 test('审核日期独立于新闻日期，补录历史事件不会成为今日新闻',()=>{
  assert.equal(meta.updatedAt,read('content/review.json').reviewedAt);
  const latest=filterItems(items)[0];
- assert.equal(latest.id,'cve-2026-124848');
- assert.equal(latest.originalPublishedAt,'2026-11-10');
- assert.equal(latest.reviewedAt,'2026-11-11');
+ assert.equal(latest.id,'primary-unit42-cairn-operations');
+ assert.equal(latest.originalPublishedAt,'2026-11-12');
+ assert.equal(latest.reviewedAt,'2026-11-14');
  const incident=items.find(i=>i.id==='primary-litellm-release-compromise-october');
  assert.equal(incident.originalPublishedAt,'2026-10-21');
  assert.equal(incident.sourceUpdatedAt,'2026-10-23');
@@ -97,8 +125,8 @@ test('11-10 更新保留原始披露日期，5 条早于上次审阅的资料按
 
 test('11-11 核验保留旧公告日期、上海 CVE 日期和未完成的外传边界',()=>{
  const get=id=>items.find(i=>i.id===id);
- assert.equal(meta.updatedAt,'2026-11-11');
- assert.equal(makeBriefing(items,'2026-11-11','daily').total,0);
+ assert.equal(meta.updatedAt,'2026-11-14');
+ assert.equal(makeBriefing(items,'2026-11-11','daily').total,3);
  assert.equal(get('advisory-agent-router-mcp-session-subject').originalPublishedAt,'2026-10-07');
  assert.equal(get('advisory-agent-router-mcp-session-subject').riskAssessment.activity,'attack_path');
  const dynatrace=get('cve-2026-123809');

@@ -1608,5 +1608,275 @@
         "source": "https://aws.amazon.com/security/security-bulletins/2026-178-aws/"
       }
     ]
+  },
+  {
+    "id": "primary-railway-ai-key-theft",
+    "title": "Railway 复盘环境变量失窃：攻击者优先检索 AI 密钥并产生未授权用量",
+    "summary": "Railway 的事故复盘确认，攻击者于 10 月 20–21 日串联构建隔离缺陷与 OIDC 配置错误，取得并解密部分客户环境变量。查询优先寻找 AI 服务密钥；11 月 12 日补偿公告称客户未授权 AI 用量损失至少约 74 万美元。",
+    "kind": "incident",
+    "risk": "abuse",
+    "tags": [
+      "AI 密钥",
+      "云凭据",
+      "实际入侵"
+    ],
+    "entities": [
+      "Railway",
+      "AI API"
+    ],
+    "publishedAt": "2026-10-21",
+    "originalPublishedAt": "2026-10-21",
+    "reviewedAt": "2026-11-14",
+    "occurredAt": "2026-10-20",
+    "sourceId": "railway",
+    "sourceName": "Railway",
+    "evidence": "primary",
+    "evidenceLabel": "原始调查",
+    "references": [
+      {
+        "label": "Railway 首次披露",
+        "url": "https://blog.railway.com/p/security-disclosure-wednesday-october-21st",
+        "role": "primary"
+      },
+      {
+        "label": "Railway 事故复盘（11 月 10 日）",
+        "url": "https://blog.railway.com/p/incident-report-october-security-incident",
+        "role": "primary"
+      },
+      {
+        "label": "AI 未授权用量补偿公告（11 月 12 日）",
+        "url": "https://blog.railway.com/p/bulletin-compensation",
+        "role": "primary"
+      }
+    ],
+    "sourceUpdatedAt": "2026-11-12",
+    "limitations": "原始披露为 10 月 21 日，本轮补录并附后续复盘，不记为今日发生。复盘称最多涉及 1.85%（约 10 万）工作区的部分变量，不等于所有变量或数据库均遭读取；密钥用于蒸馏的判断属于 Railway 调查推断。未独立验证攻击者模型使用或损失账单。",
+    "impact": "AI 服务密钥等敏感变量失窃并出现未授权付费用量；实际泄露内容因工作区而异。",
+    "recommendation": "受影响客户轮换事件期间存于 Railway 的环境变量与私有注册表凭据，核对服务用量和日志；按补偿公告向 AI 服务商及 Railway 申请处理。"
+  },
+  {
+    "id": "research-depi-codex-release-chain",
+    "title": "Depi 披露 Codex Issue Labeler 注入链，可触及 npm 发布凭据",
+    "summary": "Depi 展示从 GitHub Issue 提示注入，经运行时沙箱逃逸、令牌读取和 Actions 缓存投毒，向 Codex 发布流程推进的攻击链。研究者称已向 OpenAI 提交完整 PoC，核心问题已修复。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "提示注入",
+      "供应链",
+      "GitHub Actions"
+    ],
+    "entities": [
+      "Codex",
+      "GitHub Actions",
+      "npm"
+    ],
+    "publishedAt": "2026-11-11",
+    "originalPublishedAt": "2026-11-11",
+    "reviewedAt": "2026-11-14",
+    "occurredAt": null,
+    "sourceId": "depi",
+    "sourceName": "Depi",
+    "evidence": "primary",
+    "evidenceLabel": "原始披露",
+    "references": [
+      {
+        "label": "Depi 原始研究",
+        "url": "https://depi.security/blog/20261111-backdooring-codex/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "属于研究披露，原文最终验证包含测试环境；未证实已向公开 npm 发布恶意 Codex 版本或造成下游受害。攻击链还依赖缓存、运行时和发布权限及维护者删除诱饵 release 等条件；修复声明来自研究者，未取得 OpenAI 独立公告或确切修复版本。",
+    "impact": "潜在后果为发布链权限滥用及恶意软件分发；不能把潜在安装量当作实际受害数。",
+    "recommendation": "维护 CI 的团队应隔离不可信 Issue 与高权限工作流、限制令牌和缓存信任边界；不依据本报告虚构需升级的 Codex 版本。"
+  },
+  {
+    "id": "primary-unit42-cairn-operations",
+    "title": "Unit 42 调查：Cairn 智能体攻击在 10 家目标获得未授权访问或数据",
+    "summary": "Unit 42 报告，2026 年 8–9 月，攻击者使用定制 Cairn 框架配合 GLM 与 DeepSeek，对至少 19 家机构执行 25 次行动，其中 10 家出现未授权访问或数据读取。部分行动使用了攻击者预先提供的 VPN 等情报。",
+    "kind": "incident",
+    "risk": "abuse",
+    "tags": [
+      "AI 攻击编排",
+      "凭据窃取",
+      "实际入侵"
+    ],
+    "entities": [
+      "Cairn",
+      "GLM",
+      "DeepSeek",
+      "CL-STA-1238"
+    ],
+    "publishedAt": "2026-11-12",
+    "originalPublishedAt": "2026-11-12",
+    "reviewedAt": "2026-11-14",
+    "occurredAt": null,
+    "sourceId": "unit42",
+    "sourceName": "Unit 42",
+    "evidence": "primary",
+    "evidenceLabel": "原始调查",
+    "references": [
+      {
+        "label": "Unit 42 Cairn 原始调查",
+        "url": "https://unit42.paloaltonetworks.com/cairn-framework-ai-autonomous-attacks/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "原文将活动归于 China-nexus 情报收集的置信度为中等；本条保留调查归因，不将中文使用等同于确定国别。不同目标使用不同路径，不能合成一个无需权限的通用漏洞；发生月份为 8–9 月，具体日未披露，occurredAt 留空。本站未取得原始遥测。",
+    "impact": "调查记录包括生产管理员账户、凭据读取和业务数据暴露；一家机构日志显示超过百万条成员记录被访问，不代表每个目标都有相同后果。",
+    "recommendation": "按调查所列行为和指标排查异常账户、批量数据读取与持续工具调用，轮换暴露凭据并修复入口，不仅依赖模型拒答阻止攻击。"
+  },
+  {
+    "id": "cve-2026-100307",
+    "title": "MCP Gateway Registry 管理 API 缺少授权，低权限用户可提升为管理员",
+    "summary": "AWS 与维护者披露，管理 API 只验证身份而未检查权限，低权限用户可导入组映射，在下一请求取得注册表管理员权限。1.0.9–1.24.7 受影响，1.25.0 修复。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "CVE-2026-100307",
+      "MCP",
+      "网关"
+    ],
+    "entities": [
+      "mcp-gateway-registry"
+    ],
+    "publishedAt": "2026-11-11",
+    "originalPublishedAt": "2026-11-11",
+    "reviewedAt": "2026-11-14",
+    "occurredAt": null,
+    "sourceId": "aws",
+    "sourceName": "AWS Security",
+    "evidence": "primary",
+    "evidenceLabel": "原始披露",
+    "references": [
+      {
+        "label": "AWS 原始公告",
+        "url": "https://aws.amazon.com/security/security-bulletins/2026-179-aws/",
+        "role": "primary"
+      },
+      {
+        "label": "维护者安全公告",
+        "url": "https://github.com/agentic-community/mcp-gateway-registry/security/advisories/GHSA-rxf3-qgpv-wxvr",
+        "role": "primary"
+      },
+      {
+        "label": "CVE 官方原始记录",
+        "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/100xxx/CVE-2026-100307.json",
+        "role": "primary"
+      }
+    ],
+    "cveIds": [
+      "CVE-2026-100307"
+    ],
+    "cvePublishedAt": "2026-11-12",
+    "affectedPackages": [
+      {
+        "name": "mcp-gateway-registry",
+        "ecosystem": "application",
+        "source": "https://github.com/agentic-community/mcp-gateway-registry/security/advisories/GHSA-rxf3-qgpv-wxvr",
+        "affectedRange": ">= 1.0.9, <= 1.24.7",
+        "fixedVersion": "1.25.0"
+      }
+    ],
+    "limitations": "需已认证账号及可达管理 API，不是未认证远程接管。公告未确认在野利用；管理员权限限注册表及其管理的资产，不等于 AWS 账户管理员。原公告为美国 11 月 11 日，CVE 上海发布日期为 11 月 12 日。",
+    "preconditions": [
+      "可达受影响外部管理 API，拥有已认证低权限账户。"
+    ],
+    "impact": "可管理全部已注册网关资产并读取其管理的后端凭据；实际后果取决于所保存权限。",
+    "recommendation": "至少升级至 1.25.0，并检查、移除非管理员创建的特权组映射，审计管理请求，无法排除访问时轮换网关管理的凭据。升级不会清除已写入的特权映射；同产品 SSRF 还需升级至 1.35.0。"
+  },
+  {
+    "id": "cve-2026-125926",
+    "title": "MCP Gateway Registry 上游地址未校验，可被已授权用户用于访问内网",
+    "summary": "AWS 与维护者披露，能注册或修改服务器的已认证用户可设置恶意上游地址，使网关访问内网，部分情况下读回响应。1.0.3–1.34.0 受影响，1.35.0 修复。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "CVE-2026-125926",
+      "MCP",
+      "网关"
+    ],
+    "entities": [
+      "mcp-gateway-registry"
+    ],
+    "publishedAt": "2026-11-11",
+    "originalPublishedAt": "2026-11-11",
+    "reviewedAt": "2026-11-14",
+    "occurredAt": null,
+    "sourceId": "aws",
+    "sourceName": "AWS Security",
+    "evidence": "primary",
+    "evidenceLabel": "原始披露",
+    "references": [
+      {
+        "label": "AWS 原始公告",
+        "url": "https://aws.amazon.com/security/security-bulletins/2026-180-aws/",
+        "role": "primary"
+      },
+      {
+        "label": "维护者安全公告",
+        "url": "https://github.com/agentic-community/mcp-gateway-registry/security/advisories/GHSA-fc39-fwh3-wv5r",
+        "role": "primary"
+      },
+      {
+        "label": "CVE 官方原始记录",
+        "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/125xxx/CVE-2026-125926.json",
+        "role": "primary"
+      }
+    ],
+    "cveIds": [
+      "CVE-2026-125926"
+    ],
+    "cvePublishedAt": "2026-11-12",
+    "affectedPackages": [
+      {
+        "name": "mcp-gateway-registry",
+        "ecosystem": "application",
+        "source": "https://github.com/agentic-community/mcp-gateway-registry/security/advisories/GHSA-fc39-fwh3-wv5r",
+        "affectedRange": ">= 1.0.3, <= 1.34.0",
+        "fixedVersion": "1.35.0"
+      }
+    ],
+    "limitations": "需注册或修改服务器权限；元数据及云凭据可达性依赖网络与实例配置，不能写成所有部署均泄露云密钥。未确认在野利用或公开完整 PoC。原公告与 CVE 上海发布日期分开保留。",
+    "preconditions": [
+      "已认证且有注册或修改服务器权限。",
+      "网关网络能访问目标服务；是否回传响应依赖具体路径。"
+    ],
+    "impact": "可越过用户原有网络边界访问内网；在特定部署中可能触及实例元数据和凭据。",
+    "recommendation": "升级至 1.35.0 后复查已有服务器上游地址与历史注册日志；无法排除异常时审计关联云角色并轮换凭据。限制出站网络、注册权限并要求 IMDSv2；升级不重写已有服务器配置。"
+  },
+  {
+    "id": "research-microsoft-post-training-poisoning",
+    "title": "微软研究：训练数据与模型检查点投毒可让编程智能体触发危险工具调用",
+    "summary": "微软分别研究微调数据投毒与攻击者控制的模型检查点。受控实验中，后门可由普通请求或仓库内容触发，并迁移到其他工具接口；风险取决于实际加载的模型及工具权限。",
+    "kind": "research",
+    "risk": "attack",
+    "tags": [
+      "模型后门",
+      "数据投毒",
+      "供应链"
+    ],
+    "entities": [
+      "微调数据",
+      "模型检查点",
+      "编程智能体"
+    ],
+    "publishedAt": "2026-11-12",
+    "originalPublishedAt": "2026-11-12",
+    "reviewedAt": "2026-11-14",
+    "occurredAt": null,
+    "sourceId": "microsoft",
+    "sourceName": "Microsoft Security",
+    "evidence": "primary",
+    "evidenceLabel": "原始披露",
+    "references": [
+      {
+        "label": "微软训练后供应链投毒研究",
+        "url": "https://www.microsoft.com/en-us/security/blog/2026/11/12/trained-to-betray-how-post-training-supply-chain-attacks-hijack-coding-agents/",
+        "role": "primary"
+      }
+    ],
+    "limitations": "两项不同控制条件的研究，不与 Lazarus 直接编辑神经元合并。公开数据中发现危险训练行，但作者不能确定发布者意图或这些行是否足以产生后门。跨 Claude Code、Pi、Codex 的实验使用被投毒模型，不证明默认产品存在漏洞；没有确认相关在野后门攻击。",
+    "impact": "采用恶意训练材料或检查点且赋予执行工具时，潜在影响包括命令执行和数据泄露；实验成功率不能作为生产攻击概率。",
+    "recommendation": "核查训练数据与模型来源，在实际工具接口和权限下进行触发与隔离评测，并在模型外限制命令、文件、凭据与出站访问。"
   }
 ]

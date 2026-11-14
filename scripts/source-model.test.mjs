@@ -5,12 +5,12 @@ import {sourceCatalogView} from '../dist/source-model.js';
 const sources=JSON.parse(readFileSync(new URL('../content/sources.json',import.meta.url),'utf8'));
 const {items}=JSON.parse(readFileSync(new URL('../dist/data/items.json',import.meta.url),'utf8'));
 
-test('来源图保留26个唯一来源，按9/12/4/1分类，排除PDF和工程参考',()=>{
+test('来源图保留28个唯一来源，按10/13/4/1分类，排除PDF和工程参考',()=>{
  const view=sourceCatalogView(sources);
  const visible=view.groups.flatMap(group=>group.sources);
- assert.equal(view.total,26);assert.equal(view.count,26);
- assert.deepEqual(view.groups.map(group=>[group.id,group.sources.length]),[['vendor',9],['research',12],['database',4],['chinese',1]]);
- assert.equal(new Set(visible.map(source=>source.id)).size,26);
+ assert.equal(view.total,28);assert.equal(view.count,28);
+ assert.deepEqual(view.groups.map(group=>[group.id,group.sources.length]),[['vendor',10],['research',13],['database',4],['chinese',1]]);
+ assert.equal(new Set(visible.map(source=>source.id)).size,28);
  assert.ok(!visible.some(source=>['pdf','aihot'].includes(source.id)));
  assert.equal(view.selected,null);
 });
@@ -22,7 +22,7 @@ test('未收录的结构化资料仍可选中，不依赖情报数量',()=>{
 });
 test('关键词和分类搜索同步计数，过滤掉选中来源时关闭详情',()=>{
  const vendor=sourceCatalogView(sources,{q:'厂商官方'});
- assert.equal(vendor.count,9);assert.equal(vendor.groups.length,1);
+ assert.equal(vendor.count,10);assert.equal(vendor.groups.length,1);
  const pillar=sourceCatalogView(sources,{q:'PILLAR MCP',source:'pillar'});
  assert.equal(pillar.count,1);assert.equal(pillar.selected.id,'pillar');
  assert.equal(sourceCatalogView(sources,{q:'OpenAI',source:'pillar'}).selected,null);

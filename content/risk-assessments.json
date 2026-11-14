@@ -6318,6 +6318,401 @@
       "reviewed": false,
       "reviewNotes": "复核安全分类器关闭、320次预算与保留外部防护的对照边界。",
       "itemFingerprint": "140b230e938327ae74c19fda2c34ce987ae3468ff2fa5b145e4ca3c7b3e6b929"
+    },
+    {
+      "itemId": "primary-railway-ai-key-theft",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 4,
+        "F": 2,
+        "S": 3,
+        "A": 5
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "部分客户敏感变量与付费用量损失。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        },
+        "F": {
+          "reason": "需串联隔离、代码获取和 OIDC 等多个条件。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        },
+        "S": {
+          "reason": "明确的生产平台及部分工作区；不将工作区数等同全部受害用户。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        },
+        "A": {
+          "reason": "平台事故与未授权用量确认，非模拟。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://blog.railway.com/p/security-disclosure-wednesday-october-21st",
+          "label": "Railway 首次披露",
+          "locator": "What happened; First/Secondary entry point; Customer impact; Attack intent; Compensation policy",
+          "accessedAt": "2026-11-14"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://blog.railway.com/p/incident-report-october-security-incident",
+          "label": "Railway 事故复盘（11 月 10 日）",
+          "locator": "What happened; First/Secondary entry point; Customer impact; Attack intent; Compensation policy",
+          "accessedAt": "2026-11-14"
+        },
+        {
+          "id": "source3",
+          "kind": "reference",
+          "url": "https://blog.railway.com/p/bulletin-compensation",
+          "label": "AI 未授权用量补偿公告（11 月 12 日）",
+          "locator": "What happened; First/Secondary entry point; Customer impact; Attack intent; Compensation policy",
+          "accessedAt": "2026-11-14"
+        }
+      ],
+      "activity": "confirmed_exploitation",
+      "reason": "评估已披露的隔离与凭据链，保留平台确认与推断的区别。",
+      "consequences": {
+        "potential": "AI 服务密钥等敏感变量失窃并出现未授权付费用量；实际泄露内容因工作区而异。",
+        "observed": "平台确认变量失窃与未授权 AI 用量，具体账单未独立核验。"
+      },
+      "assessedAt": "2026-11-14",
+      "reviewed": false,
+      "reviewNotes": "AI 辅助评估尚未人工复核；复核前置权限、实际部署范围与潜在/实际后果的边界。",
+      "itemFingerprint": "7404a82e4d61e3247dd10455de10c8437679d93b54a700e967c024710c98f4d8"
+    },
+    {
+      "itemId": "research-depi-codex-release-chain",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 5,
+        "F": 2,
+        "S": 2,
+        "A": 2
+      },
+      "confidence": "medium",
+      "evidence": {
+        "I": {
+          "reason": "发布链失控可向安装方分发可执行代码。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "F": {
+          "reason": "多个 CI、运行时与维护者交互条件，非单一注入即可发布。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "S": {
+          "reason": "限所研究的 Codex 仓库流水线与配置。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "A": {
+          "reason": "原文给出测试环境验证、令牌读取与完整 PoC 叙述。",
+          "sources": [
+            "source1"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://depi.security/blog/20261111-backdooring-codex/",
+          "label": "Depi 原始研究",
+          "locator": "Issue Labeler; Cache cache; Codex, The Final Attack; Bounty; Conclusion",
+          "accessedAt": "2026-11-14"
+        }
+      ],
+      "activity": "controlled_poc",
+      "reason": "评估研究中的 CI 到发布凭据链，不认定恶意 npm 发布已发生。",
+      "consequences": {
+        "potential": "潜在后果为发布链权限滥用及恶意软件分发；不能把潜在安装量当作实际受害数。",
+        "observed": "研究者受控验证；未证实恶意 npm 版本公开发布。"
+      },
+      "assessedAt": "2026-11-14",
+      "reviewed": false,
+      "reviewNotes": "AI 辅助评估尚未人工复核；复核前置权限、实际部署范围与潜在/实际后果的边界。",
+      "itemFingerprint": "041f6a0cf51e5e8456f15584dc50a07a01c49dced9a58dd75e9c8fdd17d552d9"
+    },
+    {
+      "itemId": "primary-unit42-cairn-operations",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "insufficient_evidence",
+      "dimensions": {
+        "I": 5,
+        "F": null,
+        "S": null,
+        "A": 4
+      },
+      "confidence": "medium",
+      "evidence": {
+        "I": {
+          "reason": "生产持久管理员及大规模成员数据访问。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "F": {
+          "reason": "不同目标、已有情报与权限条件不同，无法统一量化。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "S": {
+          "reason": "19 个目标不是受影响部署总数，无法确定统一范围。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "A": {
+          "reason": "Unit 42 明确记录真实未授权访问与数据读取。",
+          "sources": [
+            "source1"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://unit42.paloaltonetworks.com/cairn-framework-ai-autonomous-attacks/",
+          "label": "Unit 42 Cairn 原始调查",
+          "locator": "Executive Summary; Targeting Overview; Confirmed Outcomes",
+          "accessedAt": "2026-11-14"
+        }
+      ],
+      "activity": "in_the_wild",
+      "reason": "真实攻击调查，但多目标入口不同，缺少统一 F 与 S，保留未知总分。",
+      "consequences": {
+        "potential": "调查记录包括生产管理员账户、凭据读取和业务数据暴露；一家机构日志显示超过百万条成员记录被访问，不代表每个目标都有相同后果。",
+        "observed": "调查确认 10 家目标出现未授权访问或数据读取。"
+      },
+      "assessedAt": "2026-11-14",
+      "reviewed": false,
+      "reviewNotes": "AI 辅助评估尚未人工复核；复核前置权限、实际部署范围与潜在/实际后果的边界。",
+      "itemFingerprint": "425d43e6c1ceb9f17de0ad2534807d5e650f92a92c5d5aa32fbd6d4ab3fe27d8"
+    },
+    {
+      "itemId": "cve-2026-100307",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 4,
+        "F": 4,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "全部注册资产管理及后端凭据读取。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        },
+        "F": {
+          "reason": "低权限已认证用户发请求即可提权，仍需账号。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        },
+        "S": {
+          "reason": "限管理 API 可达的特定产品版本。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        },
+        "A": {
+          "reason": "维护者给出导入映射及下次请求生效的具体路径，无在野确认。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-179-aws/",
+          "label": "AWS 原始公告",
+          "locator": "Summary; Impact; Patches; Post-upgrade actions; CVE metadata and affected",
+          "accessedAt": "2026-11-14"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://github.com/agentic-community/mcp-gateway-registry/security/advisories/GHSA-rxf3-qgpv-wxvr",
+          "label": "维护者安全公告",
+          "locator": "Summary; Impact; Patches; Post-upgrade actions; CVE metadata and affected",
+          "accessedAt": "2026-11-14"
+        },
+        {
+          "id": "source3",
+          "kind": "reference",
+          "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/100xxx/CVE-2026-100307.json",
+          "label": "CVE 官方原始记录",
+          "locator": "Summary; Impact; Patches; Post-upgrade actions; CVE metadata and affected",
+          "accessedAt": "2026-11-14"
+        }
+      ],
+      "activity": "attack_path",
+      "reason": "评估注册表管理员提权，不等同云账户接管。",
+      "consequences": {
+        "potential": "可管理全部已注册网关资产并读取其管理的后端凭据；实际后果取决于所保存权限。",
+        "observed": "官方漏洞公告，未确认实际受害。"
+      },
+      "assessedAt": "2026-11-14",
+      "reviewed": false,
+      "reviewNotes": "AI 辅助评估尚未人工复核；复核前置权限、实际部署范围与潜在/实际后果的边界。",
+      "itemFingerprint": "1ce9590e355bbc67600281d6eecce336c77ddfad7aaa512fa8c4debc35de8dd6"
+    },
+    {
+      "itemId": "cve-2026-125926",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "越权内网请求及部分响应读取。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        },
+        "F": {
+          "reason": "需要服务器编辑权限和可达内网目标等条件。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        },
+        "S": {
+          "reason": "限特定注册表版本及其网络配置。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        },
+        "A": {
+          "reason": "维护者描述具体路径，无实际受害确认。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-180-aws/",
+          "label": "AWS 原始公告",
+          "locator": "Summary; Impact; Patches; Post-upgrade actions; CVE metadata and affected",
+          "accessedAt": "2026-11-14"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://github.com/agentic-community/mcp-gateway-registry/security/advisories/GHSA-fc39-fwh3-wv5r",
+          "label": "维护者安全公告",
+          "locator": "Summary; Impact; Patches; Post-upgrade actions; CVE metadata and affected",
+          "accessedAt": "2026-11-14"
+        },
+        {
+          "id": "source3",
+          "kind": "reference",
+          "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/125xxx/CVE-2026-125926.json",
+          "label": "CVE 官方原始记录",
+          "locator": "Summary; Impact; Patches; Post-upgrade actions; CVE metadata and affected",
+          "accessedAt": "2026-11-14"
+        }
+      ],
+      "activity": "attack_path",
+      "reason": "评估特定部署网络中的 SSRF，不预设元数据必然可读。",
+      "consequences": {
+        "potential": "可越过用户原有网络边界访问内网；在特定部署中可能触及实例元数据和凭据。",
+        "observed": "官方漏洞公告，未确认实际受害。"
+      },
+      "assessedAt": "2026-11-14",
+      "reviewed": false,
+      "reviewNotes": "AI 辅助评估尚未人工复核；复核前置权限、实际部署范围与潜在/实际后果的边界。",
+      "itemFingerprint": "9ac6df5b0220161590a75d19b7fc0f7950fbfa19de0d3447c0b875c8b0e960cd"
+    },
+    {
+      "itemId": "research-microsoft-post-training-poisoning",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "not_applicable",
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "confidence": "medium",
+      "evidence": {},
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/11/12/trained-to-betray-how-post-training-supply-chain-attacks-hijack-coding-agents/",
+          "label": "微软训练后供应链投毒研究",
+          "locator": "Dataset poisoning; Model poisoning; Mitigation and protection guidance",
+          "accessedAt": "2026-11-14"
+        }
+      ],
+      "activity": "unknown",
+      "reason": "两项不同攻击者控制条件的训练后研究，未界定单一部署安全对象，不合成一个风险总分。",
+      "consequences": {
+        "potential": "采用恶意训练材料或检查点且赋予执行工具时，潜在影响包括命令执行和数据泄露；实验成功率不能作为生产攻击概率。",
+        "observed": "受控投毒实验；危险公开训练行的意图和效果不明。"
+      },
+      "assessedAt": "2026-11-14",
+      "reviewed": false,
+      "reviewNotes": "AI 辅助评估尚未人工复核；复核前置权限、实际部署范围与潜在/实际后果的边界。",
+      "itemFingerprint": "4d8c33544a9dd5b5ba91d6a7548679c5eee275aa007e30bf3fe9cd7538a04a2f"
     }
   ]
 }

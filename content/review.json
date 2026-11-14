@@ -1,5 +1,5 @@
 {
-  "reviewedAt": "2026-11-11",
+  "reviewedAt": "2026-11-14",
   "timeZone": "Asia/Shanghai",
-  "notes": "11 月 11 日检查登记 RSS 与部分原始索引，新增 7 条：三条 MCP 公告、DeepMind 自适应注入实验、微软 Lazarus 权重后门研究，以及 AWS API MCP、Kiro CLI 公告。原有 opencode 条目补充 CVE-2026-119025 与 MCP Inspector，同一机制不重复计数。保留原始日期和 CVE 上海发布日期，未重新复核全部历史资料；AI 辅助摘要与评分尚未人工复核。"
+  "notes": "检查上次 11 月 11 日审阅以来的登记 RSS、部分原始索引与新增线索，新增 Railway 事故补录、Depi 发布链研究、Cairn 真实攻击调查、两条 MCP Gateway 公告及微软训练后投毒研究。保留原始披露日期、来源推断和未知条件；未重新复核全部历史资料。AI 辅助摘要与评估尚未人工复核。"
 }
