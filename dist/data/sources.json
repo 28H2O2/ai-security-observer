@@ -388,5 +388,44 @@
     "status": "reference",
     "checkedAt": "2026-11-14",
     "notes": "本轮实际读取所列原文；未接入采集，不表示已复核全部发布。"
+  },
+  {
+    "id": "fireworks",
+    "name": "Fireworks AI",
+    "shortName": "Fireworks AI",
+    "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident",
+    "endpoint": "https://fireworks.ai/security/bulletins/october-2026-security-incident",
+    "method": "manual",
+    "category": "vendor",
+    "description": "AI 基础设施官方事故公告。",
+    "status": "reference",
+    "checkedAt": "2026-11-15",
+    "notes": "本轮人工读取所列材料，未接入采集器，不代表核验该机构全部发布。"
+  },
+  {
+    "id": "darktrace",
+    "name": "Darktrace Signal Labs",
+    "shortName": "Darktrace Signal Labs",
+    "url": "https://www.darktrace.com/blog/living-off-the-ai-shared-memories-as-a-covert-c2-channel",
+    "endpoint": "https://www.darktrace.com/blog/living-off-the-ai-shared-memories-as-a-covert-c2-channel",
+    "method": "manual",
+    "category": "research",
+    "description": "原始受控实验与威胁分析。",
+    "status": "reference",
+    "checkedAt": "2026-11-15",
+    "notes": "本轮人工读取所列材料，未接入采集器，不代表核验该机构全部发布。"
+  },
+  {
+    "id": "ibm",
+    "name": "IBM Security",
+    "shortName": "IBM Security",
+    "url": "https://www.ibm.com/support/pages/node/7296490",
+    "endpoint": "https://www.ibm.com/support/pages/node/7296490",
+    "method": "manual",
+    "category": "vendor",
+    "description": "AI 网关官方安全公告。",
+    "status": "reference",
+    "checkedAt": "2026-11-15",
+    "notes": "本轮人工读取所列材料，未接入采集器，不代表核验该机构全部发布。"
   }
 ]

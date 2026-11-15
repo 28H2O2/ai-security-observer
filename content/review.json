@@ -1,5 +1,5 @@
 {
-  "reviewedAt": "2026-11-14",
+  "reviewedAt": "2026-11-15",
   "timeZone": "Asia/Shanghai",
-  "notes": "检查上次 11 月 11 日审阅以来的登记 RSS、部分原始索引与新增线索，新增 Railway 事故补录、Depi 发布链研究、Cairn 真实攻击调查、两条 MCP Gateway 公告及微软训练后投毒研究。保留原始披露日期、来源推断和未知条件；未重新复核全部历史资料。AI 辅助摘要与评估尚未人工复核。"
+  "notes": "本轮检查登记 RSS、部分原始索引和历史待核线索，补录 Fireworks/Notion 数据事件、Darktrace 受控研究、IBM ContextForge 和 Callstack agent-device 公告。保留首次披露日期与后续更新，两条 CVE 的上海发布日期为 11 月 14 日；不将补录当作今日新发生事件。未重新复核全部历史资料。AI 辅助摘要与自动评估尚未人工复核。"
 }

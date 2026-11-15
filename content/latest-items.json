@@ -1878,5 +1878,206 @@
     "limitations": "两项不同控制条件的研究，不与 Lazarus 直接编辑神经元合并。公开数据中发现危险训练行，但作者不能确定发布者意图或这些行是否足以产生后门。跨 Claude Code、Pi、Codex 的实验使用被投毒模型，不证明默认产品存在漏洞；没有确认相关在野后门攻击。",
     "impact": "采用恶意训练材料或检查点且赋予执行工具时，潜在影响包括命令执行和数据泄露；实验成功率不能作为生产攻击概率。",
     "recommendation": "核查训练数据与模型来源，在实际工具接口和权限下进行触发与隔离评测，并在模型外限制命令、文件、凭据与出站访问。"
+  },
+  {
+    "reviewedAt": "2026-11-15",
+    "occurredAt": null,
+    "evidence": "primary",
+    "evidenceLabel": "原始披露",
+    "id": "primary-fireworks-notion-data-exposure",
+    "title": "Fireworks 披露客户数据遭访问，Notion 确认部分 AI 聊天记录受影响",
+    "summary": "Fireworks 的后续调查发现部分客户的密钥、数据集及不完整模型权重受影响；Notion 确认其中包含 Insights 使用的 AI 聊天记录，涉及不足 1% 的工作区，并披露密钥处置进展。",
+    "kind": "incident",
+    "risk": "attack",
+    "tags": [
+      "数据泄露",
+      "AI 供应链",
+      "凭据"
+    ],
+    "entities": [
+      "Fireworks AI",
+      "Notion AI",
+      "Insights"
+    ],
+    "publishedAt": "2026-10-09",
+    "originalPublishedAt": "2026-10-09",
+    "sourceUpdatedAt": "2026-11-13",
+    "sourceId": "fireworks",
+    "sourceName": "Fireworks AI",
+    "references": [
+      {
+        "label": "Fireworks 首次事故公告",
+        "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident",
+        "role": "primary"
+      },
+      {
+        "label": "Fireworks 11 月 9 日后续调查",
+        "url": "https://fireworks.ai/security/bulletins/october-2026-security-incident-update",
+        "role": "primary"
+      },
+      {
+        "label": "Notion 事故公告及 11 月 13 日更新",
+        "url": "https://www.notion.com/en-gb/security/advisories/security-incident-involving-a-third-party-ai-vendor",
+        "role": "primary"
+      }
+    ],
+    "limitations": "补录历史事故及后续调查，保留 Fireworks 10 月 9 日首次公告日期。10 月 6 日凭据事件与 10 月 23–24 日云供应商及开发机入侵分别披露；原文未明确哪次入侵取得 Notion 数据集，不强行归并入口。具体漏洞、全部客户数量及损失未知，occurredAt 留空。Notion 当前页面称 11 月 12 日首次发布并有 11 月 13 日更新，历史版本链接本次无法读取，未据媒体日期改写。",
+    "impact": "官方确认存储数据和凭据暴露；Notion 称大多数相关记录未标注用户或工作区且不含工具调用结果，但记录正文仍可能含敏感信息。Fireworks 称未发现默认零留存的推理、Training SDK 和 Nexus 受影响；不把该声明扩大为所有服务均无影响。",
+    "recommendation": "受影响客户通过官方通知核查具体数据，轮换记录或存储中暴露的密钥并审计其权限和调用；Notion 已停用 Insights、断开 Fireworks 并撤销发现的 Notion 密钥，第三方密钥仍须在签发方处置。"
+  },
+  {
+    "reviewedAt": "2026-11-15",
+    "occurredAt": null,
+    "evidence": "primary",
+    "evidenceLabel": "原始披露",
+    "id": "research-darktrace-memory-store-c2",
+    "title": "Darktrace 实验：已有主机与凭据访问可借 Claude 记忆存储持续下发任务",
+    "summary": "研究者在模拟企业网络中，将 Claude 记忆文件用于下发任务和回传结果。攻击者须先取得主机立足点和 Claude Console 凭据；作者明确称该实验不依赖 Claude 平台漏洞，未观察到同一技术的在野利用。",
+    "kind": "research",
+    "risk": "abuse",
+    "tags": [
+      "记忆存储",
+      "命令与控制",
+      "受控实验"
+    ],
+    "entities": [
+      "Claude Code",
+      "Claude Console",
+      "Darktrace"
+    ],
+    "publishedAt": "2026-11-12",
+    "originalPublishedAt": "2026-11-12",
+    "sourceId": "darktrace",
+    "sourceName": "Darktrace Signal Labs",
+    "references": [
+      {
+        "label": "Darktrace 原始实验报告",
+        "url": "https://www.darktrace.com/blog/living-off-the-ai-shared-memories-as-a-covert-c2-channel",
+        "role": "primary"
+      }
+    ],
+    "preconditions": [
+      "攻击者已控制主机，并取得用户 Claude Console 凭据。",
+      "可配置运行中的智能体，并访问相关 Claude API。"
+    ],
+    "limitations": "全部在研究者自有实验环境中完成，无客户数据或客户系统；不作为实际攻击或 Claude 的未认证漏洞。命令执行与外传依赖既有主机、凭据和工具权限，不能归因于记忆存储单独突破权限。Anthropic 未参与或背书本研究，本站未复现。",
+    "impact": "实验展示利用智能体现有权限执行任务和传送测试数据，通信混入正常平台 API；实际部署后果取决于权限、网络和密钥边界。",
+    "recommendation": "保护 Console 凭据，审计记忆存储变更、智能体启动参数及持久化；关联进程创建与 API 传输行为，限制命令和出站权限。"
+  },
+  {
+    "reviewedAt": "2026-11-15",
+    "occurredAt": null,
+    "evidence": "primary",
+    "evidenceLabel": "原始披露",
+    "id": "cve-2026-110279",
+    "title": "IBM ContextForge 上游授权头可覆盖托管凭据，绕过用户权限与审计归属",
+    "summary": "已认证调用者可通过 X-Upstream-Authorization 替换网关托管的上游凭据，影响 OAuth、bearer 和 basic 等模式。IBM 公告列 1.0.0–1.1.0 受影响，修复指向 1.1.1。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "CVE-2026-110279",
+      "MCP",
+      "凭据边界"
+    ],
+    "entities": [
+      "IBM ContextForge MCP Gateway"
+    ],
+    "publishedAt": "2026-11-12",
+    "originalPublishedAt": "2026-11-12",
+    "sourceId": "ibm",
+    "sourceName": "IBM Security",
+    "references": [
+      {
+        "label": "IBM 安全公告",
+        "url": "https://www.ibm.com/support/pages/node/7296490",
+        "role": "primary"
+      },
+      {
+        "label": "IBM 修复 PR 7341",
+        "url": "https://github.com/IBM/mcp-context-forge/pull/7341",
+        "role": "primary"
+      },
+      {
+        "label": "CVE 官方原始记录",
+        "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/110xxx/CVE-2026-110279.json",
+        "role": "primary"
+      }
+    ],
+    "cveIds": [
+      "CVE-2026-110279"
+    ],
+    "cvePublishedAt": "2026-11-14",
+    "affectedPackages": [
+      {
+        "name": "IBM ContextForge MCP Gateway",
+        "ecosystem": "application",
+        "affectedRange": ">= 1.0.0, <= 1.1.0",
+        "fixedVersion": "1.1.1",
+        "source": "https://www.ibm.com/support/pages/node/7296490"
+      }
+    ],
+    "preconditions": [
+      "拥有可访问受影响 MCP 端点的已认证账号，能够提交上游授权头。",
+      "网关管理上游凭据；实际可执行动作仍取决于替换凭据的上游权限。"
+    ],
+    "limitations": "没有在野利用确认。不是无需凭据即可取得任意上游身份，也未证明泄露网关原凭据。IBM 修复表的版本栏写 2.0，但明确下载指令和链接指向 1.1.1，保留此差异。按厂商正式公告 11 月 12 日归档；修复 PR 更早于 10 月 27 日创建、11 月 3 日合并，不声称公告日是技术细节首次公开日。",
+    "impact": "可使上游实际使用的身份与网关记录的调用者身份不同，影响逐用户权限及审计归属。IBM 原始 CVSS 3.1 为 8.1；不以该值代替 ASO。",
+    "recommendation": "按 IBM 指令升级至 1.1.1，并核对安装版本；临时在前置代理剥离所有 MCP 端点的 X-Upstream-Authorization，限制可信网络访问，审计上下游身份不一致的请求。"
+  },
+  {
+    "reviewedAt": "2026-11-15",
+    "occurredAt": null,
+    "evidence": "primary",
+    "evidenceLabel": "原始披露",
+    "id": "cve-2026-129130",
+    "title": "Callstack agent-device 的网页 open 可读取守护进程主机上的文本文件",
+    "summary": "agent-device 0.21.36 的已认证远程调用者可在 web 模式打开 file:// 地址，再用 snapshot 读取守护进程账号可读的文本；0.21.37 修复。公告给出受控 PoC，不代表发现真实客户受害。",
+    "kind": "advisory",
+    "risk": "attack",
+    "tags": [
+      "CVE-2026-129130",
+      "本地文件读取",
+      "智能体工具"
+    ],
+    "entities": [
+      "Callstack",
+      "agent-device"
+    ],
+    "publishedAt": "2026-11-13",
+    "originalPublishedAt": "2026-11-13",
+    "sourceId": "github",
+    "sourceName": "GitHub Security Advisories",
+    "references": [
+      {
+        "label": "Callstack 维护者安全公告",
+        "url": "https://github.com/callstack/agent-device/security/advisories/GHSA-g87j-p64h-w8wc",
+        "role": "primary"
+      },
+      {
+        "label": "CVE 官方原始记录",
+        "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/129xxx/CVE-2026-129130.json",
+        "role": "primary"
+      }
+    ],
+    "cveIds": [
+      "CVE-2026-129130"
+    ],
+    "cvePublishedAt": "2026-11-14",
+    "affectedPackages": [
+      {
+        "name": "agent-device",
+        "ecosystem": "npm",
+        "affectedRange": "= 0.21.36",
+        "fixedVersion": "0.21.37",
+        "source": "https://github.com/callstack/agent-device/security/advisories/GHSA-g87j-p64h-w8wc"
+      }
+    ],
+    "preconditions": [
+      "受影响版本启用托管 web 后端及可达的远程 /rpc，调用者持有效 bearer token。",
+      "已知文件路径，文件可被守护进程账号读取并作为浏览器文本显示；公告 PoC 使用类 Unix 主机。"
+    ],
+    "limitations": "未确认在野利用，不外推为所有本地单用户安装均可被网络攻击。维护者页面仍显示无已知 CVE，但 CVE 原始记录明确关联同一 GHSA。维护者 CVSS 3.1 为 7.7（scope changed），CNA 为 6.5（scope unchanged），另给 CVSS 4.0 7.1，不合并成一个官方值。",
+    "impact": "自动化的远程命令权限可跨入主机文件读取边界；只确认可读明文，未证明写文件或系统代码执行。",
+    "recommendation": "升级到 0.21.37，限制 /rpc 可达范围和 bearer token 持有者，并用最小权限账号运行守护进程；如怀疑发生异常读取，审计调用记录并轮换可读文件中的秘密。"
   }
 ]

@@ -6,6 +6,33 @@ import {makeBriefing} from '../dist/publication.js';
 const read=p=>JSON.parse(readFileSync(new URL('../'+p,import.meta.url),'utf8'));
 const {items,meta}=read('dist/data/items.json');
 
+test('11-15 补录不刷新原始日期，厂商事故、实验和 CVE 日期分别保留',()=>{
+ const get=id=>items.find(i=>i.id===id);
+ const added=items.filter(i=>i.reviewedAt==='2026-11-15');
+ assert.equal(added.length,4);
+ assert.equal(makeBriefing(items,'2026-11-15','daily').total,0);
+ const fireworks=get('primary-fireworks-notion-data-exposure');
+ assert.equal(fireworks.originalPublishedAt,'2026-10-09');
+ assert.equal(fireworks.sourceUpdatedAt,'2026-11-13');
+ assert.equal(fireworks.kind,'incident');
+ assert.equal(fireworks.riskAssessment.dimensions.F,null);
+ assert.equal(fireworks.riskAssessment.score,null);
+ assert.match(fireworks.limitations,/未明确哪次入侵/);
+ const darktrace=get('research-darktrace-memory-store-c2');
+ assert.equal(darktrace.kind,'research');
+ assert.equal(darktrace.riskAssessment.activity,'controlled_poc');
+ assert.match(darktrace.limitations,/无客户数据/);
+ for(const id of ['cve-2026-110279','cve-2026-129130']){
+  assert.equal(get(id).cvePublishedAt,'2026-11-14');
+  assert.ok(get(id).originalPublishedAt<'2026-11-14');
+ }
+ assert.equal(get('cve-2026-110279').affectedPackages[0].fixedVersion,'1.1.1');
+ assert.match(get('cve-2026-110279').limitations,/版本栏写 2\.0/);
+ assert.equal(get('cve-2026-129130').affectedPackages[0].affectedRange,'= 0.21.36');
+ assert.match(get('cve-2026-129130').preconditions.join(' '),/有效 bearer token/);
+ assert.ok(added.every(i=>!i.riskAssessment.reviewed&&!i.riskAssessment.stale));
+});
+
 test('11-14 保留实际攻击、研究链与两个独立修复的边界',()=>{
  const get=id=>items.find(i=>i.id===id);
  const added=items.filter(i=>i.reviewedAt==='2026-11-14');
@@ -36,9 +63,9 @@ test('11-14 保留实际攻击、研究链与两个独立修复的边界',()=>{
 test('审核日期独立于新闻日期，补录历史事件不会成为今日新闻',()=>{
  assert.equal(meta.updatedAt,read('content/review.json').reviewedAt);
  const latest=filterItems(items)[0];
- assert.equal(latest.id,'primary-unit42-cairn-operations');
- assert.equal(latest.originalPublishedAt,'2026-11-12');
- assert.equal(latest.reviewedAt,'2026-11-14');
+ assert.equal(latest.id,'cve-2026-129130');
+ assert.equal(latest.originalPublishedAt,'2026-11-13');
+ assert.equal(latest.reviewedAt,'2026-11-15');
  const incident=items.find(i=>i.id==='primary-litellm-release-compromise-october');
  assert.equal(incident.originalPublishedAt,'2026-10-21');
  assert.equal(incident.sourceUpdatedAt,'2026-10-23');
@@ -125,7 +152,7 @@ test('11-10 更新保留原始披露日期，5 条早于上次审阅的资料按
 
 test('11-11 核验保留旧公告日期、上海 CVE 日期和未完成的外传边界',()=>{
  const get=id=>items.find(i=>i.id===id);
- assert.equal(meta.updatedAt,'2026-11-14');
+ assert.equal(meta.updatedAt,'2026-11-15');
  assert.equal(makeBriefing(items,'2026-11-11','daily').total,3);
  assert.equal(get('advisory-agent-router-mcp-session-subject').originalPublishedAt,'2026-10-07');
  assert.equal(get('advisory-agent-router-mcp-session-subject').riskAssessment.activity,'attack_path');

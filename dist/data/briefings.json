@@ -1,15 +1,40 @@
 {
   "meta": {
-    "updatedAt": "2026-11-14",
+    "updatedAt": "2026-11-15",
     "mode": "curated-snapshot",
     "timeZone": "Asia/Shanghai"
   },
   "daily": [
     {
       "mode": "daily",
+      "start": "2026-11-13",
+      "end": "2026-11-13",
+      "total": 1,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-129130"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
       "start": "2026-11-12",
       "end": "2026-11-12",
-      "total": 2,
+      "total": 4,
       "sections": [
         {
           "kind": "incident",
@@ -21,12 +46,15 @@
         {
           "kind": "advisory",
           "label": "漏洞公告",
-          "itemIds": []
+          "itemIds": [
+            "cve-2026-110279"
+          ]
         },
         {
           "kind": "research",
           "label": "研究披露",
           "itemIds": [
+            "research-darktrace-memory-store-c2",
             "research-microsoft-post-training-poisoning"
           ]
         }
@@ -573,7 +601,7 @@
       "mode": "daily",
       "start": "2026-10-09",
       "end": "2026-10-09",
-      "total": 4,
+      "total": 5,
       "sections": [
         {
           "kind": "incident",
@@ -582,7 +610,8 @@
             "pdf-2026-0001",
             "pdf-2026-0008",
             "pdf-2026-0009",
-            "pdf-2026-0010"
+            "pdf-2026-0010",
+            "primary-fireworks-notion-data-exposure"
           ]
         },
         {
@@ -1733,7 +1762,7 @@
       "mode": "weekly",
       "start": "2026-11-09",
       "end": "2026-11-15",
-      "total": 9,
+      "total": 12,
       "sections": [
         {
           "kind": "incident",
@@ -1746,6 +1775,8 @@
           "kind": "advisory",
           "label": "漏洞公告",
           "itemIds": [
+            "cve-2026-129130",
+            "cve-2026-110279",
             "cve-2026-100307",
             "cve-2026-125926",
             "cve-2026-124848",
@@ -1756,6 +1787,7 @@
           "kind": "research",
           "label": "研究披露",
           "itemIds": [
+            "research-darktrace-memory-store-c2",
             "research-microsoft-post-training-poisoning",
             "research-depi-codex-release-chain",
             "research-microsoft-lazarus-weight-backdoor",
@@ -1910,7 +1942,7 @@
       "mode": "weekly",
       "start": "2026-10-05",
       "end": "2026-10-11",
-      "total": 17,
+      "total": 18,
       "sections": [
         {
           "kind": "incident",
@@ -1920,6 +1952,7 @@
             "pdf-2026-0008",
             "pdf-2026-0009",
             "pdf-2026-0010",
+            "primary-fireworks-notion-data-exposure",
             "pdf-2026-0002",
             "pdf-2026-0006",
             "primary-openai-false-front-operations",

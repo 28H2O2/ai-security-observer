@@ -15,9 +15,9 @@ const audit=read('research/cve-verification-2026-10-23.json');
 const imported=items.filter(item=>item.sourceId==='cve'&&audit.records.some(r=>r.cveId===item.externalId));
 
 test('8条公告与已核验资料对应，保留项目日期、版本和来源，不混入真实事件',()=>{
- assert.equal(items.length,116);assert.equal(imported.length,8);
- assert.equal(items.filter(item=>item.evidence==='primary').length,107);
- assert.equal(items.filter(item=>item.kind==='incident').length,32);
+ assert.equal(items.length,120);assert.equal(imported.length,8);
+ assert.equal(items.filter(item=>item.evidence==='primary').length,111);
+ assert.equal(items.filter(item=>item.kind==='incident').length,33);
  for(const item of imported){
   const evidence=audit.records.find(record=>record.cveId===item.externalId);
   assert.ok(evidence,item.id);assert.equal(item.kind,'advisory');
@@ -34,10 +34,10 @@ test('8条公告与已核验资料对应，保留项目日期、版本和来源�
 
 test('CVE筛选涵盖既有资料，支持编号、包名、来源、时间与已读组合',()=>{
  const all=filterItems(items,{topic:'cve'});
- assert.equal(all.length,41);assert.equal(meta.cveRecords,41);
+ assert.equal(all.length,43);assert.equal(meta.cveRecords,43);
  assert.ok(all.some(item=>item.externalId==='AISID-2026-0014'));
  assert.equal(filterItems(items,{topic:'cve',source:'cve'}).length,15);
- assert.equal(filterItems(items,{topic:'cve',source:'cve',period:'30'},new Set(),meta.updatedAt).length,6);
+ assert.equal(filterItems(items,{topic:'cve',source:'cve',period:'30'},new Set(),meta.updatedAt).length,5);
  assert.equal(filterItems(items,{topic:'cve',source:'cve',period:'7'},new Set(),meta.updatedAt).length,0);
  assert.equal(filterItems(items,{topic:'cve',q:'cve-2026-111767'})[0].id,'cve-2026-111767');
  assert.equal(filterItems(items,{q:'@modelcontextprotocol/client'})[0].id,'cve-2026-104850');

@@ -1,31 +1,31 @@
 {
   "ruleVersion": "aso-risk-v1.0",
-  "total": 116,
+  "total": 120,
   "byKind": {
-    "advisory": 35,
-    "incident": 32,
-    "research": 49
+    "advisory": 37,
+    "incident": 33,
+    "research": 50
   },
   "byRisk": {
-    "abuse": 16,
-    "attack": 86,
+    "abuse": 17,
+    "attack": 89,
     "autonomy": 10,
     "failure": 4
   },
   "byEvidence": {
     "compilation": 9,
-    "primary": 107
+    "primary": 111
   },
-  "withCve": 41,
+  "withCve": 43,
   "statuses": {
-    "scored": 92,
-    "insufficient_evidence": 11,
+    "scored": 95,
+    "insufficient_evidence": 12,
     "not_applicable": 13,
     "needs_review": 0
   },
-  "assessed": 116,
+  "assessed": 120,
   "applicability": {
-    "applicable": 103,
+    "applicable": 107,
     "notApplicable": 13,
     "undetermined": 0
   },
@@ -131,6 +131,15 @@
       "missingDimensions": [
         "F",
         "S"
+      ]
+    },
+    {
+      "itemId": "primary-fireworks-notion-data-exposure",
+      "title": "Fireworks 披露客户数据遭访问，Notion 确认部分 AI 聊天记录受影响",
+      "status": "insufficient_evidence",
+      "reason": "厂商确认实际数据访问，但两轮入侵入口及 Notion 数据集关联不完整，不合成可利用性分值。",
+      "missingDimensions": [
+        "F"
       ]
     }
   ]
