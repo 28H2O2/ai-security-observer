@@ -1,5 +1,5 @@
 {
-  "reviewedAt": "2026-11-15",
+  "reviewedAt": "2026-11-19",
   "timeZone": "Asia/Shanghai",
-  "notes": "本轮检查登记 RSS、部分原始索引和历史待核线索，补录 Fireworks/Notion 数据事件、Darktrace 受控研究、IBM ContextForge 和 Callstack agent-device 公告。保留首次披露日期与后续更新，两条 CVE 的上海发布日期为 11 月 14 日；不将补录当作今日新发生事件。未重新复核全部历史资料。AI 辅助摘要与自动评估尚未人工复核。"
+  "notes": "本轮检查登记 RSS、部分原始索引及待核线索，新增 NEAR AI 入侵、Amazon 行动记录、GTIG exploit_agent、agent-framework 恶意发布、NewCore 后台访问研究和四条 AWS 漏洞公告。保留原始日期、版本冲突、未确认结果与未知评分；不代表全部历史材料重新核验。AI 辅助摘要与自动评估尚未人工复核。"
 }

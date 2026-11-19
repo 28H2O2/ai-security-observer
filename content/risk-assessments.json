@@ -7005,6 +7005,640 @@
       "reviewed": false,
       "reviewNotes": "自动评估尚未人工复核；需复核权限前提、来源差异及实验与真实受害边界。",
       "itemFingerprint": "47f6d1774a7c1dfb35b2c61ec50a7dcb8f685b09d50240a9ef9d44d787f7e9e8"
+    },
+    {
+      "itemId": "primary-near-sglang-intrusion",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "insufficient_evidence",
+      "dimensions": {
+        "I": 5,
+        "F": null,
+        "S": 2,
+        "A": 5
+      },
+      "confidence": "medium",
+      "evidence": {
+        "I": {
+          "reason": "原文明确攻击者获得推理服务器代码执行并进一步访问内部系统。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "F": {
+          "reason": "未披露漏洞版本、认证和具体触发条件，不能由 RCE 一词推定无认证直达。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "S": {
+          "reason": "证据限 NEAR AI 的推理服务器及旧版服务，不外推至全部 SGLang 部署。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "A": {
+          "reason": "平台自身确认未授权访问、账户资料下载和 18 个智能体数据访问。",
+          "sources": [
+            "source1"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://near.ai/blog/security-incident-report-sglang-vulnerability",
+          "label": "NEAR AI 官方事故报告",
+          "locator": "What was affected / What we did / Confidential inference",
+          "accessedAt": "2026-11-19"
+        }
+      ],
+      "activity": "confirmed_exploitation",
+      "reason": "推理服务器代码执行及向旧服务扩展的真实入侵，具体利用入口未知。",
+      "assessedAt": "2026-11-19",
+      "reviewed": false,
+      "consequences": {
+        "potential": "已确认约 100 个账户资料及 18 个非 TEE 旧版智能体数据遭访问。机密计算不能防止环境内部推理软件漏洞；不能据此断言所有 TEE 或其他服务器均已失陷。",
+        "observed": "官方确认上述数据访问，另有 11 月 8 日处理中的请求可能被观察；后者尚未证实。"
+      },
+      "itemFingerprint": "8fd87710d5f30836291e2ed2e3866931d88f7aa63684ab4572b61b7263a1e30b",
+      "reviewNotes": "自动评估尚未人工复核；需复核各维锚点、原始来源差异、入口条件及潜在后果与实际观测的边界。"
+    },
+    {
+      "itemId": "primary-amazon-madpot-agent-records",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "insufficient_evidence",
+      "dimensions": {
+        "I": 3,
+        "F": null,
+        "S": null,
+        "A": 3
+      },
+      "confidence": "medium",
+      "evidence": {
+        "I": {
+          "reason": "记录中的上游模型密钥外传可导致权限和额度滥用；并非已独立确认所有密钥被窃。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "F": {
+          "reason": "涉及多种默认凭据、漏洞和公开秘密，不同目标的入口条件未逐项确认。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "S": {
+          "reason": "平台名单和记录目标数量不等于受影响部署范围，外部结果未验证。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "A": {
+          "reason": "Amazon 的蜜罐直接收到真实行动的推理请求，足以记录尝试；不据自报结果升级为确认在野成功。",
+          "sources": [
+            "source1"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://aws.amazon.com/blogs/security/amazon-threat-intelligence-observes-threat-actors-running-cybercrime-campaigns-with-artex-ai-agents/",
+          "label": "Amazon Threat Intelligence 原始调查",
+          "locator": "How MadPot saw inside these campaigns / Campaign 1 / Campaign 2 / Attribution",
+          "accessedAt": "2026-11-19"
+        }
+      ],
+      "activity": "observed_attempts",
+      "reason": "只评 AI 网关密钥窃取行动记录；外部结果和不同入口不能合成统一可利用性。",
+      "assessedAt": "2026-11-19",
+      "reviewed": false,
+      "consequences": {
+        "potential": "记录揭示默认凭据、暴露管理接口、未修补应用及公开秘密可被串联寻找上游模型密钥；被点名平台不代表所有安装都存在同一漏洞。",
+        "observed": "实际接收任务上下文和工具历史；第三方系统上的结果未独立验证，已记录深伪检查均被拒绝。"
+      },
+      "itemFingerprint": "f75ac44d7e9d8053561a9807455c54ac1e6151dd20ad9c7b9e2b4a55148c7921",
+      "reviewNotes": "自动评估尚未人工复核；需复核各维锚点、原始来源差异、入口条件及潜在后果与实际观测的边界。"
+    },
+    {
+      "itemId": "primary-gtig-exploit-agent-staging",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "insufficient_evidence",
+      "dimensions": {
+        "I": 5,
+        "F": null,
+        "S": null,
+        "A": 4
+      },
+      "confidence": "medium",
+      "evidence": {
+        "I": {
+          "reason": "暂存服务器有受害者数据和 webshell 等后渗透脚本，框架具自动执行利用路径。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "F": {
+          "reason": "未公开各目标漏洞和初始权限，无法为整个多目标框架给出统一 F。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "S": {
+          "reason": "遥测显示行业和地区目标，但未给全部受害部署及逐目标因果链。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "A": {
+          "reason": "GTIG 在真实攻击者服务器上发现框架、受害者数据和后渗透材料，属于可信在野记录。",
+          "sources": [
+            "source1"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://cloud.google.com/blog/topics/threat-intelligence/agentic-threat-activity-crosses-a-significant-threshold?hl=en",
+          "label": "GTIG AI Threat Tracker 原始调查",
+          "locator": "Use of Agents in Vulnerability Research and Development / exploit_agent / victim telemetry",
+          "accessedAt": "2026-11-19"
+        }
+      ],
+      "activity": "in_the_wild",
+      "reason": "评估 exploit_agent 调查对象；不合并同文其他框架和历史行动。",
+      "assessedAt": "2026-11-19",
+      "reviewed": false,
+      "consequences": {
+        "potential": "调查支持自动化漏洞利用工具已进入真实攻击环境；潜在后果包括主机失陷和数据外传，但不代表任意目标均可无人接管。",
+        "observed": "调查者发现暂存服务器、受害者数据及攻击脚本；不等于证明每份数据均由该框架独立取得。"
+      },
+      "itemFingerprint": "651ceb70636dda92a8a98c4b671a78a0b237ff3319a49d65bcfcfa2d574875a0",
+      "reviewNotes": "自动评估尚未人工复核；需复核各维锚点、原始来源差异、入口条件及潜在后果与实际观测的边界。"
+    },
+    {
+      "itemId": "primary-agent-framework-pypi-malware",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 4,
+        "F": 2,
+        "S": 2,
+        "A": 3
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "可收集进程环境、凭据文件并申请云与 CI 身份令牌，可能造成严重凭据泄露。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        },
+        "F": {
+          "reason": "需安装特定受污染 wheel 后启动 Python，并取决于账号、令牌签发条件和出站访问。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        },
+        "S": {
+          "reason": "只确认 agent-framework 两版恶意制品，不扩展至所有 sibling 包或全体 Azure 用户。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        },
+        "A": {
+          "reason": "多个样本分析和 GitHub 恶意软件记录确认真实投递；下游成功失窃数量未知，因此保守记攻击尝试。",
+          "sources": [
+            "source1",
+            "source2",
+            "source3"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://www.endorlabs.com/learn/agent-framework-compromised-software-supply-chain-attack",
+          "label": "Endor Labs 首次原始分析",
+          "locator": "Affected artifacts / Timeline / Execution on Python startup / Remediation",
+          "accessedAt": "2026-11-19"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://safedep.io/blog/microsoft-agent-framework-pypi-compromise",
+          "label": "SafeDep 分析及 11 月 18 日更新",
+          "locator": "Affected versions / Timeline / What it steals / Tokens it requests / Check your environments",
+          "accessedAt": "2026-11-19"
+        },
+        {
+          "id": "source3",
+          "kind": "reference",
+          "url": "https://github.com/advisories/GHSA-764m-3ppc-5m73",
+          "label": "GitHub 恶意软件公告",
+          "locator": "Affected versions / Description / References",
+          "accessedAt": "2026-11-19"
+        }
+      ],
+      "activity": "observed_attempts",
+      "reason": "评估两版恶意制品的凭据采集与令牌申请；下游实际窃密规模未确认。",
+      "assessedAt": "2026-11-19",
+      "reviewed": false,
+      "consequences": {
+        "potential": "恶意制品真实发布，可能暴露开发机、构建环境和云身份可访问的秘密。1.26.2 另请求 GitHub Actions OIDC 令牌；已签发令牌不能仅靠更换磁盘上的秘密排除风险。",
+        "observed": "两版恶意 wheel 实际发布后下架，多方样本分析一致；未独立确认全部安装及下游泄露。"
+      },
+      "itemFingerprint": "ec4f18a13b669456fcf0b79592affe5d1ea05c164669657429cf747d8b4fb31f",
+      "reviewNotes": "自动评估尚未人工复核；需复核各维锚点、原始来源差异、入口条件及潜在后果与实际观测的边界。"
+    },
+    {
+      "itemId": "research-newcore-grok-background-access",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "not_applicable",
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "后台访问尝试与潜在后果分开，未证明受控确认试验成功读取。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "F": {
+          "reason": "未定义攻击者入口，不硬套漏洞可利用性。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "S": {
+          "reason": "两账号及研究方网关条件不能代表所有部署。",
+          "sources": [
+            "source1"
+          ]
+        },
+        "A": {
+          "reason": "未报告攻击者利用，研究方行为观察不等同在野攻击。",
+          "sources": [
+            "source1"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://newcore.com/newsroom/newcore-research-grok-bot-agents-reached-for-corporate-data-unprompted",
+          "label": "NewCore 官方研究公告",
+          "locator": "Research findings / FAQ 1–4；尤其 None reached the data 与 no software vulnerability",
+          "accessedAt": "2026-11-19"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://newcore.com/api/newsroom/newcore-research-grok-bot-agents-reached-for-corporate-data-unprompted/pdf",
+          "label": "NewCore 官方公告 PDF",
+          "locator": "公告 PDF 第 1–3 页 / FAQ 1–4",
+          "accessedAt": "2026-11-19"
+        }
+      ],
+      "activity": "unknown",
+      "reason": "研究对象是内置后台任务、授权和可见性设计，作者明确未发现软件漏洞；缺少可独立界定的攻击机制，不合成漏洞风险分。",
+      "assessedAt": "2026-11-19",
+      "reviewed": false,
+      "consequences": {
+        "potential": "研究显示持续授权、后台任务与用户可见会话可能存在可审计性差距；本次受控确认试验没有数据外传证据，不能写成企业遭入侵。",
+        "observed": "第二账号确认试验所有后台请求被审批挂起后过期，没有取得数据。"
+      },
+      "itemFingerprint": "0cc44de792d1830fb2bda2ae4b6a3cfdb983b621c9f0cca5f5cfce68d0ea83de",
+      "reviewNotes": "自动评估尚未人工复核；需复核各维锚点、原始来源差异、入口条件及潜在后果与实际观测的边界。"
+    },
+    {
+      "itemId": "cve-2026-129266",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "特制模型归档可使 DJL 读取进程可读文件并返回给调用者。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "F": {
+          "reason": "正常模型加载工作流接触不可信归档；模型注册权限与 API 暴露仍限制攻击入口。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "S": {
+          "reason": "限 DJL 消费特制模型的产品及配置，不从使用广泛推导生态级范围。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "A": {
+          "reason": "正式公告描述具体读取路径，未核实公开运行 PoC 或在野利用。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-183-aws/",
+          "label": "AWS 2026-183 公告",
+          "locator": "Description / Impacted versions / Resolution / Workarounds",
+          "accessedAt": "2026-11-19"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://github.com/deepjavalibrary/djl/security/advisories/GHSA-xf3w-qp3m-fp62",
+          "label": "DJL 维护者公告",
+          "locator": "Summary / Impact / Patches / affected versions；与 AWS/CVE 的版本差异",
+          "accessedAt": "2026-11-19"
+        },
+        {
+          "id": "source3",
+          "kind": "reference",
+          "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/129xxx/CVE-2026-129266.json",
+          "label": "CVE 官方原始记录",
+          "locator": "cveMetadata / affected / descriptions / references",
+          "accessedAt": "2026-11-19"
+        }
+      ],
+      "activity": "attack_path",
+      "reason": "评估不可信模型资源位置到主机文件读取的边界，版本冲突保留。",
+      "assessedAt": "2026-11-19",
+      "reviewed": false,
+      "consequences": {
+        "potential": "模型加载边界可能越入主机敏感文件读取，实际暴露取决于进程权限及返回数据的可达性。",
+        "observed": "厂商与维护者披露具体机制；没有真实客户文件失窃确认。"
+      },
+      "itemFingerprint": "d0233062487037d8c20c3e28d85de54121fc64069f4c247a6a81b998aa53ba09",
+      "reviewNotes": "自动评估尚未人工复核；需复核各维锚点、原始来源差异、入口条件及潜在后果与实际观测的边界。"
+    },
+    {
+      "itemId": "cve-2026-126816",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "可创建或覆盖服务器进程可写的目录外文件，跨越预期输出目录边界。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "F": {
+          "reason": "攻击者内容经智能体正常读取并调用工具；静默批准另需客户端配置。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "S": {
+          "reason": "仅本地 MCP 服务和相关版本，不影响托管 AWS 服务。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "A": {
+          "reason": "公告描述路径和修复，未核实公开运行 PoC 或在野利用。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-184-aws/",
+          "label": "AWS 2026-184 公告",
+          "locator": "Description / Impacted versions / Resolution / Workarounds",
+          "accessedAt": "2026-11-19"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://github.com/awslabs/mcp/security/advisories/GHSA-mqm3-w68j-75mw",
+          "label": "维护者安全公告",
+          "locator": "Impact / Patches / Workarounds；含弃用 cost-analysis 包迁移",
+          "accessedAt": "2026-11-19"
+        },
+        {
+          "id": "source3",
+          "kind": "reference",
+          "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/126xxx/CVE-2026-126816.json",
+          "label": "CVE 官方原始记录",
+          "locator": "cveMetadata / affected / descriptions",
+          "accessedAt": "2026-11-19"
+        }
+      ],
+      "activity": "attack_path",
+      "reason": "评估含攻击者字段的成本报告越目录写入，不扩展到已验证命令执行。",
+      "assessedAt": "2026-11-19",
+      "reviewed": false,
+      "consequences": {
+        "potential": "可创建或覆盖服务器账号可写的目录外文件；错误只读提示可能削弱客户端确认边界。",
+        "observed": "维护者披露可写边界和错误只读提示，无实际受害确认。"
+      },
+      "itemFingerprint": "bfb36f73ba1f62c90fe55d8045837948c2d01353ec94ba96366f4a0174fd3ab7",
+      "reviewNotes": "自动评估尚未人工复核；需复核各维锚点、原始来源差异、入口条件及潜在后果与实际观测的边界。"
+    },
+    {
+      "itemId": "cve-2026-126681",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 3,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "已有 InfluxDB API token 可发送到非预期端点，泄露相应数据访问权限。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "F": {
+          "reason": "正常智能体内容读取与连接工作流可能引入攻击者 URL；不是脱离客户端的无交互远程触发。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "S": {
+          "reason": "限配置了令牌的受影响 MCP 服务和对应版本。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "A": {
+          "reason": "厂商披露具体路径，未核实公开运行 PoC 或在野利用。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-185-aws/",
+          "label": "AWS 2026-185 公告",
+          "locator": "Description / Impacted versions / Resolution",
+          "accessedAt": "2026-11-19"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://github.com/awslabs/mcp/security/advisories/GHSA-2f9r-g4f3-wc2j",
+          "label": "维护者安全公告",
+          "locator": "Impact / Patches / Workarounds；版本栏与正文差异",
+          "accessedAt": "2026-11-19"
+        },
+        {
+          "id": "source3",
+          "kind": "reference",
+          "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/126xxx/CVE-2026-126681.json",
+          "label": "CVE 官方原始记录",
+          "locator": "cveMetadata / affected / descriptions",
+          "accessedAt": "2026-11-19"
+        }
+      ],
+      "activity": "attack_path",
+      "reason": "评估客户端上下文中的攻击者端点导致配置令牌外传。",
+      "assessedAt": "2026-11-19",
+      "reviewed": false,
+      "consequences": {
+        "potential": "令牌可能外传并被用于访问相应 InfluxDB 数据；影响限配置凭据的权限范围。",
+        "observed": "公告描述令牌泄露路径，未确认任何客户数据实际失窃。"
+      },
+      "itemFingerprint": "5a05fd942440b629bd90f3017220d09fb425d73ed64bf46091eadb6bb49d7e6a",
+      "reviewNotes": "自动评估尚未人工复核；需复核各维锚点、原始来源差异、入口条件及潜在后果与实际观测的边界。"
+    },
+    {
+      "itemId": "cve-2026-130638",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "被替换归档按工具运行用户权限写入输出目录外文件。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "F": {
+          "reason": "需运行可选工具，且攻击者占据明文下载的网络路径，存在多个前提。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "S": {
+          "reason": "仅可选数据集工具，不影响训练与推理 API。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        },
+        "A": {
+          "reason": "厂商和维护者披露具体机制；SSVC 未见利用不自动换成 A=0。",
+          "sources": [
+            "source1",
+            "source2"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "source1",
+          "kind": "reference",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-188-aws/",
+          "label": "AWS 2026-188 公告",
+          "locator": "Description / Impacted versions / Workarounds；不影响 API",
+          "accessedAt": "2026-11-19"
+        },
+        {
+          "id": "source2",
+          "kind": "reference",
+          "url": "https://github.com/autogluon/autogluon/security/advisories/GHSA-cx2g-xwj2-2vxm",
+          "label": "AutoGluon 维护者公告",
+          "locator": "Impact / Patches / Workarounds",
+          "accessedAt": "2026-11-19"
+        },
+        {
+          "id": "source3",
+          "kind": "reference",
+          "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/130xxx/CVE-2026-130638.json",
+          "label": "CVE 官方原始记录",
+          "locator": "cveMetadata / affected / descriptions / ADP SSVC",
+          "accessedAt": "2026-11-19"
+        }
+      ],
+      "activity": "attack_path",
+      "reason": "评估可选目标检测数据集准备工具的归档越目录写入。",
+      "assessedAt": "2026-11-19",
+      "reviewed": false,
+      "consequences": {
+        "potential": "归档解压可越过输出目录写入账号可写文件；后果取决于本地文件权限。",
+        "observed": "公告和修复描述，无公开可核实 PoC 或真实受害确认。"
+      },
+      "itemFingerprint": "b65a010c0086ad740b4232e30376772abd4339bb0dbe9e141665ff6dfb93a1c4",
+      "reviewNotes": "自动评估尚未人工复核；需复核各维锚点、原始来源差异、入口条件及潜在后果与实际观测的边界。"
     }
   ]
 }

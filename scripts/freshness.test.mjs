@@ -6,6 +6,44 @@ import {makeBriefing} from '../dist/publication.js';
 const read=p=>JSON.parse(readFileSync(new URL('../'+p,import.meta.url),'utf8'));
 const {items,meta}=read('dist/data/items.json');
 
+test('11-19 区分行动记录、确认受害和受控研究，版本冲突与上海日期不被抹平',()=>{
+ const get=id=>items.find(i=>i.id===id);
+ const added=items.filter(i=>i.reviewedAt==='2026-11-19');
+ assert.equal(added.length,9);
+ assert.equal(makeBriefing(items,'2026-11-19','daily').total,0);
+ for(const id of ['primary-near-sglang-intrusion','primary-amazon-madpot-agent-records','primary-gtig-exploit-agent-staging']){
+  assert.equal(get(id).riskAssessment.dimensions.F,null);
+  assert.equal(get(id).riskAssessment.score,null);
+ }
+ assert.equal(get('primary-near-sglang-intrusion').originalPublishedAt,'2026-11-09');
+ assert.equal(get('primary-near-sglang-intrusion').riskAssessment.activity,'confirmed_exploitation');
+ assert.equal(get('primary-amazon-madpot-agent-records').riskAssessment.activity,'observed_attempts');
+ assert.match(get('primary-amazon-madpot-agent-records').limitations,/拒绝了每次/);
+ assert.equal(get('research-newcore-grok-background-access').riskAssessment.status,'not_applicable');
+ assert.match(get('research-newcore-grok-background-access').summary,/没有读到数据/);
+ const malware=get('primary-agent-framework-pypi-malware');
+ assert.equal(malware.originalPublishedAt,'2026-11-17');
+ assert.equal(malware.occurredAt,'2026-11-18');
+ assert.equal(malware.affectedPackages[0].fixedVersion,null);
+ assert.match(malware.recommendation,/避免启动.*Python 或 pip/);
+ const djl=get('cve-2026-129266');
+ assert.equal(djl.affectedPackages[0].fixedVersion,'0.40.0');
+ assert.match(djl.limitations,/修复 0\.39\.0/);
+ assert.equal(get('cve-2026-126816').affectedPackages[1].fixedVersion,null);
+ assert.match(get('cve-2026-126816').recommendation,/迁移/);
+ assert.match(get('cve-2026-126681').recommendation,/轮换/);
+ for(const id of ['cve-2026-129266','cve-2026-126816','cve-2026-126681']){
+  assert.equal(get(id).originalPublishedAt,'2026-11-16');
+  assert.equal(get(id).cvePublishedAt,'2026-11-17');
+ }
+ const auto=get('cve-2026-130638');
+ assert.equal(auto.originalPublishedAt,'2026-11-18');
+ assert.equal(auto.cvePublishedAt,'2026-11-19');
+ assert.match(auto.limitations,/不影响.*训练或推理 API/);
+ assert.ok(added.every(i=>!i.riskAssessment.reviewed&&!i.riskAssessment.stale));
+ assert.ok(added.every(i=>!JSON.stringify(i).includes('??')&&/[\u4e00-\u9fff]/u.test(i.title)));
+});
+
 test('11-15 补录不刷新原始日期，厂商事故、实验和 CVE 日期分别保留',()=>{
  const get=id=>items.find(i=>i.id===id);
  const added=items.filter(i=>i.reviewedAt==='2026-11-15');
@@ -63,9 +101,9 @@ test('11-14 保留实际攻击、研究链与两个独立修复的边界',()=>{
 test('审核日期独立于新闻日期，补录历史事件不会成为今日新闻',()=>{
  assert.equal(meta.updatedAt,read('content/review.json').reviewedAt);
  const latest=filterItems(items)[0];
- assert.equal(latest.id,'cve-2026-129130');
- assert.equal(latest.originalPublishedAt,'2026-11-13');
- assert.equal(latest.reviewedAt,'2026-11-15');
+ assert.equal(latest.id,'cve-2026-130638');
+ assert.equal(latest.originalPublishedAt,'2026-11-18');
+ assert.equal(latest.reviewedAt,'2026-11-19');
  const incident=items.find(i=>i.id==='primary-litellm-release-compromise-october');
  assert.equal(incident.originalPublishedAt,'2026-10-21');
  assert.equal(incident.sourceUpdatedAt,'2026-10-23');
@@ -152,7 +190,7 @@ test('11-10 更新保留原始披露日期，5 条早于上次审阅的资料按
 
 test('11-11 核验保留旧公告日期、上海 CVE 日期和未完成的外传边界',()=>{
  const get=id=>items.find(i=>i.id===id);
- assert.equal(meta.updatedAt,'2026-11-15');
+ assert.equal(meta.updatedAt,'2026-11-19');
  assert.equal(makeBriefing(items,'2026-11-11','daily').total,3);
  assert.equal(get('advisory-agent-router-mcp-session-subject').originalPublishedAt,'2026-10-07');
  assert.equal(get('advisory-agent-router-mcp-session-subject').riskAssessment.activity,'attack_path');

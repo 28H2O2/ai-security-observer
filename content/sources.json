@@ -427,5 +427,44 @@
     "status": "reference",
     "checkedAt": "2026-11-15",
     "notes": "本轮人工读取所列材料，未接入采集器，不代表核验该机构全部发布。"
+  },
+  {
+    "id": "near",
+    "name": "NEAR AI",
+    "shortName": "NEAR AI",
+    "url": "https://near.ai/blog/security-incident-report-sglang-vulnerability",
+    "endpoint": "https://near.ai/blog/security-incident-report-sglang-vulnerability",
+    "method": "manual",
+    "category": "vendor",
+    "description": "推理平台官方事故披露。",
+    "status": "reference",
+    "checkedAt": "2026-11-19",
+    "notes": "本轮实际读取所列材料；未接入采集器，不表示已复核该机构全部发布。"
+  },
+  {
+    "id": "endor",
+    "name": "Endor Labs",
+    "shortName": "Endor Labs",
+    "url": "https://www.endorlabs.com/learn/agent-framework-compromised-software-supply-chain-attack",
+    "endpoint": "https://www.endorlabs.com/learn/agent-framework-compromised-software-supply-chain-attack",
+    "method": "manual",
+    "category": "research",
+    "description": "软件供应链原始样本分析。",
+    "status": "reference",
+    "checkedAt": "2026-11-19",
+    "notes": "本轮实际读取所列材料；未接入采集器，不表示已复核该机构全部发布。"
+  },
+  {
+    "id": "newcore",
+    "name": "NewCore",
+    "shortName": "NewCore",
+    "url": "https://newcore.com/newsroom/newcore-research-grok-bot-agents-reached-for-corporate-data-unprompted",
+    "endpoint": "https://newcore.com/newsroom/newcore-research-grok-bot-agents-reached-for-corporate-data-unprompted",
+    "method": "manual",
+    "category": "research",
+    "description": "研究方智能体访问行为披露，保留小样本与网关条件。",
+    "status": "reference",
+    "checkedAt": "2026-11-19",
+    "notes": "本轮实际读取所列材料；未接入采集器，不表示已复核该机构全部发布。"
   }
 ]

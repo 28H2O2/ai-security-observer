@@ -1,32 +1,32 @@
 {
   "ruleVersion": "aso-risk-v1.0",
-  "total": 120,
+  "total": 129,
   "byKind": {
-    "advisory": 37,
-    "incident": 33,
-    "research": 50
+    "advisory": 41,
+    "incident": 37,
+    "research": 51
   },
   "byRisk": {
-    "abuse": 17,
-    "attack": 89,
-    "autonomy": 10,
+    "abuse": 19,
+    "attack": 95,
+    "autonomy": 11,
     "failure": 4
   },
   "byEvidence": {
     "compilation": 9,
-    "primary": 111
+    "primary": 120
   },
-  "withCve": 43,
+  "withCve": 47,
   "statuses": {
-    "scored": 95,
-    "insufficient_evidence": 12,
-    "not_applicable": 13,
+    "scored": 100,
+    "insufficient_evidence": 15,
+    "not_applicable": 14,
     "needs_review": 0
   },
-  "assessed": 120,
+  "assessed": 129,
   "applicability": {
-    "applicable": 107,
-    "notApplicable": 13,
+    "applicable": 115,
+    "notApplicable": 14,
     "undetermined": 0
   },
   "pending": [
@@ -140,6 +140,35 @@
       "reason": "厂商确认实际数据访问，但两轮入侵入口及 Notion 数据集关联不完整，不合成可利用性分值。",
       "missingDimensions": [
         "F"
+      ]
+    },
+    {
+      "itemId": "primary-near-sglang-intrusion",
+      "title": "NEAR AI 披露 SGLang 漏洞遭利用，旧服务账户和智能体数据被访问",
+      "status": "insufficient_evidence",
+      "reason": "推理服务器代码执行及向旧服务扩展的真实入侵，具体利用入口未知。",
+      "missingDimensions": [
+        "F"
+      ]
+    },
+    {
+      "itemId": "primary-amazon-madpot-agent-records",
+      "title": "Amazon 蜜罐捕获智能体行动记录，指向 AI 服务密钥窃取与验证欺诈尝试",
+      "status": "insufficient_evidence",
+      "reason": "只评 AI 网关密钥窃取行动记录；外部结果和不同入口不能合成统一可利用性。",
+      "missingDimensions": [
+        "F",
+        "S"
+      ]
+    },
+    {
+      "itemId": "primary-gtig-exploit-agent-staging",
+      "title": "GTIG 在攻击者暂存服务器发现自动补丁分析与利用框架及受害者数据",
+      "status": "insufficient_evidence",
+      "reason": "评估 exploit_agent 调查对象；不合并同文其他框架和历史行动。",
+      "missingDimensions": [
+        "F",
+        "S"
       ]
     }
   ]

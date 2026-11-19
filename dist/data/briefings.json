@@ -1,20 +1,103 @@
 {
   "meta": {
-    "updatedAt": "2026-11-15",
+    "updatedAt": "2026-11-19",
     "mode": "curated-snapshot",
     "timeZone": "Asia/Shanghai"
   },
   "daily": [
     {
       "mode": "daily",
-      "start": "2026-11-13",
-      "end": "2026-11-13",
+      "start": "2026-11-18",
+      "end": "2026-11-18",
       "total": 1,
       "sections": [
         {
           "kind": "incident",
           "label": "真实事件",
           "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-130638"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-11-17",
+      "end": "2026-11-17",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-agent-framework-pypi-malware"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": []
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "research-newcore-grok-background-access"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-11-16",
+      "end": "2026-11-16",
+      "total": 4,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-gtig-exploit-agent-staging"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-126681",
+            "cve-2026-126816",
+            "cve-2026-129266"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-11-13",
+      "end": "2026-11-13",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-amazon-madpot-agent-records"
+          ]
         },
         {
           "kind": "advisory",
@@ -120,12 +203,14 @@
       "mode": "daily",
       "start": "2026-11-09",
       "end": "2026-11-09",
-      "total": 1,
+      "total": 2,
       "sections": [
         {
           "kind": "incident",
           "label": "真实事件",
-          "itemIds": []
+          "itemIds": [
+            "primary-near-sglang-intrusion"
+          ]
         },
         {
           "kind": "advisory",
@@ -1760,15 +1845,50 @@
   "weekly": [
     {
       "mode": "weekly",
-      "start": "2026-11-09",
-      "end": "2026-11-15",
-      "total": 12,
+      "start": "2026-11-16",
+      "end": "2026-11-22",
+      "total": 7,
       "sections": [
         {
           "kind": "incident",
           "label": "真实事件",
           "itemIds": [
-            "primary-unit42-cairn-operations"
+            "primary-agent-framework-pypi-malware",
+            "primary-gtig-exploit-agent-staging"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-130638",
+            "cve-2026-126681",
+            "cve-2026-126816",
+            "cve-2026-129266"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "research-newcore-grok-background-access"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "weekly",
+      "start": "2026-11-09",
+      "end": "2026-11-15",
+      "total": 14,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-amazon-madpot-agent-records",
+            "primary-unit42-cairn-operations",
+            "primary-near-sglang-intrusion"
           ]
         },
         {

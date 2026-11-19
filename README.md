@@ -10,15 +10,15 @@
 
 | 项目 | 数值 |
 | --- | --- |
-| 资料审阅日期 | 2026-11-15（Asia/Shanghai） |
-| 去重资料 | 120 条（真实事件 33 / 漏洞公告 37 / 研究披露 50） |
-| 附原始披露 | 111 条 |
-| 带明确 CVE 编号 | 43 条 |
-| 实际供稿来源 | 29 个 |
+| 资料审阅日期 | 2026-11-19（Asia/Shanghai） |
+| 去重资料 | 129 条（真实事件 37 / 漏洞公告 41 / 研究披露 51） |
+| 附原始披露 | 120 条 |
+| 带明确 CVE 编号 | 47 条 |
+| 实际供稿来源 | 32 个 |
 | PDF 汇编原始收录 | 16 条 |
-| ASO 评分 | 95 已评分 / 12 证据不足 / 13 不适用 / 0 待处理 |
+| ASO 评分 | 100 已评分 / 15 证据不足 / 14 不适用 / 0 待处理 |
 
-最近一次更新（2026-11-15）补录 4 条一手资料：Fireworks/Notion 数据事件、Darktrace 受控研究、IBM ContextForge 与 Callstack agent-device 漏洞。保留首次披露日期与后续更新；两条 CVE 的上海发布日期为 11 月 14 日。Fireworks 的入口条件不足以形成总分。核验范围见[本轮记录](research/update-2026-11-15.md)。
+最近一次更新（2026-11-19）新增 9 条一手资料：NEAR AI 入侵、Amazon 智能体行动记录、GTIG exploit_agent 调查、agent-framework 恶意发布、NewCore 后台访问研究，以及 DJL、Pricing MCP、Timestream MCP、AutoGluon 的四条漏洞公告。保留原始日期及 DJL 版本分歧；三条事件因关键条件未知而不生成总分。核验范围见[本轮记录](research/update-2026-11-19.md)。
 
 这是**人工整理的静态快照**：没有实时抓取、定时采集、在线模型摘要或自动事实核验，部署也不会自动产生新情报。日期只表示审阅快照，不表示采集器运行时间。AI 辅助生成的摘要与评分均**尚未人工复核**。
 
@@ -105,7 +105,7 @@ SITE_URL='https://你的正式域名/' npm run package   # 生产包
 - [DESIGN.md](DESIGN.md)：视觉、排印与交互约定
 - [docs/aso-risk-score.md](docs/aso-risk-score.md)：ASO 评分公式、四维锚点与维护步骤
 - [research/site-methodology.md](research/site-methodology.md)：来源、消息格式与核验方法
-- [research/update-2026-11-15.md](research/update-2026-11-15.md)：最近一次内容更新与核验范围（`research/update-*.md` 为历次记录）
+- [research/update-2026-11-19.md](research/update-2026-11-19.md)：最近一次内容更新与核验范围（`research/update-*.md` 为历次记录）
 - [research/risk-assessment-2026-11-04.md](research/risk-assessment-2026-11-04.md)：ASO 全量评估记录
 - 工程参考：[AIHOT](https://github.com/KKKKhazix/AIHOT)（MIT）、[AI Safety Radar](https://github.com/nrc-cnrc/ai-safety-radar-securite-ia)、[S33R](https://github.com/clivoa/S33R)；本项目未复制其品牌、界面或后台代码
 
@@ -113,4 +113,4 @@ SITE_URL='https://你的正式域名/' npm run package   # 生产包
 
 复旦大学 · JADE 团队：[团队主页](https://whitzard-ai.github.io/index.html) · [团队成员](https://whitzard-ai.github.io/member.html)；联系人：张谧教授（[mi_zhang@fudan.edu.cn](mailto:mi_zhang@fudan.edu.cn)）。
 
-原始资料版权归原作者。本站只提供独立整理的中文摘要与原文链接，不分发第三方全文或 PDF。代码版本 0.4.1；资料核对日期 2026-11-15，不代表全部历史资料已重新核验。无注册、在线模型摘要或第三方分析脚本。
+原始资料版权归原作者。本站只提供独立整理的中文摘要与原文链接，不分发第三方全文或 PDF。代码版本 0.4.1；资料核对日期 2026-11-19，不代表全部历史资料已重新核验。无注册、在线模型摘要或第三方分析脚本。
