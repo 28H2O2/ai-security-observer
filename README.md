@@ -1,5 +1,7 @@
 # AI 威胁情报站
 
+**简体中文** | [English](README.en-US.md)
+
 复旦 JADE 的 AI 安全情报阅读站，全称「复旦 JADE · AI 威胁情报站」。把公开的安全事件、漏洞公告与攻击研究整理成中文摘要，逐条标注来源、证据边界与原始链接，不做未经核验的推断。
 
 站名与[同名微信小程序](https://github.com/28H2O2/ai-security-observer-miniprogram)保持一致：两端共用同一份人工整理的数据快照，本仓库是完整网页版，小程序是移动阅读版。仓库名 `ai-security-observer` 作为工程标识保留不变，避免已有链接失效。线上地址见仓库首页的 Vercel 生产域名。
