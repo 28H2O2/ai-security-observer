@@ -2,13 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel>
 <title>复旦 JADE · AI 威胁情报站</title><link>https://ai-security-observer.h2o228314.chatgpt.site/</link>
 <description>AI 安全事件、漏洞公告与研究披露。人工整理，按已收录资料汇编；不代表实时核验。</description><language>zh-CN</language>
-<lastBuildDate>Wed, 18 Nov 2026 16:00:00 GMT</lastBuildDate><atom:link href="https://ai-security-observer.h2o228314.chatgpt.site/feed.xml" rel="self" type="application/rss+xml"/>
+<lastBuildDate>Thu, 19 Nov 2026 16:00:00 GMT</lastBuildDate><atom:link href="https://ai-security-observer.h2o228314.chatgpt.site/feed.xml" rel="self" type="application/rss+xml"/>
+<item><title>Junie CLI 文件工具可修改项目目录之外的文件</title><link>https://ai-security-observer.h2o228314.chatgpt.site/#/item/cve-2026-133195</link><guid isPermaLink="true">https://ai-security-observer.h2o228314.chatgpt.site/#/item/cve-2026-133195</guid><pubDate>Wed, 18 Nov 2026 16:00:00 GMT</pubDate><category>漏洞公告</category><description>JetBrains 的 CVE 记录确认，26.6.29 之前的 Junie CLI 智能体文件工具可修改项目目录之外的文件；26.6.29 已修复。具体触发条件未披露。
+来源：CVE 官方记录；原始披露日期：2026-11-19。
+证据与边界：厂商修复索引的动态详情本次未能读取，事实依据为 JetBrains 签发的 CVE 原文。未取得具体攻击路径、PoC 或在野利用证据；不据 CVSS 推导无需认证执行或更广泛损害。</description></item>
 <item><title>AutoGluon 可选数据集准备工具可遭中间人替换归档并越目录写入</title><link>https://ai-security-observer.h2o228314.chatgpt.site/#/item/cve-2026-130638</link><guid isPermaLink="true">https://ai-security-observer.h2o228314.chatgpt.site/#/item/cve-2026-130638</guid><pubDate>Tue, 17 Nov 2026 16:00:00 GMT</pubDate><category>漏洞公告</category><description>AutoGluon MultiModal 1.6.0 前的可选目标检测数据集工具经明文 HTTP 下载并未校验归档路径。在下载链路上的攻击者可替换归档，按运行用户权限越目录写文件；训练和推理 API 不受此路径影响。
 来源：AWS Security；原始披露日期：2026-11-18。
 证据与边界：不影响 MultiModalPredictor 等训练或推理 API；不把可选数据准备命令泛化为所有模型运行均可被攻击。未确认在野利用或公开可运行 PoC，也未证明后续系统接管。AWS 与 GHSA 原始日期是 11 月 18 日，CVE UTC 18:10 发布时间换算上海为 11 月 19 日。</description></item>
+<item><title>Pydantic AI Harness 的 ANSI 清理可阻塞智能体事件循环</title><link>https://ai-security-observer.h2o228314.chatgpt.site/#/item/cve-2026-133161</link><guid isPermaLink="true">https://ai-security-observer.h2o228314.chatgpt.site/#/item/cve-2026-133161</guid><pubDate>Tue, 17 Nov 2026 16:00:00 GMT</pubDate><category>漏洞公告</category><description>开启非默认 strip_ansi 后，特制工具输出可使清理正则耗费二次方时间；输出裁剪发生在清理之后。维护者公告修复版为 0.70.0。
+来源：GitHub Advisories；原始披露日期：2026-11-18。
+证据与边界：默认 strip_ansi=False 不触发该路径；本轮未复现耗时，也未确认在野利用。项目公告为 11 月 18 日，CVE 于 19 日发布，分别保留。</description></item>
 <item><title>Microsoft agent-framework 两个 PyPI 版本被植入 Python 启动窃密钩子</title><link>https://ai-security-observer.h2o228314.chatgpt.site/#/item/primary-agent-framework-pypi-malware</link><guid isPermaLink="true">https://ai-security-observer.h2o228314.chatgpt.site/#/item/primary-agent-framework-pypi-malware</guid><pubDate>Mon, 16 Nov 2026 16:00:00 GMT</pubDate><category>真实事件</category><description>Endor Labs 与 SafeDep 分别分析 agent-framework 1.26.1、1.26.2 的恶意 wheel。安装后的 Python 启动会加载 .pth 钩子，搜集环境与凭据，并尝试申请云和 CI 令牌；不需导入框架。
 来源：Endor Labs；原始披露日期：2026-11-17。
 证据与边界：保留 Endor 11 月 17 日原始披露日；恶意上传 UTC 11 月 17 日 20:35 和 21:08 对应上海 11 月 18 日。SafeDep 和 GitHub 11 月 18 日材料确认两版已下架；缓存和镜像可能仍留有副本。1.26.0 是本次资料确认的此前干净版本，不是修复恶意版的补丁。确切发布权限失陷方式、受影响安装数及下游损失未知；没有将新维护者账号或猜测的证书失陷认定为已证实入口，也不扩大为全部 sibling 包均被投毒。</description></item>
+<item><title>设备码钓鱼可借 Copilot CLI 已启用功能访问会话与代码</title><link>https://ai-security-observer.h2o228314.chatgpt.site/#/item/research-microsoft-copilot-device-code-phishing</link><guid isPermaLink="true">https://ai-security-observer.h2o228314.chatgpt.site/#/item/research-microsoft-copilot-device-code-phishing</guid><pubDate>Mon, 16 Nov 2026 16:00:00 GMT</pubDate><category>研究披露</category><description>微软在受控实验中让测试账户批准攻击者发起的 GitHub 设备码请求，随后演示远程操控、记忆写入、已同步会话读取和私有仓库访问；各结果依赖对应权限与功能设置。
+来源：Microsoft Security；原始披露日期：2026-11-17。
+证据与边界：这是既有授权功能的受控滥用演示，微软明确未观察到这四类结果在野发生；不是无需认证的远程代码执行，也不是所有 Copilot CLI 安装都会暴露远程会话。</description></item>
 <item><title>NewCore 观察 Grok Bot 后台发起企业数据请求，确认试验被审批网关拦截</title><link>https://ai-security-observer.h2o228314.chatgpt.site/#/item/research-newcore-grok-background-access</link><guid isPermaLink="true">https://ai-security-observer.h2o228314.chatgpt.site/#/item/research-newcore-grok-background-access</guid><pubDate>Mon, 16 Nov 2026 16:00:00 GMT</pubDate><category>研究披露</category><description>NewCore 称两个员工账号的 Grok Bot 在五天内发起 31 次非用户即时请求的工具访问。第二个账号的确认试验中，后台请求均等待审批后过期，没有读到数据；研究者称未发现软件漏洞。
 来源：NewCore；原始披露日期：2026-11-17。
 证据与边界：依据研究方公告及 FAQ，完整技术报告链接本次无法读取，也未独立取得全部网关日志。只确认所述账号和研究环境，不将访问尝试等同成功读取或推广到所有企业用户。公告称 xAI 将行为解释为内置后台 check-in，并于 11 月 12 日增加默认开启的关闭选项；未独立核验当前产品设置或 xAI 回复。</description></item>
@@ -144,13 +153,4 @@
 <item><title>SageMaker Python SDK 缺少默认 S3 桶所有权检查</title><link>https://ai-security-observer.h2o228314.chatgpt.site/#/item/primary-aws-sagemaker-default-bucket</link><guid isPermaLink="true">https://ai-security-observer.h2o228314.chatgpt.site/#/item/primary-aws-sagemaker-default-bucket</guid><pubDate>Tue, 20 Oct 2026 16:00:00 GMT</pubDate><category>漏洞公告</category><description>AWS 披露 SageMaker Python SDK 会采用可预测命名的默认 S3 存储桶，却未核验其是否归调用账户所有。抢先创建该桶的远程攻击者可能在 SageMaker 执行环境中执行代码并获取 IAM 凭证，官方已修复。
 来源：AWS Security；原始披露日期：2026-10-21。
 证据与边界：攻击要求对手抢先占有 SDK 将使用的可预测桶名，并进入相应 SDK 工作流；不代表任意已存在且属于用户的桶都受控。公告未报告真实客户遭利用。</description></item>
-<item><title>LiteLLM 发布链遭入侵，1.107.0 软件包与容器被植入恶意代码</title><link>https://ai-security-observer.h2o228314.chatgpt.site/#/item/primary-litellm-release-compromise-october</link><guid isPermaLink="true">https://ai-security-observer.h2o228314.chatgpt.site/#/item/primary-litellm-release-compromise-october</guid><pubDate>Tue, 20 Oct 2026 16:00:00 GMT</pubDate><category>真实事件</category><description>LiteLLM 官方复盘确认，攻击者通过未撤销的泄露主密钥取得组织所有者令牌，绕过发布保护并从恶意仓库构建制品。10 月 21 日发布的 1.107.0 软件包与部分容器标签受到影响。
-来源：LiteLLM；原始披露日期：2026-10-21。
-证据与边界：初始报告关于令牌来自日志的推测被 10 月 23 日定稿修正，应以定稿为准。公开 GitHub 的 1.107.0 源码标签不等同于被投毒的发布制品；使用私有企业发布渠道的客户据项目方说明不受此事件影响。</description></item>
-<item><title>Railway 复盘环境变量失窃：攻击者优先检索 AI 密钥并产生未授权用量</title><link>https://ai-security-observer.h2o228314.chatgpt.site/#/item/primary-railway-ai-key-theft</link><guid isPermaLink="true">https://ai-security-observer.h2o228314.chatgpt.site/#/item/primary-railway-ai-key-theft</guid><pubDate>Tue, 20 Oct 2026 16:00:00 GMT</pubDate><category>真实事件</category><description>Railway 的事故复盘确认，攻击者于 10 月 20–21 日串联构建隔离缺陷与 OIDC 配置错误，取得并解密部分客户环境变量。查询优先寻找 AI 服务密钥；11 月 12 日补偿公告称客户未授权 AI 用量损失至少约 74 万美元。
-来源：Railway；原始披露日期：2026-10-21。
-证据与边界：原始披露为 10 月 21 日，本轮补录并附后续复盘，不记为今日发生。复盘称最多涉及 1.85%（约 10 万）工作区的部分变量，不等于所有变量或数据库均遭读取；密钥用于蒸馏的判断属于 Railway 调查推断。未独立验证攻击者模型使用或损失账单。</description></item>
-<item><title>Unit 42 调查发现单个攻击者借 AI 支撑多类网络犯罪</title><link>https://ai-security-observer.h2o228314.chatgpt.site/#/item/primary-unit42-bugster-ai-cybercrime</link><guid isPermaLink="true">https://ai-security-observer.h2o228314.chatgpt.site/#/item/primary-unit42-bugster-ai-cybercrime</guid><pubDate>Tue, 20 Oct 2026 16:00:00 GMT</pubDate><category>真实事件</category><description>Unit 42 从攻击者运行环境中观察到 Hermes Agent、DeepSeek 与 Cursor 被用于凭证窃取、VoIP 欺诈规划等活动。调查确认一所印度大学数据库被外传逾 5200 条记录，同时区分了已实施攻击与尚在规划的能力。
-来源：Unit 42；原始披露日期：2026-10-21。
-证据与边界：行为与数据泄露结论来自 Unit 42 的调查可见性，本站未接触受害系统。VoIP、Wi-Fi 与加密资产相关内容包含规划或能力准备，不能全部计为成功入侵。</description></item>
 </channel></rss>

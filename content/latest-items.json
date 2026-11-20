@@ -2536,5 +2536,147 @@
     "limitations": "不影响 MultiModalPredictor 等训练或推理 API；不把可选数据准备命令泛化为所有模型运行均可被攻击。未确认在野利用或公开可运行 PoC，也未证明后续系统接管。AWS 与 GHSA 原始日期是 11 月 18 日，CVE UTC 18:10 发布时间换算上海为 11 月 19 日。",
     "impact": "归档解压可越过输出目录写入账号可写文件；后果取决于本地文件权限。",
     "recommendation": "升级 autogluon.multimodal 至 1.6.0 或更新版本。无法升级时停止使用该工具，直接从官方 HTTPS 下载并使用会拒绝绝对路径及 .. 成员的解压工具。"
+  },
+  {
+    "reviewedAt": "2026-11-20",
+    "occurredAt": null,
+    "evidence": "primary",
+    "evidenceLabel": "原始披露",
+    "risk": "attack",
+    "id": "research-microsoft-copilot-device-code-phishing",
+    "title": "设备码钓鱼可借 Copilot CLI 已启用功能访问会话与代码",
+    "summary": "微软在受控实验中让测试账户批准攻击者发起的 GitHub 设备码请求，随后演示远程操控、记忆写入、已同步会话读取和私有仓库访问；各结果依赖对应权限与功能设置。",
+    "kind": "research",
+    "tags": [
+      "设备码钓鱼",
+      "OAuth",
+      "Copilot CLI"
+    ],
+    "entities": [
+      "GitHub Copilot CLI",
+      "GitHub"
+    ],
+    "publishedAt": "2026-11-17",
+    "originalPublishedAt": "2026-11-17",
+    "sourceId": "microsoft",
+    "sourceName": "Microsoft Security",
+    "references": [
+      {
+        "label": "Microsoft 原始实验",
+        "url": "https://www.microsoft.com/en-us/security/blog/2026/11/17/the-risks-of-device-code-authentication-for-ai-coding-agents/",
+        "role": "primary"
+      }
+    ],
+    "preconditions": [
+      "用户批准攻击者发起的设备码授权。",
+      "远程操作还需在线活动会话、启用远程控制、组织许可及本地批准；会话读取和记忆影响分别依赖同步与记忆设置。"
+    ],
+    "limitations": "这是既有授权功能的受控滥用演示，微软明确未观察到这四类结果在野发生；不是无需认证的远程代码执行，也不是所有 Copilot CLI 安装都会暴露远程会话。",
+    "impact": "获批账户的仓库和会话可能暴露；满足远程控制条件时可按本地权限执行命令。",
+    "recommendation": "只批准自己发起的设备码登录；撤销异常 OAuth 授权，收紧远程会话与同步设置，并检查已保存记忆。"
+  },
+  {
+    "reviewedAt": "2026-11-20",
+    "occurredAt": null,
+    "evidence": "primary",
+    "evidenceLabel": "原始披露",
+    "risk": "attack",
+    "id": "cve-2026-133161",
+    "title": "Pydantic AI Harness 的 ANSI 清理可阻塞智能体事件循环",
+    "summary": "开启非默认 strip_ansi 后，特制工具输出可使清理正则耗费二次方时间；输出裁剪发生在清理之后。维护者公告修复版为 0.70.0。",
+    "kind": "advisory",
+    "tags": [
+      "CVE-2026-133161",
+      "正则拒绝服务",
+      "工具输出"
+    ],
+    "entities": [
+      "Pydantic AI Harness",
+      "ToolOutputLimits"
+    ],
+    "publishedAt": "2026-11-18",
+    "originalPublishedAt": "2026-11-18",
+    "sourceId": "github",
+    "sourceName": "GitHub Advisories",
+    "references": [
+      {
+        "label": "Pydantic 维护者公告",
+        "url": "https://github.com/pydantic/pydantic-ai/security/advisories/GHSA-m4cr-m4qc-9hh3",
+        "role": "primary"
+      },
+      {
+        "label": "CVE 官方原始记录",
+        "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/133xxx/CVE-2026-133161.json",
+        "role": "primary"
+      }
+    ],
+    "cveIds": [
+      "CVE-2026-133161"
+    ],
+    "cvePublishedAt": "2026-11-19",
+    "affectedPackages": [
+      {
+        "name": "pydantic-ai-harness",
+        "ecosystem": "PyPI",
+        "affectedRange": ">= 0.4.0, <= 0.69.0",
+        "fixedVersion": "0.70.0",
+        "source": "https://github.com/pydantic/pydantic-ai/security/advisories/GHSA-m4cr-m4qc-9hh3"
+      }
+    ],
+    "preconditions": [
+      "设置 strip_ansi=True，且攻击者能影响工具返回文本。"
+    ],
+    "limitations": "默认 strip_ansi=False 不触发该路径；本轮未复现耗时，也未确认在野利用。项目公告为 11 月 18 日，CVE 于 19 日发布，分别保留。",
+    "impact": "同进程的其他请求及智能体运行可能被拖延。",
+    "recommendation": "升级 harness 至 0.70.0 或更新版，或关闭 strip_ansi。Pydantic AI v1 的 harness 上限为 0.4.0，需迁移 v2 才能升级到修复版。"
+  },
+  {
+    "reviewedAt": "2026-11-20",
+    "occurredAt": null,
+    "evidence": "primary",
+    "evidenceLabel": "原始披露",
+    "risk": "attack",
+    "id": "cve-2026-133195",
+    "title": "Junie CLI 文件工具可修改项目目录之外的文件",
+    "summary": "JetBrains 的 CVE 记录确认，26.6.29 之前的 Junie CLI 智能体文件工具可修改项目目录之外的文件；26.6.29 已修复。具体触发条件未披露。",
+    "kind": "advisory",
+    "tags": [
+      "CVE-2026-133195",
+      "文件边界",
+      "Junie CLI"
+    ],
+    "entities": [
+      "JetBrains Junie CLI"
+    ],
+    "publishedAt": "2026-11-19",
+    "originalPublishedAt": "2026-11-19",
+    "sourceId": "cve",
+    "sourceName": "CVE 官方记录",
+    "references": [
+      {
+        "label": "JetBrains CNA 原始 CVE 记录",
+        "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/133xxx/CVE-2026-133195.json",
+        "role": "primary"
+      }
+    ],
+    "cveIds": [
+      "CVE-2026-133195"
+    ],
+    "cvePublishedAt": "2026-11-19",
+    "affectedPackages": [
+      {
+        "name": "JetBrains Junie CLI",
+        "ecosystem": "Product",
+        "affectedRange": "< 26.6.29",
+        "fixedVersion": "26.6.29",
+        "source": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/133xxx/CVE-2026-133195.json"
+      }
+    ],
+    "preconditions": [
+      "需使用受影响版本的智能体文件工具；具体输入、权限及用户动作条件未披露。"
+    ],
+    "limitations": "厂商修复索引的动态详情本次未能读取，事实依据为 JetBrains 签发的 CVE 原文。未取得具体攻击路径、PoC 或在野利用证据；不据 CVSS 推导无需认证执行或更广泛损害。",
+    "impact": "项目目录的文件修改边界可能失效，实际可写范围未披露。",
+    "recommendation": "升级 Junie CLI 至 26.6.29 或更新版；待补充触发细节后复核本地文件权限和隔离设置。"
   }
 ]

@@ -1,14 +1,14 @@
 {
   "meta": {
-    "updatedAt": "2026-11-19",
+    "updatedAt": "2026-11-20",
     "mode": "curated-snapshot",
     "timeZone": "Asia/Shanghai"
   },
   "daily": [
     {
       "mode": "daily",
-      "start": "2026-11-18",
-      "end": "2026-11-18",
+      "start": "2026-11-19",
+      "end": "2026-11-19",
       "total": 1,
       "sections": [
         {
@@ -20,7 +20,33 @@
           "kind": "advisory",
           "label": "漏洞公告",
           "itemIds": [
-            "cve-2026-130638"
+            "cve-2026-133195"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": []
+        }
+      ]
+    },
+    {
+      "mode": "daily",
+      "start": "2026-11-18",
+      "end": "2026-11-18",
+      "total": 2,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": []
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-130638",
+            "cve-2026-133161"
           ]
         },
         {
@@ -34,7 +60,7 @@
       "mode": "daily",
       "start": "2026-11-17",
       "end": "2026-11-17",
-      "total": 2,
+      "total": 3,
       "sections": [
         {
           "kind": "incident",
@@ -52,6 +78,7 @@
           "kind": "research",
           "label": "研究披露",
           "itemIds": [
+            "research-microsoft-copilot-device-code-phishing",
             "research-newcore-grok-background-access"
           ]
         }
@@ -1847,7 +1874,7 @@
       "mode": "weekly",
       "start": "2026-11-16",
       "end": "2026-11-22",
-      "total": 7,
+      "total": 10,
       "sections": [
         {
           "kind": "incident",
@@ -1861,7 +1888,9 @@
           "kind": "advisory",
           "label": "漏洞公告",
           "itemIds": [
+            "cve-2026-133195",
             "cve-2026-130638",
+            "cve-2026-133161",
             "cve-2026-126681",
             "cve-2026-126816",
             "cve-2026-129266"
@@ -1871,6 +1900,7 @@
           "kind": "research",
           "label": "研究披露",
           "itemIds": [
+            "research-microsoft-copilot-device-code-phishing",
             "research-newcore-grok-background-access"
           ]
         }

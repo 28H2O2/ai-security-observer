@@ -306,8 +306,8 @@
   {
     "id": "expanded-litellm-guardrail-exploit-attempts",
     "externalId": "CVE-2026-40217",
-    "title": "LiteLLM 护栏测试端点遭沙箱逃逸利用尝试，研究者实验确认载荷有效",
-    "summary": "Zenity 蜜罐记录五百六十九次 LiteLLM 自定义护栏测试请求，包含主密钥猜测、环境变量读取和命令执行载荷。研究者在受影响版本中回放部分载荷，确认可绕过文本黑名单；这不等于全部请求都成功取得生产服务器控制权。",
+    "title": "LiteLLM 护栏测试沙箱逃逸已列入 CISA 在野利用目录",
+    "summary": "CISA 于 11 月 18 日将 CVE-2026-40217 列入 KEV。此前 Zenity 记录的 569 次请求及实验重放仍分别保留，不能据目录认定每次请求均已成功。",
     "kind": "incident",
     "risk": "attack",
     "tags": [
@@ -331,13 +331,30 @@
         "label": "Threat Actors Are Trying to use LiteLLM's Guardrail Tester to Run Code as Root",
         "url": "https://labs.zenity.io/post/threat-actors-are-trying-to-use-litellm-s-guardrail-tester-to-run-code-as-root",
         "role": "primary"
+      },
+      {
+        "label": "CISA 官方 KEV 数据（CVE-2026-40217）",
+        "url": "https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json",
+        "role": "primary"
+      },
+      {
+        "label": "LiteLLM 维护者公告",
+        "url": "https://github.com/BerriAI/litellm/security/advisories/GHSA-wxxx-gvqv-xp7p",
+        "role": "primary"
+      },
+      {
+        "label": "CVE 官方记录及 CISA ADP",
+        "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/40xxx/CVE-2026-40217.json",
+        "role": "primary"
       }
     ],
-    "limitations": "请求于 4 月 15 日至 5 月 24 日被观测。漏洞利用需要有效主密钥；流量中包含对默认或弱密钥的猜测。实验在 1.83.0 配置中回放，不证明蜜罐请求对应的生产主机均已失陷。",
+    "limitations": "原观测区间为 4 月 15 日至 5 月 24 日；需有效管理密钥。KEV 确认该漏洞有实际利用，不公开受害者总数，也不证明每条蜜罐请求成功。GHSA 版本栏列修复 1.83.10，正文要求 1.83.11；本条按更保守的正文建议，保留分歧。",
     "impact": "在掌握主密钥的前提下，脆弱的 Python 护栏测试沙箱可被用于读取环境密钥或执行系统命令；默认 root 容器会扩大影响。",
-    "recommendation": "升级 LiteLLM 至 1.83.10 或更新版本，轮换默认及弱主密钥，将控制面隔离于公网，并采用非 root 运行镜像。",
+    "recommendation": "按维护者正文升级至 1.83.11 或更新可信修复；无法升级时阻断 POST /guardrails/test_custom_code。轮换默认或弱管理密钥，隔离控制面并采用非 root 镜像。",
     "pdfPage": null,
-    "featured": false
+    "featured": false,
+    "reviewedAt": "2026-11-20",
+    "sourceUpdatedAt": "2026-11-18"
   },
   {
     "id": "expanded-rtk-observation-filter",

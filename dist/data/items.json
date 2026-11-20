@@ -2,22 +2,22 @@
   "meta": {
     "title": "AI 威胁情报站",
     "version": "0.4.1",
-    "updatedAt": "2026-11-19",
+    "updatedAt": "2026-11-20",
     "timeZone": "Asia/Shanghai",
     "mode": "curated-snapshot",
     "scheduledCollection": false,
-    "total": 129,
+    "total": 132,
     "pdfRecords": 16,
-    "primaryRecords": 120,
-    "cveRecords": 47,
+    "primaryRecords": 123,
+    "cveRecords": 49,
     "activeSources": 32,
     "siteUrl": "https://ai-security-observer.h2o228314.chatgpt.site/",
     "preview": false,
     "riskScoring": {
       "ruleVersion": "aso-risk-v1.0",
       "statuses": {
-        "scored": 100,
-        "insufficient_evidence": 15,
+        "scored": 102,
+        "insufficient_evidence": 16,
         "not_applicable": 14,
         "needs_review": 0
       }
@@ -5487,8 +5487,8 @@
     {
       "id": "expanded-litellm-guardrail-exploit-attempts",
       "externalId": "CVE-2026-40217",
-      "title": "LiteLLM 护栏测试端点遭沙箱逃逸利用尝试，研究者实验确认载荷有效",
-      "summary": "Zenity 蜜罐记录五百六十九次 LiteLLM 自定义护栏测试请求，包含主密钥猜测、环境变量读取和命令执行载荷。研究者在受影响版本中回放部分载荷，确认可绕过文本黑名单；这不等于全部请求都成功取得生产服务器控制权。",
+      "title": "LiteLLM 护栏测试沙箱逃逸已列入 CISA 在野利用目录",
+      "summary": "CISA 于 11 月 18 日将 CVE-2026-40217 列入 KEV。此前 Zenity 记录的 569 次请求及实验重放仍分别保留，不能据目录认定每次请求均已成功。",
       "kind": "incident",
       "risk": "attack",
       "tags": [
@@ -5512,12 +5512,29 @@
           "label": "Threat Actors Are Trying to use LiteLLM's Guardrail Tester to Run Code as Root",
           "url": "https://labs.zenity.io/post/threat-actors-are-trying-to-use-litellm-s-guardrail-tester-to-run-code-as-root",
           "role": "primary"
+        },
+        {
+          "label": "CISA 官方 KEV 数据（CVE-2026-40217）",
+          "url": "https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json",
+          "role": "primary"
+        },
+        {
+          "label": "LiteLLM 维护者公告",
+          "url": "https://github.com/BerriAI/litellm/security/advisories/GHSA-wxxx-gvqv-xp7p",
+          "role": "primary"
+        },
+        {
+          "label": "CVE 官方记录及 CISA ADP",
+          "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/40xxx/CVE-2026-40217.json",
+          "role": "primary"
         }
       ],
-      "limitations": "请求于 4 月 15 日至 5 月 24 日被观测。漏洞利用需要有效主密钥；流量中包含对默认或弱密钥的猜测。实验在 1.83.0 配置中回放，不证明蜜罐请求对应的生产主机均已失陷。",
+      "limitations": "原观测区间为 4 月 15 日至 5 月 24 日；需有效管理密钥。KEV 确认该漏洞有实际利用，不公开受害者总数，也不证明每条蜜罐请求成功。GHSA 版本栏列修复 1.83.10，正文要求 1.83.11；本条按更保守的正文建议，保留分歧。",
       "impact": "在掌握主密钥的前提下，脆弱的 Python 护栏测试沙箱可被用于读取环境密钥或执行系统命令；默认 root 容器会扩大影响。",
-      "recommendation": "升级 LiteLLM 至 1.83.10 或更新版本，轮换默认及弱主密钥，将控制面隔离于公网，并采用非 root 运行镜像。",
+      "recommendation": "按维护者正文升级至 1.83.11 或更新可信修复；无法升级时阻断 POST /guardrails/test_custom_code。轮换默认或弱管理密钥，隔离控制面并采用非 root 镜像。",
       "pdfPage": null,
+      "reviewedAt": "2026-11-20",
+      "sourceUpdatedAt": "2026-11-18",
       "cveIds": [
         "CVE-2026-40217"
       ],
@@ -5529,32 +5546,36 @@
           "I": 5,
           "F": 2,
           "S": 2,
-          "A": 3
+          "A": 5
         },
-        "confidence": "medium",
+        "confidence": "high",
         "evidence": {
           "I": {
-            "reason": "受影响 guardrail 测试路径可执行代码，在受测容器中以 root 运行。",
+            "reason": "维护者确认沙箱逃逸可在默认 root 容器中的代理进程执行代码。",
             "sources": [
-              "s1"
+              "s1",
+              "s3"
             ]
           },
           "F": {
-            "reason": "需掌握或猜中管理密钥，并使用受影响版本和配置。",
+            "reason": "维护者要求默认配置下有效 proxy-admin 凭据；观测包含弱密钥猜测。",
             "sources": [
-              "s1"
+              "s1",
+              "s3"
             ]
           },
           "S": {
-            "reason": "限于公告分析的 LiteLLM guardrail 测试端点。",
+            "reason": "限 LiteLLM 指定版本的自定义护栏测试端点。",
             "sources": [
-              "s1"
+              "s1",
+              "s3"
             ]
           },
           "A": {
-            "reason": "真实请求表明利用尝试；容器执行结果来自独立的受控重放。",
+            "reason": "CISA 官方 KEV 明确收录 CVE-2026-40217，新增权威实际利用确认；不迁移到其他漏洞。",
             "sources": [
-              "s1"
+              "s2",
+              "s4"
             ]
           }
         },
@@ -5564,21 +5585,45 @@
             "kind": "reference",
             "url": "https://labs.zenity.io/post/threat-actors-are-trying-to-use-litellm-s-guardrail-tester-to-run-code-as-root",
             "label": "Threat Actors Are Trying to use LiteLLM's Guardrail Tester to Run Code as Root",
-            "locator": "请求观测、密钥尝试、1.83.0 重放与容器权限",
-            "accessedAt": "2026-11-03"
+            "locator": "观测区间、管理密钥、1.83.0 实验重放",
+            "accessedAt": "2026-11-20"
+          },
+          {
+            "id": "s2",
+            "kind": "reference",
+            "url": "https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json",
+            "label": "CISA 官方 KEV 数据（CVE-2026-40217）",
+            "locator": "catalogVersion 2026.11.18；vulnerabilities 中 CVE-2026-40217",
+            "accessedAt": "2026-11-20"
+          },
+          {
+            "id": "s3",
+            "kind": "reference",
+            "url": "https://github.com/BerriAI/litellm/security/advisories/GHSA-wxxx-gvqv-xp7p",
+            "label": "LiteLLM 维护者公告",
+            "locator": "Impact / Affected versions / Patches（版本差异）",
+            "accessedAt": "2026-11-20"
+          },
+          {
+            "id": "s4",
+            "kind": "reference",
+            "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/40xxx/CVE-2026-40217.json",
+            "label": "CVE 官方记录及 CISA ADP",
+            "locator": "CISA ADP kev / SSVC active",
+            "accessedAt": "2026-11-20"
           }
         ],
-        "activity": "observed_attempts",
+        "activity": "confirmed_exploitation",
         "reason": "评估 guardrail 测试端点的命令执行路径。",
         "consequences": {
           "potential": "容器内代码执行及容器可访问数据泄露。",
-          "observed": "捕获 569 次相关请求；研究重放成功不等于蜜罐已被攻破。"
+          "observed": "CISA KEV 于 11 月 18 日确认该漏洞存在实际利用；原有 569 次请求与受控重放仍不代表全部成功。"
         },
-        "assessedAt": "2026-11-04",
+        "assessedAt": "2026-11-20",
         "reviewed": false,
-        "reviewNotes": "评估 guardrail 测试端点的命令执行路径。",
-        "itemFingerprint": "0dd7b2817608514d900b9f8eb0ad76cb485bb01c9e8870d3f6f2c9b9fd4e8748",
-        "score": 65
+        "reviewNotes": "自动评估尚未人工复核；A 从 3 升至 5 仅基于对应 CVE 的 KEV 记录，核对 GHSA 修复版本栏与正文分歧。",
+        "itemFingerprint": "c95ade70b8882a152226a63e7bc6fb800c196dc02b9d91cd9b055a9bb8ab3b4e",
+        "score": 73
       }
     },
     {
@@ -13508,6 +13553,334 @@
         "itemFingerprint": "b65a010c0086ad740b4232e30376772abd4339bb0dbe9e141665ff6dfb93a1c4",
         "reviewNotes": "自动评估尚未人工复核；需复核各维锚点、原始来源差异、入口条件及潜在后果与实际观测的边界。",
         "score": 43
+      }
+    },
+    {
+      "reviewedAt": "2026-11-20",
+      "occurredAt": null,
+      "evidence": "primary",
+      "evidenceLabel": "原始披露",
+      "risk": "attack",
+      "id": "research-microsoft-copilot-device-code-phishing",
+      "title": "设备码钓鱼可借 Copilot CLI 已启用功能访问会话与代码",
+      "summary": "微软在受控实验中让测试账户批准攻击者发起的 GitHub 设备码请求，随后演示远程操控、记忆写入、已同步会话读取和私有仓库访问；各结果依赖对应权限与功能设置。",
+      "kind": "research",
+      "tags": [
+        "设备码钓鱼",
+        "OAuth",
+        "Copilot CLI"
+      ],
+      "entities": [
+        "GitHub Copilot CLI",
+        "GitHub"
+      ],
+      "publishedAt": "2026-11-17",
+      "originalPublishedAt": "2026-11-17",
+      "sourceId": "microsoft",
+      "sourceName": "Microsoft Security",
+      "references": [
+        {
+          "label": "Microsoft 原始实验",
+          "url": "https://www.microsoft.com/en-us/security/blog/2026/11/17/the-risks-of-device-code-authentication-for-ai-coding-agents/",
+          "role": "primary"
+        }
+      ],
+      "preconditions": [
+        "用户批准攻击者发起的设备码授权。",
+        "远程操作还需在线活动会话、启用远程控制、组织许可及本地批准；会话读取和记忆影响分别依赖同步与记忆设置。"
+      ],
+      "limitations": "这是既有授权功能的受控滥用演示，微软明确未观察到这四类结果在野发生；不是无需认证的远程代码执行，也不是所有 Copilot CLI 安装都会暴露远程会话。",
+      "impact": "获批账户的仓库和会话可能暴露；满足远程控制条件时可按本地权限执行命令。",
+      "recommendation": "只批准自己发起的设备码登录；撤销异常 OAuth 授权，收紧远程会话与同步设置，并检查已保存记忆。",
+      "cveIds": [],
+      "riskAssessment": {
+        "itemId": "research-microsoft-copilot-device-code-phishing",
+        "ruleVersion": "aso-risk-v1.0",
+        "status": "scored",
+        "dimensions": {
+          "I": 5,
+          "F": 2,
+          "S": 2,
+          "A": 2
+        },
+        "confidence": "high",
+        "evidence": {
+          "I": {
+            "reason": "启用远程控制等条件下，可按本地权限执行命令。",
+            "sources": [
+              "s1"
+            ]
+          },
+          "F": {
+            "reason": "需受害者批准授权，并满足远程会话及策略条件。",
+            "sources": [
+              "s1"
+            ]
+          },
+          "S": {
+            "reason": "实验对象为 Copilot CLI 及其可选功能，不泛化所有设备流客户端。",
+            "sources": [
+              "s1"
+            ]
+          },
+          "A": {
+            "reason": "微软给出受控测试结果，明确未观察到这些结果在野发生。",
+            "sources": [
+              "s1"
+            ]
+          }
+        },
+        "sources": [
+          {
+            "id": "s1",
+            "kind": "reference",
+            "url": "https://www.microsoft.com/en-us/security/blog/2026/11/17/the-risks-of-device-code-authentication-for-ai-coding-agents/",
+            "label": "Microsoft 原始实验",
+            "locator": "受控实验说明；One approval, four ways；Mitigation",
+            "accessedAt": "2026-11-20"
+          }
+        ],
+        "activity": "controlled_poc",
+        "reason": "评估设备码授权被钓鱼后对 Copilot CLI 能力的条件性滥用。",
+        "assessedAt": "2026-11-20",
+        "reviewed": false,
+        "consequences": {
+          "potential": "获批账户的仓库和会话可能暴露；满足远程控制条件时可按本地权限执行命令。",
+          "observed": "仅测试账户的四类演示，未确认真实用户受害。"
+        },
+        "itemFingerprint": "6c97afa97838e8211fa4983f8461546a39a8c3c83ec2e19afb4eb77b5aa2558e",
+        "reviewNotes": "自动评估尚未人工复核；需核对部署条件、逐维锚点及研究观测与真实损害的区别。",
+        "score": 61
+      }
+    },
+    {
+      "reviewedAt": "2026-11-20",
+      "occurredAt": null,
+      "evidence": "primary",
+      "evidenceLabel": "原始披露",
+      "risk": "attack",
+      "id": "cve-2026-133161",
+      "title": "Pydantic AI Harness 的 ANSI 清理可阻塞智能体事件循环",
+      "summary": "开启非默认 strip_ansi 后，特制工具输出可使清理正则耗费二次方时间；输出裁剪发生在清理之后。维护者公告修复版为 0.70.0。",
+      "kind": "advisory",
+      "tags": [
+        "CVE-2026-133161",
+        "正则拒绝服务",
+        "工具输出"
+      ],
+      "entities": [
+        "Pydantic AI Harness",
+        "ToolOutputLimits"
+      ],
+      "publishedAt": "2026-11-18",
+      "originalPublishedAt": "2026-11-18",
+      "sourceId": "github",
+      "sourceName": "GitHub Advisories",
+      "references": [
+        {
+          "label": "Pydantic 维护者公告",
+          "url": "https://github.com/pydantic/pydantic-ai/security/advisories/GHSA-m4cr-m4qc-9hh3",
+          "role": "primary"
+        },
+        {
+          "label": "CVE 官方原始记录",
+          "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/133xxx/CVE-2026-133161.json",
+          "role": "primary"
+        }
+      ],
+      "cveIds": [
+        "CVE-2026-133161"
+      ],
+      "cvePublishedAt": "2026-11-19",
+      "affectedPackages": [
+        {
+          "name": "pydantic-ai-harness",
+          "ecosystem": "PyPI",
+          "affectedRange": ">= 0.4.0, <= 0.69.0",
+          "fixedVersion": "0.70.0",
+          "source": "https://github.com/pydantic/pydantic-ai/security/advisories/GHSA-m4cr-m4qc-9hh3"
+        }
+      ],
+      "preconditions": [
+        "设置 strip_ansi=True，且攻击者能影响工具返回文本。"
+      ],
+      "limitations": "默认 strip_ansi=False 不触发该路径；本轮未复现耗时，也未确认在野利用。项目公告为 11 月 18 日，CVE 于 19 日发布，分别保留。",
+      "impact": "同进程的其他请求及智能体运行可能被拖延。",
+      "recommendation": "升级 harness 至 0.70.0 或更新版，或关闭 strip_ansi。Pydantic AI v1 的 harness 上限为 0.4.0，需迁移 v2 才能升级到修复版。",
+      "riskAssessment": {
+        "itemId": "cve-2026-133161",
+        "ruleVersion": "aso-risk-v1.0",
+        "status": "scored",
+        "dimensions": {
+          "I": 3,
+          "F": 3,
+          "S": 2,
+          "A": 1
+        },
+        "confidence": "high",
+        "evidence": {
+          "I": {
+            "reason": "事件循环阻塞可影响同进程其他请求。",
+            "sources": [
+              "s1",
+              "s2"
+            ]
+          },
+          "F": {
+            "reason": "工具返回的可控文本在正常工作流中进入清理路径，但需 strip_ansi=True。",
+            "sources": [
+              "s1",
+              "s2"
+            ]
+          },
+          "S": {
+            "reason": "限 Harness 指定版本及非默认 ANSI 清理配置。",
+            "sources": [
+              "s1",
+              "s2"
+            ]
+          },
+          "A": {
+            "reason": "维护者披露具体条件与处理顺序，本轮未核实独立 PoC。",
+            "sources": [
+              "s1",
+              "s2"
+            ]
+          }
+        },
+        "sources": [
+          {
+            "id": "s1",
+            "kind": "reference",
+            "url": "https://github.com/pydantic/pydantic-ai/security/advisories/GHSA-m4cr-m4qc-9hh3",
+            "label": "Pydantic 维护者公告",
+            "locator": "Affected versions / Summary / Details / Mitigation",
+            "accessedAt": "2026-11-20"
+          },
+          {
+            "id": "s2",
+            "kind": "reference",
+            "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/133xxx/CVE-2026-133161.json",
+            "label": "CVE 官方原始记录",
+            "locator": "cveMetadata.datePublished / affected / descriptions",
+            "accessedAt": "2026-11-20"
+          }
+        ],
+        "activity": "attack_path",
+        "reason": "评估工具输出 ANSI 清理的正则资源耗尽。",
+        "assessedAt": "2026-11-20",
+        "reviewed": false,
+        "consequences": {
+          "potential": "同进程的其他请求及智能体运行可能被拖延。",
+          "observed": "公告描述耗时及影响；本站未复现或确认在野利用。"
+        },
+        "itemFingerprint": "2815b571a89ee97fd7b5b3e00fe8ff3690355b8274236765c95ecaaf3a05d9ff",
+        "reviewNotes": "自动评估尚未人工复核；需核对部署条件、逐维锚点及研究观测与真实损害的区别。",
+        "score": 48
+      }
+    },
+    {
+      "reviewedAt": "2026-11-20",
+      "occurredAt": null,
+      "evidence": "primary",
+      "evidenceLabel": "原始披露",
+      "risk": "attack",
+      "id": "cve-2026-133195",
+      "title": "Junie CLI 文件工具可修改项目目录之外的文件",
+      "summary": "JetBrains 的 CVE 记录确认，26.6.29 之前的 Junie CLI 智能体文件工具可修改项目目录之外的文件；26.6.29 已修复。具体触发条件未披露。",
+      "kind": "advisory",
+      "tags": [
+        "CVE-2026-133195",
+        "文件边界",
+        "Junie CLI"
+      ],
+      "entities": [
+        "JetBrains Junie CLI"
+      ],
+      "publishedAt": "2026-11-19",
+      "originalPublishedAt": "2026-11-19",
+      "sourceId": "cve",
+      "sourceName": "CVE 官方记录",
+      "references": [
+        {
+          "label": "JetBrains CNA 原始 CVE 记录",
+          "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/133xxx/CVE-2026-133195.json",
+          "role": "primary"
+        }
+      ],
+      "cveIds": [
+        "CVE-2026-133195"
+      ],
+      "cvePublishedAt": "2026-11-19",
+      "affectedPackages": [
+        {
+          "name": "JetBrains Junie CLI",
+          "ecosystem": "Product",
+          "affectedRange": "< 26.6.29",
+          "fixedVersion": "26.6.29",
+          "source": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/133xxx/CVE-2026-133195.json"
+        }
+      ],
+      "preconditions": [
+        "需使用受影响版本的智能体文件工具；具体输入、权限及用户动作条件未披露。"
+      ],
+      "limitations": "厂商修复索引的动态详情本次未能读取，事实依据为 JetBrains 签发的 CVE 原文。未取得具体攻击路径、PoC 或在野利用证据；不据 CVSS 推导无需认证执行或更广泛损害。",
+      "impact": "项目目录的文件修改边界可能失效，实际可写范围未披露。",
+      "recommendation": "升级 Junie CLI 至 26.6.29 或更新版；待补充触发细节后复核本地文件权限和隔离设置。",
+      "riskAssessment": {
+        "itemId": "cve-2026-133195",
+        "ruleVersion": "aso-risk-v1.0",
+        "status": "insufficient_evidence",
+        "dimensions": {
+          "I": 3,
+          "F": null,
+          "S": 2,
+          "A": null
+        },
+        "confidence": "high",
+        "evidence": {
+          "I": {
+            "reason": "CNA 明确文件工具可修改项目目录外文件。",
+            "sources": [
+              "s1"
+            ]
+          },
+          "F": {
+            "reason": "缺少具体输入、触发流程及授权前提。",
+            "sources": []
+          },
+          "S": {
+            "reason": "明确影响 Junie CLI <26.6.29，未提供受影响部署数量。",
+            "sources": [
+              "s1"
+            ]
+          },
+          "A": {
+            "reason": "只有简短缺陷说明和 SSVC，无可核实路径或 PoC，利用证据保持未知。",
+            "sources": []
+          }
+        },
+        "sources": [
+          {
+            "id": "s1",
+            "kind": "reference",
+            "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/133xxx/CVE-2026-133195.json",
+            "label": "JetBrains CNA 原始 CVE 记录",
+            "locator": "cveMetadata / affected / descriptions / metrics / ADP",
+            "accessedAt": "2026-11-20"
+          }
+        ],
+        "activity": "unknown",
+        "reason": "具体入口及公开利用证据不足，暂不生成总分。",
+        "assessedAt": "2026-11-20",
+        "reviewed": false,
+        "consequences": {
+          "potential": "项目目录的文件修改边界可能失效，实际可写范围未披露。",
+          "observed": "CNA 确认缺陷与修复，未披露实际受害。"
+        },
+        "itemFingerprint": "743880217f7c61fbf0ef5b5ceaacd6b01cf225d5c22c9029c07584900d1a7624",
+        "reviewNotes": "自动评估尚未人工复核；需核对部署条件、逐维锚点及研究观测与真实损害的区别。",
+        "score": null
       }
     }
   ]

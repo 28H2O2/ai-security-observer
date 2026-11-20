@@ -1,31 +1,31 @@
 {
   "ruleVersion": "aso-risk-v1.0",
-  "total": 129,
+  "total": 132,
   "byKind": {
-    "advisory": 41,
+    "advisory": 43,
     "incident": 37,
-    "research": 51
+    "research": 52
   },
   "byRisk": {
     "abuse": 19,
-    "attack": 95,
+    "attack": 98,
     "autonomy": 11,
     "failure": 4
   },
   "byEvidence": {
     "compilation": 9,
-    "primary": 120
+    "primary": 123
   },
-  "withCve": 47,
+  "withCve": 49,
   "statuses": {
-    "scored": 100,
-    "insufficient_evidence": 15,
+    "scored": 102,
+    "insufficient_evidence": 16,
     "not_applicable": 14,
     "needs_review": 0
   },
-  "assessed": 129,
+  "assessed": 132,
   "applicability": {
-    "applicable": 115,
+    "applicable": 118,
     "notApplicable": 14,
     "undetermined": 0
   },
@@ -169,6 +169,16 @@
       "missingDimensions": [
         "F",
         "S"
+      ]
+    },
+    {
+      "itemId": "cve-2026-133195",
+      "title": "Junie CLI 文件工具可修改项目目录之外的文件",
+      "status": "insufficient_evidence",
+      "reason": "具体入口及公开利用证据不足，暂不生成总分。",
+      "missingDimensions": [
+        "F",
+        "A"
       ]
     }
   ]
