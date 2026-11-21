@@ -12,15 +12,15 @@
 
 | 项目 | 数值 |
 | --- | --- |
-| 资料审阅日期 | 2026-11-20（Asia/Shanghai） |
-| 去重资料 | 132 条（真实事件 37 / 漏洞公告 43 / 研究披露 52） |
-| 附原始披露 | 123 条 |
-| 带明确 CVE 编号 | 49 条 |
+| 资料审阅日期 | 2026-11-21（Asia/Shanghai） |
+| 去重资料 | 135 条（真实事件 38 / 漏洞公告 44 / 研究披露 53） |
+| 附原始披露 | 126 条 |
+| 带明确 CVE 编号 | 50 条 |
 | 实际供稿来源 | 32 个 |
 | PDF 汇编原始收录 | 16 条 |
-| ASO 评分 | 102 已评分 / 16 证据不足 / 14 不适用 / 0 待处理 |
+| ASO 评分 | 104 已评分 / 16 证据不足 / 15 不适用 / 0 待处理 |
 
-最近一次更新（2026-11-20）新增 3 条一手资料：微软 Copilot CLI 设备码钓鱼实验、Pydantic AI Harness 和 Junie CLI 漏洞公告；修正 LiteLLM 既有条目，补充 CISA KEV 确认与修复版本分歧。保留原始日期，Junie 因入口及利用证据不足不生成总分。核验范围见[本轮记录](research/update-2026-11-20.md)。
+最近一次更新（2026-11-21）新增 3 条一手资料：AWS 的 Cairn/MONAI Label 实际攻击调查、Document Loader MCP 目录旁路公告，以及 OpenAI 推理提取防护实验。保留 11 月 20 日原始披露日期；修复发布状态、上海 CVE 日期和内部评测边界分别标明，未修改已有条目。核验范围见[本轮记录](research/update-2026-11-21.md)。
 
 这是**人工整理的静态快照**：没有实时抓取、定时采集、在线模型摘要或自动事实核验，部署也不会自动产生新情报。日期只表示审阅快照，不表示采集器运行时间。AI 辅助生成的摘要与评分均**尚未人工复核**。
 
@@ -107,7 +107,7 @@ SITE_URL='https://你的正式域名/' npm run package   # 生产包
 - [DESIGN.md](DESIGN.md)：视觉、排印与交互约定
 - [docs/aso-risk-score.md](docs/aso-risk-score.md)：ASO 评分公式、四维锚点与维护步骤
 - [research/site-methodology.md](research/site-methodology.md)：来源、消息格式与核验方法
-- [research/update-2026-11-20.md](research/update-2026-11-20.md)：最近一次内容更新与核验范围（`research/update-*.md` 为历次记录）
+- [research/update-2026-11-21.md](research/update-2026-11-21.md)：最近一次内容更新与核验范围（`research/update-*.md` 为历次记录）
 - [research/risk-assessment-2026-11-04.md](research/risk-assessment-2026-11-04.md)：ASO 全量评估记录
 - 工程参考：[AIHOT](https://github.com/KKKKhazix/AIHOT)（MIT）、[AI Safety Radar](https://github.com/nrc-cnrc/ai-safety-radar-securite-ia)、[S33R](https://github.com/clivoa/S33R)；本项目未复制其品牌、界面或后台代码
 
@@ -115,4 +115,4 @@ SITE_URL='https://你的正式域名/' npm run package   # 生产包
 
 复旦大学 · JADE 团队：[团队主页](https://whitzard-ai.github.io/index.html) · [团队成员](https://whitzard-ai.github.io/member.html)；联系人：张谧教授（[mi_zhang@fudan.edu.cn](mailto:mi_zhang@fudan.edu.cn)）。
 
-原始资料版权归原作者。本站只提供独立整理的中文摘要与原文链接，不分发第三方全文或 PDF。代码版本 0.4.1；资料核对日期 2026-11-20，不代表全部历史资料已重新核验。无注册、在线模型摘要或第三方分析脚本。
+原始资料版权归原作者。本站只提供独立整理的中文摘要与原文链接，不分发第三方全文或 PDF。代码版本 0.4.1；资料核对日期 2026-11-21，不代表全部历史资料已重新核验。无注册、在线模型摘要或第三方分析脚本。

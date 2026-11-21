@@ -1,10 +1,39 @@
 {
   "meta": {
-    "updatedAt": "2026-11-20",
+    "updatedAt": "2026-11-21",
     "mode": "curated-snapshot",
     "timeZone": "Asia/Shanghai"
   },
   "daily": [
+    {
+      "mode": "daily",
+      "start": "2026-11-20",
+      "end": "2026-11-20",
+      "total": 3,
+      "sections": [
+        {
+          "kind": "incident",
+          "label": "真实事件",
+          "itemIds": [
+            "primary-amazon-cairn-monai-intrusion"
+          ]
+        },
+        {
+          "kind": "advisory",
+          "label": "漏洞公告",
+          "itemIds": [
+            "cve-2026-130901"
+          ]
+        },
+        {
+          "kind": "research",
+          "label": "研究披露",
+          "itemIds": [
+            "research-openai-reasoning-extraction-defenses"
+          ]
+        }
+      ]
+    },
     {
       "mode": "daily",
       "start": "2026-11-19",
@@ -1874,12 +1903,13 @@
       "mode": "weekly",
       "start": "2026-11-16",
       "end": "2026-11-22",
-      "total": 10,
+      "total": 13,
       "sections": [
         {
           "kind": "incident",
           "label": "真实事件",
           "itemIds": [
+            "primary-amazon-cairn-monai-intrusion",
             "primary-agent-framework-pypi-malware",
             "primary-gtig-exploit-agent-staging"
           ]
@@ -1888,6 +1918,7 @@
           "kind": "advisory",
           "label": "漏洞公告",
           "itemIds": [
+            "cve-2026-130901",
             "cve-2026-133195",
             "cve-2026-130638",
             "cve-2026-133161",
@@ -1900,6 +1931,7 @@
           "kind": "research",
           "label": "研究披露",
           "itemIds": [
+            "research-openai-reasoning-extraction-defenses",
             "research-microsoft-copilot-device-code-phishing",
             "research-newcore-grok-background-access"
           ]

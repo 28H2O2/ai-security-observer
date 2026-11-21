@@ -6,10 +6,39 @@ import {makeBriefing} from '../dist/publication.js';
 const read=p=>JSON.parse(readFileSync(new URL('../'+p,import.meta.url),'utf8'));
 const {items,meta}=read('dist/data/items.json');
 
+test('11-21 保留真实攻击、目录旁路条件与内部评测边界',()=>{
+ const get=id=>items.find(i=>i.id===id);
+ assert.equal(meta.updatedAt,'2026-11-21');
+ const added=items.filter(i=>i.reviewedAt==='2026-11-21');
+ assert.equal(added.length,3);
+ assert.equal(makeBriefing(items,'2026-11-20','daily').total,3);
+ assert.equal(makeBriefing(items,'2026-11-21','daily').total,0);
+ const attack=get('primary-amazon-cairn-monai-intrusion');
+ assert.equal(attack.kind,'incident');
+ assert.equal(attack.occurredAt,'2026-09-08');
+ assert.equal(attack.affectedPackages[0].fixedVersion,null);
+ assert.match(attack.limitations,/第二所大学.*推断/);
+ assert.match(attack.limitations,/10 月 19 日/);
+ assert.equal(attack.riskAssessment.activity,'in_the_wild');
+ assert.equal(attack.riskAssessment.score,79);
+ const doc=get('cve-2026-130901');
+ assert.equal(doc.originalPublishedAt,'2026-11-20');
+ assert.equal(doc.cvePublishedAt,'2026-11-21');
+ assert.equal(doc.affectedPackages[0].fixedVersion,'1.0.21');
+ assert.match(doc.preconditions.join(' '),/DOCUMENT_BASE_DIR.*CI.*GITHUB_ACTIONS.*PYTEST_CURRENT_TEST/);
+ assert.match(doc.limitations,/PNG.*不泛化/);
+ assert.equal(doc.riskAssessment.activity,'attack_path');
+ assert.equal(doc.riskAssessment.score,43);
+ const research=get('research-openai-reasoning-extraction-defenses');
+ assert.equal(research.kind,'research');
+ assert.equal(research.riskAssessment.status,'not_applicable');
+ assert.match(research.limitations,/不能将差异完全归因/);
+ assert.ok(added.every(i=>!i.riskAssessment.reviewed&&!i.riskAssessment.stale));
+});
+
 test('11-20 保留可选功能、非默认清理、未知入口及对应 CVE 的 KEV 边界',()=>{
  const get=id=>items.find(i=>i.id===id);
- assert.equal(meta.updatedAt,'2026-11-20');
- assert.equal(makeBriefing(items,'2026-11-20','daily').total,0);
+ assert.equal(makeBriefing(items,'2026-11-17','daily').total,3);
  const ms=get('research-microsoft-copilot-device-code-phishing');
  assert.equal(ms.kind,'research');
  assert.equal(ms.originalPublishedAt,'2026-11-17');
@@ -133,9 +162,9 @@ test('11-14 保留实际攻击、研究链与两个独立修复的边界',()=>{
 test('审核日期独立于新闻日期，补录历史事件不会成为今日新闻',()=>{
  assert.equal(meta.updatedAt,read('content/review.json').reviewedAt);
  const latest=filterItems(items)[0];
- assert.equal(latest.id,'cve-2026-133195');
- assert.equal(latest.originalPublishedAt,'2026-11-19');
- assert.equal(latest.reviewedAt,'2026-11-20');
+ assert.equal(latest.id,'cve-2026-130901');
+ assert.equal(latest.originalPublishedAt,'2026-11-20');
+ assert.equal(latest.reviewedAt,'2026-11-21');
  const incident=items.find(i=>i.id==='primary-litellm-release-compromise-october');
  assert.equal(incident.originalPublishedAt,'2026-10-21');
  assert.equal(incident.sourceUpdatedAt,'2026-10-23');
@@ -222,7 +251,7 @@ test('11-10 更新保留原始披露日期，5 条早于上次审阅的资料按
 
 test('11-11 核验保留旧公告日期、上海 CVE 日期和未完成的外传边界',()=>{
  const get=id=>items.find(i=>i.id===id);
- assert.equal(meta.updatedAt,'2026-11-20');
+ assert.equal(meta.updatedAt,'2026-11-21');
  assert.equal(makeBriefing(items,'2026-11-11','daily').total,3);
  assert.equal(get('advisory-agent-router-mcp-session-subject').originalPublishedAt,'2026-10-07');
  assert.equal(get('advisory-agent-router-mcp-session-subject').riskAssessment.activity,'attack_path');

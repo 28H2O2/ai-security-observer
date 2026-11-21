@@ -7849,6 +7849,185 @@
       },
       "itemFingerprint": "743880217f7c61fbf0ef5b5ceaacd6b01cf225d5c22c9029c07584900d1a7624",
       "reviewNotes": "自动评估尚未人工复核；需核对部署条件、逐维锚点及研究观测与真实损害的区别。"
+    },
+    {
+      "itemId": "primary-amazon-cairn-monai-intrusion",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 5,
+        "F": 4,
+        "S": 2,
+        "A": 4
+      },
+      "confidence": "medium",
+      "evidence": {
+        "I": {
+          "reason": "AWS 行动记录显示文件写入后触发 root 会话；其他安装仍受进程权限限制。",
+          "sources": [
+            "s1",
+            "s2"
+          ]
+        },
+        "F": {
+          "reason": "维护者明确默认无认证且上传路径可直接利用；完整 root 链还需相应写权限与训练端点。",
+          "sources": [
+            "s2"
+          ]
+        },
+        "S": {
+          "reason": "限定 MONAI Label <=0.8.5；不把目标学校数量换算为部署规模。",
+          "sources": [
+            "s2"
+          ]
+        },
+        "A": {
+          "reason": "AWS 调查披露真实攻击中的 root 会话；本站未独立取得日志，不追加权威确认级别。",
+          "sources": [
+            "s1",
+            "s2"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "s1",
+          "kind": "reference",
+          "url": "https://aws.amazon.com/blogs/security/chinese-nexus-actors-cairn-ai-agents-found-a-zero-day-on-their-own/",
+          "label": "Amazon Threat Intelligence 原始调查",
+          "locator": "Discovery / Zero-day discovery / Subsequent use / Attribution",
+          "accessedAt": "2026-11-21"
+        },
+        {
+          "id": "s2",
+          "kind": "reference",
+          "url": "https://github.com/Project-MONAI/MONAILabel/security/advisories/GHSA-qc22-rmgc-vg94",
+          "label": "MONAI Label 维护者公告",
+          "locator": "Affected versions / Impact / Patches",
+          "accessedAt": "2026-11-21"
+        },
+        {
+          "id": "s3",
+          "kind": "reference",
+          "url": "https://github.com/Project-MONAI/MONAILabel/pull/1915",
+          "label": "维护者修复 PR #1915",
+          "locator": "Merged Oct 19, 2026 / Summary",
+          "accessedAt": "2026-11-21"
+        }
+      ],
+      "activity": "in_the_wild",
+      "reason": "评估可达上传接口的 MONAI Label 文件写入链，结合 AWS 实际利用调查。",
+      "assessedAt": "2026-11-21",
+      "reviewed": false,
+      "consequences": {
+        "potential": "可写入运行账号有权访问的位置；AWS 所述实际链条最终获得 root 会话。其他部署的权限及受害数量未知。",
+        "observed": "AWS 根据攻击者暴露的记录报告 root 会话；第二校入口是调查方推断，另两组操作失败。"
+      },
+      "itemFingerprint": "9fcc0601df3fcd8debeaac294089e9adf7cd3b77cc03d60b89b636b41c18064a",
+      "reviewNotes": "自动评估尚未人工复核；需核对权限前提、来源分歧、评测外推及逐维锚点。"
+    },
+    {
+      "itemId": "cve-2026-130901",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "scored",
+      "dimensions": {
+        "I": 3,
+        "F": 2,
+        "S": 2,
+        "A": 1
+      },
+      "confidence": "high",
+      "evidence": {
+        "I": {
+          "reason": "官方明确目录外文件读取及部分版本的 PNG 写入；未证明代码执行。",
+          "sources": [
+            "s1",
+            "s2"
+          ]
+        },
+        "F": {
+          "reason": "需要未设置目录、测试变量及可影响客户端文档等多个条件。",
+          "sources": [
+            "s1",
+            "s2"
+          ]
+        },
+        "S": {
+          "reason": "限明确列出的 Document Loader MCP Server 版本与配置。",
+          "sources": [
+            "s1",
+            "s2"
+          ]
+        },
+        "A": {
+          "reason": "AWS/CNA 给出具体条件、路径与后果，未核实独立 PoC 或在野利用。",
+          "sources": [
+            "s1",
+            "s2"
+          ]
+        }
+      },
+      "sources": [
+        {
+          "id": "s1",
+          "kind": "reference",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-195-aws/",
+          "label": "AWS 官方公告 2026-195",
+          "locator": "Description / Impacted versions / Resolution / Workarounds",
+          "accessedAt": "2026-11-21"
+        },
+        {
+          "id": "s2",
+          "kind": "reference",
+          "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/130xxx/CVE-2026-130901.json",
+          "label": "CVE 官方原始记录",
+          "locator": "cveMetadata.datePublished / affected / descriptions",
+          "accessedAt": "2026-11-21"
+        }
+      ],
+      "activity": "attack_path",
+      "reason": "评估指定版本、缺省目录与测试环境变量组合下的文档访问边界失效。",
+      "assessedAt": "2026-11-21",
+      "reviewed": false,
+      "consequences": {
+        "potential": "可能读取目录外受支持的本地文件，或在指定版本越界写入 PNG 图像。",
+        "observed": "维护者确认缺陷和 1.0.21 修复；未披露实际受害。"
+      },
+      "itemFingerprint": "260864fa0754bafe6e8e54599408bfa15d0a2dc719e60b3df268c7680650b3b3",
+      "reviewNotes": "自动评估尚未人工复核；需核对权限前提、来源分歧、评测外推及逐维锚点。"
+    },
+    {
+      "itemId": "research-openai-reasoning-extraction-defenses",
+      "ruleVersion": "aso-risk-v1.0",
+      "status": "not_applicable",
+      "dimensions": {
+        "I": null,
+        "F": null,
+        "S": null,
+        "A": null
+      },
+      "confidence": "high",
+      "evidence": {},
+      "sources": [
+        {
+          "id": "s1",
+          "kind": "reference",
+          "url": "https://openai.com/index/combatting-adversarial-distillation/",
+          "label": "OpenAI 原始研究与防护说明",
+          "locator": "The importance of protecting exact reasoning traces / Resistance to reasoning extraction / Campaign detection and enforcement",
+          "accessedAt": "2026-11-21"
+        }
+      ],
+      "activity": "unknown",
+      "reason": "研究对象是内部防护及能力迁移评测，没有可合并为单一攻击漏洞的风险对象，不适用总分。",
+      "assessedAt": "2026-11-21",
+      "reviewed": false,
+      "consequences": {
+        "potential": "实验提示精确推理轨迹可能额外迁移网络能力；公开评测结果不能证明已发生下游危害或完全消除提取风险。",
+        "observed": "厂商内部实验及活动级处置披露，不等于独立复现或确认下游损害。"
+      },
+      "itemFingerprint": "83c2f81bd0fe788e738afd3f403b8a70702422121306d6fd685b06f34550e8c7",
+      "reviewNotes": "自动评估尚未人工复核；需核对权限前提、来源分歧、评测外推及逐维锚点。"
     }
   ]
 }

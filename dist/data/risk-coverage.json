@@ -1,32 +1,32 @@
 {
   "ruleVersion": "aso-risk-v1.0",
-  "total": 132,
+  "total": 135,
   "byKind": {
-    "advisory": 43,
-    "incident": 37,
-    "research": 52
+    "advisory": 44,
+    "incident": 38,
+    "research": 53
   },
   "byRisk": {
-    "abuse": 19,
-    "attack": 98,
+    "abuse": 20,
+    "attack": 100,
     "autonomy": 11,
     "failure": 4
   },
   "byEvidence": {
     "compilation": 9,
-    "primary": 123
+    "primary": 126
   },
-  "withCve": 49,
+  "withCve": 50,
   "statuses": {
-    "scored": 102,
+    "scored": 104,
     "insufficient_evidence": 16,
-    "not_applicable": 14,
+    "not_applicable": 15,
     "needs_review": 0
   },
-  "assessed": 132,
+  "assessed": 135,
   "applicability": {
-    "applicable": 118,
-    "notApplicable": 14,
+    "applicable": 120,
+    "notApplicable": 15,
     "undetermined": 0
   },
   "pending": [

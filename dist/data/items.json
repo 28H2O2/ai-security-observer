@@ -2,23 +2,23 @@
   "meta": {
     "title": "AI 威胁情报站",
     "version": "0.4.1",
-    "updatedAt": "2026-11-20",
+    "updatedAt": "2026-11-21",
     "timeZone": "Asia/Shanghai",
     "mode": "curated-snapshot",
     "scheduledCollection": false,
-    "total": 132,
+    "total": 135,
     "pdfRecords": 16,
-    "primaryRecords": 123,
-    "cveRecords": 49,
+    "primaryRecords": 126,
+    "cveRecords": 50,
     "activeSources": 32,
     "siteUrl": "https://ai-security-observer.h2o228314.chatgpt.site/",
     "preview": false,
     "riskScoring": {
       "ruleVersion": "aso-risk-v1.0",
       "statuses": {
-        "scored": 102,
+        "scored": 104,
         "insufficient_evidence": 16,
-        "not_applicable": 14,
+        "not_applicable": 15,
         "needs_review": 0
       }
     }
@@ -13880,6 +13880,338 @@
         },
         "itemFingerprint": "743880217f7c61fbf0ef5b5ceaacd6b01cf225d5c22c9029c07584900d1a7624",
         "reviewNotes": "自动评估尚未人工复核；需核对部署条件、逐维锚点及研究观测与真实损害的区别。",
+        "score": null
+      }
+    },
+    {
+      "reviewedAt": "2026-11-21",
+      "occurredAt": "2026-09-08",
+      "evidence": "primary",
+      "evidenceLabel": "原始披露",
+      "publishedAt": "2026-11-20",
+      "originalPublishedAt": "2026-11-20",
+      "id": "primary-amazon-cairn-monai-intrusion",
+      "title": "AWS 调查：Cairn 智能体利用 MONAI Label 目录穿越取得 root 会话",
+      "summary": "Amazon Threat Intelligence 从公开暴露的 Cairn 行动记录发现，攻击者指示智能体寻找 shell；智能体利用医疗影像应用的上传路径缺陷写入文件，之后触发训练进程取得 root 会话。",
+      "kind": "incident",
+      "risk": "abuse",
+      "tags": [
+        "自主攻击",
+        "目录穿越",
+        "实际入侵"
+      ],
+      "entities": [
+        "Cairn",
+        "MONAI Label"
+      ],
+      "sourceId": "aws",
+      "sourceName": "AWS Security",
+      "references": [
+        {
+          "label": "Amazon Threat Intelligence 原始调查",
+          "url": "https://aws.amazon.com/blogs/security/chinese-nexus-actors-cairn-ai-agents-found-a-zero-day-on-their-own/",
+          "role": "primary"
+        },
+        {
+          "label": "MONAI Label 维护者公告",
+          "url": "https://github.com/Project-MONAI/MONAILabel/security/advisories/GHSA-qc22-rmgc-vg94",
+          "role": "primary"
+        },
+        {
+          "label": "维护者修复 PR #1915",
+          "url": "https://github.com/Project-MONAI/MONAILabel/pull/1915",
+          "role": "primary"
+        }
+      ],
+      "affectedPackages": [
+        {
+          "name": "monailabel",
+          "ecosystem": "PyPI",
+          "affectedRange": "<= 0.8.5",
+          "fixedVersion": null,
+          "source": "https://github.com/Project-MONAI/MONAILabel/security/advisories/GHSA-qc22-rmgc-vg94"
+        }
+      ],
+      "preconditions": [
+        "攻击者可访问存在路径缺陷的上传接口；维护者称默认关闭认证，启用认证后 ANNOTATOR 角色仍可触发。",
+        "取得 root 的链条还依赖进程写权限和训练端点启动 Python；不代表所有安装均以 root 运行。"
+      ],
+      "limitations": "调查覆盖 9 月 8 日起约 48 小时；第二所大学通过同一漏洞失陷是 AWS 的推断，国别关联为中等置信度。另两组长期攻击未成功。未取得原始日志或确认数据损失，也未将本案合并为已有 Unit 42 Cairn 调查的同一受害事件。公告无已知 CVE、未列已发布修复版本；PR 于 10 月 19 日合并，不能把 11 月 18 日公告日当作修复版发布日期。",
+      "impact": "可写入运行账号有权访问的位置；AWS 所述实际链条最终获得 root 会话。其他部署的权限及受害数量未知。",
+      "recommendation": "采用包含 PR #1915 路径约束修复的可信构建，并核对后续正式修复版；立即限制网络入口、启用认证并收紧 ANNOTATOR 权限，以低权限账号运行并排查异常写入和子进程。",
+      "cveIds": [],
+      "riskAssessment": {
+        "itemId": "primary-amazon-cairn-monai-intrusion",
+        "ruleVersion": "aso-risk-v1.0",
+        "status": "scored",
+        "dimensions": {
+          "I": 5,
+          "F": 4,
+          "S": 2,
+          "A": 4
+        },
+        "confidence": "medium",
+        "evidence": {
+          "I": {
+            "reason": "AWS 行动记录显示文件写入后触发 root 会话；其他安装仍受进程权限限制。",
+            "sources": [
+              "s1",
+              "s2"
+            ]
+          },
+          "F": {
+            "reason": "维护者明确默认无认证且上传路径可直接利用；完整 root 链还需相应写权限与训练端点。",
+            "sources": [
+              "s2"
+            ]
+          },
+          "S": {
+            "reason": "限定 MONAI Label <=0.8.5；不把目标学校数量换算为部署规模。",
+            "sources": [
+              "s2"
+            ]
+          },
+          "A": {
+            "reason": "AWS 调查披露真实攻击中的 root 会话；本站未独立取得日志，不追加权威确认级别。",
+            "sources": [
+              "s1",
+              "s2"
+            ]
+          }
+        },
+        "sources": [
+          {
+            "id": "s1",
+            "kind": "reference",
+            "url": "https://aws.amazon.com/blogs/security/chinese-nexus-actors-cairn-ai-agents-found-a-zero-day-on-their-own/",
+            "label": "Amazon Threat Intelligence 原始调查",
+            "locator": "Discovery / Zero-day discovery / Subsequent use / Attribution",
+            "accessedAt": "2026-11-21"
+          },
+          {
+            "id": "s2",
+            "kind": "reference",
+            "url": "https://github.com/Project-MONAI/MONAILabel/security/advisories/GHSA-qc22-rmgc-vg94",
+            "label": "MONAI Label 维护者公告",
+            "locator": "Affected versions / Impact / Patches",
+            "accessedAt": "2026-11-21"
+          },
+          {
+            "id": "s3",
+            "kind": "reference",
+            "url": "https://github.com/Project-MONAI/MONAILabel/pull/1915",
+            "label": "维护者修复 PR #1915",
+            "locator": "Merged Oct 19, 2026 / Summary",
+            "accessedAt": "2026-11-21"
+          }
+        ],
+        "activity": "in_the_wild",
+        "reason": "评估可达上传接口的 MONAI Label 文件写入链，结合 AWS 实际利用调查。",
+        "assessedAt": "2026-11-21",
+        "reviewed": false,
+        "consequences": {
+          "potential": "可写入运行账号有权访问的位置；AWS 所述实际链条最终获得 root 会话。其他部署的权限及受害数量未知。",
+          "observed": "AWS 根据攻击者暴露的记录报告 root 会话；第二校入口是调查方推断，另两组操作失败。"
+        },
+        "itemFingerprint": "9fcc0601df3fcd8debeaac294089e9adf7cd3b77cc03d60b89b636b41c18064a",
+        "reviewNotes": "自动评估尚未人工复核；需核对权限前提、来源分歧、评测外推及逐维锚点。",
+        "score": 79
+      }
+    },
+    {
+      "reviewedAt": "2026-11-21",
+      "occurredAt": null,
+      "evidence": "primary",
+      "evidenceLabel": "原始披露",
+      "publishedAt": "2026-11-20",
+      "originalPublishedAt": "2026-11-20",
+      "id": "cve-2026-130901",
+      "title": "Document Loader MCP 的测试环境旁路可越过文档目录边界",
+      "summary": "AWS 披露，1.0.10–1.0.20 在未设置 DOCUMENT_BASE_DIR 且带有 CI 或测试环境变量时不执行默认目录限制；受控文档可诱导客户端越界读取，部分版本还可越界写入 PNG。1.0.21 已修复。",
+      "kind": "advisory",
+      "risk": "attack",
+      "tags": [
+        "CVE-2026-130901",
+        "目录穿越",
+        "MCP"
+      ],
+      "entities": [
+        "Document Loader MCP Server",
+        "awslabs.document-loader-mcp-server"
+      ],
+      "sourceId": "aws",
+      "sourceName": "AWS Security",
+      "references": [
+        {
+          "label": "AWS 官方公告 2026-195",
+          "url": "https://aws.amazon.com/security/security-bulletins/2026-195-aws/",
+          "role": "primary"
+        },
+        {
+          "label": "CVE 官方原始记录",
+          "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/130xxx/CVE-2026-130901.json",
+          "role": "primary"
+        }
+      ],
+      "cveIds": [
+        "CVE-2026-130901"
+      ],
+      "cvePublishedAt": "2026-11-21",
+      "affectedPackages": [
+        {
+          "name": "awslabs.document-loader-mcp-server",
+          "ecosystem": "PyPI",
+          "affectedRange": ">= 1.0.10, < 1.0.21",
+          "fixedVersion": "1.0.21",
+          "source": "https://aws.amazon.com/security/security-bulletins/2026-195-aws/"
+        }
+      ],
+      "preconditions": [
+        "DOCUMENT_BASE_DIR 未设置或为空，且存在 CI、GITHUB_ACTIONS、PYTEST_CURRENT_TEST 中至少一个环境变量。",
+        "攻击者可影响 MCP 客户端处理的文档；访问仍受服务进程的文件权限限制。"
+      ],
+      "limitations": "1.0.12–1.0.20 的越界写入限 PNG 幻灯片图像，不泛化为任意内容写入或代码执行。1.0.10 之前没有基础目录限制，不表示这些旧版具备安全边界。未核实公开可运行 PoC 或在野利用；CVE UTC 11 月 20 日 18:37 发布，对应上海 11 月 21 日，原公告日仍为 20 日。",
+      "impact": "可能读取目录外受支持的本地文件，或在指定版本越界写入 PNG 图像。",
+      "recommendation": "升级至 1.0.21 或更新版本。暂不能升级时显式设置 DOCUMENT_BASE_DIR 为实际文档目录，不能设为 /；核查运行环境中的测试变量。",
+      "riskAssessment": {
+        "itemId": "cve-2026-130901",
+        "ruleVersion": "aso-risk-v1.0",
+        "status": "scored",
+        "dimensions": {
+          "I": 3,
+          "F": 2,
+          "S": 2,
+          "A": 1
+        },
+        "confidence": "high",
+        "evidence": {
+          "I": {
+            "reason": "官方明确目录外文件读取及部分版本的 PNG 写入；未证明代码执行。",
+            "sources": [
+              "s1",
+              "s2"
+            ]
+          },
+          "F": {
+            "reason": "需要未设置目录、测试变量及可影响客户端文档等多个条件。",
+            "sources": [
+              "s1",
+              "s2"
+            ]
+          },
+          "S": {
+            "reason": "限明确列出的 Document Loader MCP Server 版本与配置。",
+            "sources": [
+              "s1",
+              "s2"
+            ]
+          },
+          "A": {
+            "reason": "AWS/CNA 给出具体条件、路径与后果，未核实独立 PoC 或在野利用。",
+            "sources": [
+              "s1",
+              "s2"
+            ]
+          }
+        },
+        "sources": [
+          {
+            "id": "s1",
+            "kind": "reference",
+            "url": "https://aws.amazon.com/security/security-bulletins/2026-195-aws/",
+            "label": "AWS 官方公告 2026-195",
+            "locator": "Description / Impacted versions / Resolution / Workarounds",
+            "accessedAt": "2026-11-21"
+          },
+          {
+            "id": "s2",
+            "kind": "reference",
+            "url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2026/130xxx/CVE-2026-130901.json",
+            "label": "CVE 官方原始记录",
+            "locator": "cveMetadata.datePublished / affected / descriptions",
+            "accessedAt": "2026-11-21"
+          }
+        ],
+        "activity": "attack_path",
+        "reason": "评估指定版本、缺省目录与测试环境变量组合下的文档访问边界失效。",
+        "assessedAt": "2026-11-21",
+        "reviewed": false,
+        "consequences": {
+          "potential": "可能读取目录外受支持的本地文件，或在指定版本越界写入 PNG 图像。",
+          "observed": "维护者确认缺陷和 1.0.21 修复；未披露实际受害。"
+        },
+        "itemFingerprint": "260864fa0754bafe6e8e54599408bfa15d0a2dc719e60b3df268c7680650b3b3",
+        "reviewNotes": "自动评估尚未人工复核；需核对权限前提、来源分歧、评测外推及逐维锚点。",
+        "score": 43
+      }
+    },
+    {
+      "reviewedAt": "2026-11-21",
+      "occurredAt": null,
+      "evidence": "primary",
+      "evidenceLabel": "原始披露",
+      "publishedAt": "2026-11-20",
+      "originalPublishedAt": "2026-11-20",
+      "id": "research-openai-reasoning-extraction-defenses",
+      "title": "OpenAI 披露受保护推理提取防护的内部自适应评测",
+      "summary": "OpenAI 对比模型与防护组合，报告旧请求推理提取的黑盒自适应攻击成功率从 GPT-6 Astra 的 54.0% 变为 GPT-6.2 Astra 的 0.2%；当前请求分别为 22.9% 和 0.9%。另研究精确推理轨迹的能力迁移。",
+      "kind": "research",
+      "risk": "attack",
+      "tags": [
+        "推理提取",
+        "模型蒸馏",
+        "防护评测"
+      ],
+      "entities": [
+        "OpenAI",
+        "GPT-6 Astra",
+        "GPT-6.2 Astra"
+      ],
+      "sourceId": "openai",
+      "sourceName": "OpenAI",
+      "references": [
+        {
+          "label": "OpenAI 原始研究与防护说明",
+          "url": "https://openai.com/index/combatting-adversarial-distillation/",
+          "role": "primary"
+        }
+      ],
+      "limitations": "数字来自厂商内部评测并汇总六个攻击模型，本站未独立复现；同时更换模型与防护，不能将差异完全归因于单个措施，也不是现实攻击概率。文中的年度协调活动与每周封禁规模不能推导出成功窃取数、受害人数或下游攻击损害；未来安全风险与实际观测分别理解。",
+      "impact": "实验提示精确推理轨迹可能额外迁移网络能力；公开评测结果不能证明已发生下游危害或完全消除提取风险。",
+      "recommendation": "结合输出与工具参数检查、会话绑定及活动级调查，并用自适应回归评测验证防护；保留测试条件与残余风险。",
+      "cveIds": [],
+      "riskAssessment": {
+        "itemId": "research-openai-reasoning-extraction-defenses",
+        "ruleVersion": "aso-risk-v1.0",
+        "status": "not_applicable",
+        "dimensions": {
+          "I": null,
+          "F": null,
+          "S": null,
+          "A": null
+        },
+        "confidence": "high",
+        "evidence": {},
+        "sources": [
+          {
+            "id": "s1",
+            "kind": "reference",
+            "url": "https://openai.com/index/combatting-adversarial-distillation/",
+            "label": "OpenAI 原始研究与防护说明",
+            "locator": "The importance of protecting exact reasoning traces / Resistance to reasoning extraction / Campaign detection and enforcement",
+            "accessedAt": "2026-11-21"
+          }
+        ],
+        "activity": "unknown",
+        "reason": "研究对象是内部防护及能力迁移评测，没有可合并为单一攻击漏洞的风险对象，不适用总分。",
+        "assessedAt": "2026-11-21",
+        "reviewed": false,
+        "consequences": {
+          "potential": "实验提示精确推理轨迹可能额外迁移网络能力；公开评测结果不能证明已发生下游危害或完全消除提取风险。",
+          "observed": "厂商内部实验及活动级处置披露，不等于独立复现或确认下游损害。"
+        },
+        "itemFingerprint": "83c2f81bd0fe788e738afd3f403b8a70702422121306d6fd685b06f34550e8c7",
+        "reviewNotes": "自动评估尚未人工复核；需核对权限前提、来源分歧、评测外推及逐维锚点。",
         "score": null
       }
     }

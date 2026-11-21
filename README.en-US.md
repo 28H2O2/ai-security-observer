@@ -12,15 +12,15 @@ Current snapshot metrics (governed by the review date in `content/review.json`):
 
 | Metric | Value |
 | --- | --- |
-| Snapshot review date | 2026-11-20 (`Asia/Shanghai`) |
-| Deduplicated entries | 132 (37 real-world incidents / 43 vulnerability advisories / 52 research disclosures) |
-| With primary disclosure | 123 |
-| With explicit CVE IDs | 49 |
+| Snapshot review date | 2026-11-21 (`Asia/Shanghai`) |
+| Deduplicated entries | 135 (38 real-world incidents / 44 vulnerability advisories / 53 research disclosures) |
+| With primary disclosure | 126 |
+| With explicit CVE IDs | 50 |
 | Contributing sources | 32 |
 | Originally from PDF digests | 16 |
-| ASO assessment coverage | 102 scored / 16 insufficient evidence / 14 not applicable / 0 pending |
+| ASO assessment coverage | 104 scored / 16 insufficient evidence / 15 not applicable / 0 pending |
 
-The latest update (`2026-11-20`) added three primary entries: Microsoft's Copilot CLI device-code phishing experiment and advisories for Pydantic AI Harness and Junie CLI. The existing LiteLLM entry now includes CISA KEV confirmation and conflicting patch versions. Original dates are preserved; Junie has no composite score because the trigger conditions and exploitation evidence remain unknown. See the [update verification log](research/update-2026-11-20.md) for scope details.
+The latest update (`2026-11-21`) added three primary entries: the AWS Cairn/MONAI Label intrusion investigation, the Document Loader MCP directory-bypass advisory, and OpenAI's internal reasoning-extraction defense study. Original November 20 disclosure dates are preserved, with patch-release uncertainty, Shanghai CVE dates, and evaluation limits recorded separately. Existing entries are unchanged. See the [update verification log](research/update-2026-11-21.md) for scope details.
 
 This dataset is a **human-curated static snapshot**. There is no live scraping, scheduled crawling, online model summarization, or automated fact-checking, and deploying the site never generates new intelligence entries on its own. Dates mark the review snapshot rather than crawler execution time. AI-assisted summaries and scores **have not yet undergone full manual review**.
 
@@ -107,7 +107,7 @@ SITE_URL='https://your-production-domain/' npm run package # production release 
 - [DESIGN.md](DESIGN.md): typography, color, and interaction conventions
 - [docs/aso-risk-score.md](docs/aso-risk-score.md): ASO risk formula, four-dimension anchors, and maintenance workflow
 - [research/site-methodology.md](research/site-methodology.md): source selection, entry schema, and verification rules
-- [research/update-2026-11-20.md](research/update-2026-11-20.md): latest content batch and verification scope (`research/update-*.md` tracks earlier batches)
+- [research/update-2026-11-21.md](research/update-2026-11-21.md): latest content batch and verification scope (`research/update-*.md` tracks earlier batches)
 - [research/risk-assessment-2026-11-04.md](research/risk-assessment-2026-11-04.md): full ASO baseline assessment log
 - Engineering references: [AIHOT](https://github.com/KKKKhazix/AIHOT) (MIT), [AI Safety Radar](https://github.com/nrc-cnrc/ai-safety-radar-securite-ia), and [S33R](https://github.com/clivoa/S33R); this project reuses none of their branding, UI, or backend code
 
@@ -115,4 +115,4 @@ SITE_URL='https://your-production-domain/' npm run package # production release 
 
 Fudan University JADE Team: [Group Homepage](https://whitzard-ai.github.io/index.html) | [Members](https://whitzard-ai.github.io/member.html); contact: Prof. Mi Zhang ([mi_zhang@fudan.edu.cn](mailto:mi_zhang@fudan.edu.cn)).
 
-Copyright of all primary materials belongs to their respective authors. This site provides independently written Chinese digests and links to original disclosures without redistributing third-party full texts or PDFs. Code version `0.4.1`; snapshot review date `2026-11-20` (historical entries are not re-verified in full on every update). No user accounts, online LLM summarization, or third-party analytics scripts.
+Copyright of all primary materials belongs to their respective authors. This site provides independently written Chinese digests and links to original disclosures without redistributing third-party full texts or PDFs. Code version `0.4.1`; snapshot review date `2026-11-21` (historical entries are not re-verified in full on every update). No user accounts, online LLM summarization, or third-party analytics scripts.

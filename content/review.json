@@ -1,5 +1,5 @@
 {
-  "reviewedAt": "2026-11-20",
+  "reviewedAt": "2026-11-21",
   "timeZone": "Asia/Shanghai",
-  "notes": "本轮检查八个登记 RSS、部分原始索引及近期漏洞线索，新增微软设备码钓鱼实验、Pydantic AI Harness 和 Junie CLI 公告；补充 LiteLLM 的 CISA KEV 确认与修复版本分歧。保留原始日期和未知条件，不代表全部历史资料重新核验。AI 辅助摘要与自动评估尚未人工复核。"
+  "notes": "本轮遍历八个登记 RSS，并核对部分原始索引及新增原文；新增 AWS Cairn/MONAI Label 攻击调查、Document Loader MCP 公告与 OpenAI 推理提取防护实验。保留原始日期、上海 CVE 日期、修复发布差异及推断边界，不代表重新复核全部历史资料。AI 辅助摘要与自动评估尚未人工复核。"
 }
